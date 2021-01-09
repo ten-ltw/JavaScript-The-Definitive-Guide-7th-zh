@@ -1974,13 +1974,13 @@ for(var i = 0; i &lt; count; i++) console.log(data[i]);
 <p>ES6 implements a kind of compound declaration and assignment syntax known as destructuring assignment. In a destructuring assignment, the value on the righthand side of the equals sign is an array or object (a “structured” value), and the lefthand side specifies one or more variable names using a syntax that mimics array and object literal syntax. When a destructuring assignment occurs, one or more values are extracted (“destructured”) from the value on the right and stored into the variables named on the left. Destructuring assignment is perhaps most commonly used to initialize variables as part of a const, let, or var declaration statement, but it can also be done in regular assignment expressions (with variables that have already been declared). And, as we’ll see in §8.3.5, destructuring can also be used when defining the parameters to a function.</p>
 
 <blockquote>
-<p>ES6实现了一种复合声明和赋值语法，称为解构赋值。在解构赋值中，等号右边的值是一个数组或对象(“结构化的”值)，左边使用模仿数组和对象字面量语法的语法指定一个或多个变量名。当发生解构赋值时，将从右边的值中提取一个或多个值(“解构”)，并存储到左边命名的变量中。解构赋值可能最常用来作为const、let或var声明语句的一部分初始化变量，但它也可以在正则赋值表达式中完成(使用已经声明的变量)。而且，正如我们将在§8.3.5中看到的，解构也可以用于定义函数的形参。</p>
+<p>ES6 实现了一种复合声明和赋值语法，称为解构赋值。在解构赋值中，等号右边的值是一个数组或对象（“结构化的”值），左边使用模仿数组和对象字面量语法的语法指定一个或多个变量名。当发生解构赋值时，将从右边的值中提取一个或多个值（“解构”），并存储到左边命名的变量中。解构赋值可能常用来初始化 const、let 或 var 的声明，但它也可以用在正则赋值表达式中（使用已经声明的变量）。而且，我们将在 §8.3.5 中看到的，解构也可以用于定义函数的形参。</p>
 </blockquote>
 
 <p>Here are simple destructuring assignments using arrays of values:</p>
 
 <blockquote>
-<p>下面是使用数组值的简单解构赋值:</p>
+<p>下面是使用数组值的简单解构赋值：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let [x,y] = [1,2];  // Same as let x=1, y=2
@@ -1992,7 +1992,7 @@ for(var i = 0; i &lt; count; i++) console.log(data[i]);
 <p>Notice how destructuring assignment makes it easy to work with functions that return arrays of values:</p>
 
 <blockquote>
-<p>请注意，解构赋值使处理返回值数组的函数变得很容易:</p>
+<p>请注意，解构赋值使返回数组值的函数变得很容易：</p>
 </blockquote>
 
 <pre><code class="language-javascript">// Convert [x,y] coordinates to [r,theta] polar coordinates
@@ -2012,7 +2012,7 @@ let [x,y] = toCartesian(r,theta);   // [x, y] == [1.0, 1,0]
 <p>We saw that variables and constants can be declared as part of JavaScript’s various for loops. It is possible to use variable destructuring in this context as well. Here is a code that loops over the name/value pairs of all properties of an object and uses destructuring assignment to convert those pairs from two-element arrays into individual variables:</p>
 
 <blockquote>
-<p>我们看到变量和常量可以声明为JavaScript的各种for循环的一部分。在这个上下文中也可以使用变量解构。下面的代码循环遍历对象的所有属性的名称/值对，并使用解构赋值将这些对从两个元素数组转换为单独的变量:</p>
+<p>我们看到变量和常量可以声明为 JavaScript 的各种 for 循环的一部分。在这个上下文中也可以使用变量解构。下面的代码循环遍历对象的所有属性的名称/值对，并使用解构赋值将这些对从两个元素数组转换为单独的变量：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let o = { x: 1, y: 2 }; // The object we&#39;ll loop over
@@ -2024,7 +2024,7 @@ for(const [name, value] of Object.entries(o)) {
 <p>The number of variables on the left of a destructuring assignment does not have to match the number of array elements on the right. Extra variables on the left are set to undefined, and extra values on the right are ignored. The list of variables on the left can include extra commas to skip certain values on the right:</p>
 
 <blockquote>
-<p>解构赋值左边的变量数量不必与右边的数组元素数量相匹配。左边的额外变量被设置为undefined，右边的额外值被忽略。左边的变量列表可以包含额外的逗号，以跳过右边的某些值:</p>
+<p>解构赋值左边的变量数量不必与右边的数组元素数量相匹配。左边的额外变量被设置为 undefined，右边的额外值被忽略。左边的变量列表可以包含额外的逗号，以跳过右边的某些值：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let [x,y] = [1];     // x == 1; y == undefined
@@ -2035,7 +2035,7 @@ for(const [name, value] of Object.entries(o)) {
 <p>If you want to collect all unused or remaining values into a single variable when destructuring an array, use three dots (...) before the last variable name on the left-hand side:</p>
 
 <blockquote>
-<p>如果你想在解构数组时将所有未使用的或剩余的值收集到一个变量中，在左边最后一个变量名之前使用三个点(…):</p>
+<p>如果你想在解构数组时将所有未使用的或剩余的值收集到一个变量中，在左边最后一个变量名之前使用三个点（…）：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let [x, ...y] = [1,2,3,4];  // y == [2,3,4]
@@ -2044,13 +2044,13 @@ for(const [name, value] of Object.entries(o)) {
 <p>We’ll see three dots used this way again in §8.3.2, where they are used to indicate that all remaining function arguments should be collected into a single array.</p>
 
 <blockquote>
-<p>在§8.3.2中，我们将再次看到以这种方式使用的三个点，它们用于指示应该将所有剩余的函数参数收集到一个数组中。</p>
+<p>在 §8.3.2 中，我们将再次看到以这种方式使用的三个点，它们用于指示所有剩余的函数实参收集到一个数组中。</p>
 </blockquote>
 
 <p>Destructuring assignment can be used with nested arrays. In this case, the lefthand side of the assignment should look like a nested array literal:</p>
 
 <blockquote>
-<p>解构赋值可用于嵌套数组。在这种情况下，赋值的左边应该看起来像一个嵌套的数组字面量:</p>
+<p>解构赋值可用于嵌套数组。在这种情况下，赋值的左边应该看起来像一个嵌套的数组字面量：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let [a, [b, c]] = [1, [2,2.5], 3]; // a == 1; b == 2; c == 2.5
@@ -2059,7 +2059,7 @@ for(const [name, value] of Object.entries(o)) {
 <p>A powerful feature of array destructuring is that it does not actually require an array! You can use any iterable object (Chapter 12) on the righthand side of the assignment; any object that can be used with a for/of loop (§5.4.4) can also be destructured:</p>
 
 <blockquote>
-<p>数组解构的一个强大特性是它实际上不需要数组!你可以在赋值的右侧使用任何可迭代对象(第12章);任何可以与for/of循环一起使用的对象(§5.4.4)也可以被解构:</p>
+<p>数组解构的一个强大特性是它实际上不必须是个数组！你可以在赋值语句的右侧使用任何可迭代对象（第12章）;任何可以与 for/of 循环一起使用的对象（§5.4.4）也可以被解构:</p>
 </blockquote>
 
 <pre><code class="language-javascript">let [first, ...rest] = &quot;Hello&quot;; // first == &quot;H&quot;; rest == [&quot;e&quot;,&quot;l&quot;,&quot;l&quot;,&quot;o&quot;]
@@ -2068,7 +2068,7 @@ for(const [name, value] of Object.entries(o)) {
 <p>Destructuring assignment can also be performed when the righthand side is an object value. In this case, the lefthand side of the assignment looks something like an object literal: a comma-separated list of variable names within curly braces:</p>
 
 <blockquote>
-<p>当右手边是对象值时，也可以执行解构赋值。在这种情况下，赋值的左边看起来像一个对象字面量:用逗号分隔的变量名列表，包含在花括号内:</p>
+<p>当右边是对象值时，也可以执行解构赋值。在这种情况下，赋值的左边看起来像一个对象字面量：花括号包含用逗号分隔的变量名列表：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let transparent = {r: 0.0, g: 0.0, b: 0.0, a: 1.0}; // A RGBA color
@@ -2078,7 +2078,7 @@ let {r, g, b} = transparent;  // r == 0.0; g == 0.0; b == 0.0
 <p>The next example copies global functions of the Math object into variables, which might simplify code that does a lot of trigonometry:</p>
 
 <blockquote>
-<p>下一个示例将Math对象的全局函数复制到变量中，这可能会简化执行大量三角函数的代码:</p>
+<p>下一个示例将 Math 对象的全局函数复制到变量中，这可能会简化执行大量三角函数的代码：</p>
 </blockquote>
 
 <pre><code class="language-javascript">// Same as const sin=Math.sin, cos=Math.cos, tan=Math.tan
@@ -2088,13 +2088,13 @@ const {sin, cos, tan} = Math;
 <p>Notice in the code here that the Math object has many properties other than the three that are destructured into individual variables. Those that are not named are simply ignored. If the lefthand side of this assignment had included a variable whose name was not a property of Math, that variable would simply be assigned undefined.</p>
 
 <blockquote>
-<p>请注意，在这里的代码中，Math对象有许多属性，而不是被解构为单个变量的三个属性。那些没有被命名的就被忽略了。如果这个赋值的左边包含了一个名称不是Math属性的变量，那么这个变量的赋值将是未定义的。</p>
+<p>请注意，在这里的代码中，Math 对象有许多属性，而不是被解构为单个变量的三个属性。那些没有被命名的就被忽略了。如果这个赋值的左边包含了一个名称不是 Math 属性的变量，那么这个变量的赋值将是 undefined。</p>
 </blockquote>
 
 <p>In each of these object destructuring examples, we have chosen variable names that match the property names of the object we’re destructuring. This keeps the syntax simple and easy to understand, but it is not required. Each of the identifiers on the lefthand side of an object destructuring assignment can also be a colon-separated pair of identifiers, where the first is the name of the property whose value is to be assigned and the second is the name of the variable to assign it to:</p>
 
 <blockquote>
-<p>在每个对象解构示例中，我们都选择了与要解构的对象的属性名匹配的变量名。这使语法保持简单和易于理解，但这不是必需的。每个对象的标识符在左边destructuring作业也可以以冒号分隔的标识符,两人,第一个是属性的名称,其价值是被分配和第二个是变量分配它的名称:</p>
+<p>在每个对象解构示例中，我们都选择了与要解构的对象的属性名匹配的变量名。这使语法保持简单和易于理解，但这不是必需的。每个对象解构赋值也可以用冒号分割的一对标识符，冒号左边是属性的名字，冒号右边是被赋值的变量名：</p>
 </blockquote>
 
 <pre><code class="language-javascript">// Same as const cosine = Math.cos, tangent = Math.tan;
@@ -2104,13 +2104,13 @@ const { cos: cosine, tan: tangent } = Math;
 <p>I find that object destructuring syntax becomes too complicated to be useful when the variable names and property names are not the same, and I tend to avoid the shorthand in this case. If you choose to use it, remember that property names are always on the left of the colon, in both object literals and on the left of an object destructuring assignment.</p>
 
 <blockquote>
-<p>我发现，当变量名和属性名不相同时，对象解构语法变得太复杂，无法使用，在这种情况下，我倾向于避免使用简写。如果您选择使用它，请记住，属性名总是在冒号的左边，无论是对象字面量还是对象解构赋值的左边。</p>
+<p>这样写对象解构语法变得太复杂，但我发现，当变量名和属性名不相同时就非常有用，在这种情况下我倾向于避免使用简写。如果选择使用它，请记住无论是对象字面量还是对象解构赋值，属性名总是在冒号的左边。</p>
 </blockquote>
 
 <p>Destructuring assignment becomes even more complicated when it is used with nested objects, or arrays of objects, or objects of arrays, but it is legal:</p>
 
 <blockquote>
-<p>当与嵌套对象、对象数组或数组对象一起使用时，解构赋值会变得更加复杂，但它是合法的:</p>
+<p>当与嵌套对象、对象数组或数组对象解构赋值时会变得更加复杂，但它是合法的：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let points = [{x: 1, y: 2}, {x: 3, y: 4}];     // An array of two point objects
@@ -2121,7 +2121,7 @@ let [{x: x1, y: y1}, {x: x2, y: y2}] = points; // destructured into 4 variables.
 <p>Or, instead of destructuring an array of objects, we could destructure an object of arrays:</p>
 
 <blockquote>
-<p>或者，我们可以对数组对象进行解构，而不是对数组对象进行解构:</p>
+<p>或者，我们可以对数组对象进行解构，而不是对数组对象进行解构：</p>
 </blockquote>
 
 <pre><code class="language-javascript">let points = { p1: [1,2], p2: [3,4] };         // An object with 2 array props
@@ -2132,15 +2132,19 @@ let { p1: [x1, y1], p2: [x2, y2] } = points;   // destructured into 4 vars
 <p>Complex destructuring syntax like this can be hard to write and hard to read, and you may be better off just writing out your assignments explicitly with traditional code like <code>let x1 = points.p1[0];</code>.</p>
 
 <blockquote>
-<p>像这样复杂的解构语法可能很难写，也很难读，你最好使用传统的代码，如<code>let x1 = points.p1[0];</code>来显式地写出你的赋值。</p>
+<p>像这样复杂的解构语法可能很难写，也很难读，最好使用传统的代码，如<code>let x1 = points.p1[0];</code>来显式地写出你的赋值。</p>
 </blockquote>
 
 <p>UNDERSTANDING COMPLEX DESTRUCTURING</p>
 
+<blockquote>
+<p><strong>理解复杂的解构</strong></p>
+</blockquote>
+
 <p>If you find yourself working with code that uses complex destructuring assignments, there is a useful regularity that can help you make sense of the complex cases. Think first about a regular (single-value) assignment. After the assignment is done, you can take the variable name from the lefthand side of the assignment and use it as an expression in your code, where it will evaluate to whatever value you assigned it. The same thing is true for destructuring assignment. The lefthand side of a destructuring assignment looks like an array literal or an object literal (§6.2.1 and §6.10). After the assignment has been done, the lefthand side will actually work as a valid array literal or object literal elsewhere in your code. You can check that you’ve written a destructuring assignment correctly by trying to use the lefthand side on the righthand side of another assignment expression:</p>
 
 <blockquote>
-<p>如果您发现自己正在处理使用复杂解构赋值的代码，那么有一个有用的规则可以帮助您理解复杂的情况。首先考虑常规(单值)赋值。在赋值完成后，您可以从赋值的左边取变量名，并在代码中使用它作为表达式，它将计算为您赋给它的任何值。对于解构赋值也是一样的。解构赋值的左边看起来像数组字面量或对象字面量(§6.2.1和§6.10)。赋值完成后，左边将在代码的其他地方作为有效的数组字面量或对象字面量。你可以通过尝试在另一个赋值表达式的右边使用左边来检查你是否正确地编写了一个解构赋值:</p>
+<p>如果发现自己正在处理使用复杂解构赋值的代码，那么有一个有用的规则可以帮助您理解复杂的情况。首先想象常规（单值）赋值。在赋值完成后，可以从赋值的左边取变量名，并在代码中使用它作为表达式，它将计算赋给它的任何值。对于解构赋值也是一样的。解构赋值的左边看起来像数组字面量或对象字面量（§6.2.1 和 §6.10）。赋值完成后，左边将在代码的任何地方作为有效的数组字面量或对象字面量。你可以通过尝试在另一个赋值表达式的右边使用解构赋值表达式的左边来检查你是否正确地编写了一个解构赋值：</p>
 </blockquote>
 
 <pre><code class="language-javascript">// Start with a data structure and a complex destructuring
