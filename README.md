@@ -2,7 +2,7 @@
 
 《JavaScript 权威指南第七版》中文翻译
 
-在线阅读：[https://yuangel45.github.io/JavaScript-The-Definitive-Guide-7th-zh/](https://yuangel45.github.io/JavaScript-The-Definitive-Guide-7th-zh/)
+在线阅读：[https://ten-ltw.github.io/JavaScript-The-Definitive-Guide-7th-zh/](https://ten-ltw.github.io/JavaScript-The-Definitive-Guide-7th-zh/)
 
 <img src="./docs/cover.jpg" width=24% />
 
