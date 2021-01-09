@@ -1,0 +1,749 @@
+.move-right .exit-off-canvas {
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+ul.off-canvas-list li label {
+  background-color: #020b13;
+}
+
+.left-off-canvas-menu {
+  background-color: #333;
+}
+
+ul.off-canvas-list li a {
+  border-bottom: solid 1px #0e385a;
+}
+
+ul.off-canvas-list li a:hover {
+  background: #335a79;
+}
+
+.top-bar,
+.tab-bar {
+  background-color: #2d2d2d;
+  height: 165px;
+}
+
+.tab-bar .menu-icon {
+  width: 100%;
+}
+
+.row {
+  max-width: 1100px;
+}
+
+.docs-bar #header {
+  padding: 0px 0.93em;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.docs-bar #header h1 {
+  font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+  text-align: left;
+  padding: 6px 0;
+  font-size: 35px;
+  color: #cdddeb;
+}
+
+.docs-bar #header h3 {
+  font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+  text-align: left;
+  margin-left: 35px;
+  font-size: 18px;
+  color: #acb9c6;
+}
+
+#header h1 a {
+  text-decoration: none;
+  color: #cdddeb;
+}
+
+.sidebar {
+  padding: 0px 0px;
+  padding-right: 8%;
+}
+
+.sidebar .side-nav li {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar .side-nav a {
+  font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.sidebar .side-nav li a {
+  padding: 4px 4px;
+}
+
+.sidebar .side-nav li.side-title span {
+  display: inline-block;
+  padding: 10px 0;
+  margin-top: 40px;
+  color: #cc2100;
+  /* border-top: solid 1px #e3e3e3; */
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+
+.sidebar .side-nav li a {
+  color: #cc2100;
+}
+
+.sidebar .side-nav li a:hover {
+  color: #ff8400;
+  background: none;
+}
+
+.sidebar .side-nav li.active>a:first-child {
+  color: #ff8400;
+}
+
+.markdown-toc ul,
+.markdown-toc li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.share-comments {
+  padding: 15px 0px;
+}
+
+.page-bottom {
+  margin-top: 40px;
+}
+
+.page-bottom hr {
+  border-color: #eee;
+}
+
+.page-bottom .row {
+  padding-bottom: 20px;
+}
+
+.page-bottom .copyright {
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.page-bottom .copyright,
+.page-bottom .copyright a {
+  color: #666;
+}
+
+.markdown-toc a {
+  font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.markdown-toc li a {
+  padding: 4px 0px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.markdown-toc li.side-title {
+  padding-bottom: 6px;
+}
+
+.markdown-toc li.side-title span {
+  padding: 10px 0;
+  color: #cc2100;
+  font-size: 1.0em;
+  border-top: solid 1px #e3e3e3;
+}
+
+.markdown-toc ul ul {
+  padding-left: 16px;
+}
+
+.markdown-toc li a:hover {
+  color: #ff8400;
+  background: none;
+}
+
+
+.markdown-body {
+  margin-top: -45px;
+  padding: 0px 30px 0 50px;
+}
+
+.markdown-toc {
+  position: absolute;
+  display: none;
+  right: 80px;
+  top: 130px;
+}
+
+.markdown-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333;
+  overflow: hidden;
+  font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 25px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code {
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .anchor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  height: 1em;
+  padding-left: 8px;
+  margin-left: -30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  font-size: 2.25em;
+  background: #ff8400;
+  color: #fff;
+  padding: 12px 36px 12px 75px;
+  margin: 0 -30px 0px -75px;
+  border-radius: 32px 0 0 32px;
+}
+
+.markdown-body h2 {
+  background: #009d81;
+  color: #fff;
+  padding: 10px 36px 10px 60px;
+  margin: 21px -30px 16px -60px;
+  border-radius: 32px 0 0 32px;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  line-height: 1.45em;
+  font-size: 13px;
+  margin-bottom: 2.1em;
+  color: rgb(88, 110, 117);
+  background: rgb(253, 246, 227);
+  border-radius: 0.5em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(231, 222, 195);
+  border-image: initial;
+  padding: 0.8em 1em;
+  overflow: auto;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+
+.markdown-body .octicon {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .octicon-link:before {
+  content: '\f05c';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  float: left;
+  margin: 0.3em 0 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.hide-extras {
+  background-color: #f1f1f1;
+}
+
+.markdown-inside {
+  background-color: #fff;
+  padding: 0 30px 30px 30px;
+}
+
+.article-date {
+  font-size: .8rem;
+  display: block;
+  background: #ffe454;
+  color: #000;
+  padding: 6px 30px;
+  margin: 0 -30px 15px -30px;
+}
+
+#header {
+  position: relative;
+}
+
+#header h3 {
+  position: absolute;
+  background-color: #009d81;
+  top: 75px;
+  left: 30px;
+  width: 250px;
+  padding: 0 0 0 30px;
+  margin: 0 0 0px 50px;
+  height: 45px;
+  border-radius: 10px 10px 0 0;
+  line-height: 45px;
+  color: #fff;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 640px) {
+  #header h3 {
+    left: -20px;
+    top: 30px;
+    margin: 0 0 0px 35px;
+  }
+
+  .markdown-body {
+    padding: 0;
+  }
+}
+
+#header h3 a {
+  color: #fff !important;
+  font-weight: 700;
+}

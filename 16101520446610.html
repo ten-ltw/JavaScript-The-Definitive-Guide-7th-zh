@@ -1,0 +1,2005 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    
+    第 16 章 服务器端 JavaScript - JavaScript：The.Definitive.Guide
+    
+  </title>
+  <meta name="description" content="">
+  <link href="atom.xml" rel="alternate" title="JavaScript：The.Definitive.Guide" type="application/atom+xml">
+  <link rel="stylesheet" href="asset/css/foundation.min.css" />
+  <link rel="stylesheet" href="asset/css/docs.css" />
+  <script src="asset/js/vendor/modernizr.js"></script>
+  <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+
+<body class="antialiased hide-extras">
+  <div class="marketing off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <nav class="top-bar docs-bar hide-for-small" data-topbar>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <nav class="tab-bar show-for-small">
+        <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+          <span> &nbsp;</span>
+        </a>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <aside class="left-off-canvas-menu">
+        <ul class="off-canvas-list">
+          <li><a href="index.html">JavaScript：The.Definitive.Guide 7th</a></li>
+          
+          <li class="divider"></li>
+          <li><label>menu</label></li>
+          
+          <li><a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a></li>
+          
+          <li><a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a></li>
+          
+          <li><a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a></li>
+          
+          <li><a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a></li>
+          
+          <li><a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a></li>
+          
+          <li><a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a></li>
+          
+          <li><a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a></li>
+          
+          <li><a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a></li>
+          
+          <li><a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a></li>
+          
+          <li><a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a></li>
+          
+          <li><a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a></li>
+          
+          <li><a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a></li>
+          
+          <li><a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a></li>
+          
+          <li><a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a></li>
+          
+          <li><a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a></li>
+          
+          <li><a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a></li>
+          
+          <li><a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a></li>
+          
+          
+        </ul>
+      </aside>
+      <a class="exit-off-canvas" href="#"></a>
+      <section id="main-content" role="main" class="scroll-container">
+        <div class="row">
+          <div class="large-9 medium-9 columns">
+  <div class="markdown-body">
+  <div class="markdown-inside">
+    <h1>第 16 章 服务器端 JavaScript</h1>
+    <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
+    <p>Node is JavaScript with bindings to the underlying operating system, making it possible to write JavaScript programs that read and write files, execute child processes, and communicate over the network. This makes Node useful as a:</p>
+
+<blockquote>
+<p>Node是绑定到底层操作系统的JavaScript，使编写JavaScript程序能够读写文件、执行子进程和通过网络通信。这使得Node可以用作:</p>
+</blockquote>
+
+<ul>
+<li>Modern alternative to shell scripts that does not suffer from the arcane syntax of bash and other Unix shells.</li>
+<li>General-purpose programming language for running trusted programs, not subject to the security constraints imposed by web browsers on untrusted code.</li>
+<li>Popular environment for writing efficient and highly concurrent web servers.</li>
+</ul>
+
+<hr/>
+
+<blockquote>
+<ul>
+<li>不受bash和其他Unix shell的神秘语法影响的shell脚本的现代替代方案。</li>
+<li>通用程式设计语言，用以运行受信任的程式，而不受网页浏览器对不受信任的程式所施加的保安限制。</li>
+<li>编写高效和高并发web服务器的流行环境。</li>
+</ul>
+</blockquote>
+
+<p>The defining feature of Node is its single-threaded event-based concurrency enabled by an asynchronous-by-default API. If you have programmed in other languages but have not done much JavaScript coding, or if you’re an experienced client-side JavaScript programmer used to writing code for web browers, using Node will be a bit of an adjustment, as is any new programming language or environment. This chapter begins by explaining the Node programming model, with an emphasis on concurrency, Node’s API for working with streaming data, and Node’s Buffer type for working with binary data. These initial sections are followed by sections that highlight and demonstrate some of the most important Node APIs, including those for working with files, networks, processes, and threads.</p>
+
+<blockquote>
+<p>Node的定义特性是它的单线程的基于事件的并发性，这是通过一个默认异步的API实现的。如果您使用其他语言编写过程序，但没有进行过多的JavaScript编码，或者如果您是一名经验丰富的客户端JavaScript程序员，习惯于为web浏览器编写代码，那么使用Node就需要一点调整，任何新的编程语言或环境都是如此。本章从解释节点编程模型开始，重点介绍并发性、处理流数据的节点API和处理二进制数据的节点缓冲区类型。在这些初始部分之后是突出显示和演示一些最重要的节点api的部分，包括那些用于处理文件、网络、进程和线程的api。</p>
+</blockquote>
+
+<p>One chapter is not enough to document all of Node’s APIs, but my hope is that this chapter will explain enough of the fundamentals to make you productive with Node, and confident that you can master any new APIs you need.</p>
+
+<blockquote>
+<p>一章不足以记录所有的Node api，但我希望这一章能够解释足够多的基础知识，使您能够高效地使用Node，并确信您能够掌握所需的任何新的api。</p>
+</blockquote>
+
+<h4 id="toc_0">INSTALLING NODE</h4>
+
+<p>Node is open source software. Visit <a href="https://nodejs.org">https://nodejs.org</a> to download and install Node for Windows and MacOS. On Linux, you may be able to install Node with your normal package manager, or you can visit <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a> to download the binaries directly. If you work on containerized software, you can find official Node Docker images at <a href="https://hub.docker.com">https://hub.docker.com</a>.</p>
+
+<blockquote>
+<p>Node是开源软件。访问<a href="https://nodejs.org%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85%E7%94%A8%E4%BA%8EWindows%E5%92%8CMacOS%E7%9A%84%E8%8A%82%E7%82%B9%E3%80%82%E5%9C%A8Linux%E4%B8%8A%EF%BC%8C%E6%82%A8%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E5%AE%89%E8%A3%85Node%EF%BC%8C%E6%88%96%E8%80%85%E6%82%A8%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AEhttps://nodejs.org/en/download%E6%9D%A5%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E3%80%82%E5%A6%82%E6%9E%9C%E6%82%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E6%98%AF%E5%AE%B9%E5%99%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%EF%BC%8C%E6%82%A8%E5%8F%AF%E4%BB%A5%E5%9C%A8https://hub.docker.com%E6%89%BE%E5%88%B0%E5%AE%98%E6%96%B9%E8%8A%82%E7%82%B9Docker%E9%95%9C%E5%83%8F%E3%80%82">https://nodejs.org下载并安装用于Windows和MacOS的节点。在Linux上，您可以使用普通的包管理器安装Node，或者您可以访问https://nodejs.org/en/download来直接下载二进制文件。如果您使用的是容器化软件，您可以在https://hub.docker.com找到官方节点Docker镜像。</a></p>
+</blockquote>
+
+<p>In addition to the Node executable, a Node installation also includes npm, a package manager that enables easy access to a vast ecosystem of JavaScript tools and libraries. The examples in this chapter will use only Node’s built-in packages and will not require npm or any external libraries.</p>
+
+<blockquote>
+<p>除了节点可执行文件之外，节点安装还包括npm，这是一个包管理器，可以方便地访问大量的JavaScript工具和库。本章中的示例将只使用Node的内置包，而不需要npm或任何外部库。</p>
+</blockquote>
+
+<p>Finally, do not overlook the official Node documentation, available at <a href="https://nodejs.org/api">https://nodejs.org/api</a> and <a href="https://nodejs.org/docs/guides">https://nodejs.org/docs/guides</a>. I have found it to be well organized and well written.</p>
+
+<blockquote>
+<p>最后，不要忽视官方节点文档，可以从<a href="https://nodejs.org/api%E5%92%8Chttps://nodejs.org/docs/guides%E8%8E%B7%E5%BE%97%E3%80%82%E6%88%91%E5%8F%91%E7%8E%B0%E5%AE%83%E7%BB%84%E7%BB%87%E5%BE%97%E5%BE%88%E5%A5%BD%EF%BC%8C%E5%86%99%E5%BE%97%E4%B9%9F%E5%BE%88%E5%A5%BD%E3%80%82">https://nodejs.org/api和https://nodejs.org/docs/guides获得。我发现它组织得很好，写得也很好。</a></p>
+</blockquote>
+
+<h2 id="toc_1">16.1 Node Programming Basics</h2>
+
+<p>We’ll begin this chapter with a quick look at how Node programs are structured and how they interact with the operating system.</p>
+
+<blockquote>
+<p>在本章的开始，我们将快速了解节点程序是如何构建的，以及它们如何与操作系统交互。</p>
+</blockquote>
+
+<h3 id="toc_2">16.1.1 Console Output</h3>
+
+<p>If you are used to JavaScript programming for web browsers, one of the minor surprises about Node is that console.log() is not just for debugging, but is Node’s easiest way to display a message to the user, or, more generally, to send output to the stdout stream. Here’s the classic “Hello World” program in Node:</p>
+
+<blockquote>
+<p>如果您习惯了web浏览器的JavaScript编程，那么Node的一个小惊喜就是console.log()不仅用于调试，而且是Node向用户显示消息的最简单的方式，或者更一般地，将输出发送到stdout流的最简单方式。下面是Node中的经典“Hello World”程序:</p>
+</blockquote>
+
+<pre><code class="language-javascript">console.log(&quot;Hello World!&quot;);
+</code></pre>
+
+<p>There are lower-level ways to write to stdout, but no fancier or more official way than simply calling console.log().</p>
+
+<blockquote>
+<p>有一些低级别的方法可以写入stdout，但是没有比简单地调用console.log()更高级或更正式的方法了。</p>
+</blockquote>
+
+<p>In web browsers, console.log(), console.warn(), and console.error() typically display little icons next to their output in the developer console to indicate the variety of the log message. Node does not do this, but output displayed with console.error() is distinguished from output displayed with console.log() because console.error() writes to the stderr stream. If you’re using Node to write a program that is designed to have stdout redirected to a file or a pipe, you can use console.error() to display text to the console where the user will see it, even though text printed with console.log() is hidden.</p>
+
+<blockquote>
+<p>在web浏览器中，console.log()、console.warn()和console.error()通常在开发人员控制台中它们的输出旁边显示小图标，以指示日志消息的种类。Node不这样做，但是使用console.error()显示的输出与使用console.log()显示的输出是不同的，因为console.error()写入stderr流。如果您正在使用Node编写一个程序，该程序设计为将stdout重定向到文件或管道，那么您可以使用console.error()将文本显示到控制台，用户将在那里看到它，即使使用console.log()打印的文本是隐藏的。</p>
+</blockquote>
+
+<h3 id="toc_3">16.1.2 Command-Line Arguments and Environment Variables</h3>
+
+<p>If you have previously written Unix-style programs designed to be invoked from a terminal or other command-line interface, you know that these programs typically get their input primarily from command-line arguments and secondarily from environment variables.</p>
+
+<p>Node follows these Unix conventions. A Node program can read its command-line arguments from the array of strings process.argv. The first element of this array is always the path to the Node executable. The second argument is the path to the file of JavaScript code that Node is executing. Any remaining elements in this array are the space-separated arguments that you passed on the command-line when you invoked Node.</p>
+
+<p>For example, suppose you save this very short Node program to the file argv.js:</p>
+
+<p>console.log(process.argv);<br/>
+You can then execute the program and see output like this:</p>
+
+<p>$ node --trace-uncaught argv.js --arg1 --arg2 filename<br/>
+[<br/>
+  &#39;/usr/local/bin/node&#39;,<br/>
+  &#39;/private/tmp/argv.js&#39;,<br/>
+  &#39;--arg1&#39;,<br/>
+  &#39;--arg2&#39;,<br/>
+  &#39;filename&#39;<br/>
+]<br/>
+There are a couple of things to note here:</p>
+
+<p>The first and second elements of process.argv will be fully qualified filesystem paths to the Node executable and the file of JavaScript that is being executed, even if you did not type them that way.</p>
+
+<p>Command-line arguments that are intended for and interpreted by the Node executable itself are consumed by the Node executable and do not appear in process.argv. (The --trace-uncaught command-line argument isn’t actually doing anything useful in the previous example; it is just there to demonstrate that it does not appear in the output.) Any arguments (such as --arg1 and filename) that appear after the name of the JavaScript file will appear in process.argv.</p>
+
+<p>Node programs can also take input from Unix-style environment variables. Node makes these available though the process.env object. The property names of this object are environment variable names, and the property values (always strings) are the values of those variables.</p>
+
+<p>Here is a partial list of environment variables on my system:</p>
+
+<p>$ node -p -e &#39;process.env&#39;<br/>
+{<br/>
+  SHELL: &#39;/bin/bash&#39;,<br/>
+  USER: &#39;david&#39;,<br/>
+  PATH: &#39;/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin&#39;,<br/>
+  PWD: &#39;/tmp&#39;,<br/>
+  LANG: &#39;en_US.UTF-8&#39;,<br/>
+  HOME: &#39;/Users/david&#39;,<br/>
+}<br/>
+You can use node -h or node --help to find out what the -p and -e command-line arguments do. However, as a hint, note that you could rewrite the line above as node --eval &#39;process.env&#39; --print.</p>
+
+<h3 id="toc_4">16.1.3 Program Life Cycle</h3>
+
+<p>The node command expects a command-line argument that specifies the file of JavaScript code to be run. This initial file typically imports other modules of JavaScript code, and may also define its own classes and functions. Fundamentally, however, Node executes the JavaScript code in the specified file from top to bottom. Some Node programs exit when they are done executing the last line of code in the file. Often, however, a Node program will keep running long after the initial file has been executed. As we’ll discuss in the following sections, Node programs are often asynchronous and based on callbacks and event handlers. Node programs do not exit until they are done running the initial file and until all callbacks have been called and there are no more pending events. A Node-based server program that listens for incoming network connections will theoretically run forever because it will always be waiting for more events.</p>
+
+<p>A program can force itself to exit by calling process.exit(). Users can usually terminate a Node program by typing Ctrl-C in the terminal window where the program is running. A program can ignore Ctrl-C by registering a signal handler function with process.on(&quot;SIGINT&quot;, ()=&gt;{}).</p>
+
+<p>If code in your program throws an exception and no catch clause catches it, the program will print a stack trace and exit. Because of Node’s asynchronous nature, exceptions that occur in callbacks or event handlers must be handled locally or not handled at all, which means that handling exceptions that occur in the asynchronous parts of your program can be a difficult problem. If you don’t want these exceptions to cause your program to completely crash, register a global handler function that will be invoked instead of crashing:</p>
+
+<p>process.setUncaughtExceptionCaptureCallback(e =&gt; {<br/>
+    console.error(&quot;Uncaught exception:&quot;, e);<br/>
+});<br/>
+A similar situation arises if a Promise created by your program is rejected and there is no .catch() invocation to handle it. As of Node 13, this is not a fatal error that causes your program to exit, but it does print a verbose error message to the console. In some future version of Node, unhandled Promise rejections are expected to become fatal errors. If you do not want unhandled rejections, to print error messages or terminate your program, register a global handler function:</p>
+
+<p>process.on(&quot;unhandledRejection&quot;, (reason, promise) =&gt; {<br/>
+    // reason is whatever value would have been passed to a .catch() function<br/>
+    // promise is the Promise object that rejected<br/>
+});</p>
+
+<h3 id="toc_5">16.1.4 Node Modules</h3>
+
+<p>Chapter 10 documented JavaScript module systems, covering both Node modules and ES6 modules. Because Node was created before JavaScript had a module system, Node had to create its own. Node’s module system uses the require() function to import values into a module and the exports object or the module.exports property to export values from a module. These are a fundamental part of the Node programming model, and they are covered in detail in §10.2.</p>
+
+<p>Node 13 adds support for standard ES6 modules as well as require-based modules (which Node calls “CommonJS modules”). The two module systems are not fully compatible, so this is somewhat tricky to do. Node needs to know—before it loads a module—whether that module will be using require() and module.exports or if it will be using import and export. When Node loads a file of JavaScript code as a CommonJS module, it automatically defines the require() function along with identifiers exports and module, and it does not enable the import and export keywords. On the other hand, when Node loads a file of code as an ES6 module, it must enable the import and export declarations, and it must not define extra identifiers like require, module, and exports.</p>
+
+<p>The simplest way to tell Node what kind of module it is loading is to encode this information in the file extension. If you save your JavaScript code in a file that ends with .mjs, then Node will always load it as an ES6 module, will expect it to use import and export, and will not provide a require() function. And if you save your code in a file that ends with .cjs, then Node will always treat it as a CommonJS module, will provide a require() function, and will throw a SyntaxError if you use import or export declarations.</p>
+
+<p>For files that do not have an explicit .mjs or .cjs extension, Node looks for a file named package.json in the same directory as the file and then in each of the containing directories. Once the nearest package.json file is found, Node checks for a top-level type property in the JSON object. If the value of the type property is “module”, then Node loads the file as an ES6 module. If the value of that property is “commonjs”, then Node loads the file as a CommonJS module. Note that you do not need to have a package.json file to run Node programs: when no such file is found (or when the file is found but it does not have a type property), Node defaults to using CommonJS modules. This package.json trick only becomes necessary if you want to use ES6 modules with Node and do not want to use the .mjs file extension.</p>
+
+<p>Because there is an enormous amount of existing Node code written using CommonJS module format, Node allows ES6 modules to load CommonJS modules using the import keyword. The reverse is not true, however: a CommonJS module cannot use require() to load an ES6 module.</p>
+
+<h3 id="toc_6">16.1.5 The Node Package Manager</h3>
+
+<p>When you install Node, you typically get a program named npm as well. This is the Node Package Manager, and it helps you download and manage libraries that your program depends on. npm keeps track of those dependencies (as well as other information about your program) in a file named package.json in the root directory of your project. This package.json file created by npm is where you would add &quot;type&quot;:&quot;module&quot; if you wanted to use ES6 modules for your project.</p>
+
+<p>This chapter does not cover npm in any detail (but see §17.4 for a little more depth). I’m mentioning it here because unless you write programs that do not use any external libraries, you will almost certainly be using npm or a tool like it. Suppose, for example, that you are going to be developing a web server and plan to use the Express framework (<a href="https://expressjs.com">https://expressjs.com</a>) to simplify the task. To get started, you might create a directory for your project, and then, in that directory type npm init. npm will ask you for your project name, version number, etc., and will then create an initial package.json file based on your responses.</p>
+
+<p>Now to start using Express, you’d type npm install express. This tells npm to download the Express library along with all of its dependencies and install all the packages in a local node_modules/ directory:</p>
+
+<pre><code class="language-bash">$ npm install express
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN my-server@1.0.0 No description
+npm WARN my-server@1.0.0 No repository field.
+
++ express@4.17.1
+added 50 packages from 37 contributors and audited 126 packages in 3.058s
+found 0 vulnerabilities
+</code></pre>
+
+<p>When you install a package with npm, npm records this dependency—that your project depends on Express—in the package.json file. With this dependency recorded in package.json, you could give another programmer a copy of your code and your package.json, and they could simply type npm install to automatically download and install all of the libraries that your program needs in order to run.</p>
+
+<h2 id="toc_7">16.2 Node Is Asynchronous by Default</h2>
+
+<p>JavaScript is a general-purpose programming language, so it is perfectly possible to write CPU-intensive programs that multiply large matrices or perform complicated statistical analyses. But Node was designed and optimized for programs—like network servers—that are I/O intensive. And in particular, Node was designed to make it possible to easily implement highly concurrent servers that can handle many requests at the same time.</p>
+
+<p>Unlike many programming languages, however, Node does not achieve concurrency with threads. Multithreaded programming is notoriously hard to do correctly, and difficult to debug. Also, threads are a relatively heavyweight abstraction and if you want to write a server that can handle hundreds of concurrent requests, using hundreds of threads may require a prohibitive amount of memory. So Node adopts the single-threaded JavaScript programming model that the web uses, and this turns out to be a vast simplification that makes the creation of network servers a routine skill rather than an arcane one.</p>
+
+<p>TRUE PARALLELISM WITH NODE<br/>
+Node programs can run multiple operating system processes, and Node 10 and later support Worker objects (§16.11), which are a kind of thread borrowed from web browsers. If you use multiple processes or create one or more Worker threads and run your program on a system with more than one CPU, then your program will no longer be single-threaded and your program will truly be executing multiple streams of code in parallel. These techniques can be valuable for CPU-intensive operations but are not commonly used for I/O-intensive programs like servers.</p>
+
+<p>It is worth noting, however, that Node’s processes and Workers avoid the typical complexity of multithreaded programming because interprocess and inter-Worker communication is via message passing and they cannot easily share memory with each other.</p>
+
+<p>Node achieves high levels of concurrency while maintaining a single-threaded programming model by making its API asynchronous and nonblocking by default. Node takes its nonblocking approach very seriously and to an extreme that may surprise you. You probably expect functions that read from and write to the network to be asynchronous, but Node goes further and defines nonblocking asynchronous functions for reading and writing files from the local filesystem. This makes sense, when you think about it: the Node API was designed in the days when spinning hard drives were still the norm and there really were milliseconds of blocking “seek time” while waiting for the disc to spin around before a file operation could begin. And in modern datacenters, the “local” filesystem may actually be across the network somewhere with network latencies on top of drive latencies. But even if reading a file asynchronously seems normal to you, Node takes it still further: the default functions for initiating a network connection or looking up a file modification time, for example, are also nonblocking.</p>
+
+<p>Some functions in Node’s API are synchronous but nonblocking: they run to completion and return without ever needing to block. But most of the interesting functions perform some kind of input or output, and these are asynchronous functions so they can avoid even the tiniest amount of blocking. Node was created before JavaScript had a Promise class, so asynchronous Node APIs are callback-based. (If you have not yet read or have already forgotten Chapter 13, this would be a good time to skip back to that chapter.) Generally, the last argument you pass to an asynchronous Node function is a callback. Node uses error-first callbacks, which are typically invoked with two arguments. The first argument to an error-first callback is normally null in the case where no error occurred, and the second argument is whatever data or response was produced by the original asynchronous function you called. The reason for putting the error argument first is to make it impossible for you to omit it, and you should always check for a non-null value in this argument. If it is an Error object, or even an integer error code or string error message, then something went wrong. In this case, the second argument to your callback function is likely to be null.</p>
+
+<p>The following code demonstrates how to use the nonblocking readFile() function to read a configuration file, parse it as JSON, and then pass the parsed configuration object to another callback:</p>
+
+<p>const fs = require(&quot;fs&quot;);  // Require the filesystem module</p>
+
+<p>// Read a config file, parse its contents as JSON, and pass the<br/>
+// resulting value to the callback. If anything goes wrong,<br/>
+// print an error message to stderr and invoke the callback with null<br/>
+function readConfigFile(path, callback) {<br/>
+    fs.readFile(path, &quot;utf8&quot;, (err, text) =&gt; {<br/>
+        if (err) {    // Something went wrong reading the file<br/>
+            console.error(err);<br/>
+            callback(null);<br/>
+            return;<br/>
+        }<br/>
+        let data = null;<br/>
+        try {<br/>
+            data = JSON.parse(text);<br/>
+        } catch(e) {  // Something went wrong parsing the file contents<br/>
+            console.error(e);<br/>
+        }<br/>
+        callback(data);<br/>
+    });<br/>
+}<br/>
+Node predates standardized promises, but because it is fairly consistent about its error-first callbacks, it is easy to create Promise-based variants of its callback-based APIs using the util.promisify() wrapper. Here’s how we could rewrite the readConfigFile() function to return a Promise:</p>
+
+<p>const util = require(&quot;util&quot;);<br/>
+const fs = require(&quot;fs&quot;);  // Require the filesystem module<br/>
+const pfs = {              // Promise-based variants of some fs functions<br/>
+    readFile: util.promisify(fs.readFile)<br/>
+};</p>
+
+<p>function readConfigFile(path) {<br/>
+    return pfs.readFile(path, &quot;utf-8&quot;).then(text =&gt; {<br/>
+        return JSON.parse(text);<br/>
+    });<br/>
+}<br/>
+We can also simpify the preceding Promise-based function using async and await (again, if you have not yet read through Chapter 13, this would be a good time to do so):</p>
+
+<p>async function readConfigFile(path) {<br/>
+    let text = await pfs.readFile(path, &quot;utf-8&quot;);<br/>
+    return JSON.parse(text);<br/>
+}<br/>
+The util.promisify() wrapper can produce a Promise-based version of many Node functions. In Node 10 and later, the fs.promises object has a number of predefined Promise-based functions for working with the filesystem. We’ll discuss them later in this chapter, but note that in the preceding code, we could replace pfs.readFile() with fs.promises.readFile().</p>
+
+<p>We had said that Node’s programming model is async-by-default. But for programmer convenience, Node does define blocking, synchronous variants of many of its functions, especially in the filesystem module. These functions typically have names that are clearly labeled with Sync at the end.</p>
+
+<p>When a server is first starting up and is reading its configuration files, it is not handling network requests yet, and little or no concurrency is actually possible. So in this situation, there is really no need to avoid blocking, and we can safely use blocking functions like fs.readFileSync(). We can drop the async and await from this code and write a purely synchronous version of our readConfigFile() function. Instead of invoking a callback or returning a Promise, this function simply returns the parsed JSON value or throws an exception:</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+function readConfigFileSync(path) {<br/>
+    let text = fs.readFileSync(path, &quot;utf-8&quot;);<br/>
+    return JSON.parse(text);<br/>
+}<br/>
+In addition to its error-first two-argument callbacks, Node also has a number of APIs that use event-based asynchrony, typically for handling streaming data. We’ll cover Node events in more detail later.</p>
+
+<p>Now that we’ve discussed Node’s aggressively nonblocking API, let’s turn back to the topic of concurrency. Node’s built-in nonblocking functions work using the operating system’s version of callbacks and event handlers. When you call one of these functions, Node takes action to get the operation started, then registers some kind of event handler with the operating system so that it will be notified when the operation is complete. The callback you passed to the Node function gets stored internally so that Node can invoke your callback when the operating system sends the appropriate event to Node.</p>
+
+<p>This kind of concurrency is often called event-based concurrency. At its core, Node has a single thread that runs an “event loop.” When a Node program starts, it runs whatever code you’ve told it to run. This code presumably calls at least one nonblocking function causing a callback or event handler to be registered with the operating system. (If not, then you’ve written a synchronous Node program, and Node simply exits when it reaches the end.) When Node reaches the end of your program, it blocks until an event happens, at which time the OS starts it running again. Node maps the OS event to the JavaScript callback you registered and then invokes that function. Your callback function may invoke more nonblocking Node functions, causing more OS event handlers to be registered. Once your callback function is done running, Node goes back to sleep again and the cycle repeats.</p>
+
+<p>For web servers and other I/O-intensive applications that spend most of their time waiting for input and output, this style of event-based concurrency is efficient and effective. A web server can concurrently handle requests from 50 different clients without needing 50 different threads as long as it uses nonblocking APIs and there is some kind of internal mapping from network sockets to JavaScript functions to invoke when activity occurs on those sockets.</p>
+
+<h2 id="toc_8">16.3 Buffers</h2>
+
+<p>One of the datatypes you’re likely to use frequently in Node—especially when reading data from files or from the network—is the Buffer class. A Buffer is a lot like a string, except that it is a sequence of bytes instead of a sequence of characters. Node was created before core JavaScript supported typed arrays (see §11.2) and there was no Uint8Array to represent an array of unsigned bytes. Node defined the Buffer class to fill that need. Now that Uint8Array is part of the JavaScript language, Node’s Buffer class is a subclass of Uint8Array.</p>
+
+<p>What distinguishes Buffer from its Uint8Array superclass is that it is designed to interoperate with JavaScript strings: the bytes in a buffer can be initialized from character strings or converted to character strings. A character encoding maps each character in some set of characters to an integer. Given a string of text and a character encoding, we can encode the characters in the string into a sequence of bytes. And given a (properly encoded) sequence of bytes and a character encoding, we can decode those bytes into a sequence of characters. Node’s Buffer class has methods that perform both encoding and decoding, and you can recognize these methods because they expect an encoding argument that specifies the encoding to be used.</p>
+
+<p>Encodings in Node are specified by name, as strings. The supported encodings are:</p>
+
+<p>&quot;utf8&quot;<br/>
+This is the default when no encoding is specified, and is the Unicode encoding you are most likely to use.</p>
+
+<p>&quot;utf16le&quot;<br/>
+Two-byte Unicode characters, with little-endian ordering. Codepoints above \uffff are encoded as a pair of two-byte sequences. Encoding &quot;ucs2&quot; is an alias.</p>
+
+<p>&quot;latin1&quot;<br/>
+The one-byte-per-character ISO-8859-1 encoding that defines a character set suitable for many Western European languages. Because there is a one-to-one mapping between bytes and latin-1 characters, this encoding is also known as &quot;binary&quot;.</p>
+
+<p>&quot;ascii&quot;<br/>
+The 7-bit English-only ASCII encoding, a strict subset of the &quot;utf8&quot; encoding.</p>
+
+<p>&quot;hex&quot;<br/>
+This encoding converts each byte to a pair of ASCII hexadecimal digits.</p>
+
+<p>&quot;base64&quot;<br/>
+This encoding converts each sequence of three bytes into a sequence of four ascii characters.</p>
+
+<p>Here is some example code that demonstrates how to work with Buffers and how to convert to and from strings:</p>
+
+<p>let b = Buffer.from([0x41, 0x42, 0x43]);          // <Buffer 41 42 43><br/>
+b.toString()                                      // =&gt; &quot;ABC&quot;; default &quot;utf8&quot;<br/>
+b.toString(&quot;hex&quot;)                                 // =&gt; &quot;414243&quot;</p>
+
+<p>let computer = Buffer.from(&quot;IBM3111&quot;, &quot;ascii&quot;);   // Convert string to Buffer<br/>
+for(let i = 0; i &lt; computer.length; i++) {        // Use Buffer as byte array<br/>
+    computer[i]--;                                // Buffers are mutable<br/>
+}<br/>
+computer.toString(&quot;ascii&quot;)                        // =&gt; &quot;HAL2000&quot;<br/>
+computer.subarray(0,3).map(x=&gt;x+1).toString()     // =&gt; &quot;IBM&quot;</p>
+
+<p>// Create new &quot;empty&quot; buffers with Buffer.alloc()<br/>
+let zeros = Buffer.alloc(1024);                   // 1024 zeros<br/>
+let ones = Buffer.alloc(128, 1);                  // 128 ones<br/>
+let dead = Buffer.alloc(1024, &quot;DEADBEEF&quot;, &quot;hex&quot;); // Repeating pattern of bytes</p>
+
+<p>// Buffers have methods for reading and writing multi-byte values<br/>
+// from and to a buffer at any specified offset.<br/>
+dead.readUInt32BE(0)       // =&gt; 0xDEADBEEF<br/>
+dead.readUInt32BE(1)       // =&gt; 0xADBEEFDE<br/>
+dead.readBigUInt64BE(6)    // =&gt; 0xBEEFDEADBEEFDEADn<br/>
+dead.readUInt32LE(1020)    // =&gt; 0xEFBEADDE<br/>
+If you write a Node program that actually manipulates binary data, you may find yourself using the Buffer class extensively. On the other hand, if you are just working with text that is read from or written to a file or the network, then you may only encounter Buffer as an intermediate representation of your data. A number of Node APIs can take input or return output as either strings or Buffer objects. Typically, if you pass a string, or expect a string to be returned, from one of these APIs, you’ll need to specify the name of the text encoding you want to use. And if you do this, then you may not need to use a Buffer object at all.</p>
+
+<h2 id="toc_9">16.4 Events and EventEmitter</h2>
+
+<p>As described, all of Node’s APIs are asynchronous by default. For many of them, this asynchrony takes the form of two-argument error-first callbacks that are invoked when the requested operation is complete. But some of the more complicated APIs are event-based instead. This is typically the case when the API is designed around an object rather than a function, or when a callback function needs to be invoked multiple times, or when there are multiple types of callback functions that may be required. Consider the net.Server class, for example: an object of this type is a server socket that is used to accept incoming connections from clients. It emits a “listening” event when it first starts listening for connections, a “connection” event every time a client connects, and a “close” event when it has been closed and is no longer listening.</p>
+
+<p>In Node, objects that emit events are instances of EventEmitter or a subclass of EventEmitter:</p>
+
+<p>const EventEmitter = require(&quot;events&quot;); // Module name does not match class name<br/>
+const net = require(&quot;net&quot;);<br/>
+let server = new net.Server();          // create a Server object<br/>
+server instanceof EventEmitter          // =&gt; true: Servers are EventEmitters<br/>
+The main feature of EventEmitters is that they allow you to register event handler functions with the on() method. EventEmitters can emit multiple types of events, and event types are identified by name. To register an event handler, call the on() method, passing the name of the event type and the function that should be invoked when an event of that type occurs. EventEmitters can invoke handler functions with any number of arguments, and you need to read the documentation for a specific kind of event from a specific EventEmitter to know what arguments you should expect to be passed:</p>
+
+<p>const net = require(&quot;net&quot;);<br/>
+let server = new net.Server();          // create a Server object<br/>
+server.on(&quot;connection&quot;, socket =&gt; {     // Listen for &quot;connection&quot; events<br/>
+    // Server &quot;connection&quot; events are passed a socket object<br/>
+    // for the client that just connected. Here we send some data<br/>
+    // to the client and disconnect.<br/>
+    socket.end(&quot;Hello World&quot;, &quot;utf8&quot;);<br/>
+});<br/>
+If you prefer more explicit method names for registering event listeners, you can also use addListener(). And you can remove a previously registered event listener with off() or removeListener(). As a special case, you can register an event listener that will be automatically removed after it is triggered for the first time by calling once() instead of on().</p>
+
+<p>When an event of a particular type occurs for a particular EventEmitter object, Node invokes all of the handler functions that are currently registered on that EventEmitter for events of that type. They are invoked in order from the first registered to the last registered. If there is more than one handler function, they are invoked sequentially on a single thread: there is no parallelism in Node, remember. And, importantly, event handling functions are invoked synchronously, not asynchronously. What this means is that the emit() method does not queue up event handlers to be invoked at some later time. emit() invokes all the registered handlers, one after the other, and does not return until the last event handler has returned.</p>
+
+<p>What this means, in effect, is that when one of the built-in Node APIs emits an event, that API is basically blocking on your event handlers. If you write an event handler that calls a blocking function like fs.readFileSync(), no further event handling will happen until your synchronous file read is complete. If your program is one—like a network server—that needs to be responsive, then it is important that you keep your event handler functions nonblocking and fast. If you need to do a lot of computation when an event occurs, it is often best to use the handler to schedule that computation asynchronously using setTimeout() (see §11.10). Node also defines setImmediate(), which schedules a function to be invoked immediately after all pending callbacks and events have been handled.</p>
+
+<p>The EventEmitter class also defines an emit() method that causes the registered event handler functions to be invoked. This is useful if you are defining your own event-based API, but is not commonly used when you’re just programming with existing APIs. emit() must be invoked with the name of the event type as its first argument. Any additional arguments that are passed to emit() become arguments to the registered event handler functions. The handler functions are also invoked with the this value set to the EventEmitter object itself, which is often convenient. (Remember, though, that arrow functions always use the this value of the context in which they are defined, and they cannot be invoked with any other this value. Nevertheless, arrow functions are often the most convenient way to write event handlers.)</p>
+
+<p>Any value returned by an event handler function is ignored. If an event handler function throws an exception, however, it propagates out from the emit() call and prevents the execution of any handler functions that were registered after the one that threw the exception.</p>
+
+<p>Recall that Node’s callback-based APIs use error-first callbacks, and it is important that you always check the first callback argument to see if an error occurred. With event-based APIs, the equivalent is “error” events. Since event-based APIs are often used for networking and other forms of streaming I/O, they are vulnerable to unpredictable asynchronous errors, and most EventEmitters define an “error” event that they emit when an error occurs. Whenever you use an event-based API, you should make it a habit to register a handler for “error” events. “Error” events get special treatment by the EventEmitter class. If emit() is called to emit an “error” event, and if there are no handlers registered for that event type, then an exception will be thrown. Since this occurs asynchronously, there is no way for you to handle the exception in a catch block, so this kind of error typically causes your program to exit.</p>
+
+<h2 id="toc_10">16.5 Streams</h2>
+
+<p>When implementing an algorithm to process data, it is almost always easiest to read all the data into memory, do the processing, and then write the data out. For example, you could write a Node function to copy a file like this.1</p>
+
+<p>const fs = require(&quot;fs&quot;);</p>
+
+<p>// An asynchronous but nonstreaming (and therefore inefficient) function.<br/>
+function copyFile(sourceFilename, destinationFilename, callback) {<br/>
+    fs.readFile(sourceFilename, (err, buffer) =&gt; {<br/>
+        if (err) {<br/>
+            callback(err);<br/>
+        } else {<br/>
+            fs.writeFile(destinationFilename, buffer, callback);<br/>
+        }<br/>
+    });<br/>
+}<br/>
+This copyFile() function uses asynchronous functions and callbacks, so it does not block and is suitable for use in concurrent programs like servers. But notice that it must allocate enough memory to hold the entire contents of the file in memory at once. This may be fine in some use cases, but it starts to fail if the files to be copied are very large, or if your program is highly concurrent and there may be many files being copied at the same time. Another shortcoming of this copyFile() implementation is that it cannot start writing the new file until it has finished reading the old file.</p>
+
+<p>The solution to these problems is to use streaming algorithms where data “flows” into your program, is processed, and then flows out of your program. The idea is that your algorithm processes the data in small chunks and the full dataset is never held in memory at once. When streaming solutions are possible, they are more memory efficient and can also be faster. Node’s networking APIs are stream-based and Node’s filesystem module defines streaming APIs for reading and writing files, so you are likely to use a streaming API in many of the Node programs that you write. We’ll see a streaming version of the copyFile() function in “Flowing mode”.</p>
+
+<p>Node supports four basic stream types:</p>
+
+<p>Readable<br/>
+Readable streams are sources of data. The stream returned by fs.createReadStream(), for example, is a stream from which the content of a specified file can be read. process.stdin is another Readable stream that returns data from standard input.</p>
+
+<p>Writable<br/>
+Writable streams are sinks or destinations for data. The return value of fs.createWriteStream(), for example, is a Writable stream: it allows data to be written to it in chunks, and outputs all of that data to a specified file.</p>
+
+<p>Duplex<br/>
+Duplex streams combine a Readable stream and a Writable stream into one object. The Socket objects returned by net.connect() and other Node networking APIs, for example, are Duplex streams. If you write to a socket, your data is sent across the network to whatever computer the socket is connected to. And if you read from a socket, you access the data written by that other computer.</p>
+
+<p>Transform<br/>
+Transform streams are also readable and writable, but they differ from Duplex streams in an important way: data written to a Transform stream becomes readable—usually in some transformed form—from the same stream. The zlib.createGzip() function, for example, returns a Transform stream that compresses (with the gzip algorithm) the data written to it. In a similar way, the crypto.createCipheriv() function returns a Transform stream that encrypts or decrypts data that is written to it.</p>
+
+<p>By default, streams read and write buffers. If you call the setEncoding() method of a Readable stream, it will return decoded strings to you instead of Buffer objects. And if you write a string to a Writable buffer, it will be automatically encoded using the buffer’s default encoding or whatever encoding you specify. Node’s stream API also supports an “object mode” where streams read and write objects more complex than buffers and strings. None of Node’s core APIs use this object mode, but you may encounter it in other libraries.</p>
+
+<p>Readable streams have to read their data from somewhere, and Writable streams have to write their data to somewhere, so every stream has two ends: an input and an output or a source and a destination. The tricky thing about stream-based APIs is that the two ends of the stream will almost always flow at different speeds. Perhaps the code that reads from a stream wants to read and process data more quickly than the data is actually being written into the stream. Or the reverse: perhaps data is written to a stream more quickly than it can be read and pulled out of the stream on the other end. Stream implementations almost always include an internal buffer to hold data that has been written but not yet read. Buffering helps to ensure that there is data available to read when it’s requested, and that there is space to hold data when it is written. But neither of these things can ever be guaranteed, and it is the nature of stream-based programming that readers will sometimes have to wait for data to be written (because the stream buffer is empty), and writers will sometimes have to wait for data to be read (because the stream buffer is full).</p>
+
+<p>In programming environments that use thread-based concurrency, stream APIs typically have blocking calls: a call to read data does not return until data arrives in the stream and a call to write data blocks until there is enough room in the stream’s internal buffer to accommodate the new data. With an event-based concurrency model, however, blocking calls do not make sense, and Node’s stream APIs are event- and callback-based. Unlike other Node APIs, there are not “Sync” versions of the methods that will be described later in this chapter.</p>
+
+<p>The need to coordinate stream readability (buffer not empty) and writability (buffer not full) via events makes Node’s stream APIs somewhat complicated. This is compounded by the fact that these APIs have evolved and changed over the years: for Readable streams, there are two completely distinct APIs that you can use. Despite the complexity, it is worth understanding and mastering Node’s streaming APIs because they enable high-throughput I/O in your programs.</p>
+
+<p>The subsections that follow demonstrate how to read and write from Node’s stream classes.</p>
+
+<h3 id="toc_11">16.5.1 Pipes</h3>
+
+<p>Sometimes, you need to read data from a stream simply to turn around and write that same data to another stream. Imagine, for example, that you are writing a simple HTTP server that serves a directory of static files. In this case, you will need to read data from a file input stream and write it out to a network socket. But instead of writing your own code to handle the reading and writing, you can instead simply connect the two sockets together as a “pipe” and let Node handle the complexities for you. Simply pass the Writable stream to the pipe() method of the Readable stream:</p>
+
+<p>const fs = require(&quot;fs&quot;);</p>
+
+<p>function pipeFileToSocket(filename, socket) {<br/>
+    fs.createReadStream(filename).pipe(socket);<br/>
+}<br/>
+The following utility function pipes one stream to another and invokes a callback when done or when an error occurs:</p>
+
+<p>function pipe(readable, writable, callback) {<br/>
+    // First, set up error handling<br/>
+    function handleError(err) {<br/>
+        readable.close();<br/>
+        writable.close();<br/>
+        callback(err);<br/>
+    }</p>
+
+<pre><code class="language-text">// Next define the pipe and handle the normal termination case
+readable
+    .on(&quot;error&quot;, handleError)
+    .pipe(writable)
+    .on(&quot;error&quot;, handleError)
+    .on(&quot;finish&quot;, callback);
+</code></pre>
+
+<p>}<br/>
+Transform streams are particularly useful with pipes, and create pipelines that involve more than two streams. Here’s an example function that compresses a file:</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+const zlib = require(&quot;zlib&quot;);</p>
+
+<p>function gzip(filename, callback) {<br/>
+    // Create the streams<br/>
+    let source = fs.createReadStream(filename);<br/>
+    let destination = fs.createWriteStream(filename + &quot;.gz&quot;);<br/>
+    let gzipper = zlib.createGzip();</p>
+
+<pre><code class="language-text">// Set up the pipeline
+source
+    .on(&quot;error&quot;, callback)   // call callback on read error
+    .pipe(gzipper)
+    .pipe(destination)
+    .on(&quot;error&quot;, callback)   // call callback on write error
+    .on(&quot;finish&quot;, callback); // call callback when writing is complete
+</code></pre>
+
+<p>}<br/>
+Using the pipe() method to copy data from a Readable stream to a Writable stream is easy, but in practice, you often need to process the data somehow as it streams through your program. One way to do this is to implement your own Transform stream to do that processing, and this approach allows you to avoid manually reading and writing the streams. Here, for example, is a function that works like the Unix grep utility: it reads lines of text from an input stream, but writes only the lines that match a specified regular expression:</p>
+
+<p>const stream = require(&quot;stream&quot;);</p>
+
+<p>class GrepStream extends stream.Transform {<br/>
+    constructor(pattern) {<br/>
+        super({decodeStrings: false});// Don&#39;t convert strings back to buffers<br/>
+        this.pattern = pattern;       // The regular expression we want to match<br/>
+        this.incompleteLine = &quot;&quot;;     // Any remnant of the last chunk of data<br/>
+    }</p>
+
+<pre><code class="language-text">// This method is invoked when there is a string ready to be
+// transformed. It should pass transformed data to the specified
+// callback function. We expect string input so this stream should
+// only be connected to readable streams that have had
+// setEncoding() called on them.
+_transform(chunk, encoding, callback) {
+    if (typeof chunk !== &quot;string&quot;) {
+        callback(new Error(&quot;Expected a string but got a buffer&quot;));
+        return;
+    }
+    // Add the chunk to any previously incomplete line and break
+    // everything into lines
+    let lines = (this.incompleteLine + chunk).split(&quot;\n&quot;);
+
+    // The last element of the array is the new incomplete line
+    this.incompleteLine = lines.pop();
+
+    // Find all matching lines
+    let output = lines                     // Start with all complete lines,
+        .filter(l =&gt; this.pattern.test(l)) // filter them for matches,
+        .join(&quot;\n&quot;);                       // and join them back up.
+
+    // If anything matched, add a final newline
+    if (output) {
+        output += &quot;\n&quot;;
+    }
+
+    // Always call the callback even if there is no output
+    callback(null, output);
+}
+
+// This is called right before the stream is closed.
+// It is our chance to write out any last data.
+_flush(callback) {
+    // If we still have an incomplete line, and it matches
+    // pass it to the callback
+    if (this.pattern.test(this.incompleteLine)) {
+        callback(null, this.incompleteLine + &quot;\n&quot;);
+    }
+}
+</code></pre>
+
+<p>}</p>
+
+<p>// Now we can write a program like &#39;grep&#39; with this class.<br/>
+let pattern = new RegExp(process.argv[2]); // Get a RegExp from command line.<br/>
+process.stdin                              // Start with standard input,<br/>
+    .setEncoding(&quot;utf8&quot;)                   // read it as Unicode strings,<br/>
+    .pipe(new GrepStream(pattern))         // pipe it to our GrepStream,<br/>
+    .pipe(process.stdout)                  // and pipe that to standard out.<br/>
+    .on(&quot;error&quot;, () =&gt; process.exit());    // Exit gracefully if stdout closes.</p>
+
+<h3 id="toc_12">16.5.2 Asynchronous Iteration</h3>
+
+<p>In Node 12 and later, Readable streams are asynchronous iterators, which means that within an async function you can use a for/await loop to read string or Buffer chunks from a stream using code that is structured like synchronous code would be. (See §13.4 for more on asynchronous iterators and for/await loops.)</p>
+
+<p>Using an asynchronous iterator is almost as easy as using the pipe() method, and is probably easier when you need to process each chunk you read in some way. Here’s how we could rewrite the grep program in the previous section using an async function and a for/await loop:</p>
+
+<p>// Read lines of text from the source stream, and write any lines<br/>
+// that match the specified pattern to the destination stream.<br/>
+async function grep(source, destination, pattern, encoding=&quot;utf8&quot;) {<br/>
+    // Set up the source stream for reading strings, not Buffers<br/>
+    source.setEncoding(encoding);</p>
+
+<pre><code class="language-text">// Set an error handler on the destination stream in case standard
+// output closes unexpectedly (when piping output to `head`, e.g.)
+destination.on(&quot;error&quot;, err =&gt; process.exit());
+
+// The chunks we read are unlikely to end with a newline, so each will
+// probably have a partial line at the end. Track that here
+let incompleteLine = &quot;&quot;;
+
+// Use a for/await loop to asynchronously read chunks from the input stream
+for await (let chunk of source) {
+    // Split the end of the last chunk plus this one into lines
+    let lines = (incompleteLine + chunk).split(&quot;\n&quot;);
+    // The last line is incomplete
+    incompleteLine = lines.pop();
+    // Now loop through the lines and write any matches to the destination
+    for(let line of lines) {
+        if (pattern.test(line)) {
+            destination.write(line + &quot;\n&quot;, encoding);
+        }
+    }
+}
+// Finally, check for a match on any trailing text.
+if (pattern.test(incompleteLine)) {
+    destination.write(incompleteLine + &quot;\n&quot;, encoding);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>let pattern = new RegExp(process.argv[2]);   // Get a RegExp from command line.<br/>
+grep(process.stdin, process.stdout, pattern) // Call the async grep() function.<br/>
+    .catch(err =&gt; {                          // Handle asynchronous exceptions.<br/>
+        console.error(err);<br/>
+        process.exit();<br/>
+    });</p>
+
+<h3 id="toc_13">16.5.3 Writing to Streams and Handling Backpressure</h3>
+
+<p>The async grep() function in the preceding code example demonstrated how to use a Readable stream as an asynchronous iterator, but it also demonstrated that you can write data to a Writable stream simply by passing it to the write() method. The write() method takes a buffer or string as the first argument. (Object streams expect other kinds of objects, but are beyond the scope of this chapter.) If you pass a buffer, the bytes of that buffer will be written directly. If you pass a string, it will be encoded to a buffer of bytes before being written. Writable streams have a default encoding that is used when you pass a string as the only argument to write(). The default encoding is typically “utf8,” but you can set it explicitly by calling setDefaultEncoding() on the Writable stream. Alternatively, when you pass a string as the first argument to write() you can pass an encoding name as the second argument.</p>
+
+<p>write() optionally takes a callback function as its third argument. This will be invoked when the data has actually been written and is no longer in the Writable stream’s internal buffer. (This callback may also be invoked if an error occurs, but this is not guaranteed. You should register an “error” event handler on the Writable stream to detect errors.)</p>
+
+<p>The write() method has a very important return value. When you call write() on a stream, it will always accept and buffer the chunk of data you have passed. It then returns true if the internal buffer is not yet full. Or, if the buffer is now full or overfull, it returns false. This return value is advisory, and you can ignore it—Writable streams will enlarge their internal buffer as much as needed if you keep calling write(). But remember that the reason to use a streaming API in the first place is to avoid the cost of keeping lots of data in memory at once.</p>
+
+<p>A return value of false from the write() method is a form of backpressure: a message from the stream that you have written data more quickly than it can be handled. The proper response to this kind of backpressure is to stop calling write() until the stream emits a “drain” event, signaling that there is once again room in the buffer. Here, for example, is a function that writes to a stream, and then invokes a callback when it is OK to write more data to the stream:</p>
+
+<p>function write(stream, chunk, callback) {<br/>
+    // Write the specified chunk to the specified stream<br/>
+    let hasMoreRoom = stream.write(chunk);</p>
+
+<pre><code class="language-text">// Check the return value of the write() method:
+if (hasMoreRoom) {                  // If it returned true, then
+    setImmediate(callback);         // invoke callback asynchronously.
+} else {                            // If it returned false, then
+    stream.once(&quot;drain&quot;, callback); // invoke callback on drain event.
+}
+</code></pre>
+
+<p>}<br/>
+The fact that it is sometimes OK to call write() multiple times in a row and sometimes you have to wait for an event between writes makes for awkward algorithms. This is one of the reasons that using the pipe() method is so appealing: when you use pipe(), Node handles backpressure for you automatically.</p>
+
+<p>If you are using await and async in your program, and are treating Readable streams as asynchronous iterators, it is straightforward to implement a Promise-based version of the write() utility function above to properly handle backpressure. In the async grep() function we just looked at, we did not handle backpressure. The async copy() function in the following example demonstrates how it can be done correctly. Note that this function just copies chunks from a source stream to a destination stream and calling copy(source, destination) is much like calling source.pipe(destination):</p>
+
+<p>// This function writes the specified chunk to the specified stream and<br/>
+// returns a Promise that will be fulfilled when it is OK to write again.<br/>
+// Because it returns a Promise, it can be used with await.<br/>
+function write(stream, chunk) {<br/>
+    // Write the specified chunk to the specified stream<br/>
+    let hasMoreRoom = stream.write(chunk);</p>
+
+<pre><code class="language-text">if (hasMoreRoom) {                     // If buffer is not full, return
+    return Promise.resolve(null);      // an already resolved Promise object
+} else {
+    return new Promise(resolve =&gt; {    // Otherwise, return a Promise that
+        stream.once(&quot;drain&quot;, resolve); // resolves on the drain event.
+    });
+}
+</code></pre>
+
+<p>}</p>
+
+<p>// Copy data from the source stream to the destination stream<br/>
+// respecting backpressure from the destination stream.<br/>
+// This is much like calling source.pipe(destination).<br/>
+async function copy(source, destination) {<br/>
+    // Set an error handler on the destination stream in case standard<br/>
+    // output closes unexpectedly (when piping output to <code>head</code>, e.g.)<br/>
+    destination.on(&quot;error&quot;, err =&gt; process.exit());</p>
+
+<pre><code class="language-text">// Use a for/await loop to asynchronously read chunks from the input stream
+for await (let chunk of source) {
+    // Write the chunk and wait until there is more room in the buffer.
+    await write(destination, chunk);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>// Copy standard input to standard output<br/>
+copy(process.stdin, process.stdout);<br/>
+Before we conclude this discussion of writing to streams, note again that failing to respond to backpressure can cause your program to use more memory than it should when the internal buffer of a Writable stream overflows and grows larger and larger. If you are writing a network server, this can be a remotely exploitable security issue. Suppose you write an HTTP server that delivers files over the network, but you didn’t use pipe() and you didn’t take the time to handle backpressure from the write() method. An attacker could write an HTTP client that initiates requests for large files (such as images) but never actually reads the body of the request. Since the client is not reading the data over the network, and the server isn’t responding to backpressure, buffers on the server are going to overflow. With enough concurrent connections from the attacker, this can turn into a denial-of-service attack that slows your server down or even crashes it.</p>
+
+<h3 id="toc_14">16.5.4 Reading Streams with Events</h3>
+
+<p>Node’s readable streams have two modes, each of which has its own API for reading. If you can’t use pipes or asynchronous iteration in your program, you will need to pick one of these two event-based APIs for handling streams. It is important that you use only one or the other and do not mix the two APIs.</p>
+
+<p>FLOWING MODE<br/>
+In flowing mode, when readable data arrives, it is immediately emitted in the form of a “data” event. To read from a stream in this mode, simply register an event handler for “data” events, and the stream will push chunks of data (buffers or strings) to you as soon as they becomes available. Note that there is no need to call the read() method in flowing mode: you only need to handle “data” events. Note that newly created streams do not start off in flowing mode. Registering a “data” event handler switches a stream into flowing mode. Conveniently, this means that a stream does not emit “data” events until you register the first “data” event handler.</p>
+
+<p>If you are using flowing mode to read data from a Readable stream, process it, then write it to a Writable stream, then you may need to handle backpressure from the Writable stream. If the write() method returns false to indicate that the write buffer is full, you can call pause() on the Readable stream to temporarily stop data events. Then, when you get a “drain” event from the Writable stream, you can call resume() on the Readable stream to start the “data” events flowing again.</p>
+
+<p>A stream in flowing mode emits an “end” event when the end of the stream is reached. This event indicates that no more “data” events will ever be emitted. And, as with all streams, an “error” event is emitted if an error occurs.</p>
+
+<p>At the beginning of this section on streams, we showed a nonstreaming copyFile() function and promised a better version to come. The following code shows how to implement a streaming copyFile() function that uses the flowing mode API and handles backpressure. This would have been easier to implement with a pipe() call, but it serves here as a useful demonstration of the multiple event handlers that are used to coordinate data flow from one stream to the other.</p>
+
+<p>const fs = require(&quot;fs&quot;);</p>
+
+<p>// A streaming file copy function, using &quot;flowing mode&quot;.<br/>
+// Copies the contents of the named source file to the named destination file.<br/>
+// On success, invokes the callback with a null argument. On error,<br/>
+// invokes the callback with an Error object.<br/>
+function copyFile(sourceFilename, destinationFilename, callback) {<br/>
+    let input = fs.createReadStream(sourceFilename);<br/>
+    let output = fs.createWriteStream(destinationFilename);</p>
+
+<pre><code class="language-text">input.on(&quot;data&quot;, (chunk) =&gt; {          // When we get new data,
+    let hasRoom = output.write(chunk); // write it to the output stream.
+    if (!hasRoom) {                    // If the output stream is full
+        input.pause();                 // then pause the input stream.
+    }
+});
+input.on(&quot;end&quot;, () =&gt; {                // When we reach the end of input,
+    output.end();                      // tell the output stream to end.
+});
+input.on(&quot;error&quot;, err =&gt; {             // If we get an error on the input,
+    callback(err);                     // call the callback with the error
+    process.exit();                    // and quit.
+});
+
+output.on(&quot;drain&quot;, () =&gt; {             // When the output is no longer full,
+    input.resume();                    // resume data events on the input
+});
+output.on(&quot;error&quot;, err =&gt; {            // If we get an error on the output,
+    callback(err);                     // call the callback with the error
+    process.exit();                    // and quit.
+});
+output.on(&quot;finish&quot;, () =&gt; {            // When output is fully written
+    callback(null);                    // call the callback with no error.
+});
+</code></pre>
+
+<p>}</p>
+
+<p>// Here&#39;s a simple command-line utility to copy files<br/>
+let from = process.argv[2], to = process.argv[3];<br/>
+console.log(<code>Copying file ${from} to ${to}...</code>);<br/>
+copyFile(from, to, err =&gt; {<br/>
+    if (err) {<br/>
+        console.error(err);<br/>
+    } else {<br/>
+        console.log(&quot;done.&quot;);<br/>
+    }<br/>
+});<br/>
+PAUSED MODE<br/>
+The other mode for Readable streams is “paused mode.” This is the mode that streams start in. If you never register a “data” event handler and never call the pipe() method, then a Readable stream remains in paused mode. In paused mode, the stream does not push data to you in the form of “data” events. Instead, you pull data from the stream by explicitly calling its read() method. This is not a blocking call, and if there is no data available to read on the stream, it will return null. Since there is not a synchronous API to wait for data, the paused mode API is also event-based. A Readable stream in paused mode emits “readable” events when data becomes available to read on the stream. In response, your code should call the read() method to read that data. You must do this in a loop, calling read() repeatedly until it returns null. It is necessary to completely drain the stream’s buffer like this in order to trigger a new “readable” event in the future. If you stop calling read() while there is still readable data, you will not get another “readable” event and your program is likely to hang.</p>
+
+<p>Streams in paused mode emit “end” and “error” events just like flowing mode streams do. If you are writing a program that reads data from a Readable stream and writes it to a Writable stream, then paused mode may not be a good choice. In order to properly handle backpressure, you only want to read when the input stream is readable and the output stream is not backed up. In paused mode, that means reading and writing until read() returns null or write() returns false, and then starting reading or writing again on a readable or drain event. This is inelegant, and you may find that flowing mode (or pipes) is easier in this case.</p>
+
+<p>The following code demonstrates how you can compute a SHA256 hash for the contents of a specified file. It uses a Readable stream in paused mode to read the contents of a file in chunks, then passes each chunk to the object that computes the hash. (Note that in Node 12 and later, it would be simpler to write this function using a for/await loop.)</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+const crypto = require(&quot;crypto&quot;);</p>
+
+<p>// Compute a sha256 hash of the contents of the named file and pass the<br/>
+// hash (as a string) to the specified error-first callback function.<br/>
+function sha256(filename, callback) {<br/>
+    let input = fs.createReadStream(filename); // The data stream.<br/>
+    let hasher = crypto.createHash(&quot;sha256&quot;);  // For computing the hash.</p>
+
+<pre><code class="language-text">input.on(&quot;readable&quot;, () =&gt; {         // When there is data ready to read
+    let chunk;
+    while(chunk = input.read()) {    // Read a chunk, and if non-null,
+        hasher.update(chunk);        // pass it to the hasher,
+    }                                // and keep looping until not readable
+});
+input.on(&quot;end&quot;, () =&gt; {              // At the end of the stream,
+    let hash = hasher.digest(&quot;hex&quot;); // compute the hash,
+    callback(null, hash);            // and pass it to the callback.
+});
+input.on(&quot;error&quot;, callback);         // On error, call callback
+</code></pre>
+
+<p>}</p>
+
+<p>// Here&#39;s a simple command-line utility to compute the hash of a file<br/>
+sha256(process.argv[2], (err, hash) =&gt; { // Pass filename from command line.<br/>
+    if (err) {                           // If we get an error<br/>
+        console.error(err.toString());   // print it as an error.<br/>
+    } else {                             // Otherwise,<br/>
+        console.log(hash);               // print the hash string.<br/>
+    }<br/>
+});</p>
+
+<h2 id="toc_15">16.6 Process, CPU, and Operating System Details</h2>
+
+<p>The global Process object has a number of useful properties and functions that generally relate to the state of the currently running Node process. Consult the Node documentation for complete details, but here are some properties and functions you should be aware of:</p>
+
+<p>process.argv            // An array of command-line arguments.<br/>
+process.arch            // The CPU architecture: &quot;x64&quot;, for example.<br/>
+process.cwd()           // Returns the current working directory.<br/>
+process.chdir()         // Sets the current working directory.<br/>
+process.cpuUsage()      // Reports CPU usage.<br/>
+process.env             // An object of environment variables.<br/>
+process.execPath        // The absolute filesystem path to the node executable.<br/>
+process.exit()          // Terminates the program.<br/>
+process.exitCode        // An integer code to be reported when the program exits.<br/>
+process.getuid()        // Return the Unix user id of the current user.<br/>
+process.hrtime.bigint() // Return a &quot;high-resolution&quot; nanosecond timestamp.<br/>
+process.kill()          // Send a signal to another process.<br/>
+process.memoryUsage()   // Return an object with memory usage details.<br/>
+process.nextTick()      // Like setImmediate(), invoke a function soon.<br/>
+process.pid             // The process id of the current process.<br/>
+process.ppid            // The parent process id.<br/>
+process.platform        // The OS: &quot;linux&quot;, &quot;darwin&quot;, or &quot;win32&quot;, for example.<br/>
+process.resourceUsage() // Return an object with resource usage details.<br/>
+process.setuid()        // Sets the current user, by id or name.<br/>
+process.title           // The process name that appears in <code>ps</code> listings.<br/>
+process.umask()         // Set or return the default permissions for new files.<br/>
+process.uptime()        // Return Node&#39;s uptime in seconds.<br/>
+process.version         // Node&#39;s version string.<br/>
+process.versions        // Version strings for the libraries Node depends on.<br/>
+The “os” module (which, unlike process, needs to be explicitly loaded with require()) provides access to similarly low-level details about the computer and operating system that Node is running on. You may never need to use any of these features, but it is worth knowing that Node makes them available:</p>
+
+<p>const os = require(&quot;os&quot;);<br/>
+os.arch()              // Returns CPU architecture. &quot;x64&quot; or &quot;arm&quot;, for example.<br/>
+os.constants           // Useful constants such as os.constants.signals.SIGINT.<br/>
+os.cpus()              // Data about system CPU cores, including usage times.<br/>
+os.endianness()        // The CPU&#39;s native endianness &quot;BE&quot; or &quot;LE&quot;.<br/>
+os.EOL                 // The OS native line terminator: &quot;\n&quot; or &quot;\r\n&quot;.<br/>
+os.freemem()           // Returns the amount of free RAM in bytes.<br/>
+os.getPriority()       // Returns the OS scheduling priority of a process.<br/>
+os.homedir()           // Returns the current user&#39;s home directory.<br/>
+os.hostname()          // Returns the hostname of the computer.<br/>
+os.loadavg()           // Returns the 1, 5, and 15-minute load averages.<br/>
+os.networkInterfaces() // Returns details about available network. connections.<br/>
+os.platform()          // Returns OS: &quot;linux&quot;, &quot;darwin&quot;, or &quot;win32&quot;, for example.<br/>
+os.release()           // Returns the version number of the OS.<br/>
+os.setPriority()       // Attempts to set the scheduling priority for a process.<br/>
+os.tmpdir()            // Returns the default temporary directory.<br/>
+os.totalmem()          // Returns the total amount of RAM in bytes.<br/>
+os.type()              // Returns OS: &quot;Linux&quot;, &quot;Darwin&quot;, or &quot;Windows_NT&quot;, e.g.<br/>
+os.uptime()            // Returns the system uptime in seconds.<br/>
+os.userInfo()          // Returns uid, username, home, and shell of current user.</p>
+
+<h2 id="toc_16">16.7 Working with Files</h2>
+
+<p>Node’s “fs” module is a comprehensive API for working with files and directories. It is complemented by the “path” module, which defines utility functions for working with file and directory names. The “fs” module contains a handful of high-level functions for easily reading, writing, and copying files. But most of the functions in the module are low-level JavaScript bindings to Unix system calls (and their equivalents on Windows). If you have worked with low-level filesystem calls before (in C or other languages), then the Node API will be familiar to you. If not, you may find parts of the “fs” API to be terse and unintuitive. The function to delete a file, for example, is called unlink().</p>
+
+<p>The “fs” module defines a large API, mainly because there are usually multiple variants of each fundamental operation. As discussed at the beginning of the chapter, most functions such as fs.readFile() are nonblocking, callback-based, and asynchronous. Typically, though, each of these functions has a synchronous blocking variant, such as fs.readFileSync(). In Node 10 and later, many of these functions also have a Promise-based asynchronous variant such as fs.promises.readFile(). Most “fs” functions take a string as their first argument, specifying the path (filename plus optional directory names) to the file that is to be operated on. But a number of these functions also support a variant that takes an integer “file descriptor” as the first argument instead of a path. These variants have names that begin with the letter “f.” For example, fs.truncate() truncates a file specified by path, and fs.ftruncate() truncates a file specified by file descriptor. There is a Promise-based fs.promises.truncate() that expects a path and another Promise-based version that is implemented as a method of a FileHandle object. (The FileHandle class is the equivalent of a file descriptor in the Promise-based API.) Finally, there are a handful of functions in the “fs” module that have variants whose names are prefixed with the letter “l.” These “l” variants are like the base function but do not follow symbolic links in the filesystem and instead operate directly on the symbolic links themselves.</p>
+
+<h3 id="toc_17">16.7.1 Paths, File Descriptors, and FileHandles</h3>
+
+<p>In order to use the “fs” module to work with files, you first need to be able to name the file you want to work with. Files are most often specified by path, which means the name of the file itself, plus the hierarchy of directories in which the file appears. If a path is absolute, it means that directories all the way up to the filesystem root are specified. Otherwise, the path is relative and is only meaningful in relation to some other path, usually the current working directory. Working with paths can be a little tricky because different operating systems use different characters to separate directory names, it is easy to accidentally double those separator characters when concatenating paths, and because ../ parent directory path segments need special handling. Node’s “path” module and a couple of other important Node features help:</p>
+
+<p>// Some important paths<br/>
+process.cwd()      // Absolute path of the current working directory.<br/>
+__filename         // Absolute path of the file that holds the current code.<br/>
+__dirname          // Absolute path of the directory that holds __filename.<br/>
+os.homedir()       // The user&#39;s home directory.</p>
+
+<p>const path = require(&quot;path&quot;);</p>
+
+<p>path.sep                         // Either &quot;/&quot; or &quot;&quot; depending on your OS</p>
+
+<p>// The path module has simple parsing functions<br/>
+let p = &quot;src/pkg/test.js&quot;;       // An example path<br/>
+path.basename(p)                 // =&gt; &quot;test.js&quot;<br/>
+path.extname(p)                  // =&gt; &quot;.js&quot;<br/>
+path.dirname(p)                  // =&gt; &quot;src/pkg&quot;<br/>
+path.basename(path.dirname(p))   // =&gt; &quot;pkg&quot;<br/>
+path.dirname(path.dirname(p))    // =&gt; &quot;src&quot;</p>
+
+<p>// normalize() cleans up paths:<br/>
+path.normalize(&quot;a/b/c/../d/&quot;)    // =&gt; &quot;a/b/d/&quot;: handles ../ segments<br/>
+path.normalize(&quot;a/./b&quot;)          // =&gt; &quot;a/b&quot;: strips &quot;./&quot; segments<br/>
+path.normalize(&quot;//a//b//&quot;)       // =&gt; &quot;/a/b/&quot;: removes duplicate /</p>
+
+<p>// join() combines path segments, adding separators, then normalizes<br/>
+path.join(&quot;src&quot;, &quot;pkg&quot;, &quot;t.js&quot;)  // =&gt; &quot;src/pkg/t.js&quot;</p>
+
+<p>// resolve() takes one or more path segments and returns an absolute<br/>
+// path. It starts with the last argument and works backward, stopping<br/>
+// when it has built an absolute path or resolving against process.cwd().<br/>
+path.resolve()                   // =&gt; process.cwd()<br/>
+path.resolve(&quot;t.js&quot;)             // =&gt; path.join(process.cwd(), &quot;t.js&quot;)<br/>
+path.resolve(&quot;/tmp&quot;, &quot;t.js&quot;)     // =&gt; &quot;/tmp/t.js&quot;<br/>
+path.resolve(&quot;/a&quot;, &quot;/b&quot;, &quot;t.js&quot;) // =&gt; &quot;/b/t.js&quot;<br/>
+Note that path.normalize() is simply a string manipulation function that has no access to the actual filesystem. The fs.realpath() and fs.realpathSync() functions perform filesystem-aware canonicalization: they resolve symbolic links and interpret relative pathnames relative to the current working directory.</p>
+
+<p>In the previous examples, we assumed that the code is running on a Unix-based OS and path.sep is “/.” If you want to work with Unix-style paths even when on a Windows system, then use path.posix instead of path. And conversely, if you want to work with Windows paths even when on a Unix system, path.win32. path.posix and path.win32 define the same properties and functions as path itself.</p>
+
+<p>Some of the “fs” functions we’ll be covering in the next sections expect a file descriptor instead of a file name. File descriptors are integers used as OS-level references to “open” files. You obtain a descriptor for a given name by calling the fs.open() (or fs.openSync()) function. Processes are only allowed to have a limited number of files open at one time, so it is important that you call fs.close() on your file descriptors when you are done with them. You need to open files if you want to use the lowest-level fs.read() and fs.write() functions that allow you to jump around within a file, reading and writing bits of it at different times. There are other functions in the “fs” module that use file descriptors, but they all have name-based versions, and it only really makes sense to use the descriptor-based functions if you were going to open the file to read or write anyway.</p>
+
+<p>Finally, in the Promise-based API defined by fs.promises, the equivalent of fs.open() is fs.promises.open(), which returns a Promise that resolves to a FileHandle object. This FileHandle object serves the same purpose as a file descriptor. Again, however, unless you need to use the lowest-level read() and write() methods of a FileHandle, there is really no reason to create one. And if you do create a FileHandle, you should remember to call its close() method once you are done with it.</p>
+
+<h3 id="toc_18">16.7.2 Reading Files</h3>
+
+<p>Node allows you to read file content all at once, via a stream, or with the low-level API.</p>
+
+<p>If your files are small, or if memory usage and performance are not the highest priority, then it is often easiest to read the entire content of a file with a single call. You can do this synchronously, with a callback, or with a Promise. By default, you’ll get the bytes of the file as a buffer, but if you specify an encoding, you’ll get a decoded string instead.</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+let buffer = fs.readFileSync(&quot;test.data&quot;);      // Synchronous, returns buffer<br/>
+let text = fs.readFileSync(&quot;data.csv&quot;, &quot;utf8&quot;); // Synchronous, returns string</p>
+
+<p>// Read the bytes of the file asynchronously<br/>
+fs.readFile(&quot;test.data&quot;, (err, buffer) =&gt; {<br/>
+    if (err) {<br/>
+        // Handle the error here<br/>
+    } else {<br/>
+        // The bytes of the file are in buffer<br/>
+    }<br/>
+});</p>
+
+<p>// Promise-based asynchronous read<br/>
+fs.promises<br/>
+    .readFile(&quot;data.csv&quot;, &quot;utf8&quot;)<br/>
+    .then(processFileText)<br/>
+    .catch(handleReadError);</p>
+
+<p>// Or use the Promise API with await inside an async function<br/>
+async function processText(filename, encoding=&quot;utf8&quot;) {<br/>
+    let text = await fs.promises.readFile(filename, encoding);<br/>
+    // ... process the text here...<br/>
+}<br/>
+If you are able to process the contents of a file sequentially and do not need to have the entire content of the file in memory at the same time, then reading a file via a stream may be the most efficient approach. We’ve covered streams extensively: here is how you might use a stream and the pipe() method to write the contents of a file to standard output:</p>
+
+<p>function printFile(filename, encoding=&quot;utf8&quot;) {<br/>
+    fs.createReadStream(filename, encoding).pipe(process.stdout);<br/>
+}<br/>
+Finally, if you need low-level control over exactly what bytes you read from a file and when you read them, you can open a file to get a file descriptor and then use fs.read(), fs.readSync(), or fs.promises.read() to read a specified number of bytes from a specified source location of the file into a specified buffer at the specified destination position:</p>
+
+<p>const fs = require(&quot;fs&quot;);</p>
+
+<p>// Reading a specific portion of a data file<br/>
+fs.open(&quot;data&quot;, (err, fd) =&gt; {<br/>
+    if (err) {<br/>
+        // Report error somehow<br/>
+        return;<br/>
+    }<br/>
+    try {<br/>
+        // Read bytes 20 through 420 into a newly allocated buffer.<br/>
+        fs.read(fd, Buffer.alloc(400), 0, 400, 20, (err, n, b) =&gt; {<br/>
+            // err is the error, if any.<br/>
+            // n is the number of bytes actually read<br/>
+            // b is the buffer that they bytes were read into.<br/>
+        });<br/>
+    }<br/>
+    finally {          // Use a finally clause so we always<br/>
+        fs.close(fd);  // close the open file descriptor<br/>
+    }<br/>
+});<br/>
+The callback-based read() API is awkward to use if you need to read more than one chunk of data from a file. If you can use the synchronous API (or the Promise-based API with await), it becomes easy to read multiple chunks from a file:</p>
+
+<p>const fs = require(&quot;fs&quot;);</p>
+
+<p>function readData(filename) {<br/>
+    let fd = fs.openSync(filename);<br/>
+    try {<br/>
+        // Read the file header<br/>
+        let header = Buffer.alloc(12); // A 12 byte buffer<br/>
+        fs.readSync(fd, header, 0, 12, 0);</p>
+
+<pre><code class="language-text">    // Verify the file&#39;s magic number
+    let magic = header.readInt32LE(0);
+    if (magic !== 0xDADAFEED) {
+        throw new Error(&quot;File is of wrong type&quot;);
+    }
+
+    // Now get the offset and length of the data from the header
+    let offset = header.readInt32LE(4);
+    let length = header.readInt32LE(8);
+
+    // And read those bytes from the file
+    let data = Buffer.alloc(length);
+    fs.readSync(fd, data, 0, length, offset);
+    return data;
+} finally {
+    // Always close the file, even if an exception is thrown above
+    fs.closeSync(fd);
+}
+</code></pre>
+
+<p>}</p>
+
+<h3 id="toc_19">16.7.3 Writing Files</h3>
+
+<p>Writing files in Node is a lot like reading them, with a few extra details that you need to know about. One of these details is that the way you create a new file is simply by writing to a filename that does not already exist.</p>
+
+<p>As with reading, there are three basic ways to write files in Node. If you have the entire content of the file in a string or a buffer, you can write the entire thing in one call with fs.writeFile() (callback-based), fs.writeFileSync() (synchronous), or fs.promises.writeFile() (Promise-based):</p>
+
+<p>fs.writeFileSync(path.resolve(__dirname, &quot;settings.json&quot;),<br/>
+                 JSON.stringify(settings));<br/>
+If the data you are writing to the file is a string, and you want to use an encoding other than “utf8,” pass the encoding as an optional third argument.</p>
+
+<p>The related functions fs.appendFile(), fs.appendFileSync(), and fs.promises.appendFile() are similar, but when the specified file already exists, they append their data to the end rather than overwriting the existing file content.</p>
+
+<p>If the data you want to write to a file is not all in one chunk, or if it is not all in memory at the same time, then using a Writable stream is a good approach, assuming that you plan to write the data from beginning to end without skipping around in the file:</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+let output = fs.createWriteStream(&quot;numbers.txt&quot;);<br/>
+for(let i = 0; i &lt; 100; i++) {<br/>
+    output.write(<code>${i}\n</code>);<br/>
+}<br/>
+output.end();<br/>
+Finally, if you want to write data to a file in multiple chunks, and you want to be able to control the exact position within the file at which each chunk is written, then you can open the file with fs.open(), fs.openSync(), or fs.promises.open() and then use the resulting file descriptor with the fs.write() or fs.writeSync() functions. These functions come in different forms for strings and buffers. The string variant takes a file descriptor, a string, and the file position at which to write that string (with an encoding as an optional fourth argument). The buffer variant takes a file descriptor, a buffer, an offset, and a length that specify a chunk of data within the buffer, and a file position at which to write the bytes of that chunk. And if you have an array of Buffer objects that you want to write, you can do this with a single fs.writev() or fs.writevSync(). Similar low-level functions exist for writing buffers and strings using fs.promises.open() and the FileHandle object it produces.</p>
+
+<p>FILE MODE STRINGS<br/>
+We saw the fs.open() and fs.openSync() methods before when using the low-level API to read files. In that use case, it was sufficient to just pass the filename to the open function. When you want to write a file, however, you must also specify a second string argument that specifies how you intend to use the file descriptor. Some of the available flag strings are as follows:</p>
+
+<p>&quot;w&quot;<br/>
+Open the file for writing</p>
+
+<p>&quot;w+&quot;<br/>
+Open for writing and reading</p>
+
+<p>&quot;wx&quot;<br/>
+Open for creating a new file; fails if the named file already exists</p>
+
+<p>&quot;wx+&quot;<br/>
+Open for creation, and also allow reading; fails if the named file already exists</p>
+
+<p>&quot;a&quot;<br/>
+Open the file for appending; existing content won’t be overwritten</p>
+
+<p>&quot;a+&quot;<br/>
+Open for appending, but also allow reading</p>
+
+<p>If you do not pass one of these flag strings to fs.open() or fs.openSync(), they use the default “r” flag, making the file descriptor read-only. Note that it can also be useful to pass these flags to other file-writing methods:</p>
+
+<p>// Write to a file in one call, but append to anything that is already there.<br/>
+// This works like fs.appendFileSync()<br/>
+fs.writeFileSync(&quot;messages.log&quot;, &quot;hello&quot;, { flag: &quot;a&quot; });</p>
+
+<p>// Open a write stream, but throw an error if the file already exists.<br/>
+// We don&#39;t want to accidentally overwrite something!<br/>
+// Note that the option above is &quot;flag&quot; and is &quot;flags&quot; here<br/>
+fs.createWriteStream(&quot;messages.log&quot;, { flags: &quot;wx&quot; });<br/>
+You can chop off the end of a file with fs.truncate(), fs.truncateSync(), or fs.promises.truncate(). These functions take a path as their first argument and a length as their second, and modify the file so that it has the specified length. If you omit the length, zero is used and the file becomes empty. Despite the name of these functions, they can also be used to extend a file: if you specify a length that is longer than the current file size, the file is extended with zero bytes to the new size. If you have already opened the file you wish to modify, you can use ftruncate() or ftruncateSync() with the file descriptor or FileHandle.</p>
+
+<p>The various file-writing functions described here return or invoke their callback or resolve their Promise when the data has been “written” in the sense that Node has handed it off to the operating system. But this does not necessarily mean that the data has actually been written to persistent storage yet: at least some of your data may still be buffered somewhere in the operating system or in a device driver waiting to be written to disk. If you call fs.writeSync() to synchronously write some data to a file, and if there is a power outage immediately after the function returns, you may still lose data. If you want to force your data out to disk so you know for sure that it has been safely saved, use fs.fsync() or fs.fsyncSync(). These functions only work with file descriptors: there is no path-based version.</p>
+
+<h3 id="toc_20">16.7.4 File Operations</h3>
+
+<p>The preceding discussion of Node’s stream classes included two examples of copyFile() functions. These are not practical utilities that you would actually use because the “fs” module defines its own fs.copyFile() method (and also fs.copyFileSync() and fs.promises.copyFile(), of course).</p>
+
+<p>These functions take the name of the original file and the name of the copy as their first two arguments. These can be specified as strings or as URL or Buffer objects. An optional third argument is an integer whose bits specify flags that control details of the copy operation. And for the callback-based fs.copyFile(), the final argument is a callback function that will be called with no arguments when the copy is complete, or that will be called with an error argument if something fails. Following are some examples:</p>
+
+<p>// Basic synchronous file copy.<br/>
+fs.copyFileSync(&quot;ch15.txt&quot;, &quot;ch15.bak&quot;);</p>
+
+<p>// The COPYFILE_EXCL argument copies only if the new file does not already<br/>
+// exist. It prevents copies from overwriting existing files.<br/>
+fs.copyFile(&quot;ch15.txt&quot;, &quot;ch16.txt&quot;, fs.constants.COPYFILE_EXCL, err =&gt; {<br/>
+    // This callback will be called when done. On error, err will be non-null.<br/>
+});</p>
+
+<p>// This code demonstrates the Promise-based version of the copyFile function.<br/>
+// Two flags are combined with the bitwise OR opeartor |. The flags mean that<br/>
+// existing files won&#39;t be overwritten, and that if the filesystem supports<br/>
+// it, the copy will be a copy-on-write clone of the original file, meaning<br/>
+// that no additional storage space will be required until either the original<br/>
+// or the copy is modified.<br/>
+fs.promises.copyFile(&quot;Important data&quot;,<br/>
+                     `Important data ${new Date().toISOString()}&quot;<br/>
+                     fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE)<br/>
+    .then(() =&gt; {<br/>
+        console.log(&quot;Backup complete&quot;);<br/>
+    });<br/>
+    .catch(err =&gt; {<br/>
+        console.error(&quot;Backup failed&quot;, err);<br/>
+    });<br/>
+The fs.rename() function (along with the usual synchronous and Promise-based variants) moves and/or renames a file. Call it with the current path to the file and the desired new path to the file. There is no flags argument, but the callback-based version takes a callback as the third argument:</p>
+
+<p>fs.renameSync(&quot;ch15.bak&quot;, &quot;backups/ch15.bak&quot;);<br/>
+Note that there is no flag to prevent renaming from overwriting an existing file. Also keep in mind that files can only be renamed within a filesystem.</p>
+
+<p>The functions fs.link() and fs.symlink() and their variants have the same signatures as fs.rename() and behave something like fs.copyFile() except that they create hard links and symbolic links, respectively, rather than creating a copy.</p>
+
+<p>Finally, fs.unlink(), fs.unlinkSync(), and fs.promises.unlink() are Node’s functions for deleting a file. (The unintuitive naming is inherited from Unix where deleting a file is basically the opposite of creating a hard link to it.) Call this function with the string, buffer, or URL path to the file to be deleted, and pass a callback if you are using the callback-based version:</p>
+
+<p>fs.unlinkSync(&quot;backups/ch15.bak&quot;);</p>
+
+<h3 id="toc_21">16.7.5 File Metadata</h3>
+
+<p>The fs.stat(), fs.statSync(), and fs.promises.stat() functions allow you to obtain metadata for a specified file or directory. For example:</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+let stats = fs.statSync(&quot;book/ch15.md&quot;);<br/>
+stats.isFile()         // =&gt; true: this is an ordinary file<br/>
+stats.isDirectory()    // =&gt; false: it is not a directory<br/>
+stats.size             // file size in bytes<br/>
+stats.atime            // access time: Date when it was last read<br/>
+stats.mtime            // modification time: Date when it was last written<br/>
+stats.uid              // the user id of the file&#39;s owner<br/>
+stats.gid              // the group id of the file&#39;s owner<br/>
+stats.mode.toString(8) // the file&#39;s permissions, as an octal string<br/>
+The returned Stats object contains other, more obscure properties and methods, but this code demonstrates those that you are most likely to use.</p>
+
+<p>fs.lstat() and its variants work just like fs.stat(), except that if the specified file is a symbolic link, Node will return metadata for the link itself rather than following the link.</p>
+
+<p>If you have opened a file to produce a file descriptor or a FileHandle object, then you can use fs.fstat() or its variants to get metadata information for the opened file without having to specify the filename again.</p>
+
+<p>In addition to querying metadata with fs.stat() and all of its variants, there are also functions for changing metadata.</p>
+
+<p>fs.chmod(), fs.lchmod(), and fs.fchmod() (along with synchronous and Promise-based versions) set the “mode” or permissions of a file or directory. Mode values are integers in which each bit has a specific meaning and are easiest to think about in octal notation. For example, to make a file read-only to its owner and inaccessible to everyone else, use 0o400:</p>
+
+<p>fs.chmodSync(&quot;ch15.md&quot;, 0o400);  // Don&#39;t delete it accidentally!<br/>
+fs.chown(), fs.lchown(), and fs.fchown() (along with synchronous and Promise-based versions) set the owner and group (as IDs) for a file or directory. (These matter because they interact with the file permissions set by fs.chmod().)</p>
+
+<p>Finally, you can set the access time and modification time of a file or directory with fs.utimes() and fs.futimes() and their variants.</p>
+
+<h3 id="toc_22">16.7.6 Working with Directories</h3>
+
+<p>To create a new directory in Node, use fs.mkdir(), fs.mkdirSync(), or fs.promises.mkdir(). The first argument is the path of the directory to be created. The optional second argument can be an integer that specifies the mode (permissions bits) for the new directory. Or you can pass an object with optional mode and recursive properties. If recursive is true, then this function will create any directories in the path that do not already exist:</p>
+
+<p>// Ensure that dist/ and dist/lib/ both exist.<br/>
+fs.mkdirSync(&quot;dist/lib&quot;, { recursive: true });<br/>
+fs.mkdtemp() and its variants take a path prefix you provide, append some random characters to it (this is important for security), create a directory with that name, and return (or pass to a callback) the directory path to you.</p>
+
+<p>To delete a directory, use fs.rmdir() or one of its variants. Note that directories must be empty before they can be deleted:</p>
+
+<p>// Create a random temporary directory and get its path, then<br/>
+// delete it when we are done<br/>
+let tempDirPath;<br/>
+try {<br/>
+    tempDirPath = fs.mkdtempSync(path.join(os.tmpdir(), &quot;d&quot;));<br/>
+    // Do something with the directory here<br/>
+} finally {<br/>
+    // Delete the temporary directory when we&#39;re done with it<br/>
+    fs.rmdirSync(tempDirPath);<br/>
+}<br/>
+The “fs” module provides two distinct APIs for listing the contents of a directory. First, fs.readdir(), fs.readdirSync(), and fs.promises.readdir() read the entire directory all at once and give you an array of strings or an array of Dirent objects that specify the names and types (file or directory) of each item. Filenames returned by these functions are just the local name of the file, not the entire path. Here are examples:</p>
+
+<p>let tempFiles = fs.readdirSync(&quot;/tmp&quot;);  // returns an array of strings</p>
+
+<p>// Use the Promise-based API to get a Dirent array, and then<br/>
+// print the paths of subdirectories<br/>
+fs.promises.readdir(&quot;/tmp&quot;, {withFileTypes: true})<br/>
+    .then(entries =&gt; {<br/>
+        entries.filter(entry =&gt; entry.isDirectory())<br/>
+            .map(entry =&gt; entry.name)<br/>
+            .forEach(name =&gt; console.log(path.join(&quot;/tmp/&quot;, name)));<br/>
+    })<br/>
+    .catch(console.error);<br/>
+If you anticipate needing to list directories that might have thousands of entries, you might prefer the streaming approach of fs.opendir() and its variants. These functions return a Dir object representing the specified directory. You can use the read() or readSync() methods of the Dir object to read one Dirent at a time. If you pass a callback function to read(), it will call the callback. And if you omit the callback argument, it will return a Promise. When there are no more directory entries, you’ll get null instead of a Dirent object.</p>
+
+<p>The easiest way to use Dir objects is as async iterators with a for/await loop. Here, for example, is a function that uses the streaming API to list directory entries, calls stat() on each entry, and prints file and directory names and sizes:</p>
+
+<p>const fs = require(&quot;fs&quot;);<br/>
+const path = require(&quot;path&quot;);</p>
+
+<p>async function listDirectory(dirpath) {<br/>
+    let dir = await fs.promises.opendir(dirpath);<br/>
+    for await (let entry of dir) {<br/>
+        let name = entry.name;<br/>
+        if (entry.isDirectory()) {<br/>
+            name += &quot;/&quot;;  // Add a trailing slash to subdirectories<br/>
+        }<br/>
+        let stats = await fs.promises.stat(path.join(dirpath, name));<br/>
+        let size = stats.size;<br/>
+        console.log(String(size).padStart(10), name);<br/>
+    }<br/>
+}</p>
+
+<h2 id="toc_23">16.8 HTTP Clients and Servers</h2>
+
+<p>Node’s “http,” “https,” and “http2” modules are full-featured but relatively low-level implementations of the HTTP protocols. They define comprehensive APIs for implementing HTTP clients and servers. Because the APIs are relatively low-level, there is not room in this chapter to cover all the features. But the examples that follow demonstrate how to write basic clients and servers.</p>
+
+<p>The simplest way to make a basic HTTP GET request is with http.get() or https.get(). The first argument to these functions is the URL to fetch. (If it is an http:// URL, you must use the “http” module, and if it is an https:// URL you must use the “https” module.) The second argument is a callback that will be invoked with an IncomingMessage object when the server’s response has started to arrive. When the callback is called, the HTTP status and headers are available, but the body may not be ready yet. The IncomingMessage object is a Readable stream, and you can use the techniques demonstrated earlier in this chapter to read the response body from it.</p>
+
+<p>The getJSON() function at the end of §13.2.6 used the http.get() function as part of a demonstration of the Promise() constructor. Now that you know about Node streams and the Node programming model more generally, it is worth revisiting that example to see how http.get() is used.</p>
+
+<p>http.get() and https.get() are slightly simplified variants of the more general http.request() and https.request() functions. The following postJSON() function demonstrates how to use https.request() to make an HTTPS POST request that includes a JSON request body. Like the getJSON() function of Chapter 13, it expects a JSON response and returns a Promise that fulfills to the parsed version of that response:</p>
+
+<p>const https = require(&quot;https&quot;);</p>
+
+<p>/*<br/>
+ * Convert the body object to a JSON string then HTTPS POST it to the<br/>
+ * specified API endpoint on the specified host. When the response arrives,<br/>
+ * parse the response body as JSON and resolve the returned Promise with<br/>
+ * that parsed value.<br/>
+ */<br/>
+function postJSON(host, endpoint, body, port, username, password) {<br/>
+    // Return a Promise object immediately, then call resolve or reject<br/>
+    // when the HTTPS request succeeds or fails.<br/>
+    return new Promise((resolve, reject) =&gt; {<br/>
+        // Convert the body object to a string<br/>
+        let bodyText = JSON.stringify(body);</p>
+
+<pre><code class="language-text">    // Configure the HTTPS request
+    let requestOptions = {
+        method: &quot;POST&quot;,       // Or &quot;GET&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, etc.
+        host: host,           // The host to connect to
+        path: endpoint,       // The URL path
+        headers: {            // HTTP headers for the request
+            &quot;Content-Type&quot;: &quot;application/json&quot;,
+            &quot;Content-Length&quot;: Buffer.byteLength(bodyText)
+        }
+    };
+
+    if (port) {                      // If a port is specified,
+        requestOptions.port = port;  // use it for the request.
+    }
+    // If credentials are specified, add an Authorization header.
+    if (username &amp;&amp; password) {
+        requestOptions.auth = `${username}:${password}`;
+    }
+
+    // Now create the request based on the configuration object
+    let request = https.request(requestOptions);
+
+    // Write the body of the POST request and end the request.
+    request.write(bodyText);
+    request.end();
+
+    // Fail on request errors (such as no network connection)
+    request.on(&quot;error&quot;, e =&gt; reject(e));
+
+    // Handle the response when it starts to arrive.
+    request.on(&quot;response&quot;, response =&gt; {
+        if (response.statusCode !== 200) {
+            reject(new Error(`HTTP status ${response.statusCode}`));
+            // We don&#39;t care about the response body in this case, but
+            // we don&#39;t want it to stick around in a buffer somewhere, so
+            // we put the stream into flowing mode without registering
+            // a &quot;data&quot; handler so that the body is discarded.
+            response.resume();
+            return;
+        }
+
+        // We want text, not bytes. We&#39;re assuming the text will be
+        // JSON-formatted but aren&#39;t bothering to check the
+        // Content-Type header.
+        response.setEncoding(&quot;utf8&quot;);
+
+        // Node doesn&#39;t have a streaming JSON parser, so we read the
+        // entire response body into a string.
+        let body = &quot;&quot;;
+        response.on(&quot;data&quot;, chunk =&gt; { body += chunk; });
+
+        // And now handle the response when it is complete.
+        response.on(&quot;end&quot;, () =&gt; {          // When the response is done,
+            try {                           // try to parse it as JSON
+                resolve(JSON.parse(body));  // and resolve the result.
+            } catch(e) {                    // Or, if anything goes wrong,
+                reject(e);                  // reject with the error
+            }
+        });
+    });
+});
+</code></pre>
+
+<p>}<br/>
+In addition to making HTTP and HTTPS requests, the “http” and “https” modules also allow you to write servers that respond to those requests. The basic approach is as follows:</p>
+
+<p>Create a new Server object.</p>
+
+<p>Call its listen() method to begin listening for requests on a specified port.</p>
+
+<p>Register an event handler for “request” events, use that handler to read the client’s request (particularly the request.url property), and write your response.</p>
+
+<p>The code that follows creates a simple HTTP server that serves static files from the local filesystem and also implements a debugging endpoint that responds to a client’s request by echoing that request.</p>
+
+<p>// This is a simple static HTTP server that serves files from a specified<br/>
+// directory. It also implements a special /test/mirror endpoint that<br/>
+// echoes the incoming request, which can be useful when debugging clients.<br/>
+const http = require(&quot;http&quot;);   // Use &quot;https&quot; if you have a certificate<br/>
+const url = require(&quot;url&quot;);     // For parsing URLs<br/>
+const path = require(&quot;path&quot;);   // For manipulating filesystem paths<br/>
+const fs = require(&quot;fs&quot;);       // For reading files</p>
+
+<p>// Serve files from the specified root directory via an HTTP server that<br/>
+// listens on the specified port.<br/>
+function serve(rootDirectory, port) {<br/>
+    let server = new http.Server();  // Create a new HTTP server<br/>
+    server.listen(port);             // Listen on the specified port<br/>
+    console.log(&quot;Listening on port&quot;, port);</p>
+
+<pre><code class="language-text">// When requests come in, handle them with this function
+server.on(&quot;request&quot;, (request, response) =&gt; {
+    // Get the path portion of the request URL, ignoring
+    // any query parameters that are appended to it.
+    let endpoint = url.parse(request.url).pathname;
+
+    // If the request was for &quot;/test/mirror&quot;, send back the request
+    // verbatim. Useful when you need to see the request headers and body.
+    if (endpoint === &quot;/test/mirror&quot;) {
+        // Set response header
+        response.setHeader(&quot;Content-Type&quot;, &quot;text/plain; charset=UTF-8&quot;);
+
+        // Specify response status code
+        response.writeHead(200);  // 200 OK
+
+        // Begin the response body with the request
+        response.write(`${request.method} ${request.url} HTTP/${
+                           request.httpVersion
+                       }\r\n`);
+
+        // Output the request headers
+        let headers = request.rawHeaders;
+        for(let i = 0; i &lt; headers.length; i += 2) {
+            response.write(`${headers[i]}: ${headers[i+1]}\r\n`);
+        }
+
+        // End headers with an extra blank line
+        response.write(&quot;\r\n&quot;);
+
+        // Now we need to copy any request body to the response body
+        // Since they are both streams, we can use a pipe
+        request.pipe(response);
+    }
+    // Otherwise, serve a file from the local directory.
+    else {
+        // Map the endpoint to a file in the local filesystem
+        let filename = endpoint.substring(1); // strip leading /
+        // Don&#39;t allow &quot;../&quot; in the path because it would be a security
+        // hole to serve anything outside the root directory.
+        filename = filename.replace(/\.\.\//g, &quot;&quot;);
+        // Now convert from relative to absolute filename
+        filename = path.resolve(rootDirectory, filename);
+
+        // Now guess the type file&#39;s content type based on extension
+        let type;
+        switch(path.extname(filename))  {
+        case &quot;.html&quot;:
+        case &quot;.htm&quot;: type = &quot;text/html&quot;; break;
+        case &quot;.js&quot;:  type = &quot;text/javascript&quot;; break;
+        case &quot;.css&quot;: type = &quot;text/css&quot;; break;
+        case &quot;.png&quot;: type = &quot;image/png&quot;; break;
+        case &quot;.txt&quot;: type = &quot;text/plain&quot;; break;
+        default:     type = &quot;application/octet-stream&quot;; break;
+        }
+
+        let stream = fs.createReadStream(filename);
+        stream.once(&quot;readable&quot;, () =&gt; {
+            // If the stream becomes readable, then set the
+            // Content-Type header and a 200 OK status. Then pipe the
+            // file reader stream to the response. The pipe will
+            // automatically call response.end() when the stream ends.
+            response.setHeader(&quot;Content-Type&quot;, type);
+            response.writeHead(200);
+            stream.pipe(response);
+        });
+
+        stream.on(&quot;error&quot;, (err) =&gt; {
+            // Instead, if we get an error trying to open the stream
+            // then the file probably does not exist or is not readable.
+            // Send a 404 Not Found plain-text response with the
+            // error message.
+            response.setHeader(&quot;Content-Type&quot;, &quot;text/plain; charset=UTF-8&quot;);
+            response.writeHead(404);
+            response.end(err.message);
+        });
+    }
+});
+</code></pre>
+
+<p>}</p>
+
+<p>// When we&#39;re invoked from the command line, call the serve() function<br/>
+serve(process.argv[2] || &quot;/tmp&quot;, parseInt(process.argv[3]) || 8000);<br/>
+Node’s built-in modules are all you need to write simple HTTP and HTTPS servers. Note, however, that production servers are not typically built directly on top of these modules. Instead, most nontrivial servers are implemented using external libraries—such as the Express framework—that provide “middleware” and other higher-level utilities that backend web developers have come to expect.</p>
+
+<h2 id="toc_24">16.9 Non-HTTP Network Servers and Clients</h2>
+
+<p>Web servers and clients have become so ubiquitous that it is easy to forget that it is possible to write clients and servers that do not use HTTP. Even though Node has a reputation as a good environment for writing web servers, Node also has full support for writing other types of network servers and clients.</p>
+
+<p>If you are comfortable working with streams, then networking is relatively simple, because network sockets are simply a kind of Duplex stream. The “net” module defines Server and Socket classes. To create a server, call net.createServer(), then call the listen() method of the resulting object to tell the server what port to listen on for connections. The Server object will generate “connection” events when a client connects on that port, and the value passed to the event listener will be a Socket object. The Socket object is a Duplex stream, and you can use it to read data from the client and write data to the client. Call end() on the Socket to disconnect.</p>
+
+<p>Writing a client is even easier: pass a port number and hostname to net.createConnection() to create a socket to communicate with whatever server is running on that host and listening on that port. Then use that socket to read and write data from and to the server.</p>
+
+<p>The following code demonstrates how to write a server with the “net” module. When the client connects, the server tells a knock-knock joke:</p>
+
+<p>// A TCP server that delivers interactive knock-knock jokes on port 6789.<br/>
+// (Why is six afraid of seven? Because seven ate nine!)<br/>
+const net = require(&quot;net&quot;);<br/>
+const readline = require(&quot;readline&quot;);</p>
+
+<p>// Create a Server object and start listening for connections<br/>
+let server = net.createServer();<br/>
+server.listen(6789, () =&gt; console.log(&quot;Delivering laughs on port 6789&quot;));</p>
+
+<p>// When a client connects, tell them a knock-knock joke.<br/>
+server.on(&quot;connection&quot;, socket =&gt; {<br/>
+    tellJoke(socket)<br/>
+        .then(() =&gt; socket.end())  // When the joke is done, close the socket.<br/>
+        .catch((err) =&gt; {<br/>
+            console.error(err);    // Log any errors that occur,<br/>
+            socket.end();          // but still close the socket!<br/>
+        });<br/>
+});</p>
+
+<p>// These are all the jokes we know.<br/>
+const jokes = {<br/>
+    &quot;Boo&quot;: &quot;Don&#39;t cry...it&#39;s only a joke!&quot;,<br/>
+    &quot;Lettuce&quot;: &quot;Let us in! It&#39;s freezing out here!&quot;,<br/>
+    &quot;A little old lady&quot;: &quot;Wow, I didn&#39;t know you could yodel!&quot;<br/>
+};</p>
+
+<p>// Interactively perform a knock-knock joke over this socket, without blocking.<br/>
+async function tellJoke(socket) {<br/>
+    // Pick one of the jokes at random<br/>
+    let randomElement = a =&gt; a[Math.floor(Math.random() * a.length)];<br/>
+    let who = randomElement(Object.keys(jokes));<br/>
+    let punchline = jokes[who];</p>
+
+<pre><code class="language-text">// Use the readline module to read the user&#39;s input one line at a time.
+let lineReader = readline.createInterface({
+    input: socket,
+    output: socket,
+    prompt: &quot;&gt;&gt; &quot;
+});
+
+// A utility function to output a line of text to the client
+// and then (by default) display a prompt.
+function output(text, prompt=true) {
+    socket.write(`${text}\r\n`);
+    if (prompt) lineReader.prompt();
+}
+
+// Knock-knock jokes have a call-and-response structure.
+// We expect different input from the user at different stages and
+// take different action when we get that input at different stages.
+let stage = 0;
+
+// Start the knock-knock joke off in the traditional way.
+output(&quot;Knock knock!&quot;);
+
+// Now read lines asynchronously from the client until the joke is done.
+for await (let inputLine of lineReader) {
+    if (stage === 0) {
+        if (inputLine.toLowerCase() === &quot;who&#39;s there?&quot;) {
+            // If the user gives the right response at stage 0
+            // then tell the first part of the joke and go to stage 1.
+            output(who);
+            stage = 1;
+        } else  {
+            // Otherwise teach the user how to do knock-knock jokes.
+            output(&#39;Please type &quot;Who\&#39;s there?&quot;.&#39;);
+        }
+    } else if (stage === 1) {
+        if (inputLine.toLowerCase() === `${who.toLowerCase()} who?`) {
+            // If the user&#39;s response is correct at stage 1, then
+            // deliver the punchline and return since the joke is done.
+            output(`${punchline}`, false);
+            return;
+        } else {
+            // Make the user play along.
+            output(`Please type &quot;${who} who?&quot;.`);
+        }
+    }
+}
+</code></pre>
+
+<p>}<br/>
+Simple text-based servers like this do not typically need a custom client. If the nc (“netcat”) utility is installed on your system, you can use it to communicate with this server as follows:</p>
+
+<p>$ nc localhost 6789<br/>
+Knock knock!</p>
+
+<blockquote>
+<blockquote>
+<p>Who&#39;s there?<br/>
+A little old lady<br/>
+A little old lady who?<br/>
+Wow, I didn&#39;t know you could yodel!<br/>
+On the other hand, writing a custom client for the joke server is easy in Node. We just connect to the server, then pipe the server’s output to stdout and pipe stdin to the server’s input:</p>
+</blockquote>
+</blockquote>
+
+<p>// Connect to the joke port (6789) on the server named on the command line<br/>
+let socket = require(&quot;net&quot;).createConnection(6789, process.argv[2]);<br/>
+socket.pipe(process.stdout);              // Pipe data from the socket to stdout<br/>
+process.stdin.pipe(socket);               // Pipe data from stdin to the socket<br/>
+socket.on(&quot;close&quot;, () =&gt; process.exit()); // Quit when the socket closes.<br/>
+In addition to supporting TCP-based servers, Node’s “net” module also supports interprocess communication over “Unix domain sockets” that are identified by a filesystem path rather than by a port number. We are not going to cover that kind of socket in this chapter, but the Node documentation has details. Other Node features that we don’t have space to cover here include the “dgram” module for UDP-based clients and servers and the “tls” module that is to “net” as “https” is to “http.” The tls.Server and tls.TLSSocket classes allow the creation of TCP servers (like the knock-knock joke server) that use SSL-encrypted connections like HTTPS servers do.</p>
+
+<h2 id="toc_25">16.10 Working with Child Processes</h2>
+
+<p>In addition to writing highly concurrent servers, Node also works well for writing scripts that execute other programs. In Node the “child_process” module defines a number of functions for running other programs as child processes. This section demonstrates some of those functions, starting with the simplest and moving to the more complicated.</p>
+
+<h3 id="toc_26">16.10.1 execSync() and execFileSync()</h3>
+
+<p>The easiest way to run another program is with child_process.execSync(). This function takes the command to run as its first argument. It creates a child process, runs a shell in that process, and uses the shell to execute the command you passed. Then it blocks until the command (and the shell) exit. If the command exits with an error, then execSync() throws an exception. Otherwise, execSync() returns whatever output the command writes to its stdout stream. By default this return value is a buffer, but you can specify an encoding in an optional second argument to get a string instead. If the command writes any output to stderr, that output just gets passed through to the parent process’s stderr stream.</p>
+
+<p>So, for example, if you are writing a script and performance is not a concern, you might use child_process.execSync() to list a directory with a familiar Unix shell command rather than using the fs.readdirSync() function:</p>
+
+<p>const child_process = require(&quot;child_process&quot;);<br/>
+let listing = child_process.execSync(&quot;ls -l web/*.html&quot;, {encoding: &quot;utf8&quot;});<br/>
+The fact that execSync() invokes a full Unix shell means that the string you pass to it can include multiple semicolon-separated commands, and can take advantage of shell features such as filename wildcards, pipes, and output redirection. This also means that you must be careful to never pass a command to execSync() if any portion of that command is user input or comes from a similar untrusted source. The complex syntax of shell commands can be easily subverted to allow an attacker to run arbitrary code.</p>
+
+<p>If you don’t need the features of a shell, you can avoid the overhead of starting a shell by using child_process.execFileSync(). This function executes a program directly, without invoking a shell. But since no shell is involved, it can’t parse a command line, and you must pass the executable as the first argument and an array of command-line arguments as the second argument:</p>
+
+<p>let listing = child_process.execFileSync(&quot;ls&quot;, [&quot;-l&quot;, &quot;web/&quot;],<br/>
+                                         {encoding: &quot;utf8&quot;});<br/>
+CHILD PROCESS OPTIONS<br/>
+execSync() and many of the other child_process functions have a second or third optional argument that specifies additional details about how the child process is to run. The encoding property of this object was used earlier to specify that we’d like the command output to be delivered as a string rather than as a buffer. Other important properties that you can specify include the following (note that not all options are available to all child process functions):</p>
+
+<p>cwd specifies the working directory for the child process. If you omit this, then the child process inherits the value of process.cwd().</p>
+
+<p>env specifies the environment variables that the child process will have access to. By default, child processes simply inherit process.env, but you can specify a different object if you want.</p>
+
+<p>input specifies a string or buffer of input data that should be used as the standard input to the child process. This option is only available to the synchronous functions that do not return a ChildProcess object.</p>
+
+<p>maxBuffer specifies the maximum number of bytes of output that will be collected by the exec functions. (It does not apply to spawn() and fork(), which use streams.) If a child process produces more output than this, it will be killed and will exit with an error.</p>
+
+<p>shell specifies the path to a shell executable or true. For child process functions that normally execute a shell command, this option allows you to specify which shell to use. For functions that do not normally use a shell, this option allows you to specify that a shell should be used (by setting the property to true) or to specify exactly which shell to use.</p>
+
+<p>timeout specifies the maximum number of milliseconds that the child process should be allowed to run. If it has not exited before this time elapses, it will be killed and will exit with an error. (This option applies to the exec functions but not to spawn() or fork().)</p>
+
+<p>uid specifies the user ID (a number) under which the program should be run. If the parent process is running in a privileged account, it can use this option to run the child with reduced privileges.</p>
+
+<h3 id="toc_27">16.10.2 exec() and execFile()</h3>
+
+<p>The execSync() and execFileSync() functions are, as their names indicate, synchronous: they block and do not return until the child process exits. Using these functions is a lot like typing Unix commands in a terminal window: they allow you to run a sequence of commands one at a time. But if you’re writing a program that needs to accomplish a number of tasks, and those tasks don’t depend on each other in any way, then you may want to parallelize them and run multiple commands at the same time. You can do this with the asynchronous functions child_process.exec() and child_process.execFile().</p>
+
+<p>exec() and execFile() are like their synchronous variants except that they return immediately with a ChildProcess object that represents the running child process, and they take an error-first callback as their final argument. The callback is invoked when the child process exits, and it is actually called with three arguments. The first is the error, if any; it will be null if the process terminated normally. The second argument is the collected output that was sent to the child’s standard output stream. And the third argument is any output that was sent to the child’s standard error stream.</p>
+
+<p>The ChildProcess object returned by exec() and execFile() allows you to terminate the child process, and to write data to it (which it can then read from its standard input). We’ll cover ChildProcess in more detail when we discuss the child_process.spawn() function.</p>
+
+<p>If you plan to execute multiple child processes at the same time, then it may be easiest to use the “promisified” version of exec() which returns a Promise object which, if the child process exits without error, resolves to an object with stdout and stderr properties. Here, for example, is a function that takes an array of shell commands as its input and returns a Promise that resolves to the result of all of those commands:</p>
+
+<p>const child_process = require(&quot;child_process&quot;);<br/>
+const util = require(&quot;util&quot;);<br/>
+const execP = util.promisify(child_process.exec);</p>
+
+<p>function parallelExec(commands) {<br/>
+    // Use the array of commands to create an array of Promises<br/>
+    let promises = commands.map(command =&gt; execP(command, {encoding: &quot;utf8&quot;}));<br/>
+    // Return a Promise that will fulfill to an array of the fulfillment<br/>
+    // values of each of the individual promises. (Instead of returning objects<br/>
+    // with stdout and stderr properties we just return the stdout value.)<br/>
+    return Promise.all(promises)<br/>
+        .then(outputs =&gt; outputs.map(out =&gt; out.stdout));<br/>
+}</p>
+
+<p>module.exports = parallelExec;</p>
+
+<h3 id="toc_28">16.10.3 spawn()</h3>
+
+<p>The various exec functions described so far—both synchronous and asynchronous—are designed to be used with child processes that run quickly and do not produce a lot of output. Even the asynchronous exec() and execFile() are nonstreaming: they return the process output in a single batch, only after the process has exited.</p>
+
+<p>The child_process.spawn() function allows you streaming access to the output of the child process, while the process is still running. It also allows you to write data to the child process (which will see that data as input on its standard input stream): this means it is possible to dynamically interact with a child process, sending it input based on the output it generates.</p>
+
+<p>spawn() does not use a shell by default, so you must invoke it like execFile() with the executable to be run and a separate array of command-line arguments to pass to it. spawn() returns a ChildProcess object like execFile() does, but it does not take a callback argument. Instead of using a callback function, you listen to events on the ChildProcess object and on its streams.</p>
+
+<p>The ChildProcess object returned by spawn() is an event emitter. You can listen for the “exit” event to be notified when the child process exits. A ChildProcess object also has three stream properties. stdout and stderr are Readable streams: when the child process writes to its stdout and its stderr streams, that output becomes readable through the ChildProcess streams. Note the inversion of the names here. In the child process, “stdout” is a Writable output stream, but in the parent process, the stdout property of a ChildProcess object is a Readable input stream.</p>
+
+<p>Similarly, the stdin property of the ChildProcess object is a Writeable stream: anything you write to this stream becomes available to the child process on its standard input.</p>
+
+<p>The ChildProcess object also defines a pid property that specifies the process id of the child. And it defines a kill() method that you can use to terminate a child process.</p>
+
+<h3 id="toc_29">16.10.4 fork()</h3>
+
+<p>child_process.fork() is a specialized function for running a module of JavaScript code in a child Node process. fork() expects the same arguments as spawn(), but the first argument should specify the path to a file of JavaScript code instead of an executable binary file.</p>
+
+<p>A child process created with fork() can communicate with the parent process via its standard input and standard output streams, as described in the previous section for spawn(). But in addition, fork() enables another, much easier, communication channel between the parent and child processes.</p>
+
+<p>When you create a child process with fork(), you can use the send() method of the returned ChildProcess object to send a copy of an object to the child process. And you can listen for the “message” event on the ChildProcess to receive messages from the child. The code running in the child process can use process.send() to send a message to the parent and can listen for “message” events on process to receive messages from the parent.</p>
+
+<p>Here, for example, is some code that uses fork() to create a child process, then sends that child a message and waits for a response:</p>
+
+<p>const child_process = require(&quot;child_process&quot;);</p>
+
+<p>// Start a new node process running the code in child.js in our directory<br/>
+let child = child_process.fork(<code>${__dirname}/child.js</code>);</p>
+
+<p>// Send a message to the child<br/>
+child.send({x: 4, y: 3});</p>
+
+<p>// Print the child&#39;s response when it arrives.<br/>
+child.on(&quot;message&quot;, message =&gt; {<br/>
+    console.log(message.hypotenuse); // This should print &quot;5&quot;<br/>
+    // Since we only send one message we only expect one response.<br/>
+    // After we receive it we call disconnect() to terminate the connection<br/>
+    // between parent and child. This allows both processes to exit cleanly.<br/>
+    child.disconnect();<br/>
+});<br/>
+And here is the code that runs in the child process:</p>
+
+<p>// Wait for messages from our parent process<br/>
+process.on(&quot;message&quot;, message =&gt; {<br/>
+    // When we receive one, do a calculation and send the result<br/>
+    // back to the parent.<br/>
+    process.send({hypotenuse: Math.hypot(message.x, message.y)});<br/>
+});<br/>
+Starting child processes is an expensive operation, and the child process would have to be doing orders of magnitude more computation before it would make sense to use fork() and interprocess communication in this way. If you are writing a program that needs to be very responsive to incoming events and also needs to perform time-consuming computations, then you might consider using a separate child process to perform the computations so that they don’t block the event loop and reduce the responsiveness of the parent process. (Though a thread—see §16.11—may be a better choice than a child process in this scenario.)</p>
+
+<p>The first argument to send() will be serialized with JSON.stringify() and deserialized in the child process with JSON.parse(), so you should only include values that are supported by the JSON format. send() has a special second argument, however, that allows you to transfer Socket and Server objects (from the “net” module) to a child process. Network servers tend to be IO-bound rather than compute-bound, but if you have written a server that needs to do more computation than a single CPU can handle, and if you’re running that server on a machine with multiple CPUs, then you could use fork() to create multiple child processes for handling requests. In the parent process, you might listen for “connection” events on your Server object, then get the Socket object from that “connection” event and send() it—using the special second argument—to one of the child processes to be handled. (Note that this is an unlikely solution to an uncommon scenario. Rather than writing a server that forks child processes, it is probably simpler to keep your server single-threaded and deploy multiple instances of it in production to handle the load.)</p>
+
+<h2 id="toc_30">16.11 Worker Threads</h2>
+
+<p>As explained at the beginning of this chapter, Node’s concurrency model is single-threaded and event-based. But in version 10 and later, Node does allow true multithreaded programming, with an API that closely mirrors the Web Workers API defined by web browsers (§15.13). Multithreaded programming has a well-deserved reputation for being difficult. This is almost entirely because of the need to carefully synchronize access by threads to shared memory. But JavaScript threads (in both Node and browsers) do not share memory by default, so the dangers and difficulties of using threads do not apply to these “workers” in JavaScript.</p>
+
+<p>Instead of using shared memory, JavaScript’s worker threads communicate by message passing. The main thread can send a message to a worker thread by calling the postMessage() method of the Worker object that represents that thread. The worker thread can receive messages from its parent by listening for “message” events. And workers can send messages to the main thread with their own version of postMessage(), which the parent can receive with its own “message” event handler. The example code will make it clear how this works.</p>
+
+<p>There are three reasons why you might want to use worker threads in a Node application:</p>
+
+<p>If your application actually needs to do more computation than one CPU core can handle, then threads allow you to distribute work across the multiple cores, which have become commonplace on computers today. If you’re doing scientific computing or machine learning or graphics processing in Node, then you may want to use threads simply to throw more computing power at your problem.</p>
+
+<p>Even if your application is not using the full power of one CPU, you may still want to use threads to maintain the responsiveness of the main thread. Consider a server that handles large but relatively infrequent requests. Suppose it gets only one request a second, but needs to spend about half a second of (blocking CPU-bound) computation to process each request. On average, it will be idle 50% of the time. But when two requests arrive within a few milliseconds of each other, the server will not even be able to begin a response to the second request until the computation of the first response is complete. Instead, if the server uses a worker thread to perform the computation, the server can begin the response to both requests immediately and provide a better experience for the server’s clients. Assuming the server has more than one CPU core, it can also compute the body of both responses in parallel, but even if there is only a single core, using workers still improves the responsiveness.</p>
+
+<p>In general, workers allow us to turn blocking synchronous operations into nonblocking asynchronous operations. If you are writing a program that depends on legacy code that is unavoidably synchronous, you may be able to use workers to avoid blocking when you need to call that legacy code.</p>
+
+<p>Worker threads are not nearly as heavyweight as child processes, but they are not lightweight. It does not generally make sense to create a worker unless you have significant work for it to do. And, generally speaking, if your program is not CPU-bound and is not having responsiveness problems, then you probably do not need worker threads.</p>
+
+<h3 id="toc_31">16.11.1 Creating Workers and Passing Messages</h3>
+
+<p>The Node module that defines workers is known as “worker_threads.” In this section we’ll refer to it with the identifier threads:</p>
+
+<p>const threads = require(&quot;worker_threads&quot;);<br/>
+This module defines a Worker class to represent a worker thread, and you can create a new thread with the threads.Worker() constructor. The following code demonstrates using this constructor to create a worker, and shows how to pass messages from main thread to worker and from worker to main thread. It also demonstrates a trick that allows you to put the main thread code and the worker thread code in the same file.2</p>
+
+<p>const threads = require(&quot;worker_threads&quot;);</p>
+
+<p>// The worker_threads module exports the boolean isMainThread property.<br/>
+// This property is true when Node is running the main thread and it is<br/>
+// false when Node is running a worker. We can use this fact to implement<br/>
+// the main and worker threads in the same file.<br/>
+if (threads.isMainThread) {<br/>
+    // If we&#39;re running in the main thread, then all we do is export<br/>
+    // a function. Instead of performing a computationally intensive<br/>
+    // task on the main thread, this function passes the task to a worker<br/>
+    // and returns a Promise that will resolve when the worker is done.<br/>
+    module.exports = function reticulateSplines(splines) {<br/>
+        return new Promise((resolve,reject) =&gt; {<br/>
+            // Create a worker that loads and runs this same file of code.<br/>
+            // Note the use of the special <strong>filename variable.<br/>
+            let reticulator = new threads.Worker(</strong>filename);</p>
+
+<pre><code class="language-text">        // Pass a copy of the splines array to the worker
+        reticulator.postMessage(splines);
+
+        // And then resolve or reject the Promise when we get
+        // a message or error from the worker.
+        reticulator.on(&quot;message&quot;, resolve);
+        reticulator.on(&quot;error&quot;, reject);
+    });
+};
+</code></pre>
+
+<p>} else {<br/>
+    // If we get here, it means we&#39;re in the worker, so we register a<br/>
+    // handler to get messages from the main thread. This worker is designed<br/>
+    // to only receive a single message, so we register the event handler<br/>
+    // with once() instead of on(). This allows the worker to exit naturally<br/>
+    // when its work is complete.<br/>
+    threads.parentPort.once(&quot;message&quot;, splines =&gt; {<br/>
+        // When we get the splines from the parent thread, loop<br/>
+        // through them and reticulate all of them.<br/>
+        for(let spline of splines) {<br/>
+            // For the sake of example, assume that spline objects usually<br/>
+            // have a reticulate() method that does a lot of computation.<br/>
+            spline.reticulate ? spline.reticulate() : spline.reticulated = true;<br/>
+        }</p>
+
+<pre><code class="language-text">    // When all the splines have (finally!) been reticulated
+    // pass a copy back to the main thread.
+    threads.parentPort.postMessage(splines);
+});
+</code></pre>
+
+<p>}<br/>
+The first argument to the Worker() constructor is the path to a file of JavaScript code that is to run in the thread. In the preceding code, we used the predefined <strong>filename identifier to create a worker that loads and runs the same file as the main thread. In general, though, you will be passing a file path. Note that if you specify a relative path, it is relative to process.cwd(), not relative to the currently running module. If you want a path relative to the current module, use something like path.resolve(</strong>dirname, &#39;workers/reticulator.js&#39;).</p>
+
+<p>The Worker() constructor can also accept an object as its second argument, and the properties of this object provide optional configuration for the worker. We’ll cover a number of these options later, but for now note that if you pass {eval: true} as the second argument, then the first argument to Worker() is interpreted as a string of JavaScript code to be evaluated instead of a filename:</p>
+
+<p>new threads.Worker(<code><br/>
+    const threads = require(&quot;worker_threads&quot;);<br/>
+    threads.parentPort.postMessage(threads.isMainThread);<br/>
+</code>, {eval: true}).on(&quot;message&quot;, console.log);  // This will print &quot;false&quot;<br/>
+Node makes a copy of the object passed to postMessage() rather than sharing it directly with the worker thread. This prevents the worker thread and the main thread from sharing memory. You might expect that this copying would be done with JSON.stringify() and JSON.parse() (§11.6). But in fact, Node borrows a more robust technique known as the structured clone algorithm from web browsers.</p>
+
+<p>The structured clone algorithm enables serialization of most JavaScript types, including Map, Set, Date, and RegExp objects and typed arrays, but it cannot, in general, copy types defined by the Node host environment, such as sockets and streams. Note, however, that Buffer objects are partially supported: if you pass a Buffer to postMessage() it will be received as a Uint8Array, and can be converted back into a Buffer with Buffer.from(). Read more about the structured clone algorithm in “The Structured Clone Algorithm”.</p>
+
+<h3 id="toc_32">16.11.2 The Worker Execution Environment</h3>
+
+<p>For the most part, JavaScript code in a Node worker thread runs just like it would in Node’s main thread. There are a few differences that you should be aware of, and some of these differences involve properties of the optional second argument to the Worker() constructor:</p>
+
+<p>As we’ve seen, threads.isMainThread is true in the main thread but is always false in any worker thread.</p>
+
+<p>In a worker thread, you can use threads.parentPort.postMessage() to send a message to the parent thread and threads.parentPort.on to register event handlers for messages from the parent thread. In the main thread, threads.parentPort is always null.</p>
+
+<p>In a worker thread, threads.workerData is set to a copy of the workerData property of the second argument to the Worker() constructor. In the main thread, this property is always null. You can use this workerData property to pass an initial message to the worker that will be available as soon as it starts so that the worker does not have to wait for a “message” event before it can start doing work.</p>
+
+<p>By default, process.env in a worker thread is a copy of process.env in the parent thread. But the parent thread can specify a custom set of environment variables by setting the env property of the second argument to the Worker() constructor. As a special (and potentially dangerous) case, the parent thread can set the env property to threads.SHARE_ENV, which will cause the two threads to share a single set of environment variables so that a change in one thread is visible in the other.</p>
+
+<p>By default, the process.stdin stream in a worker never has any readable data on it. You can change this default by passing stdin: true in the second argument to the Worker() constructor. If you do that, then the stdin property of the Worker object is a Writable stream. Any data that the parent writes to worker.stdin becomes readable on process.stdin in the worker.</p>
+
+<p>By default, the process.stdout and process.stderr streams in the worker are simply piped to the corresponding streams in the parent thread. This means, for example, that console.log() and console.error() produce output in exactly the same way in a worker thread as they do in the main thread. You can override this default by passing stdout:true or stderr:true in the second argument to the Worker() constructor. If you do this, then any output the worker writes to those streams becomes readable by the parent thread on the worker.stdout and worker.stderr threads. (There is a potentially confusing inversion of stream directions here, and we saw the same thing with with child processes earlier in the chapter: the output streams of a worker thread are input streams for the parent thread, and the input stream of a worker is an output stream for the parent.)</p>
+
+<p>If a worker thread calls process.exit(), only the thread exits, not the entire process.</p>
+
+<p>Worker threads are not allowed to change shared state of the process they are part of. Functions like process.chdir() and process.setuid() will throw exceptions when invoked from a worker.</p>
+
+<p>Operating system signals (like SIGINT and SIGTERM) are only delivered to the main thread; they cannot be received or handled in worker threads.</p>
+
+<h3 id="toc_33">16.11.3 Communication Channels and MessagePorts</h3>
+
+<p>When a new worker thread is created, a communication channel is created along with it that allows messages to be passed back and forth between the worker and the parent thread. As we’ve seen, the worker thread uses threads.parentPort to send and receive messages to and from the parent thread, and the parent thread uses the Worker object to send and receive messages to and from the worker thread.</p>
+
+<p>The worker thread API also allows the creation of custom communication channels using the MessageChannel API defined by web browsers and covered in §15.13.5. If you have read that section, much of what follows will sound familiar to you.</p>
+
+<p>Suppose a worker needs to handle two different kinds of messages sent by two different modules in the main thread. These two different modules could both share the default channel and send messages with worker.postMessage(), but it would be cleaner if each module has its own private channel for sending messages to the worker. Or consider the case where the main thread creates two independent workers. A custom communication channel can allow the two workers to communicate directly with each other instead of having to send all their messages via the parent.</p>
+
+<p>Create a new message channel with the MessageChannel() constructor. A MessageChannel object has two properties, named port1 and port2. These properties refer to a pair of MessagePort objects. Calling postMessage() on one of the ports will cause a “message” event to be generated on the other with a structured clone of the Message object:</p>
+
+<p>const threads = require(&quot;worker_threads&quot;);<br/>
+let channel = new threads.MessageChannel();<br/>
+channel.port2.on(&quot;message&quot;, console.log);  // Log any messages we receive<br/>
+channel.port1.postMessage(&quot;hello&quot;);        // Will cause &quot;hello&quot; to be printed<br/>
+You can also call close() on either port to break the connection between the two ports and to signal that no more messages will be exchanged. When close() is called on either port, a “close” event is delivered to both ports.</p>
+
+<p>Note that the code example above creates a pair of MessagePort objects and then uses those objects to transmit a message within the main thread. In order to use custom communication channels with workers, we must transfer one of the two ports from the thread in which it is created to the thread in which it will be used. The next section explains how to do this.</p>
+
+<h3 id="toc_34">16.11.4 Transferring MessagePorts and Typed Arrays</h3>
+
+<p>The postMessage() function uses the structured clone algorithm, and as we’ve noted, it cannot copy objects like SSockets and Streams. It can handle MessagePort objects, but only as a special case using a special technique. The postMessage() method (of a Worker object, of threads.parentPort, or of any MessagePort object) takes an optional second argument. This argument (called transferList) is an array of objects that are to be transferred between threads rather than being copied.</p>
+
+<p>A MessagePort object cannot be copied by the structured clone algorithm, but it can be transferred. If the first argument to postMessage() has included one or more MessagePorts (nested arbitrarily deeply within the Message object), then those MessagePort objects must also appear as members of the array passed as the second argument. Doing this tells Node that it does not need to make a copy of the MessagePort, and can instead just give the existing object to the other thread. The key thing to understand, however, about transferring values between threads is that once a value is transferred, it can no longer be used in the thread that called postMessage().</p>
+
+<p>Here is how you might create a new MessageChannel and transfer one of its MessagePorts to a worker:</p>
+
+<p>// Create a custom communication channel<br/>
+const threads = require(&quot;worker_threads&quot;);<br/>
+let channel = new threads.MessageChannel();</p>
+
+<p>// Use the worker&#39;s default channel to transfer one end of the new<br/>
+// channel to the worker. Assume that when the worker receives this<br/>
+// message it immediately begins to listen for messages on the new channel.<br/>
+worker.postMessage({ command: &quot;changeChannel&quot;, data: channel.port1 },<br/>
+                   [ channel.port1 ]);</p>
+
+<p>// Now send a message to the worker using our end of the custom channel<br/>
+channel.port2.postMessage(&quot;Can you hear me now?&quot;);</p>
+
+<p>// And listen for responses from the worker as well<br/>
+channel.port2.on(&quot;message&quot;, handleMessagesFromWorker);<br/>
+MessagePort objects are not the only ones that can be transferred. If you call postMessage() with a typed array as the message (or with a message that contains one or more typed arrays nested arbitrarily deep within the message), that typed array (or those typed arrays) will simply be copied by the structured clone algorithm. But typed arrays can be large; for example, if you are using a worker thread to do image processing on millions of pixels. So for efficiency, postMessage() also gives us the option to transfer typed arrays rather than copying them. (Threads share memory by default. Worker threads in JavaScript generally avoid shared memory, but when we allow this kind of controlled transfer, it can be done very efficiently.) What makes this safe is that when a typed array is transferred to another thread, it becomes unusable in the thread that transferred it. In the image-processing scenario, the main thread could transfer the pixels of an image to the worker thread, and then the worker thread could transfer the processed pixels back to the main thread when it was done. The memory would not need to be copied, but it would never be accessible by two threads at once.</p>
+
+<p>To transfer a typed array instead of copying it, include the ArrayBuffer that backs the array in the second argument to postMessage():</p>
+
+<p>let pixels = new Uint32Array(1024*1024);  // 4 megabytes of memory</p>
+
+<p>// Assume we read some data into this typed array, and then transfer the<br/>
+// pixels to a worker without copying. Note that we don&#39;t put the array<br/>
+// itself in the transfer list, but the array&#39;s Buffer object instead.<br/>
+worker.postMessage(pixels, [ pixels.buffer ]);<br/>
+As with transferred MessagePorts, a transferred typed array becomes unusable once transferred. No exceptions are thrown if you attempt to use a MessagePort or typed array that has been transferred; these objects simply stop doing anything when you interact with them.</p>
+
+<h3 id="toc_35">16.11.5 Sharing Typed Arrays Between Threads</h3>
+
+<p>In addition to transferring typed arrays between threads, it is actually possible to share a typed array between threads. Simply create a SharedArrayBuffer of the desired size and then use that buffer to create a typed array. When a typed array that is backed by a SharedArrayBuffer is passed via postMessage(), the underlying memory will be shared between the threads. You should not include the shared buffer in the second argument to postMessage() in this case.</p>
+
+<p>You really should not do this, however, because JavaScript was never designed with thread safety in mind and multithreaded programming is very difficult to get right. (And this is why SharedArrayBuffer was not covered in §11.2: it is a niche feature that is difficult to get right.) Even the simple ++ operator is not thread-safe because it needs to read a value, increment it, and write it back. If two threads are incrementing a value at the same time, it will often only be incremented once, as the following code demonstrates:</p>
+
+<p>const threads = require(&quot;worker_threads&quot;);</p>
+
+<p>if (threads.isMainThread) {<br/>
+    // In the main thread, we create a shared typed array with<br/>
+    // one element. Both threads will be able to read and write<br/>
+    // sharedArray[0] at the same time.<br/>
+    let sharedBuffer = new SharedArrayBuffer(4);<br/>
+    let sharedArray = new Int32Array(sharedBuffer);</p>
+
+<pre><code class="language-text">// Now create a worker thread, passing the shared array to it with
+// as its initial workerData value so we don&#39;t have to bother with
+// sending and receiving a message
+let worker = new threads.Worker(__filename, { workerData: sharedArray });
+
+// Wait for the worker to start running and then increment the
+// shared integer 10 million times.
+worker.on(&quot;online&quot;, () =&gt; {
+    for(let i = 0; i &lt; 10_000_000; i++) sharedArray[0]++;
+
+    // Once we&#39;re done with our increments, we start listening for
+    // message events so we know when the worker is done.
+    worker.on(&quot;message&quot;, () =&gt; {
+        // Although the shared integer has been incremented
+        // 20 million times, its value will generally be much less.
+        // On my computer the final value is typically under 12 million.
+        console.log(sharedArray[0]);
+    });
+});
+</code></pre>
+
+<p>} else {<br/>
+    // In the worker thread, we get the shared array from workerData<br/>
+    // and then increment it 10 million times.<br/>
+    let sharedArray = threads.workerData;<br/>
+    for(let i = 0; i &lt; 10_000_000; i++) sharedArray[0]++;<br/>
+    // When we&#39;re done incrementing, let the main thread know<br/>
+    threads.parentPort.postMessage(&quot;done&quot;);<br/>
+}<br/>
+One scenario in which it might be reasonable to use a SharedArrayBuffer is when the two threads operate on entirely separate sections of the shared memory. You might enforce this by creating two typed arrays that serve as views of nonoverlapping regions of the shared buffer, and then have your two threads use those two separate typed arrays. A parallel merge sort could be done like this: one thread sorts the bottom half of an array and the other thread sorts the top half, for example. Or some kinds of image-processing algorithms are also suitable for this approach: multiple threads working on disjoint regions of the image.</p>
+
+<p>If you really must allow multiple threads to access the same region of a shared array, you can take one step toward thread safety with the functions defined by the Atomics object. Atomics was added to JavaScript when SharedArrayBuffer was to define atomic operations on the elements of a shared array. For example, the Atomics.add() function reads the specified element of a shared array, adds a specified value to it, and writes the sum back into the array. It does this atomically as if it was a single operation, and ensures that no other thread can read or write the value while the operation is taking place. Atomics.add() allows us to rewrite the parallel increment code we just looked at and get the correct result of 20 million increments of a shared array element:</p>
+
+<p>const threads = require(&quot;worker_threads&quot;);</p>
+
+<p>if (threads.isMainThread) {<br/>
+    let sharedBuffer = new SharedArrayBuffer(4);<br/>
+    let sharedArray = new Int32Array(sharedBuffer);<br/>
+    let worker = new threads.Worker(__filename, { workerData: sharedArray });</p>
+
+<pre><code class="language-text">worker.on(&quot;online&quot;, () =&gt; {
+    for(let i = 0; i &lt; 10_000_000; i++) {
+        Atomics.add(sharedArray, 0, 1);  // Threadsafe atomic increment
+    }
+
+    worker.on(&quot;message&quot;, (message) =&gt; {
+        // When both threads are done, use a threadsafe function
+        // to read the shared array and confirm that it has the
+        // expected value of 20,000,000.
+        console.log(Atomics.load(sharedArray, 0));
+    });
+});
+</code></pre>
+
+<p>} else {<br/>
+    let sharedArray = threads.workerData;<br/>
+    for(let i = 0; i &lt; 10_000_000; i++) {<br/>
+        Atomics.add(sharedArray, 0, 1);      // Threadsafe atomic increment<br/>
+    }<br/>
+    threads.parentPort.postMessage(&quot;done&quot;);<br/>
+}<br/>
+This new version of the code correctly prints the number 20,000,000. But it is about nine times slower than the incorrect code it replaces. It would be much simpler and much faster to just do all 20 million increments in one thread. Also note that atomic operations may be able to ensure thread safety for image-processing algorithms for which each array element is a value entirely independent of all other values. But in most real-world programs, multiple array elements are often related to one another and some kind of higher-level thread synchronization is required. The low-level Atomics.wait() and Atomics.notify() function can help with this, but a discussion of their use is out of scope for this book.</p>
+
+<h2 id="toc_36">16.12 Summary</h2>
+
+<p>Although JavaScript was created to run in web browsers, Node has made JavaScript into a general-purpose programming language. It is particularly popular for implementing web servers, but its deep bindings to the operating system mean that it is also a good alternative to shell scripts.</p>
+
+<p>The most important topics covered in this long chapter include:</p>
+
+<p>Node’s asynchronous-by-default APIs and its single-threaded, callback, and event-based style of concurrency.</p>
+
+<p>Node’s fundamental datatypes, buffers, and streams.</p>
+
+<p>Node’s “fs” and “path” modules for working with the filesystem.</p>
+
+<p>Node’s “http” and “https” modules for writing HTTP clients and servers.</p>
+
+<p>Node’s “net” module for writing non-HTTP clients and servers.</p>
+
+<p>Node’s “child_process” module for creating and communicating with child processes.</p>
+
+<p>Node’s “worker_threads” module for true multithreaded programming using message-passing instead of shared memory.</p>
+
+<p>1 Node defines a fs.copyFile() function that you would actually use in practice.</p>
+
+<p>2 It is often cleaner and simpler to define the worker code in a separate file. But this trick of having two threads run different sections of the same file blew my mind when I first encountered it for the Unix fork() system call. And I think it is worth demonstrating this technique simply for its strange elegance.</p>
+
+  </div>
+</div>
+<br /><br />
+<hr />
+<div class="row clearfix">
+  <div class="large-6 columns">
+    <div class="text-left" style="padding:15px 0px;">
+      
+      <a href="16101520447172.html" title="Previous Post: 第 15 章 Web 浏览器中的 JavaScript">&laquo;
+        第 15 章 Web 浏览器中的 JavaScript</a>
+      
+    </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="text-right" style="padding:15px 0px;">
+      
+      <a href="16101520446688.html" title="Next Post: 第 17 章 JavaScript 工具和扩展">第 17 章 JavaScript 工具和扩展 &raquo;</a>
+      
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div style="padding:0px 0.93em;" class="share-comments">
+    
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    var currentURL = '16101520446610.html';
+    $('#side-nav a').each(function () {
+      if ($(this).attr('href') == currentURL) {
+        $(this).parent().addClass('active');
+      }
+    });
+  });
+</script>  
+          </div>
+          <div class="large-3 medium-3 columns">
+            <div class="hide-for-small">
+              <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+                    
+                    <li class="side-title"><span>menu</span></li>
+                    
+                    <li>
+                      <a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a>
+                    </li>
+                    
+                    
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-bottom">
+          <div class="row">
+            <hr />
+            <div class="small-9 columns">
+              <p class="copyright">Contact Me&nbsp;
+                Tel: +86 18641188786,&nbsp;
+                mail: 416376663@qq.com</p>
+            </div>
+            <div class="small-3 columns">
+              <p class="copyright text-right"><a href="#top">TOP</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="asset/js/foundation.min.js"></script>
+  <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  
+  
+  
+</body>
+
+</html>

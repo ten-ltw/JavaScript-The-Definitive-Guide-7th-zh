@@ -1,0 +1,747 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    
+    第 10 章 模块 - JavaScript：The.Definitive.Guide
+    
+  </title>
+  <meta name="description" content="">
+  <link href="atom.xml" rel="alternate" title="JavaScript：The.Definitive.Guide" type="application/atom+xml">
+  <link rel="stylesheet" href="asset/css/foundation.min.css" />
+  <link rel="stylesheet" href="asset/css/docs.css" />
+  <script src="asset/js/vendor/modernizr.js"></script>
+  <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+
+<body class="antialiased hide-extras">
+  <div class="marketing off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <nav class="top-bar docs-bar hide-for-small" data-topbar>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <nav class="tab-bar show-for-small">
+        <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+          <span> &nbsp;</span>
+        </a>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <aside class="left-off-canvas-menu">
+        <ul class="off-canvas-list">
+          <li><a href="index.html">JavaScript：The.Definitive.Guide 7th</a></li>
+          
+          <li class="divider"></li>
+          <li><label>menu</label></li>
+          
+          <li><a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a></li>
+          
+          <li><a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a></li>
+          
+          <li><a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a></li>
+          
+          <li><a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a></li>
+          
+          <li><a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a></li>
+          
+          <li><a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a></li>
+          
+          <li><a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a></li>
+          
+          <li><a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a></li>
+          
+          <li><a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a></li>
+          
+          <li><a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a></li>
+          
+          <li><a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a></li>
+          
+          <li><a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a></li>
+          
+          <li><a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a></li>
+          
+          <li><a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a></li>
+          
+          <li><a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a></li>
+          
+          <li><a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a></li>
+          
+          <li><a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a></li>
+          
+          
+        </ul>
+      </aside>
+      <a class="exit-off-canvas" href="#"></a>
+      <section id="main-content" role="main" class="scroll-container">
+        <div class="row">
+          <div class="large-9 medium-9 columns">
+  <div class="markdown-body">
+  <div class="markdown-inside">
+    <h1>第 10 章 模块</h1>
+    <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
+    <p>The goal of modular programming is to allow large programs to be assembled using modules of code from disparate authors and sources and for all of that code to run correctly even in the presence of code that the various module authors did not anticipate. As a practical matter, modularity is mostly about encapsulating or hiding private implementation details and keeping the global namespace tidy so that modules cannot accidentally modify the variables, functions, and classes defined by other modules.</p>
+
+<blockquote>
+<p>模块化编程的目标是允许使用来自不同作者和源的代码模块来组装大型程序，并且即使出现了不同模块作者没有预料到的代码，所有这些代码也能正确运行。作为一个实际问题，模块化主要是关于封装或隐藏私有实现细节和保持全局名称空间整洁，以便模块不会意外地修改其他模块定义的变量、函数和类。</p>
+</blockquote>
+
+<p>Until recently, JavaScript had no built-in support for modules, and programmers working on large code bases did their best to use the weak modularity available through classes, objects, and closures. Closure-based modularity, with support from code-bundling tools, led to a practical form of modularity based on a require() function, which was adopted by Node. require()-based modules are a fundamental part of the Node programming environment but were never adopted as an official part of the JavaScript language. Instead, ES6 defines modules using import and export keywords. Although import and export have been part of the language for years, they were only implemented by web browsers and Node relatively recently. And, as a practical matter, JavaScript modularity still depends on code-bundling tools.</p>
+
+<blockquote>
+<p>直到最近，JavaScript还没有对模块的内置支持，在大型代码库上工作的程序员尽力使用通过类、对象和闭包可用的弱模块性。基于闭包的模块化在代码绑定工具的支持下，形成了一种基于require()函数的实际模块化形式，Node采用了这种形式。基于require()的模块是节点编程环境的基本部分，但从未被作为JavaScript语言的正式部分采用。相反，ES6使用导入和导出关键字定义模块。虽然导入和导出已经成为语言的一部分很多年了，但是它们只是最近才被web浏览器和节点实现。而且，作为一个实际问题，JavaScript模块化仍然依赖于代码绑定工具。</p>
+</blockquote>
+
+<p>The sections that follow cover:</p>
+
+<blockquote>
+<p>以下各节包括:</p>
+</blockquote>
+
+<ul>
+<li>Do-it-yourself modules with classes, objects, and closures</li>
+<li>Node modules using require()</li>
+<li>ES6 modules using export, import, and import()</li>
+</ul>
+
+<hr/>
+
+<blockquote>
+<ul>
+<li>使用类、对象和闭包自己做模块</li>
+<li>使用require()的节点模块</li>
+<li>使用导出、导入和导入()的ES6模块</li>
+</ul>
+</blockquote>
+
+<h2 id="toc_0">10.1 Modules with Classes, Objects, and Closures</h2>
+
+<p>Though it may be obvious, it is worth pointing out that one of the important features of classes is that they act as modules for their methods. Think back to Example 9-8. That example defined a number of different classes, all of which had a method named has(). But you would have no problem writing a program that used multiple set classes from that example: there is no danger that the implementation of has() from SingletonSet will overwrite the has() method of BitSet, for example.</p>
+
+<blockquote>
+<p>尽管这可能很明显，但值得指出的是，类的重要特性之一是它们充当其方法的模块。回想一下例子9-8。该示例定义了许多不同的类，所有这些类都有一个名为has()的方法。但是，在编写使用该示例中的多个set类的程序时没有问题:例如，SingletonSet的has()实现不会覆盖BitSet的has()方法。</p>
+</blockquote>
+
+<p>The reason that the methods of one class are independent of the methods of other, unrelated classes is that the methods of each class are defined as properties of independent prototype objects. The reason that classes are modular is that objects are modular: defining a property in a JavaScript object is a lot like declaring a variable, but adding properties to objects does not affect the global namespace of a program, nor does it affect the properties of other objects. JavaScript defines quite a few mathematical functions and constants, but instead of defining them all globally, they are grouped as properties of a single global Math object. This same technique could have been used in Example 9-8. Instead of defining global classes with names like SingletonSet and BitSet, that example could have been written to define only a single global Sets object, with properties referencing the various classes. Users of this Sets library could then refer to the classes with names like Sets.Singleton and Sets.Bit.</p>
+
+<blockquote>
+<p>一个类的方法独立于其他不相关类的方法的原因是，每个类的方法都被定义为独立原型对象的属性。类是模块化的原因是对象是模块化的:在JavaScript对象中定义属性非常类似于声明变量，但是向对象添加属性不会影响程序的全局命名空间，也不会影响其他对象的属性。JavaScript定义了很多数学函数和常量，但它们不是全局定义的，而是分组为单个全局数学对象的属性。同样的技术也可以用在例9-8中。该示例没有使用SingletonSet和BitSet这样的名称定义全局类，而是可以编写为只定义单个全局集对象，并使用引用各种类的属性。然后，这个set库的用户可以引用具有set之类名称的类。单例和Sets.Bit。</p>
+</blockquote>
+
+<p>Using classes and objects for modularity is a common and useful technique in JavaScript programming, but it doesn’t go far enough. In particular, it doesn’t offer us any way to hide internal implementation details inside the module. Consider Example 9-8 again. If we were writing that example as a module, maybe we would have wanted to keep the various abstract classes internal to the module, only making the concrete subclasses available to users of the module. Similarly, in the BitSet class, the _valid() and _has() methods are internal utilities that should not really be exposed to users of the class. And BitSet.bits and BitSet.masks are implementation details that would be better off hidden.</p>
+
+<blockquote>
+<p>使用类和对象实现模块化是JavaScript编程中常见而有用的技术，但这还不够。特别是，它没有提供任何方法来隐藏模块内部的实现细节。再次考虑例9-8。如果我们将该示例作为一个模块来编写，也许我们会希望将各种抽象类保留在模块内部，只让具体的子类对模块的用户可用。类似地，在BitSet类中，_valid()和_has()方法是内部实用程序，不应该向类的用户公开它们。和BitSet。位和BitSet。掩码是实现细节，最好隐藏起来。</p>
+</blockquote>
+
+<p>As we saw in §8.6, local variables and nested functions declared within a function are private to that function. This means that we can use immediately invoked function expressions to achieve a kind of modularity by leaving the implementation details and utility functions hidden within the enclosing function but making the public API of the module the return value of the function. In the case of the BitSet class, we might structure the module like this:</p>
+
+<blockquote>
+<p>正如我们在§8.6中看到的，在函数中声明的局部变量和嵌套函数是该函数的私有变量。这意味着我们可以使用立即调用的函数表达式来实现一种模块化，方法是将实现细节和实用函数隐藏在封装的函数中，而将模块的公共API作为函数的返回值。在BitSet类的情况下，我们可以像这样构造模块:</p>
+</blockquote>
+
+<pre><code class="language-javascript">const BitSet = (function() { // Set BitSet to the return value of this function
+    // Private implementation details here
+    function isValid(set, n) { ... }
+    function has(set, byte, bit) { ... }
+    const BITS = new Uint8Array([1, 2, 4, 8, 16, 32, 64, 128]);
+    const MASKS = new Uint8Array([~1, ~2, ~4, ~8, ~16, ~32, ~64, ~128]);
+
+    // The public API of the module is just the BitSet class, which we define
+    // and return here. The class can use the private functions and constants
+    // defined above, but they will be hidden from users of the class
+    return class BitSet extends AbstractWritableSet {
+        // ... implementation omitted ...
+    };
+}());
+</code></pre>
+
+<p>This approach to modularity becomes a little more interesting when the module has more than one item in it. The following code, for example, defines a mini statistics module that exports mean() and stddev() functions while leaving the implementation details hidden:</p>
+
+<blockquote>
+<p>当模块中有多个条目时，这种模块化方法就变得更有趣了。例如，下面的代码定义了一个迷你统计模块，它导出mean()和stddev()函数，同时隐藏实现细节:</p>
+</blockquote>
+
+<pre><code class="language-javascript">// This is how we could define a stats module
+const stats = (function() {
+    // Utility functions private to the module
+    const sum = (x, y) =&gt; x + y;
+    const square = x =&gt; x * x;
+
+    // A public function that will be exported
+    function mean(data) {
+        return data.reduce(sum)/data.length;
+    }
+
+    // A public function that we will export
+    function stddev(data) {
+        let m = mean(data);
+        return Math.sqrt(
+            data.map(x =&gt; x - m).map(square).reduce(sum)/(data.length-1)
+        );
+    }
+
+    // We export the public function as properties of an object
+    return { mean, stddev };
+}());
+
+// And here is how we might use the module
+stats.mean([1, 3, 5, 7, 9])   // =&gt; 5
+stats.stddev([1, 3, 5, 7, 9]) // =&gt; Math.sqrt(10)
+</code></pre>
+
+<h3 id="toc_1">10.1.1 Automating Closure-Based Modularity</h3>
+
+<p>Note that it is a fairly mechanical process to transform a file of JavaScript code into this kind of module by inserting some text at the beginning and end of the file. All that is needed is some convention for the file of JavaScript code to indicate which values are to be exported and which are not.</p>
+
+<p>Imagine a tool that takes a set of files, wraps the content of each of those files within an immediately invoked function expression, keeps track of the return value of each function, and concatenates everything into one big file. The result might look something like this:</p>
+
+<pre><code class="language-javascript">const modules = {};
+function require(moduleName) { return modules[moduleName]; }
+
+modules[&quot;sets.js&quot;] = (function() {
+    const exports = {};
+
+    // The contents of the sets.js file go here:
+    exports.BitSet = class BitSet { ... };
+
+    return exports;
+}());
+
+modules[&quot;stats.js&quot;] = (function() {
+    const exports = {};
+
+    // The contents of the stats.js file go here:
+    const sum = (x, y) =&gt; x + y;
+    const square = x = &gt; x * x;
+    exports.mean = function(data) { ... };
+    exports.stddev = function(data) { ... };
+
+    return exports;
+}());
+</code></pre>
+
+<p>With modules bundled up into a single file like the one shown in the preceding example, you can imagine writing code like the following to make use of those modules:</p>
+
+<pre><code class="language-javascript">// Get references to the modules (or the module content) that we need
+const stats = require(&quot;stats.js&quot;);
+const BitSet = require(&quot;sets.js&quot;).BitSet;
+
+// Now write code using those modules
+let s = new BitSet(100);
+s.insert(10);
+s.insert(20);
+s.insert(30);
+let average = stats.mean([...s]); // average is 20
+</code></pre>
+
+<p>This code is a rough sketch of how code-bundling tools (such as webpack and Parcel) for web browsers work, and it’s also a simple introduction to the require() function like the one used in Node programs.</p>
+
+<h2 id="toc_2">10.2 Modules in Node</h2>
+
+<p>In Node programming, it is normal to split programs into as many files as seems natural. These files of JavaScript code are assumed to all live on a fast filesystem. Unlike web browsers, which have to read files of JavaScript over a relatively slow network connection, there is no need or benefit to bundling a Node program into a single JavaScript file.</p>
+
+<p>In Node, each file is an independent module with a private namespace. Constants, variables, functions, and classes defined in one file are private to that file unless the file exports them. And values exported by one module are only visible in another module if that module explicitly imports them.</p>
+
+<p>Node modules import other modules with the require() function and export their public API by setting properties of the Exports object or by replacing the module.exportsobject entirely.</p>
+
+<h3 id="toc_3">10.2.1 Node Exports</h3>
+
+<p>Node defines a global exports object that is always defined. If you are writing a Node module that exports multiple values, you can simply assign them to the properties of this object:</p>
+
+<pre><code class="language-javascript">const sum = (x, y) =&gt; x + y;
+const square = x =&gt; x * x;
+
+exports.mean = data =&gt; data.reduce(sum)/data.length;
+exports.stddev = function(d) {
+    let m = exports.mean(d);
+    return Math.sqrt(d.map(x =&gt; x - m).map(square).reduce(sum)/(d.length-1));
+};
+</code></pre>
+
+<p>Often, however, you want to define a module that exports only a single function or class rather than an object full of functions or classes. To do this, you simply assign the single value you want to export to module.exports:</p>
+
+<pre><code class="language-javascript">module.exports = class BitSet extends AbstractWritableSet {
+    // implementation omitted
+};
+</code></pre>
+
+<p>The default value of module.exports is the same object that exports refers to. In the previous stats module, we could have assigned the mean function to module.exports.mean instead of exports.mean. Another approach with modules like the stats module is to export a single object at the end of the module rather than exporting functions one by one as you go:</p>
+
+<pre><code class="language-javascript">// Define all the functions, public and private
+const sum = (x, y) =&gt; x + y;
+const square = x =&gt; x * x;
+const mean = data =&gt; data.reduce(sum)/data.length;
+const stddev = d =&gt; {
+    let m = mean(d);
+    return Math.sqrt(d.map(x =&gt; x - m).map(square).reduce(sum)/(d.length-1));
+};
+
+// Now export only the public ones
+module.exports = { mean, stddev };
+</code></pre>
+
+<h3 id="toc_4">10.2.2 Node Imports</h3>
+
+<p>A Node module imports another module by calling the require() function. The argument to this function is the name of the module to be imported, and the return value is whatever value (typically a function, class, or object) that module exports.</p>
+
+<p>If you want to import a system module built in to Node or a module that you have installed on your system via a package manager, then you simply use the unqualified name of the module, without any “/” characters that would turn it into a filesystem path:</p>
+
+<pre><code class="language-javascript">// These modules are built in to Node
+const fs = require(&quot;fs&quot;);           // The built-in filesystem module
+const http = require(&quot;http&quot;);       // The built-in HTTP module
+
+// The Express HTTP server framework is a third-party module.
+// It is not part of Node but has been installed locally
+const express = require(&quot;express&quot;);
+</code></pre>
+
+<p>When you want to import a module of your own code, the module name should be the path to the file that contains that code, relative to the current module’s file. It is legal to use absolute paths that begin with a / character, but typically, when importing modules that are part of your own program, the module names will begin with ./ or sometimes ../ to indicate that they are relative to the current directory or the parent directory. For example:</p>
+
+<pre><code class="language-javascript">const stats = require(&#39;./stats.js&#39;);
+const BitSet = require(&#39;./utils/bitset.js&#39;);
+</code></pre>
+
+<p>(You can also omit the .js suffix on the files you’re importing and Node will still find the files, but it is common to see these file extensions explicitly included.)</p>
+
+<p>When a module exports just a single function or class, all you have to do is require it. When a module exports an object with multiple properties, you have a choice: you can import the entire object, or just import the specific properties (using destructuring assignment) of the object that you plan to use. Compare these two approaches:</p>
+
+<pre><code class="language-javascript">// Import the entire stats object, with all of its functions
+const stats = require(&#39;./stats.js&#39;);
+
+// We&#39;ve got more functions than we need, but they&#39;re neatly
+// organized into a convenient &quot;stats&quot; namespace.
+let average = stats.mean(data);
+
+// Alternatively, we can use idiomatic destructuring assignment to import
+// exactly the functions we want directly into the local namespace:
+const { stddev } = require(&#39;./stats.js&#39;);
+
+// This is nice and succinct, though we lose a bit of context
+// without the &#39;stats&#39; prefix as a namspace for the stddev() function.
+let sd = stddev(data);
+</code></pre>
+
+<h3 id="toc_5">10.2.3 Node-Style Modules on the Web</h3>
+
+<p>Modules with an Exports object and a require() function are built in to Node. But if you’re willing to process your code with a bundling tool like webpack, then it is also possible to use this style of modules for code that is intended to run in web browsers. Until recently, this was a very common thing to do, and you may see lots of web-based code that still does it.</p>
+
+<p>Now that JavaScript has its own standard module syntax, however, developers who use bundlers are more likely to use the official JavaScript modules with import and export statements.</p>
+
+<h2 id="toc_6">10.3 Modules in ES6</h2>
+
+<p>ES6 adds import and export keywords to JavaScript and finally supports real modularity as a core language feature. ES6 modularity is conceptually the same as Node modularity: each file is its own module, and constants, variables, functions, and classes defined within a file are private to that module unless they are explicitly exported. Values that are exported from one module are available for use in modules that explicitly import them. ES6 modules differ from Node modules in the syntax used for exporting and importing and also in the way that modules are defined in web browsers. The sections that follow explain these things in detail.</p>
+
+<p>First, though, note that ES6 modules are also different from regular JavaScript “scripts” in some important ways. The most obvious difference is the modularity itself: in regular scripts, top-level declarations of variables, functions, and classes go into a single global context shared by all scripts. With modules, each file has its own private context and can use the import and export statements, which is the whole point, after all. But there are other differences between modules and scripts as well. Code inside an ES6 module (like code inside any ES6 class definition) is automatically in strict mode (see §5.6.3). This means that, when you start using ES6 modules, you’ll never have to write &quot;use strict&quot; again. And it means that code in modules cannot use the with statement or the arguments object or undeclared variables. ES6 modules are even slightly stricter than strict mode: in strict mode, in functions invoked as functions, this is undefined. In modules, this is undefined even in top-level code. (By contrast, scripts in web browsers and Node set this to the global object.)</p>
+
+<h4 id="toc_7">ES6 MODULES ON THE WEB AND IN NODE</h4>
+
+<p>ES6 modules have been in use on the web for years with the help of code bundlers like webpack, which combine independent modules of JavaScript code into large, non-modular bundles suitable for inclusion into web pages. At the time of this writing, however, ES6 modules are finally supported natively by all web browsers other than Internet Explorer. When used natively, ES6 modules are added into HTML pages with a special <code>&lt;script type=&quot;module&quot;&gt;</code> tag, described later in this chapter.</p>
+
+<p>And meanwhile, having pioneered JavaScript modularity, Node finds itself in the awkward position of having to support two not entirely compatible module systems. Node 13 supports ES6 modules, but for now, the vast majority of Node programs still use Node modules.</p>
+
+<h3 id="toc_8">10.3.1 ES6 Exports</h3>
+
+<p>To export a constant, variable, function, or class from an ES6 module, simply add the keyword export before the declaration:</p>
+
+<pre><code class="language-javascript">export const PI = Math.PI;
+
+export function degreesToRadians(d) { return d * PI / 180; }
+
+export class Circle {
+    constructor(r) { this.r = r; }
+    area() { return PI * this.r * this.r; }
+}
+</code></pre>
+
+<p>As an alternative to scattering export keywords throughout your module, you can define your constants, variables, functions, and classes as you normally would, with no export statement, and then (typically at the end of your module) write a single export statement that declares exactly what is exported in a single place. So instead of writing three individual exports in the preceding code, we could have equivalently written a single line at the end:</p>
+
+<pre><code class="language-javascript">export { Circle, degreesToRadians, PI };
+</code></pre>
+
+<p>This syntax looks like the export keyword followed by an object literal (using shorthand notation). But in this case, the curly braces do not actually define an object literal. This export syntax simply requires a comma-separated list of identifiers within curly braces.</p>
+
+<p>It is common to write modules that export only one value (typically a function or class), and in this case, we usually use export default instead of export:</p>
+
+<pre><code class="language-javascript">export default class BitSet {
+    // implementation omitted
+}
+</code></pre>
+
+<p>Default exports are slightly easier to import than non-default exports, so when there is only one exported value, using export default makes things easier for the modules that use your exported value.</p>
+
+<p>Regular exports with export can only be done on declarations that have a name. Default exports with export default can export any expression including anonymous function expressions and anonymous class expressions. This means that if you use export default, you can export object literals. So unlike the export syntax, if you see curly braces after export default, it really is an object literal that is being exported.</p>
+
+<p>It is legal, but somewhat uncommon, for modules to have a set of regular exports and also a default export. If a module has a default export, it can only have one.</p>
+
+<p>Finally, note that the export keyword can only appear at the top level of your JavaScript code. You may not export a value from within a class, function, loop, or conditional. (This is an important feature of the ES6 module system and enables static analysis: a modules export will be the same on every run, and the symbols exported can be determined before the module is actually run.)</p>
+
+<h3 id="toc_9">10.3.2 ES6 Imports</h3>
+
+<p>You import values that have been exported by other modules with the import keyword. The simplest form of import is used for modules that define a default export:</p>
+
+<pre><code class="language-javascript">import BitSet from &#39;./bitset.js&#39;;
+</code></pre>
+
+<p>This is the import keyword, followed by an identifier, followed by the from keyword, followed by a string literal that names the module whose default export we are importing. The default export value of the specified module becomes the value of the specified identifier in the current module.</p>
+
+<p>The identifier to which the imported value is assigned is a constant, as if it had been declared with the const keyword. Like exports, imports can only appear at the top level of a module and are not allowed within classes, functions, loops, or conditionals. By near-universal convention, the imports needed by a module are placed at the start of the module. Interestingly, however, this is not required: like function declarations, imports are “hoisted” to the top, and all imported values are available for any of the module’s code runs.</p>
+
+<p>The module from which a value is imported is specified as a constant string literal in single quotes or double quotes. (You may not use a variable or other expression whose value is a string, and you may not use a string within backticks because template literals can interpolate variables and do not always have constant values.) In web browsers, this string is interpreted as a URL relative to the location of the module that is doing the importing. (In Node, or when using a bundling tool, the string is interpreted as a filename relative to the current module, but this makes little difference in practice.) A module specifier string must be an absolute path starting with “/”, or a relative path starting with “./” or “../”, or a complete URL a with protocol and hostname. The ES6 specification does not allow unqualified module specifier strings like “util.js” because it is ambiguous whether this is intended to name a module in the same directory as the current one or some kind of system module that is installed in some special location. (This restriction against “bare module specifiers” is not honored by code-bundling tools like webpack, which can easily be configured to find bare modules in a library directory that you specify.) A future version of the language may allow “bare module specifiers,” but for now, they are not allowed. If you want to import a module from the same directory as the current one, simply place “./” before the module name and import from “./util.js” instead of “util.js”.</p>
+
+<p>So far, we’ve only considered the case of importing a single value from a module that uses export default. To import values from a module that exports multiple values, we use a slightly different syntax:</p>
+
+<pre><code class="language-javascript">import { mean, stddev } from &quot;./stats.js&quot;;
+</code></pre>
+
+<p>Recall that default exports do not need to have a name in the module that defines them. Instead, we provide a local name when we import those values. But non-default exports of a module do have names in the exporting module, and when we import those values, we refer to them by those names. The exporting module can export any number of named value. An import statement that references that module can import any subset of those values simply by listing their names within curly braces. The curly braces make this kind of import statement look something like a destructuring assignment, and destructuring assignment is actually a good analogy for what this style of import is doing. The identifiers within curly braces are all hoisted to the top of the importing module and behave like constants.</p>
+
+<p>Style guides sometimes recommend that you explicitly import every symbol that your module will use. When importing from a module that defines many exports, however, you can easily import everything with an import statement like this:</p>
+
+<pre><code class="language-javascript">import * as stats from &quot;./stats.js&quot;;
+</code></pre>
+
+<p>An import statement like this creates an object and assigns it to a constant named stats. Each of the non-default exports of the module being imported becomes a property of this stats object. Non-default exports always have names, and those are used as property names within the object. Those properties are effectively constants: they cannot be overwritten or deleted. With the wildcard import shown in the previous example, the importing module would use the imported mean() and stddev() functions through the stats object, invoking them as stats.mean() and stats.stddev().</p>
+
+<p>Modules typically define either one default export or multiple named exports. It is legal, but somewhat uncommon, for a module to use both export and export default. But when a module does that, you can import both the default value and the named values with an import statement like this:</p>
+
+<pre><code class="language-javascript">import Histogram, { mean, stddev } from &quot;./histogram-stats.js&quot;;
+</code></pre>
+
+<p>So far, we’ve seen how to import from modules with a default export and from modules with non-default or named exports. But there is one other form of the import statement that is used with modules that have no exports at all. To include a no-exports module into your program, simply use the import keyword with the module specifier:</p>
+
+<pre><code class="language-javascript">import &quot;./analytics.js&quot;;
+</code></pre>
+
+<p>A module like this runs the first time it is imported. (And subsequent imports do nothing.) A module that just defines functions is only useful if it exports at least one of those functions. But if a module runs some code, then it can be useful to import even without symbols. An analytics module for a web application might run code to register various event handlers and then use those event handlers to send telemetry data back to the server at appropriate times. The module is self-contained and does not need to export anything, but we still need to import it so that it does actually run as part of our program.</p>
+
+<p>Note that you can use this import-nothing import syntax even with modules that do have exports. If a module defines useful behavior independent of the values it exports, and if your program does not need any of those exported values, you can still import the module . just for that default behavior.</p>
+
+<h3 id="toc_10">10.3.3 Imports and Exports with Renaming</h3>
+
+<p>If two modules export two different values using the same name and you want to import both of those values, you will have to rename one or both of the values when you import it. Similarly, if you want to import a value whose name is already in use in your module, you will need to rename the imported value. You can use the as keyword with named imports to rename them as you import them:</p>
+
+<pre><code class="language-javascript">import { render as renderImage } from &quot;./imageutils.js&quot;;
+import { render as renderUI } from &quot;./ui.js&quot;;
+</code></pre>
+
+<p>These lines import two functions into the current module. The functions are both named render() in the modules that define them but are imported with the more descriptive and disambiguating names renderImage() and renderUI().</p>
+
+<p>Recall that default exports do not have a name. The importing module always chooses the name when importing a default export. So there is no need for a special syntax for renaming in that case.</p>
+
+<p>Having said that, however, the possibility of renaming on import provides another way of importing from modules that define both a default export and named exports. Recall the “./histogram-stats.js” module from the previous section. Here is another way to import both the default and named exports of that module:</p>
+
+<pre><code class="language-javascript">import { default as Histogram, mean, stddev } from &quot;./histogram-stats.js&quot;;
+</code></pre>
+
+<p>In this case, the JavaScript keyword default serves as a placeholder and allows us to indicate that we want to import and provide a name for the default export of the module.</p>
+
+<p>It is also possible to rename values as you export them, but only when using the curly brace variant of the export statement. It is not common to need to do this, but if you chose short, succinct names for use inside your module, you might prefer to export your values with more descriptive names that are less likely to conflict with other modules. As with imports, you use the as keyword to do this:</p>
+
+<pre><code class="language-javascript">export {
+    layout as calculateLayout,
+    render as renderLayout
+};
+</code></pre>
+
+<p>Keep in mind that, although the curly braces look something like object literals, they are not, and the export keyword expects a single identifier before the as, not an expression. This means, unfortunately, that you cannot use export renaming like this:</p>
+
+<pre><code class="language-javascript">export { Math.sin as sin, Math.cos as cos }; // SyntaxError
+</code></pre>
+
+<h3 id="toc_11">10.3.4 Re-Exports</h3>
+
+<p>Throughout this chapter, we’ve discussed a hypothetical “./stats.js” module that exports mean() and stddev() functions. If we were writing such a module and we thought that many users of the module would want only one function or the other, then we might want to define mean() in a “./stats/mean.js” module and define stddev() in “./stats/stddev.js”. That way, programs only need to import exactly the functions they need and are not bloated by importing code they do not need.</p>
+
+<p>Even if we had defined these statistical functions in individual modules, however, we might expect that there would be plenty of programs that want both functions and would appreciate a convenient “./stats.js” module from which they could import both on one line.</p>
+
+<p>Given that the implementations are now in separate files, defining this “./stat.js” module is simple:</p>
+
+<pre><code class="language-javascript">import { mean } from &quot;./stats/mean.js&quot;;
+import { stddev } from &quot;./stats/stddev.js&quot;;
+export { mean, stdev };
+</code></pre>
+
+<p>ES6 modules anticipate this use case and provide a special syntax for it. Instead of importing a symbol simply to export it again, you can combine the import and the export steps into a single “re-export” statement that uses the export keyword and the from keyword:</p>
+
+<pre><code class="language-javascript">export { mean } from &quot;./stats/mean.js&quot;;
+export { stddev } from &quot;./stats/stddev.js&quot;;
+</code></pre>
+
+<p>Note that the names mean and stddev are not actually used in this code. If we are not being selective with a re-export and simply want to export all of the named values from another module, we can use a wildcard:</p>
+
+<pre><code class="language-javascript">export * from &quot;./stats/mean.js&quot;;
+export * from &quot;./stats/stddev.js&quot;;
+</code></pre>
+
+<p>Re-export syntax allows renaming with as just as regular import and export statements do. Suppose we wanted to re-export the mean() function but also define average() as another name for the function. We could do that like this:</p>
+
+<pre><code class="language-javascript">export { mean, mean as average } from &quot;./stats/mean.js&quot;;
+export { stddev } from &quot;./stats/stddev.js&quot;;
+</code></pre>
+
+<p>All of the re-exports in this example assume that the “./stats/mean.js” and “./stats/stddev.js” modules export their functions using export instead of export default. In fact, however, since these are modules with only a single export, it would have made sense to define them with export default. If we had done so, then the re-export syntax is a little more complicated because it needs to define a name for the unnamed default exports. We can do that like this:</p>
+
+<pre><code class="language-javascript">export { default as mean } from &quot;./stats/mean.js&quot;;
+export { default as stddev } from &quot;./stats/stddev.js&quot;;
+</code></pre>
+
+<p>If you want to re-export a named symbol from another module as the default export of your module, you could do an import followed by an export default, or you could combine the two statements like this:</p>
+
+<pre><code class="language-javascript">// Import the mean() function from ./stats.js and make it the
+// default export of this module
+export { mean as default } from &quot;./stats.js&quot;
+</code></pre>
+
+<p>And finally, to re-export the default export of another module as the default export of your module (though it is unclear why you would want to do this, since users could simply import the other module directly), you can write:</p>
+
+<pre><code class="language-javascript">// The average.js module simply re-exports the stats/mean.js default export
+export { default } from &quot;./stats/mean.js&quot;
+</code></pre>
+
+<h3 id="toc_12">10.3.5 JavaScript Modules on the Web</h3>
+
+<p>The preceding sections have described ES6 modules and their import and export declarations in a somewhat abstract manner. In this section and the next, we’ll be discussing how they actually work in web browsers, and if you are not already an experienced web developer, you may find the rest of this chapter easier to understand after you have read Chapter 15.</p>
+
+<p>As of early 2020, production code using ES6 modules is still generally bundled with a tool like webpack. There are trade-offs to doing this,1 but on the whole, code bundling tends to give better performance. That may well change in the future as network speeds grow and browser vendors continue to optimize their ES6 module implementations.</p>
+
+<p>Even though bundling tools may still be desirable in production, they are no longer required in development since all current browsers provide native support for JavaScript modules. Recall that modules use strict mode by default, this does not refer to a global object, and top-level declarations are not shared globally by default. Since modules must be executed differently than legacy non-module code, their introduction requires changes to HTML as well as JavaScript. If you want to natively use import directives in a web browser, you must tell the web browser that your code is a module by using a <code>&lt;script type=&quot;module&quot;&gt;</code> tag.</p>
+
+<p>One of the nice features of ES6 modules is that each module has a static set of imports. So given a single starting module, a web browser can load all of its imported modules and then load all of the modules imported by that first batch of modules, and so on, until a complete program has been loaded. We’ve seen that the module specifier in an import statement can be treated as a relative URL. A <code>&lt;script type=&quot;module&quot;&gt;</code> tag marks the starting point of a modular program. None of the modules it imports are expected to be in <code>&lt;script&gt;</code> tags, however: instead, they are loaded on demand as regular JavaScript files and are executed in strict mode as regular ES6 modules. Using a <code>&lt;script type=&quot;module&quot;&gt;</code> tag to define the main entry point for a modular JavaScript program can be as simple as this:</p>
+
+<pre><code class="language-javascript">&lt;script type=&quot;module&quot;&gt;import &quot;./main.js&quot;;&lt;/script&gt;
+</code></pre>
+
+<p>Code inside an inline <code>&lt;script type=&quot;module&quot;&gt;</code> tag is an ES6 module, and as such can use the export statement. There is not any point in doing so, however, because the HTML <code>&lt;script&gt;</code> tag syntax does not provide any way to define a name for inline modules, so even if such a module does export a value, there is no way for another module to import it.</p>
+
+<p>Scripts with the type=&quot;module&quot; attribute are loaded and executed like scripts with the defer attribute. Loading of the code begins as soon as the HTML parser encounters the <code>&lt;script&gt;</code> tag (in the case of modules, this code-loading step may be a recursive process that loads multiple JavaScript files). But code execution does not begin until HTML parsing is complete. And once HTML parsing is complete, scripts (both modular and non) are executed in the order in which they appear in the HTML document.</p>
+
+<p>You can modify the execution time of modules with the async attribute, which works the same way for modules that it does for regular scripts. An async module will execute as soon as the code is loaded, even if HTML parsing is not complete and even if this changes the relative ordering of the scripts.</p>
+
+<p>Web browsers that support <code>&lt;script type=&quot;module&quot;&gt;</code> must also support <code>&lt;script nomodule&gt;</code>. Browsers that are module-aware ignore any script with the nomodule attribute and will not execute it. Browsers that do not support modules will not recognize the nomodule attribute, so they will ignore it and run the script. This provides a powerful technique for dealing with browser compatibility issues. Browsers that support ES6 modules also support other modern JavaScript features like classes, arrow functions, and the for/of loop. If you write modern JavaScript and load it with <code>&lt;script type=&quot;module&quot;&gt;</code>, you know that it will only be loaded by browsers that can support it. And as a fallback for IE11 (which, in 2020, is effectively the only remaining browser that does not support ES6), you can use tools like Babel and webpack to transform your code into non-modular ES5 code, then load that less-efficient transformed code via <code>&lt;script nomodule&gt;</code>.</p>
+
+<p>Another important difference between regular scripts and module scripts has to do with cross-origin loading. A regular <code>&lt;script&gt;</code> tag will load a file of JavaScript code from any server on the internet, and the internet’s infrastructure of advertising, analytics, and tracking code depends on that fact. But <code>&lt;script type=&quot;module&quot;&gt;</code> provides an opportunity to tighten this up, and modules can only be loaded from the same origin as the containing HTML document or when proper CORS headers are in place to securely allow cross-origin loads. An unfortunate side effect of this new security restriction is that it makes it difficult to test ES6 modules in development mode using file: URLs. When using ES6 modules, you will likely need to set up a static web server for testing.</p>
+
+<p>Some programmers like to use the filename extension .mjs to distinguish their modular JavaScript files from their regular, non-modular JavaScript files with the traditional .js extension. For the purposes of web browsers and <code>&lt;script&gt;</code> tags, the file extension is actually irrelevant. (The MIME type is relevant, however, so if you use .mjs files, you may need to configure your web server to serve them with the same MIME type as .js files.) Node’s support for ES6 does use the filename extension as a hint to distinguish which module system is used by each file it loads. So if you are writing ES6 modules and want them to be usable with Node, then it may be helpful to adopt the .mjs naming convention.</p>
+
+<h3 id="toc_13">10.3.6 Dynamic Imports with import()</h3>
+
+<p>We’ve seen that the ES6 import and export directives are completely static and enable JavaScript interpreters and other JavaScript tools to determine the relationships between modules with simple text analysis while the modules are being loaded without having to actually execute any of the code in the modules. With statically imported modules, you are guaranteed that the values you import into a module will be ready for use before any of the code in your module begins to run.</p>
+
+<p>On the web, code has to be transferred over a network instead of being read from the filesystem. And once transfered, that code is often executed on mobile devices with relatively slow CPUs. This is not the kind of environment where static module imports—which require an entire program to be loaded before any of it runs—make a lot of sense.</p>
+
+<p>It is common for web applications to initially load only enough of their code to render the first page displayed to the user. Then, once the user has some preliminary content to interact with, they can begin to load the often much larger amount of code needed for the rest of the web app. Web browsers make it easy to dynamically load code by using the DOM API to inject a new <code>&lt;script&gt;</code> tag into the current HTML document, and web apps have been doing this for many years.</p>
+
+<p>Although dynamic loading has been possible for a long time, it has not been part of the language itself. That changes with the introduction of import() in ES2020 (as of early 2020, dynamic import is supported by all browsers that support ES6 modules). You pass a module specifier to import() and it returns a Promise object that represents the asynchronous process of loading and running the specified module. When the dynamic import is complete, the Promise is “fulfilled” (see Chapter 13 for complete details on asynchronous programming and Promises) and produces an object like the one you would get with the import * as form of the static import statement.</p>
+
+<p>So instead of importing the “./stats.js” module statically, like this:</p>
+
+<pre><code class="language-javascript">import * as stats from &quot;./stats.js&quot;;
+we might import it and use it dynamically, like this:
+
+import(&quot;./stats.js&quot;).then(stats =&gt; {
+    let average = stats.mean(data);
+})
+</code></pre>
+
+<p>Or, in an async function (again, you may need to read Chapter 13 before you’ll understand this code), we can simplify the code with await:</p>
+
+<pre><code class="language-javascript">async analyzeData(data) {
+    let stats = await import(&quot;./stats.js&quot;);
+    return {
+        average: stats.mean(data),
+        stddev: stats.stddev(data)
+    };
+}
+</code></pre>
+
+<p>The argument to import() should be a module specifier, exactly like one you’d use with a static import directive. But with import(), you are not constrained to use a constant string literal: any expression that evaluates to a string in the proper form will do.</p>
+
+<p>Dynamic import() looks like a function invocation, but it actually is not. Instead, import() is an operator and the parentheses are a required part of the operator syntax. The reason for this unusual bit of syntax is that import() needs to be able to resolve module specifiers as URLs relative to the currently running module, and this requires a bit of implementation magic that would not be legal to put in a JavaScript function. The function versus operator distinction rarely makes a difference in practice, but you’ll notice it if you try writing code like console.log(import); or let require = import;.</p>
+
+<p>Finally, note that dynamic import() is not just for web browsers. Code-packaging tools like webpack can also make good use of it. The most straightforward way to use a code bundler is to tell it the main entry point for your program and let it find all the static import directives and assemble everything into one large file. By strategically using dynamic import() calls, however, you can break that one monolithic bundle up into a set of smaller bundles that can be loaded on demand.</p>
+
+<h3 id="toc_14">10.3.7 import.meta.url</h3>
+
+<p>There is one final feature of the ES6 module system to discuss. Within an ES6 module (but not within a regular <code>&lt;script&gt;</code>or a Node module loaded with require()), the special syntax import.meta refers to an object that contains metadata about the currently executing module. The url property of this object is the URL from which the module was loaded. (In Node, this will be a file:// URL.)</p>
+
+<p>The primary use case of import.meta.url is to be able to refer to images, data files, or other resources that are stored in the same directory as (or relative to) the module. The URL() constructor makes it easy to resolve a relative URL against an absolute URL like import.meta.url. Suppose, for example, that you have written a module that includes strings that need to be localized and that the localization files are stored in an l10n/ directory, which is in the same directory as the module itself. Your module could load its strings using a URL created with a function, like this:</p>
+
+<pre><code class="language-javascript">function localStringsURL(locale) {
+    return new URL(`l10n/${locale}.json`, import.meta.url);
+}
+</code></pre>
+
+<h2 id="toc_15">10.4 Summary</h2>
+
+<p>The goal of modularity is to allow programmers to hide the implementation details of their code so that chunks of code from various sources can be assembled into large programs without worrying that one chunk will overwrite functions or variables of another. This chapter has explained three different JavaScript module systems:</p>
+
+<ul>
+<li>In the early days of JavaScript, modularity could only be achieved through the clever use of immediately invoked function expressions.</li>
+<li>Node added its own module system on top of the JavaScript language. Node modules are imported with require() and define their exports by setting properties of the Exports object, or by setting the module.exports property.</li>
+<li>In ES6, JavaScript finally got its own module system with import and export keywords, and ES2020 is adding support for dynamic imports with import().</li>
+</ul>
+
+<hr/>
+
+<ol>
+<li>For example: web apps that have frequent incremental updates and users who make frequent return visits may find that using small modules instead of large bundles can result in better average load times because of better utilization of the user’s browser cache.</li>
+</ol>
+
+  </div>
+</div>
+<br /><br />
+<hr />
+<div class="row clearfix">
+  <div class="large-6 columns">
+    <div class="text-left" style="padding:15px 0px;">
+      
+      <a href="16101520446472.html" title="Previous Post: 第 9 章 类">&laquo;
+        第 9 章 类</a>
+      
+    </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="text-right" style="padding:15px 0px;">
+      
+      <a href="16101520447116.html" title="Next Post: 第 11 章 JavaScript 标准库">第 11 章 JavaScript 标准库 &raquo;</a>
+      
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div style="padding:0px 0.93em;" class="share-comments">
+    
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    var currentURL = '16101520447047.html';
+    $('#side-nav a').each(function () {
+      if ($(this).attr('href') == currentURL) {
+        $(this).parent().addClass('active');
+      }
+    });
+  });
+</script>  
+          </div>
+          <div class="large-3 medium-3 columns">
+            <div class="hide-for-small">
+              <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+                    
+                    <li class="side-title"><span>menu</span></li>
+                    
+                    <li>
+                      <a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a>
+                    </li>
+                    
+                    
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-bottom">
+          <div class="row">
+            <hr />
+            <div class="small-9 columns">
+              <p class="copyright">Contact Me&nbsp;
+                Tel: +86 18641188786,&nbsp;
+                mail: 416376663@qq.com</p>
+            </div>
+            <div class="small-3 columns">
+              <p class="copyright text-right"><a href="#top">TOP</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="asset/js/foundation.min.js"></script>
+  <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  
+  
+  
+</body>
+
+</html>

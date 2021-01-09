@@ -1,0 +1,738 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    
+    第 12 章 迭代器和生成器 - JavaScript：The.Definitive.Guide
+    
+  </title>
+  <meta name="description" content="">
+  <link href="atom.xml" rel="alternate" title="JavaScript：The.Definitive.Guide" type="application/atom+xml">
+  <link rel="stylesheet" href="asset/css/foundation.min.css" />
+  <link rel="stylesheet" href="asset/css/docs.css" />
+  <script src="asset/js/vendor/modernizr.js"></script>
+  <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+
+<body class="antialiased hide-extras">
+  <div class="marketing off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <nav class="top-bar docs-bar hide-for-small" data-topbar>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <nav class="tab-bar show-for-small">
+        <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+          <span> &nbsp;</span>
+        </a>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <aside class="left-off-canvas-menu">
+        <ul class="off-canvas-list">
+          <li><a href="index.html">JavaScript：The.Definitive.Guide 7th</a></li>
+          
+          <li class="divider"></li>
+          <li><label>menu</label></li>
+          
+          <li><a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a></li>
+          
+          <li><a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a></li>
+          
+          <li><a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a></li>
+          
+          <li><a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a></li>
+          
+          <li><a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a></li>
+          
+          <li><a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a></li>
+          
+          <li><a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a></li>
+          
+          <li><a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a></li>
+          
+          <li><a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a></li>
+          
+          <li><a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a></li>
+          
+          <li><a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a></li>
+          
+          <li><a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a></li>
+          
+          <li><a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a></li>
+          
+          <li><a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a></li>
+          
+          <li><a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a></li>
+          
+          <li><a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a></li>
+          
+          <li><a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a></li>
+          
+          
+        </ul>
+      </aside>
+      <a class="exit-off-canvas" href="#"></a>
+      <section id="main-content" role="main" class="scroll-container">
+        <div class="row">
+          <div class="large-9 medium-9 columns">
+  <div class="markdown-body">
+  <div class="markdown-inside">
+    <h1>第 12 章 迭代器和生成器</h1>
+    <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
+    <p>Iterable objects and their associated iterators are a feature of ES6 that we’ve seen several times throughout this book. Arrays (including TypedArrays) are iterable, as are strings and Set and Map objects. This means that the contents of these data structures can be iterated—looped over—with the for/of loop, as we saw in §5.4.4:</p>
+
+<blockquote>
+<p>可迭代对象及其关联的迭代器是ES6的一个特性，在本书中我们已经多次看到。数组(包括typedarray)是可迭代的，字符串、Set和Map对象也是如此。这意味着这些数据结构的内容可以被for/of循环遍历，就像我们在§5.4.4中看到的那样:</p>
+</blockquote>
+
+<pre><code class="language-javascript">let sum = 0;
+for(let i of [1,2,3]) { // Loop once for each of these values
+    sum += i;
+}
+sum   // =&gt; 6
+</code></pre>
+
+<p>Iterators can also be used with the ... operator to expand or “spread” an iterable object into an array initializer or function invocation, as we saw in §7.1.2:</p>
+
+<blockquote>
+<p>迭代器还可以与…操作符将可迭代对象展开或“扩展”到数组初始化器或函数调用中，如§7.1.2所示:</p>
+</blockquote>
+
+<pre><code class="language-javascript">let chars = [...&quot;abcd&quot;]; // chars == [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]
+let data = [1, 2, 3, 4, 5];
+Math.max(...data)        // =&gt; 5
+</code></pre>
+
+<p>Iterators can be used with destructuring assignment:</p>
+
+<blockquote>
+<p>迭代器可以与析构赋值一起使用:</p>
+</blockquote>
+
+<pre><code class="language-javascript">let purpleHaze = Uint8Array.of(255, 0, 255, 128);
+let [r, g, b, a] = purpleHaze; // a == 128
+</code></pre>
+
+<p>When you iterate a Map object, the returned values are [key, value] pairs, which work well with destructuring assignment in a for/of loop:</p>
+
+<blockquote>
+<p>当你迭代一个Map对象时，返回的值是[key, value]对，这在for/of循环的析构赋值中工作得很好:</p>
+</blockquote>
+
+<pre><code class="language-javascript">let m = new Map([[&quot;one&quot;, 1], [&quot;two&quot;, 2]]);
+for(let [k,v] of m) console.log(k, v); // Logs &#39;one 1&#39; and &#39;two 2&#39;
+</code></pre>
+
+<p>If you want to iterate just the keys or just the values rather than the pairs, you can use the keys() and values() methods:</p>
+
+<blockquote>
+<p>如果您想只迭代键或只迭代值而不是对，您可以使用keys()和values()方法:</p>
+</blockquote>
+
+<pre><code class="language-javascript">[...m]            // =&gt; [[&quot;one&quot;, 1], [&quot;two&quot;, 2]]: default iteration
+[...m.entries()]  // =&gt; [[&quot;one&quot;, 1], [&quot;two&quot;, 2]]: entries() method is the same
+[...m.keys()]     // =&gt; [&quot;one&quot;, &quot;two&quot;]: keys() method iterates just map keys
+[...m.values()]   // =&gt; [1, 2]: values() method iterates just map values
+</code></pre>
+
+<p>Finally, a number of built-in functions and constructors that are commonly used with Array objects are actually written (in ES6 and later) to accept arbitrary iterators instead. The Set() constructor is one such API:</p>
+
+<blockquote>
+<p>最后，通常用于数组对象的许多内置函数和构造函数实际上被编写(在ES6及以后版本中)来接受任意迭代器。Set()构造函数就是这样一种API:</p>
+</blockquote>
+
+<pre><code class="language-javascript">// Strings are iterable, so the two sets are the same:
+new Set(&quot;abc&quot;) // =&gt; new Set([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;])
+</code></pre>
+
+<p>This chapter explains how iterators work and demonstrates how to create your own data structures that are iterable. After explaining basic iterators, this chapter covers generators, a powerful new feature of ES6 that is primarily used as a particularly easy way to create iterators.</p>
+
+<blockquote>
+<p>本章解释了迭代器是如何工作的，并演示了如何创建自己的可迭代的数据结构。在解释了基本的迭代器之后，本章将介绍生成器，这是ES6的一个强大的新特性，主要用于创建迭代器的一种特别简单的方法。</p>
+</blockquote>
+
+<h2 id="toc_0">12.1 How Iterators Work</h2>
+
+<p>The for/of loop and spread operator work seamlessly with iterable objects, but it is worth understanding what is actually happening to make the iteration work. There are three separate types that you need to understand to understand iteration in JavaScript. First, there are the iterable objects: these are types like Array, Set, and Map that can be iterated. Second, there is the iterator object itself, which performs the iteration. And third, there is the iteration result object that holds the result of each step of the iteration.</p>
+
+<p>An iterable object is any object with a special iterator method that returns an iterator object. An iterator is any object with a next() method that returns an iteration result object. And an iteration result object is an object with properties named value and done. To iterate an iterable object, you first call its iterator method to get an iterator object. Then, you call the next() method of the iterator object repeatedly until the returned value has its done property set to true. The tricky thing about this is that the iterator method of an iterable object does not have a conventional name but uses the Symbol Symbol.iterator as its name. So a simple for/of loop over an iterable object iterable could also be written the hard way, like this:</p>
+
+<pre><code class="language-javascript">let iterable = [99];
+let iterator = iterable[Symbol.iterator]();
+for(let result = iterator.next(); !result.done; result = iterator.next()) {
+    console.log(result.value)  // result.value == 99
+}
+</code></pre>
+
+<p>The iterator object of the built-in iterable datatypes is itself iterable. (That is, it has a method named Symbol.iterator that just returns itself.) This is occasionally useful in code like the following when you want to iterate though a “partially used” iterator:</p>
+
+<pre><code class="language-javascript">let list = [1,2,3,4,5];
+let iter = list[Symbol.iterator]();
+let head = iter.next().value;  // head == 1
+let tail = [...iter];          // tail == [2,3,4,5]
+</code></pre>
+
+<h2 id="toc_1">12.2 Implementing Iterable Objects</h2>
+
+<p>Iterable objects are so useful in ES6 that you should consider making your own datatypes iterable whenever they represent something that can be iterated. The Range classes shown in Examples 9-2 and 9-3 in Chapter 9 were iterable. Those classes used generator functions to make themselves iterable. We’ll document generators later in this chapter, but first, we will implement the Range class one more time, making it iterable without relying on a generator.</p>
+
+<p>In order to make a class iterable, you must implement a method whose name is the Symbol Symbol.iterator. That method must return an iterator object that has a next() method. And the next() method must return an iteration result object that has a value property and/or a boolean done property. Example 12-1 implements an iterable Range class and demonstrates how to create iterable, iterator, and iteration result objects.</p>
+
+<p>Example 12-1. An iterable numeric Range class</p>
+
+<pre><code class="language-javascript">/*
+ * A Range object represents a range of numbers {x: from &lt;= x &lt;= to}
+ * Range defines a has() method for testing whether a given number is a member
+ * of the range. Range is iterable and iterates all integers within the range.
+ */
+class Range {
+    constructor (from, to) {
+        this.from = from;
+        this.to = to;
+    }
+
+    // Make a Range act like a Set of numbers
+    has(x) { return typeof x === &quot;number&quot; &amp;&amp; this.from &lt;= x &amp;&amp; x &lt;= this.to; }
+
+    // Return string representation of the range using set notation
+    toString() { return `{ x | ${this.from} ≤ x ≤ ${this.to} }`; }
+
+    // Make a Range iterable by returning an iterator object.
+    // Note that the name of this method is a special symbol, not a string.
+    [Symbol.iterator]() {
+        // Each iterator instance must iterate the range independently of
+        // others. So we need a state variable to track our location in the
+        // iteration. We start at the first integer &gt;= from.
+        let next = Math.ceil(this.from);  // This is the next value we return
+        let last = this.to;               // We won&#39;t return anything &gt; this
+        return {                          // This is the iterator object
+            // This next() method is what makes this an iterator object.
+            // It must return an iterator result object.
+            next() {
+                return (next &lt;= last)   // If we haven&#39;t returned last value yet
+                    ? { value: next++ } // return next value and increment it
+                    : { done: true };   // otherwise indicate that we&#39;re done.
+            },
+
+            // As a convenience, we make the iterator itself iterable.
+            [Symbol.iterator]() { return this; }
+        };
+    }
+}
+
+for(let x of new Range(1,10)) console.log(x); // Logs numbers 1 to 10
+[...new Range(-2,2)]                          // =&gt; [-2, -1, 0, 1, 2]
+</code></pre>
+
+<p>In addition to making your classes iterable, it can be quite useful to define functions that return iterable values. Consider these iterable-based alternatives to the map() and filter() methods of JavaScript arrays:</p>
+
+<pre><code class="language-text">// Return an iterable object that iterates the result of applying f()
+// to each value from the source iterable
+function map(iterable, f) {
+    let iterator = iterable[Symbol.iterator]();
+    return {     // This object is both iterator and iterable
+        [Symbol.iterator]() { return this; },
+        next() {
+            let v = iterator.next();
+            if (v.done) {
+                return v;
+            } else {
+                return { value: f(v.value) };
+            }
+        }
+    };
+}
+
+// Map a range of integers to their squares and convert to an array
+[...map(new Range(1,4), x =&gt; x*x)]  // =&gt; [1, 4, 9, 16]
+
+// Return an iterable object that filters the specified iterable,
+// iterating only those elements for which the predicate returns true
+function filter(iterable, predicate) {
+    let iterator = iterable[Symbol.iterator]();
+    return { // This object is both iterator and iterable
+        [Symbol.iterator]() { return this; },
+        next() {
+            for(;;) {
+                let v = iterator.next();
+                if (v.done || predicate(v.value)) {
+                    return v;
+                }
+            }
+        }
+    };
+}
+
+// Filter a range so we&#39;re left with only even numbers
+[...filter(new Range(1,10), x =&gt; x % 2 === 0)]  // =&gt; [2,4,6,8,10]
+</code></pre>
+
+<p>One key feature of iterable objects and iterators is that they are inherently lazy: when computation is required to compute the next value, that computation can be deferred until the value is actually needed. Suppose, for example, that you have a very long string of text that you want to tokenize into space-separated words. You could simply use the split() method of your string, but if you do this, then the entire string has to be processed before you can use even the first word. And you end up allocating lots of memory for the returned array and all of the strings within it. Here is a function that allows you to lazily iterate the words of a string without keeping them all in memory at once (in ES2020, this function would be much easier to implement using the iterator-returning matchAll() method described in §11.3.2):</p>
+
+<pre><code class="language-javascript">function words(s) {
+    var r = /\s+|$/g;                     // Match one or more spaces or end
+    r.lastIndex = s.match(/[^ ]/).index;  // Start matching at first nonspace
+    return {                              // Return an iterable iterator object
+        [Symbol.iterator]() {             // This makes us iterable
+            return this;
+        },
+        next() {                          // This makes us an iterator
+            let start = r.lastIndex;      // Resume where the last match ended
+            if (start &lt; s.length) {       // If we&#39;re not done
+                let match = r.exec(s);    // Match the next word boundary
+                if (match) {              // If we found one, return the word
+                    return { value: s.substring(start, match.index) };
+                }
+            }
+            return { done: true };        // Otherwise, say that we&#39;re done
+        }
+    };
+}
+
+[...words(&quot; abc def  ghi! &quot;)] // =&gt; [&quot;abc&quot;, &quot;def&quot;, &quot;ghi!&quot;]
+</code></pre>
+
+<h3 id="toc_2">12.2.1 “Closing” an Iterator: The Return Method</h3>
+
+<p>Imagine a (server-side) JavaScript variant of the words() iterator that, instead of taking a source string as its argument, takes the name of a file, opens the file, reads lines from it, and iterates the words from those lines. In most operating systems, programs that open files to read from them need to remember to close those files when they are done reading, so this hypothetical iterator would be sure to close the file after the next() method returns the last word in it.</p>
+
+<p>But iterators don’t always run all the way to the end: a for/of loop might be terminated with a break or return or by an exception. Similarly, when an iterator is used with destructuring assignment, the next() method is only called enough times to obtain values for each of the specified variables. The iterator may have many more values it could return, but they will never be requested.</p>
+
+<p>If our hypothetical words-in-a-file iterator never runs all the way to the end, it still needs to close the file it opened. For this reason, iterator objects may implement a return() method to go along with the next() method. If iteration stops before next() has returned an iteration result with the done property set to true (most commonly because you left a for/of loop early via a break statement), then the interpreter will check to see if the iterator object has a return() method. If this method exists, the interpreter will invoke it with no arguments, giving the iterator the chance to close files, release memory, and otherwise clean up after itself. The return() method must return an iterator result object. The properties of the object are ignored, but it is an error to return a non-object value.</p>
+
+<p>The for/of loop and the spread operator are really useful features of JavaScript, so when you are creating APIs, it is a good idea to use them when possible. But having to work with an iterable object, its iterator object, and the iterator’s result objects makes the process somewhat complicated. Fortunately, generators can dramatically simplify the creation of custom iterators, as we’ll see in the rest of this chapter.</p>
+
+<h2 id="toc_3">12.3 Generators</h2>
+
+<p>A generator is a kind of iterator defined with powerful new ES6 syntax; it’s particularly useful when the values to be iterated are not the elements of a data structure, but the result of a computation.</p>
+
+<p>To create a generator, you must first define a generator function. A generator function is syntactically like a regular JavaScript function but is defined with the keyword function* rather than function. (Technically, this is not a new keyword, just a * after the keyword function and before the function name.) When you invoke a generator function, it does not actually execute the function body, but instead returns a generator object. This generator object is an iterator. Calling its next() method causes the body of the generator function to run from the start (or whatever its current position is) until it reaches a yield statement. yield is new in ES6 and is something like a return statement. The value of the yield statement becomes the value returned by the next() call on the iterator. An example makes this clearer:</p>
+
+<pre><code class="language-javascript">// A generator function that yields the set of one digit (base-10) primes.
+function* oneDigitPrimes() { // Invoking this function does not run the code
+    yield 2;                 // but just returns a generator object. Calling
+    yield 3;                 // the next() method of that generator runs
+    yield 5;                 // the code until a yield statement provides
+    yield 7;                 // the return value for the next() method.
+}
+
+// When we invoke the generator function, we get a generator
+let primes = oneDigitPrimes();
+
+// A generator is an iterator object that iterates the yielded values
+primes.next().value          // =&gt; 2
+primes.next().value          // =&gt; 3
+primes.next().value          // =&gt; 5
+primes.next().value          // =&gt; 7
+primes.next().done           // =&gt; true
+
+// Generators have a Symbol.iterator method to make them iterable
+primes[Symbol.iterator]()    // =&gt; primes
+
+// We can use generators like other iterable types
+[...oneDigitPrimes()]        // =&gt; [2,3,5,7]
+let sum = 0;
+for(let prime of oneDigitPrimes()) sum += prime;
+sum                          // =&gt; 17
+</code></pre>
+
+<p>In this example, we used a function* statement to define a generator. Like regular functions, however, we can also define generators in expression form. Once again, we just put an asterisk after the function keyword:</p>
+
+<pre><code class="language-javascript">const seq = function*(from,to) {
+    for(let i = from; i &lt;= to; i++) yield i;
+};
+[...seq(3,5)]  // =&gt; [3, 4, 5]
+</code></pre>
+
+<p>In classes and object literals, we can use shorthand notation to omit the function keyword entirely when we define methods. To define a generator in this context, we simply use an asterisk before the method name where the function keyword would have been, had we used it:</p>
+
+<pre><code class="language-javascript">let o = {
+    x: 1, y: 2, z: 3,
+    // A generator that yields each of the keys of this object
+    *g() {
+        for(let key of Object.keys(this)) {
+            yield key;
+        }
+    }
+};
+[...o.g()] // =&gt; [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;g&quot;]
+</code></pre>
+
+<p>Note that there is no way to write a generator function using arrow function syntax.</p>
+
+<p>Generators often make it particularly easy to define iterable classes. We can replace the <code>[Symbol.iterator]()</code> method show in Example 12-1 with a much shorter <code>*[Symbol.iterator&amp;rbrack;()</code> generator function that looks like this:</p>
+
+<pre><code class="language-javascript">*[Symbol.iterator]() {
+    for(let x = Math.ceil(this.from); x &lt;= this.to; x++) yield x;
+}
+</code></pre>
+
+<p>See Example 9-3 in Chapter 9 to see this generator-based iterator function in context.</p>
+
+<h3 id="toc_4">12.3.1 Generator Examples</h3>
+
+<p>Generators are more interesting if they actually generate the values they yield by doing some kind of computation. Here, for example, is a generator function that yields Fibonacci numbers:</p>
+
+<pre><code class="language-javascript">function* fibonacciSequence() {
+    let x = 0, y = 1;
+    for(;;) {
+        yield y;
+        [x, y] = [y, x+y];  // Note: destructuring assignment
+    }
+}
+</code></pre>
+
+<p>Note that the fibonacciSequence() generator function here has an infinite loop and yields values forever without returning. If this generator is used with the ... spread operator, it will loop until memory is exhausted and the program crashes. With care, it is possible to use it in a for/of loop, however:</p>
+
+<pre><code class="language-javascript">// Return the nth Fibonacci number
+function fibonacci(n) {
+    for(let f of fibonacciSequence()) {
+        if (n-- &lt;= 0) return f;
+    }
+}
+fibonacci(20)   // =&gt; 10946
+</code></pre>
+
+<p>This kind of infinite generator becomes more useful with a take() generator like this:</p>
+
+<pre><code class="language-javascript">// Yield the first n elements of the specified iterable object
+function* take(n, iterable) {
+    let it = iterable[Symbol.iterator](); // Get iterator for iterable object
+    while(n-- &gt; 0) {           // Loop n times:
+        let next = it.next();  // Get the next item from the iterator.
+        if (next.done) return; // If there are no more values, return early
+        else yield next.value; // otherwise, yield the value
+    }
+}
+
+// An array of the first 5 Fibonacci numbers
+[...take(5, fibonacciSequence())]  // =&gt; [1, 1, 2, 3, 5]
+</code></pre>
+
+<p>Here is another useful generator function that interleaves the elements of multiple iterable objects:</p>
+
+<pre><code class="language-javascript">// Given an array of iterables, yield their elements in interleaved order.
+function* zip(...iterables) {
+    // Get an iterator for each iterable
+    let iterators = iterables.map(i =&gt; i[Symbol.iterator]());
+    let index = 0;
+    while(iterators.length &gt; 0) {       // While there are still some iterators
+        if (index &gt;= iterators.length) {    // If we reached the last iterator
+            index = 0;                      // go back to the first one.
+        }
+        let item = iterators[index].next(); // Get next item from next iterator.
+        if (item.done) {                    // If that iterator is done
+            iterators.splice(index, 1);     // then remove it from the array.
+        }
+        else {                              // Otherwise,
+            yield item.value;               // yield the iterated value
+            index++;                        // and move on to the next iterator.
+        }
+    }
+}
+
+// Interleave three iterable objects
+[...zip(oneDigitPrimes(),&quot;ab&quot;,[0])]     // =&gt; [2,&quot;a&quot;,0,3,&quot;b&quot;,5,7]
+</code></pre>
+
+<h3 id="toc_5">12.3.2 yield* and Recursive Generators</h3>
+
+<p>In addition to the zip() generator defined in the preceding example, it might be useful to have a similar generator function that yields the elements of multiple iterable objects sequentially rather than interleaving them. We could write that generator like this:</p>
+
+<pre><code class="language-javascript">function* sequence(...iterables) {
+    for(let iterable of iterables) {
+        for(let item of iterable) {
+            yield item;
+        }
+    }
+}
+
+[...sequence(&quot;abc&quot;,oneDigitPrimes())]  // =&gt; [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,2,3,5,7]
+</code></pre>
+
+<p>This process of yielding the elements of some other iterable object is common enough in generator functions that ES6 has special syntax for it. The yield* keyword is like yield except that, rather than yielding a single value, it iterates an iterable object and yields each of the resulting values. The sequence() generator function that we’ve used can be simplified with yield* like this:</p>
+
+<pre><code class="language-javascript">function* sequence(...iterables) {
+    for(let iterable of iterables) {
+        yield* iterable;
+    }
+}
+
+[...sequence(&quot;abc&quot;,oneDigitPrimes())]  // =&gt; [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,2,3,5,7]
+</code></pre>
+
+<p>The array forEach() method is often an elegant way to loop over the elements of an array, so you might be tempted to write the sequence() function like this:</p>
+
+<pre><code class="language-javascript">function* sequence(...iterables) {
+    iterables.forEach(iterable =&gt; yield* iterable );  // Error
+}
+</code></pre>
+
+<p>This does not work, however. yield and yield* can only be used within generator functions, but the nested arrow function in this code is a regular function, not a function* generator function, so yield is not allowed.</p>
+
+<p>yield* can be used with any kind of iterable object, including iterables implemented with generators. This means that yield* allows us to define recursive generators, and you might use this feature to allow simple non-recursive iteration over a recursively defined tree structure, for example.</p>
+
+<h2 id="toc_6">12.4 Advanced Generator Features</h2>
+
+<p>The most common use of generator functions is to create iterators, but the fundamental feature of generators is that they allow us to pause a computation, yield intermediate results, and then resume the computation later. This means that generators have features beyond those of iterators, and we explore those features in the following sections.</p>
+
+<h3 id="toc_7">12.4.1 The Return Value of a Generator Function</h3>
+
+<p>The generator functions we’ve seen so far have not had return statements, or if they have, they have been used to cause an early return, not to return a value. Like any function, though, a generator function can return a value. In order to understand what happens in this case, recall how iteration works. The return value of the next() function is an object that has a value property and/or a done property. With typical iterators and generators, if the value property is defined, then the done property is undefined or is false. And if done is true, then value is undefined. But in the case of a generator that returns a value, the final call to next returns an object that has both value and done defined. The value property holds the return value of the generator function, and the done property is true, indicating that there are no more values to iterate. This final value is ignored by the for/of loop and by the spread operator, but it is available to code that manually iterates with explicit calls to next():</p>
+
+<pre><code class="language-javascript">function *oneAndDone() {
+    yield 1;
+    return &quot;done&quot;;
+}
+
+// The return value does not appear in normal iteration.
+[...oneAndDone()]   // =&gt; [1]
+
+// But it is available if you explicitly call next()
+let generator = oneAndDone();
+generator.next()           // =&gt; { value: 1, done: false}
+generator.next()           // =&gt; { value: &quot;done&quot;, done: true }
+// If the generator is already done, the return value is not returned again
+generator.next()           // =&gt; { value: undefined, done: true }
+</code></pre>
+
+<h3 id="toc_8">12.4.2 The Value of a yield Expression</h3>
+
+<p>In the preceding discussion, we’ve treated yield as a statement that takes a value but has no value of its own. In fact, however, yield is an expression, and it can have a value.</p>
+
+<p>When the next() method of a generator is invoked, the generator function runs until it reaches a yield expression. The expression that follows the yield keyword is evaluated, and that value becomes the return value of the next() invocation. At this point, the generator function stops executing right in the middle of evaluating the yield expression. The next time the next() method of the generator is called, the argument passed to next() becomes the value of the yield expression that was paused. So the generator returns values to its caller with yield, and the caller passes values in to the generator with next(). The generator and caller are two separate streams of execution passing values (and control) back and forth. The following code illustrates:</p>
+
+<pre><code class="language-javascript">function* smallNumbers() {
+    console.log(&quot;next() invoked the first time; argument discarded&quot;);
+    let y1 = yield 1;    // y1 == &quot;b&quot;
+    console.log(&quot;next() invoked a second time with argument&quot;, y1);
+    let y2 = yield 2;    // y2 == &quot;c&quot;
+    console.log(&quot;next() invoked a third time with argument&quot;, y2);
+    let y3 = yield 3;    // y3 == &quot;d&quot;
+    console.log(&quot;next() invoked a fourth time with argument&quot;, y3);
+    return 4;
+}
+
+let g = smallNumbers();
+console.log(&quot;generator created; no code runs yet&quot;);
+let n1 = g.next(&quot;a&quot;);   // n1.value == 1
+console.log(&quot;generator yielded&quot;, n1.value);
+let n2 = g.next(&quot;b&quot;);   // n2.value == 2
+console.log(&quot;generator yielded&quot;, n2.value);
+let n3 = g.next(&quot;c&quot;);   // n3.value == 3
+console.log(&quot;generator yielded&quot;, n3.value);
+let n4 = g.next(&quot;d&quot;);   // n4 == { value: 4, done: true }
+console.log(&quot;generator returned&quot;, n4.value);
+</code></pre>
+
+<p>When this code runs, it produces the following output that demonstrates the back-and-forth between the two blocks of code:</p>
+
+<pre><code class="language-text">generator created; no code runs yet
+next() invoked the first time; argument discarded
+generator yielded 1
+next() invoked a second time with argument b
+generator yielded 2
+next() invoked a third time with argument c
+generator yielded 3
+next() invoked a fourth time with argument d
+generator returned 4
+</code></pre>
+
+<p>Note the asymmetry in this code. The first invocation of next() starts the generator, but the value passed to that invocation is not accessible to the generator.</p>
+
+<h3 id="toc_9">12.4.3 The return() and throw() Methods of a Generator</h3>
+
+<p>We’ve seen that you can receive values yielded by or returned by a generator function. And you can pass values to a running generator by passing those values when you call the next() method of the generator.</p>
+
+<p>In addition to providing input to a generator with next(), you can also alter the flow of control inside the generator by calling its return() and throw() methods. As the names suggest, calling these methods on a generator causes it to return a value or throw an exception as if the next statement in the generator was a return or throw.</p>
+
+<p>Recall from earlier in the chapter that, if an iterator defines a return() method and iteration stops early, then the interpreter automatically calls the return() method to give the iterator a chance to close files or do other cleanup. In the case of generators, you can’t define a custom return() method to handle cleanup, but you can structure the generator code to use a try/finally statement that ensures the necessary cleanup is done (in the finally block) when the generator returns. By forcing the generator to return, the generator’s built-in return() method ensures that the cleanup code is run when the generator will no longer be used.</p>
+
+<p>Just as the next() method of a generator allows us to pass arbitrary values into a running generator, the throw() method of a generator gives us a way to send arbitrary signals (in the form of exceptions) into a generator. Calling the throw() method always causes an exception inside the generator. But if the generator function is written with appropriate exception-handling code, the exception need not be fatal but can instead be a means of altering the behavior of the generator. Imagine, for example, a counter generator that yields an ever-increasing sequence of integers. This could be written so that an exception sent with throw() would reset the counter to zero.</p>
+
+<p>When a generator uses yield* to yield values from some other iterable object, then a call to the next() method of the generator causes a call to the next() method of the iterable object. The same is true of the return() and throw() methods. If a generator uses yield* on an iterable object that has these methods defined, then calling return() or throw() on the generator causes the iterator’s return() or throw() method to be called in turn. All iterators must have a next() method. Iterators that need to clean up after incomplete iteration should define a return() method. And any iterator may define a throw() method, though I don’t know of any practical reason to do so.</p>
+
+<h3 id="toc_10">12.4.4 A Final Note About Generators</h3>
+
+<p>Generators are a very powerful generalized control structure. They give us the ability to pause a computation with yield and restart it again at some arbitrary later time with an arbitrary input value. It is possible to use generators to create a kind of cooperative threading system within single-threaded JavaScript code. And it is possible to use generators to mask asynchronous parts of your program so that your code appears sequential and synchronous, even though some of your function calls are actually asynchronous and depend on events from the network.</p>
+
+<p>Trying to do these things with generators leads to code that is mind-bendingly hard to understand or to explain. It has been done, however, and the only really practical use case has been for managing asynchronous code. JavaScript now has async and await keywords (see Chapter 13) for this very purpose, however, and there is no longer any reason to abuse generators in this way.</p>
+
+<h2 id="toc_11">12.5 Summary</h2>
+
+<p>In this chapter, you have learned:</p>
+
+<p>The for/of loop and the ... spread operator work with iterable objects.</p>
+
+<p>An object is iterable if it has a method with the symbolic name [Symbol.iterator] that returns an iterator object.</p>
+
+<p>An iterator object has a next() method that returns an iteration result object.</p>
+
+<p>An iteration result object has a value property that holds the next iterated value, if there is one. If the iteration has completed, then the result object must have a done property set to true.</p>
+
+<p>You can implement your own iterable objects by defining a <a href="">Symbol.iterator</a> method that returns an object with a next() method that returns iteration result objects. You can also implement functions that accept iterator arguments and return iterator values.</p>
+
+<p>Generator functions (functions defined with function* instead of function) are another way to define iterators.</p>
+
+<p>When you invoke a generator function, the body of the function does not run right away; instead, the return value is an iterable iterator object. Each time the next() method of the iterator is called, another chunk of the generator function runs.</p>
+
+<p>Generator functions can use the yield operator to specify the values that are returned by the iterator. Each call to next() causes the generator function to run up to the next yield expression. The value of that yield expression then becomes the value returned by the iterator. When there are no more yield expressions, then the generator function returns, and the iteration is complete.</p>
+
+  </div>
+</div>
+<br /><br />
+<hr />
+<div class="row clearfix">
+  <div class="large-6 columns">
+    <div class="text-left" style="padding:15px 0px;">
+      
+      <a href="16101520447116.html" title="Previous Post: 第 11 章 JavaScript 标准库">&laquo;
+        第 11 章 JavaScript 标准库</a>
+      
+    </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="text-right" style="padding:15px 0px;">
+      
+      <a href="16101520446778.html" title="Next Post: 第 13 章 异步 JavaScript">第 13 章 异步 JavaScript &raquo;</a>
+      
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div style="padding:0px 0.93em;" class="share-comments">
+    
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    var currentURL = '16101520446533.html';
+    $('#side-nav a').each(function () {
+      if ($(this).attr('href') == currentURL) {
+        $(this).parent().addClass('active');
+      }
+    });
+  });
+</script>  
+          </div>
+          <div class="large-3 medium-3 columns">
+            <div class="hide-for-small">
+              <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+                    
+                    <li class="side-title"><span>menu</span></li>
+                    
+                    <li>
+                      <a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a>
+                    </li>
+                    
+                    
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-bottom">
+          <div class="row">
+            <hr />
+            <div class="small-9 columns">
+              <p class="copyright">Contact Me&nbsp;
+                Tel: +86 18641188786,&nbsp;
+                mail: 416376663@qq.com</p>
+            </div>
+            <div class="small-3 columns">
+              <p class="copyright text-right"><a href="#top">TOP</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="asset/js/foundation.min.js"></script>
+  <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  
+  
+  
+</body>
+
+</html>

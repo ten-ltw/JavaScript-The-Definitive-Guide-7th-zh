@@ -1,0 +1,1046 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    
+    第 6 章 对象 - JavaScript：The.Definitive.Guide
+    
+  </title>
+  <meta name="description" content="">
+  <link href="atom.xml" rel="alternate" title="JavaScript：The.Definitive.Guide" type="application/atom+xml">
+  <link rel="stylesheet" href="asset/css/foundation.min.css" />
+  <link rel="stylesheet" href="asset/css/docs.css" />
+  <script src="asset/js/vendor/modernizr.js"></script>
+  <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+
+<body class="antialiased hide-extras">
+  <div class="marketing off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <nav class="top-bar docs-bar hide-for-small" data-topbar>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <nav class="tab-bar show-for-small">
+        <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+          <span> &nbsp;</span>
+        </a>
+        <div id="header">
+          <h3><a href="index.html">Javascript 权威指南</a></h1>
+        </div>
+      </nav>
+      <aside class="left-off-canvas-menu">
+        <ul class="off-canvas-list">
+          <li><a href="index.html">JavaScript：The.Definitive.Guide 7th</a></li>
+          
+          <li class="divider"></li>
+          <li><label>menu</label></li>
+          
+          <li><a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a></li>
+          
+          <li><a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a></li>
+          
+          <li><a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a></li>
+          
+          <li><a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a></li>
+          
+          <li><a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a></li>
+          
+          <li><a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a></li>
+          
+          <li><a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a></li>
+          
+          <li><a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a></li>
+          
+          <li><a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a></li>
+          
+          <li><a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a></li>
+          
+          <li><a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a></li>
+          
+          <li><a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a></li>
+          
+          <li><a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a></li>
+          
+          <li><a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a></li>
+          
+          <li><a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a></li>
+          
+          <li><a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a></li>
+          
+          <li><a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a></li>
+          
+          
+        </ul>
+      </aside>
+      <a class="exit-off-canvas" href="#"></a>
+      <section id="main-content" role="main" class="scroll-container">
+        <div class="row">
+          <div class="large-9 medium-9 columns">
+  <div class="markdown-body">
+  <div class="markdown-inside">
+    <h1>第 6 章 对象</h1>
+    <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
+    <p>Objects are JavaScript’s most fundamental datatype, and you have already seen them many times in the chapters that precede this one. Because objects are so important to the JavaScript language, it is important that you understand how they work in detail, and this chapter provides that detail. It begins with a formal overview of objects, then dives into practical sections about creating objects and querying, setting, deleting, testing, and enumerating the properties of objects. These property-focused sections are followed by sections that explain how to extend, serialize, and define important methods on objects. Finally, the chapter concludes with a long section about new object literal syntax in ES6 and more recent versions of the language.</p>
+
+<blockquote>
+<p>对象是JavaScript最基本的数据类型，在本章之前的章节中您已经多次看到它们。因为对象对JavaScript语言非常重要，所以了解它们的工作原理非常重要，本章将提供这些细节。它从对象的正式概述开始，然后深入到关于创建对象以及查询、设置、删除、测试和枚举对象属性的实用部分。在这些以属性为中心的部分之后，将介绍如何扩展、序列化和定义对象上的重要方法。最后，本章以一大段关于ES6中的新对象文字语法和该语言的最新版本结尾。</p>
+</blockquote>
+
+<h2 id="toc_0">6.1 Introduction to Objects</h2>
+
+<p>An object is a composite value: it aggregates multiple values (primitive values or other objects) and allows you to store and retrieve those values by name. An object is an unordered collection of properties, each of which has a name and a value. Property names are usually strings (although, as we’ll see in §6.10.3, property names can also be Symbols), so we can say that objects map strings to values. This string-to-value mapping goes by various names—you are probably already familiar with the fundamental data structure under the name “hash,” “hashtable,” “dictionary,” or “associative array.” An object is more than a simple string-to-value map, however. In addition to maintaining its own set of properties, a JavaScript object also inherits the properties of another object, known as its “prototype.” The methods of an object are typically inherited properties, and this “prototypal inheritance” is a key feature of JavaScript.</p>
+
+<blockquote>
+<p>对象是一个复合值:它聚合了多个值(原始值或其他对象)，并允许您按名称存储和检索这些值。对象是属性的无序集合，每个属性都有一个名称和一个值。属性名通常是字符串(尽管，正如我们将在§6.10.3中看到的，属性名也可以是符号)，所以我们可以说对象将字符串映射到值。这种字符串到值的映射有不同的名称—您可能已经熟悉名称“散列”、“散列表”、“字典”或“关联数组”下的基本数据结构。然而，对象不仅仅是简单的字符串到值的映射。除了维护自己的属性集，JavaScript对象还继承另一个对象的属性，即它的“原型”。对象的方法通常是继承的属性，而这种“原型继承”是JavaScript的一个关键特性。</p>
+</blockquote>
+
+<p>JavaScript objects are dynamic—properties can usually be added and deleted—but they can be used to simulate the static objects and “structs” of statically typed languages. They can also be used (by ignoring the value part of the string-to-value mapping) to represent sets of strings.</p>
+
+<blockquote>
+<p>JavaScript对象是动态的——属性通常可以添加和删除——但它们可以用来模拟静态类型语言的静态对象和“结构”。它们还可以用来(通过忽略字符串到值映射中的值部分)表示字符串集。</p>
+</blockquote>
+
+<p>Any value in JavaScript that is not a string, a number, a Symbol, or true, false, null, or undefined is an object. And even though strings, numbers, and booleans are not objects, they can behave like immutable objects.</p>
+
+<blockquote>
+<p>JavaScript中任何不是字符串、数字、符号或真、假、空或未定义的值都是对象。即使字符串、数字和布尔值不是对象，它们也可以表现得像不可变的对象。</p>
+</blockquote>
+
+<p>Recall from §3.8 that objects are mutable and manipulated by reference rather than by value. If the variable x refers to an object and the code let y = x; is executed, the variable y holds a reference to the same object, not a copy of that object. Any modifications made to the object through the variable y are also visible through the variable x.</p>
+
+<blockquote>
+<p>回想一下§3.8，对象是可变的，通过引用而不是值来操作。如果变量x指的是一个对象，代码让y = x;执行时，变量y持有对同一对象的引用，而不是该对象的副本。通过变量y对对象所做的任何修改都可以通过变量x看到。</p>
+</blockquote>
+
+<p>The most common things to do with objects are to create them and set, query, delete, test, and enumerate their properties. These fundamental operations are described in the opening sections of this chapter. The sections after that cover more advanced topics.</p>
+
+<blockquote>
+<p>对对象最常见的操作是创建它们并设置、查询、删除、测试和枚举它们的属性。这些基本的操作将在本章的开头部分进行描述。之后的部分将介绍更高级的主题。</p>
+</blockquote>
+
+<p>A property has a name and a value. A property name may be any string, including the empty string (or any Symbol), but no object may have two properties with the same name. The value may be any JavaScript value, or it may be a getter or setter function (or both). We’ll learn about getter and setter functions in §6.10.6.</p>
+
+<blockquote>
+<p>属性有一个名称和一个值。属性名可以是任何字符串，包括空字符串(或任何符号)，但任何对象都不能有两个同名的属性。值可以是任何JavaScript值，也可以是getter或setter函数(或两者都是)。我们将在§6.10.6中学习getter和setter函数。</p>
+</blockquote>
+
+<p>It is sometimes important to be able to distinguish between properties defined directly on an object and those that are inherited from a prototype object. JavaScript uses the term own property to refer to non-inherited properties.</p>
+
+<blockquote>
+<p>有时，能够区分直接在对象上定义的属性和从原型对象继承的属性是很重要的。JavaScript使用术语“自有属性”来指代非继承属性。</p>
+</blockquote>
+
+<p>In addition to its name and value, each property has three property attributes:</p>
+
+<blockquote>
+<p>除了名称和值之外，每个属性还有三个属性属性:</p>
+</blockquote>
+
+<ul>
+<li>The writable attribute specifies whether the value of the property can be set.</li>
+<li>The enumerable attribute specifies whether the property name is returned by a for/in loop.</li>
+<li>The configurable attribute specifies whether the property can be deleted and whether its attributes can be altered.</li>
+</ul>
+
+<hr/>
+
+<ul>
+<li>writable属性指定是否可以设置属性的值。</li>
+<li>enumerable属性指定for/in循环是否返回属性名称。</li>
+<li>可配置属性指定该属性是否可以删除，是否可以修改其属性。</li>
+</ul>
+
+<p>Many of JavaScript’s built-in objects have properties that are read-only, non-enumerable, or non-configurable. By default, however, all properties of the objects you create are writable, enumerable, and configurable. §14.1 explains techniques for specifying non-default property attribute values for your objects.</p>
+
+<blockquote>
+<p>许多JavaScript的内置对象具有只读、不可枚举或不可配置的属性。但是，在默认情况下，您创建的对象的所有属性都是可写、可枚举和可配置的。§14.1解释了为对象指定非默认属性属性值的技术。</p>
+</blockquote>
+
+<h2 id="toc_1">6.2 Creating Objects</h2>
+
+<p>Objects can be created with object literals, with the new keyword, and with the Object.create() function. The subsections below describe each technique.</p>
+
+<h3 id="toc_2">6.2.1 Object Literals</h3>
+
+<p>The easiest way to create an object is to include an object literal in your JavaScript code. In its simplest form, an object literal is a comma-separated list of colon-separated name:value pairs, enclosed within curly braces. A property name is a JavaScript identifier or a string literal (the empty string is allowed). A property value is any JavaScript expression; the value of the expression (it may be a primitive value or an object value) becomes the value of the property. Here are some examples:</p>
+
+<pre><code class="language-javascript">let empty = {};                          // An object with no properties
+let point = { x: 0, y: 0 };              // Two numeric properties
+let p2 = { x: point.x, y: point.y+1 };   // More complex values
+let book = {
+    &quot;main title&quot;: &quot;JavaScript&quot;,          // These property names include spaces,
+    &quot;sub-title&quot;: &quot;The Definitive Guide&quot;, // and hyphens, so use string literals.
+    for: &quot;all audiences&quot;,                // for is reserved, but no quotes.
+    author: {                            // The value of this property is
+        firstname: &quot;David&quot;,              // itself an object.
+        surname: &quot;Flanagan&quot;
+    }
+};
+</code></pre>
+
+<p>A trailing comma following the last property in an object literal is legal, and some programming styles encourage the use of these trailing commas so you’re less likely to cause a syntax error if you add a new property at the end of the object literal at some later time.</p>
+
+<p>An object literal is an expression that creates and initializes a new and distinct object each time it is evaluated. The value of each property is evaluated each time the literal is evaluated. This means that a single object literal can create many new objects if it appears within the body of a loop or in a function that is called repeatedly, and that the property values of these objects may differ from each other.</p>
+
+<p>The object literals shown here use simple syntax that has been legal since the earliest versions of JavaScript. Recent versions of the language have introduced a number of new object literal features, which are covered in §6.10.</p>
+
+<h3 id="toc_3">6.2.2 Creating Objects with new</h3>
+
+<p>The new operator creates and initializes a new object. The new keyword must be followed by a function invocation. A function used in this way is called a constructor and serves to initialize a newly created object. JavaScript includes constructors for its built-in types. For example:</p>
+
+<pre><code class="language-javascript">let o = new Object();  // Create an empty object: same as {}.
+let a = new Array();   // Create an empty array: same as [].
+let d = new Date();    // Create a Date object representing the current time
+let r = new Map();     // Create a Map object for key/value mapping
+</code></pre>
+
+<p>In addition to these built-in constructors, it is common to define your own constructor functions to initialize newly created objects. Doing so is covered in Chapter 9.</p>
+
+<h3 id="toc_4">6.2.3 Prototypes</h3>
+
+<p>Before we can cover the third object creation technique, we must pause for a moment to explain prototypes. Almost every JavaScript object has a second JavaScript object associated with it. This second object is known as a prototype, and the first object inherits properties from the prototype.</p>
+
+<p>All objects created by object literals have the same prototype object, and we can refer to this prototype object in JavaScript code as Object.prototype. Objects created using the new keyword and a constructor invocation use the value of the prototype property of the constructor function as their prototype. So the object created by new Object() inherits from Object.prototype, just as the object created by {} does. Similarly, the object created by new Array() uses Array.prototype as its prototype, and the object created by new Date() uses Date.prototype as its prototype. This can be confusing when first learning JavaScript. Remember: almost all objects have a prototype, but only a relatively small number of objects have a prototype property. It is these objects with prototype properties that define the prototypes for all the other objects.</p>
+
+<p>Object.prototype is one of the rare objects that has no prototype: it does not inherit any properties. Other prototype objects are normal objects that do have a prototype. Most built-in constructors (and most user-defined constructors) have a prototype that inherits from Object.prototype. For example, Date.prototype inherits properties from Object.prototype, so a Date object created by new Date() inherits properties from both Date.prototype and Object.prototype. This linked series of prototype objects is known as a prototype chain.</p>
+
+<p>An explanation of how property inheritance works is in §6.3.2. Chapter 9 explains the connection between prototypes and constructors in more detail: it shows how to define new “classes” of objects by writing a constructor function and setting its prototype property to the prototype object to be used by the “instances” created with that constructor. And we’ll learn how to query (and even change) the prototype of an object in §14.3.</p>
+
+<h3 id="toc_5">6.2.4 Object.create()</h3>
+
+<p>Object.create() creates a new object, using its first argument as the prototype of that object:</p>
+
+<pre><code class="language-javascript">let o1 = Object.create({x: 1, y: 2});     // o1 inherits properties x and y.
+o1.x + o1.y                               // =&gt; 3
+</code></pre>
+
+<p>You can pass null to create a new object that does not have a prototype, but if you do this, the newly created object will not inherit anything, not even basic methods like toString() (which means it won’t work with the + operator either):</p>
+
+<pre><code class="language-javascript">let o2 = Object.create(null);             // o2 inherits no props or methods.
+</code></pre>
+
+<p>If you want to create an ordinary empty object (like the object returned by {} or new Object()), pass Object.prototype:</p>
+
+<pre><code class="language-javascript">let o3 = Object.create(Object.prototype); // o3 is like {} or new Object().
+</code></pre>
+
+<p>The ability to create a new object with an arbitrary prototype is a powerful one, and we’ll use Object.create() in a number of places throughout this chapter. (Object.create() also takes an optional second argument that describes the properties of the new object. This second argument is an advanced feature covered in §14.1.)</p>
+
+<p>One use for Object.create() is when you want to guard against unintended (but nonmalicious) modification of an object by a library function that you don’t have control over. Instead of passing the object directly to the function, you can pass an object that inherits from it. If the function reads properties of that object, it will see the inherited values. If it sets properties, however, those writes will not affect the original object.</p>
+
+<pre><code class="language-javascript">let o = { x: &quot;don&#39;t change this value&quot; };
+library.function(Object.create(o));  // Guard against accidental modifications
+</code></pre>
+
+<p>To understand why this works, you need to know how properties are queried and set in JavaScript. These are the topics of the next section.</p>
+
+<h2 id="toc_6">6.3 Querying and Setting Properties</h2>
+
+<p>To obtain the value of a property, use the dot (.) or square bracket ([]) operators described in §4.4. The lefthand side should be an expression whose value is an object. If using the dot operator, the righthand side must be a simple identifier that names the property. If using square brackets, the value within the brackets must be an expression that evaluates to a string that contains the desired property name:</p>
+
+<pre><code class="language-javascript">let author = book.author;       // Get the &quot;author&quot; property of the book.
+let name = author.surname;      // Get the &quot;surname&quot; property of the author.
+let title = book[&quot;main title&quot;]; // Get the &quot;main title&quot; property of the book.
+</code></pre>
+
+<p>To create or set a property, use a dot or square brackets as you would to query the property, but put them on the lefthand side of an assignment expression:</p>
+
+<pre><code class="language-javascript">book.edition = 7;                   // Create an &quot;edition&quot; property of book.
+book[&quot;main title&quot;] = &quot;ECMAScript&quot;;  // Change the &quot;main title&quot; property.
+</code></pre>
+
+<p>When using square bracket notation, we’ve said that the expression inside the square brackets must evaluate to a string. A more precise statement is that the expression must evaluate to a string or a value that can be converted to a string or to a Symbol (§6.10.3). In Chapter 7, for example, we’ll see that it is common to use numbers inside the square brackets.</p>
+
+<h3 id="toc_7">6.3.1 Objects As Associative Arrays</h3>
+
+<p>As explained in the preceding section, the following two JavaScript expressions have the same value:</p>
+
+<pre><code class="language-javascript">object.property
+object[&quot;property&quot;]
+</code></pre>
+
+<p>The first syntax, using the dot and an identifier, is like the syntax used to access a static field of a struct or object in C or Java. The second syntax, using square brackets and a string, looks like array access, but to an array indexed by strings rather than by numbers. This kind of array is known as an associative array (or hash or map or dictionary). JavaScript objects are associative arrays, and this section explains why that is important.</p>
+
+<p>In C, C++, Java, and similar strongly typed languages, an object can have only a fixed number of properties, and the names of these properties must be defined in advance. Since JavaScript is a loosely typed language, this rule does not apply: a program can create any number of properties in any object. When you use the . operator to access a property of an object, however, the name of the property is expressed as an identifier. Identifiers must be typed literally into your JavaScript program; they are not a datatype, so they cannot be manipulated by the program.</p>
+
+<p>On the other hand, when you access a property of an object with the [] array notation, the name of the property is expressed as a string. Strings are JavaScript datatypes, so they can be manipulated and created while a program is running. So, for example, you can write the following code in JavaScript:</p>
+
+<pre><code class="language-javascript">let addr = &quot;&quot;;
+for(let i = 0; i &lt; 4; i++) {
+    addr += customer[`address${i}`] + &quot;\n&quot;;
+}
+</code></pre>
+
+<p>This code reads and concatenates the address0, address1, address2, and address3 properties of the customer object.</p>
+
+<p>This brief example demonstrates the flexibility of using array notation to access properties of an object with string expressions. This code could be rewritten using the dot notation, but there are cases in which only the array notation will do. Suppose, for example, that you are writing a program that uses network resources to compute the current value of the user’s stock market investments. The program allows the user to type in the name of each stock they own as well as the number of shares of each stock. You might use an object named portfolio to hold this information. The object has one property for each stock. The name of the property is the name of the stock, and the property value is the number of shares of that stock. So, for example, if a user holds 50 shares of stock in IBM, the portfolio.ibm property has the value 50.</p>
+
+<p>Part of this program might be a function for adding a new stock to the portfolio:</p>
+
+<pre><code class="language-javascript">function addstock(portfolio, stockname, shares) {
+    portfolio[stockname] = shares;
+}
+</code></pre>
+
+<p>Since the user enters stock names at runtime, there is no way that you can know the property names ahead of time. Since you can’t know the property names when you write the program, there is no way you can use the . operator to access the properties of the portfolio object. You can use the [] operator, however, because it uses a string value (which is dynamic and can change at runtime) rather than an identifier (which is static and must be hardcoded in the program) to name the property.</p>
+
+<p>In Chapter 5, we introduced the for/in loop (and we’ll see it again shortly, in §6.6). The power of this JavaScript statement becomes clear when you consider its use with associative arrays. Here is how you would use it when computing the total value of a portfolio:</p>
+
+<pre><code class="language-javascript">function computeValue(portfolio) {
+    let total = 0.0;
+    for(let stock in portfolio) {       // For each stock in the portfolio:
+        let shares = portfolio[stock];  // get the number of shares
+        let price = getQuote(stock);    // look up share price
+        total += shares * price;        // add stock value to total value
+    }
+    return total;                       // Return total value.
+}
+</code></pre>
+
+<p>JavaScript objects are commonly used as associative arrays as shown here, and it is important to understand how this works. In ES6 and later, however, the Map class described in §11.1.2 is often a better choice than using a plain object.</p>
+
+<h3 id="toc_8">6.3.2 Inheritance</h3>
+
+<p>JavaScript objects have a set of “own properties,” and they also inherit a set of properties from their prototype object. To understand this, we must consider property access in more detail. The examples in this section use the Object.create() function to create objects with specified prototypes. We’ll see in Chapter 9, however, that every time you create an instance of a class with new, you are creating an object that inherits properties from a prototype object.</p>
+
+<p>Suppose you query the property x in the object o. If o does not have an own property with that name, the prototype object of o1 is queried for the property x. If the prototype object does not have an own property by that name, but has a prototype itself, the query is performed on the prototype of the prototype. This continues until the property x is found or until an object with a null prototype is searched. As you can see, the prototype attribute of an object creates a chain or linked list from which properties are inherited:</p>
+
+<pre><code class="language-javascript">let o = {};               // o inherits object methods from Object.prototype
+o.x = 1;                  // and it now has an own property x.
+let p = Object.create(o); // p inherits properties from o and Object.prototype
+p.y = 2;                  // and has an own property y.
+let q = Object.create(p); // q inherits properties from p, o, and...
+q.z = 3;                  // ...Object.prototype and has an own property z.
+let f = q.toString();     // toString is inherited from Object.prototype
+q.x + q.y                 // =&gt; 3; x and y are inherited from o and p
+</code></pre>
+
+<p>Now suppose you assign to the property x of the object o. If o already has an own (non-inherited) property named x, then the assignment simply changes the value of this existing property. Otherwise, the assignment creates a new property named x on the object o. If o previously inherited the property x, that inherited property is now hidden by the newly created own property with the same name.</p>
+
+<p>Property assignment examines the prototype chain only to determine whether the assignment is allowed. If o inherits a read-only property named x, for example, then the assignment is not allowed. (Details about when a property may be set are in §6.3.3.) If the assignment is allowed, however, it always creates or sets a property in the original object and never modifies objects in the prototype chain. The fact that inheritance occurs when querying properties but not when setting them is a key feature of JavaScript because it allows us to selectively override inherited properties:</p>
+
+<pre><code class="language-javascript">let unitcircle = { r: 1 };         // An object to inherit from
+let c = Object.create(unitcircle); // c inherits the property r
+c.x = 1; c.y = 1;                  // c defines two properties of its own
+c.r = 2;                           // c overrides its inherited property
+unitcircle.r                       // =&gt; 1: the prototype is not affected
+</code></pre>
+
+<p>There is one exception to the rule that a property assignment either fails or creates or sets a property in the original object. If o inherits the property x, and that property is an accessor property with a setter method (see §6.10.6), then that setter method is called rather than creating a new property x in o. Note, however, that the setter method is called on the object o, not on the prototype object that defines the property, so if the setter method defines any properties, it will do so on o, and it will again leave the prototype chain unmodified.</p>
+
+<h3 id="toc_9">6.3.3 Property Access Errors</h3>
+
+<p>Property access expressions do not always return or set a value. This section explains the things that can go wrong when you query or set a property.</p>
+
+<p>It is not an error to query a property that does not exist. If the property x is not found as an own property or an inherited property of o, the property access expression o.x evaluates to undefined. Recall that our book object has a “sub-title” property, but not a “subtitle” property:</p>
+
+<pre><code class="language-javascript">book.subtitle    // =&gt; undefined: property doesn&#39;t exist
+</code></pre>
+
+<p>It is an error, however, to attempt to query a property of an object that does not exist. The null and undefined values have no properties, and it is an error to query properties of these values. Continuing the preceding example:</p>
+
+<pre><code class="language-javascript">let len = book.subtitle.length; // !TypeError: undefined doesn&#39;t have length
+</code></pre>
+
+<p>Property access expressions will fail if the lefthand side of the . is null or undefined. So when writing an expression like book.author.surname, you should be careful if you are not certain that book and book.author are actually defined. Here are two ways to guard against this kind of problem:</p>
+
+<pre><code class="language-javascript">// A verbose and explicit technique
+let surname = undefined;
+if (book) {
+    if (book.author) {
+        surname = book.author.surname;
+    }
+}
+
+// A concise and idiomatic alternative to get surname or null or undefined
+surname = book &amp;&amp; book.author &amp;&amp; book.author.surname;
+</code></pre>
+
+<p>To understand why this idiomatic expression works to prevent TypeError exceptions, you might want to review the short-circuiting behavior of the &amp;&amp; operator in §4.10.1.</p>
+
+<p>As described in §4.4.1, ES2020 supports conditional property access with ?., which allows us to rewrite the previous assignment expression as:</p>
+
+<pre><code class="language-javascript">let surname = book?.author?.surname;
+</code></pre>
+
+<p>Attempting to set a property on null or undefined also causes a TypeError. Attempts to set properties on other values do not always succeed, either: some properties are read-only and cannot be set, and some objects do not allow the addition of new properties. In strict mode (§5.6.3), a TypeError is thrown whenever an attempt to set a property fails. Outside of strict mode, these failures are usually silent.</p>
+
+<p>The rules that specify when a property assignment succeeds and when it fails are intuitive but difficult to express concisely. An attempt to set a property p of an object o fails in these circumstances:</p>
+
+<p>o has an own property p that is read-only: it is not possible to set read-only properties.</p>
+
+<p>o has an inherited property p that is read-only: it is not possible to hide an inherited read-only property with an own property of the same name.</p>
+
+<p>o does not have an own property p; o does not inherit a property p with a setter method, and o’s extensible attribute (see §14.2) is false. Since p does not already exist in o, and if there is no setter method to call, then p must be added to o. But if o is not extensible, then no new properties can be defined on it.</p>
+
+<h2 id="toc_10">6.4 Deleting Properties</h2>
+
+<p>The delete operator (§4.13.4) removes a property from an object. Its single operand should be a property access expression. Surprisingly, delete does not operate on the value of the property but on the property itself:</p>
+
+<pre><code class="language-javascript">delete book.author;          // The book object now has no author property.
+delete book[&quot;main title&quot;];   // Now it doesn&#39;t have &quot;main title&quot;, either.
+</code></pre>
+
+<p>The delete operator only deletes own properties, not inherited ones. (To delete an inherited property, you must delete it from the prototype object in which it is defined. Doing this affects every object that inherits from that prototype.)</p>
+
+<p>A delete expression evaluates to true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property). delete also evaluates to true when used (meaninglessly) with an expression that is not a property access expression:</p>
+
+<pre><code class="language-javascript">let o = {x: 1};    // o has own property x and inherits property toString
+delete o.x         // =&gt; true: deletes property x
+delete o.x         // =&gt; true: does nothing (x doesn&#39;t exist) but true anyway
+delete o.toString  // =&gt; true: does nothing (toString isn&#39;t an own property)
+delete 1           // =&gt; true: nonsense, but true anyway
+</code></pre>
+
+<p>delete does not remove properties that have a configurable attribute of false. Certain properties of built-in objects are non-configurable, as are properties of the global object created by variable declaration and function declaration. In strict mode, attempting to delete a non-configurable property causes a TypeError. In non-strict mode, delete simply evaluates to false in this case:</p>
+
+<pre><code class="language-javascript">// In strict mode, all these deletions throw TypeError instead of returning false
+delete Object.prototype // =&gt; false: property is non-configurable
+var x = 1;              // Declare a global variable
+delete globalThis.x     // =&gt; false: can&#39;t delete this property
+function f() {}         // Declare a global function
+delete globalThis.f     // =&gt; false: can&#39;t delete this property either
+</code></pre>
+
+<p>When deleting configurable properties of the global object in non-strict mode, you can omit the reference to the global object and simply follow the delete operator with the property name:</p>
+
+<pre><code class="language-javascript">globalThis.x = 1;       // Create a configurable global property (no let or var)
+delete x                // =&gt; true: this property can be deleted
+</code></pre>
+
+<p>In strict mode, however, delete raises a SyntaxError if its operand is an unqualified identifier like x, and you have to be explicit about the property access:</p>
+
+<pre><code class="language-javascript">delete x;               // SyntaxError in strict mode
+delete globalThis.x;    // This works
+</code></pre>
+
+<h2 id="toc_11">6.5 Testing Properties</h2>
+
+<p>JavaScript objects can be thought of as sets of properties, and it is often useful to be able to test for membership in the set—to check whether an object has a property with a given name. You can do this with the in operator, with the hasOwnProperty() and propertyIsEnumerable() methods, or simply by querying the property. The examples shown here all use strings as property names, but they also work with Symbols (§6.10.3).</p>
+
+<p>The in operator expects a property name on its left side and an object on its right. It returns true if the object has an own property or an inherited property by that name:</p>
+
+<pre><code class="language-javascript">let o = { x: 1 };
+&quot;x&quot; in o         // =&gt; true: o has an own property &quot;x&quot;
+&quot;y&quot; in o         // =&gt; false: o doesn&#39;t have a property &quot;y&quot;
+&quot;toString&quot; in o  // =&gt; true: o inherits a toString property
+</code></pre>
+
+<p>The hasOwnProperty() method of an object tests whether that object has an own property with the given name. It returns false for inherited properties:</p>
+
+<pre><code class="language-javascript">let o = { x: 1 };
+o.hasOwnProperty(&quot;x&quot;)        // =&gt; true: o has an own property x
+o.hasOwnProperty(&quot;y&quot;)        // =&gt; false: o doesn&#39;t have a property y
+o.hasOwnProperty(&quot;toString&quot;) // =&gt; false: toString is an inherited property
+</code></pre>
+
+<p>The propertyIsEnumerable() refines the hasOwnProperty() test. It returns true only if the named property is an own property and its enumerable attribute is true. Certain built-in properties are not enumerable. Properties created by normal JavaScript code are enumerable unless you’ve used one of the techniques shown in §14.1 to make them non-enumerable.</p>
+
+<pre><code class="language-javascript">let o = { x: 1 };
+o.propertyIsEnumerable(&quot;x&quot;)  // =&gt; true: o has an own enumerable property x
+o.propertyIsEnumerable(&quot;toString&quot;)  // =&gt; false: not an own property
+Object.prototype.propertyIsEnumerable(&quot;toString&quot;) // =&gt; false: not enumerable
+</code></pre>
+
+<p>Instead of using the in operator, it is often sufficient to simply query the property and use !== to make sure it is not undefined:</p>
+
+<pre><code class="language-javascript">let o = { x: 1 };
+o.x !== undefined        // =&gt; true: o has a property x
+o.y !== undefined        // =&gt; false: o doesn&#39;t have a property y
+o.toString !== undefined // =&gt; true: o inherits a toString property
+</code></pre>
+
+<p>There is one thing the in operator can do that the simple property access technique shown here cannot do. in can distinguish between properties that do not exist and properties that exist but have been set to undefined. Consider this code:</p>
+
+<pre><code class="language-javascript">let o = { x: undefined };  // Property is explicitly set to undefined
+o.x !== undefined          // =&gt; false: property exists but is undefined
+o.y !== undefined          // =&gt; false: property doesn&#39;t even exist
+&quot;x&quot; in o                   // =&gt; true: the property exists
+&quot;y&quot; in o                   // =&gt; false: the property doesn&#39;t exist
+delete o.x;                // Delete the property x
+&quot;x&quot; in o                   // =&gt; false: it doesn&#39;t exist anymore
+</code></pre>
+
+<h2 id="toc_12">6.6 Enumerating Properties</h2>
+
+<p>Instead of testing for the existence of individual properties, we sometimes want to iterate through or obtain a list of all the properties of an object. There are a few different ways to do this.</p>
+
+<p>The for/in loop was covered in §5.4.5. It runs the body of the loop once for each enumerable property (own or inherited) of the specified object, assigning the name of the property to the loop variable. Built-in methods that objects inherit are not enumerable, but the properties that your code adds to objects are enumerable by default. For example:</p>
+
+<pre><code class="language-javascript">let o = {x: 1, y: 2, z: 3};          // Three enumerable own properties
+o.propertyIsEnumerable(&quot;toString&quot;)   // =&gt; false: not enumerable
+for(let p in o) {                    // Loop through the properties
+    console.log(p);                  // Prints x, y, and z, but not toString
+}
+</code></pre>
+
+<p>To guard against enumerating inherited properties with for/in, you can add an explicit check inside the loop body:</p>
+
+<pre><code class="language-javascript">for(let p in o) {
+    if (!o.hasOwnProperty(p)) continue;       // Skip inherited properties
+}
+
+for(let p in o) {
+    if (typeof o[p] === &quot;function&quot;) continue; // Skip all methods
+}
+</code></pre>
+
+<p>As an alternative to using a for/in loop, it is often easier to get an array of property names for an object and then loop through that array with a for/of loop. There are four functions you can use to get an array of property names:</p>
+
+<p>Object.keys() returns an array of the names of the enumerable own properties of an object. It does not include non-enumerable properties, inherited properties, or properties whose name is a Symbol (see §6.10.3).</p>
+
+<p>Object.getOwnPropertyNames() works like Object.keys() but returns an array of the names of non-enumerable own properties as well, as long as their names are strings.</p>
+
+<p>Object.getOwnPropertySymbols() returns own properties whose names are Symbols, whether or not they are enumerable.</p>
+
+<p>Reflect.ownKeys() returns all own property names, both enumerable and non-enumerable, and both string and Symbol. (See §14.6.)</p>
+
+<p>There are examples of the use of Object.keys() with a for/of loop in §6.7.</p>
+
+<h3 id="toc_13">6.6.1 Property Enumeration Order</h3>
+
+<p>ES6 formally defines the order in which the own properties of an object are enumerated. Object.keys(), Object.getOwnPropertyNames(), Object.getOwnPropertySymbols(), Reflect.ownKeys(), and related methods such as JSON.stringify() all list properties in the following order, subject to their own additional constraints about whether they list non-enumerable properties or properties whose names are strings or Symbols:</p>
+
+<p>String properties whose names are non-negative integers are listed first, in numeric order from smallest to largest. This rule means that arrays and array-like objects will have their properties enumerated in order.</p>
+
+<p>After all properties that look like array indexes are listed, all remaining properties with string names are listed (including properties that look like negative numbers or floating-point numbers). These properties are listed in the order in which they were added to the object. For properties defined in an object literal, this order is the same order they appear in the literal.</p>
+
+<p>Finally, the properties whose names are Symbol objects are listed in the order in which they were added to the object.</p>
+
+<p>The enumeration order for the for/in loop is not as tightly specified as it is for these enumeration functions, but implementations typically enumerate own properties in the order just described, then travel up the prototype chain enumerating properties in the same order for each prototype object. Note, however, that a property will not be enumerated if a property by that same name has already been enumerated, or even if a non-enumerable property by the same name has already been considered.</p>
+
+<h2 id="toc_14">6.7 Extending Objects</h2>
+
+<p>A common operation in JavaScript programs is needing to copy the properties of one object to another object. It is easy to do that with code like this:</p>
+
+<pre><code class="language-javascript">let target = {x: 1}, source = {y: 2, z: 3};
+for(let key of Object.keys(source)) {
+    target[key] = source[key];
+}
+target  // =&gt; {x: 1, y: 2, z: 3}
+</code></pre>
+
+<p>But because this is a common operation, various JavaScript frameworks have defined utility functions, often named extend(), to perform this copying operation. Finally, in ES6, this ability comes to the core JavaScript language in the form of Object.assign().</p>
+
+<p>Object.assign() expects two or more objects as its arguments. It modifies and returns the first argument, which is the target object, but does not alter the second or any subsequent arguments, which are the source objects. For each source object, it copies the enumerable own properties of that object (including those whose names are Symbols) into the target object. It processes the source objects in argument list order so that properties in the first source object override properties by the same name in the target object and properties in the second source object (if there is one) override properties with the same name in the first source object.</p>
+
+<p>Object.assign() copies properties with ordinary property get and set operations, so if a source object has a getter method or the target object has a setter method, they will be invoked during the copy, but they will not themselves be copied.</p>
+
+<p>One reason to assign properties from one object into another is when you have an object that defines default values for many properties and you want to copy those default properties into another object if a property by that name does not already exist in that object. Using Object.assign() naively will not do what you want:</p>
+
+<pre><code class="language-javascript">Object.assign(o, defaults);  // overwrites everything in o with defaults
+</code></pre>
+
+<p>Instead, what you can do is to create a new object, copy the defaults into it, and then override those defaults with the properties in o:</p>
+
+<pre><code class="language-javascript">o = Object.assign({}, defaults, o);
+</code></pre>
+
+<p>We’ll see in §6.10.4 that you can also express this object copy-and-override operation using the ... spread operator like this:</p>
+
+<pre><code class="language-javascript">o = {...defaults, ...o};
+</code></pre>
+
+<p>We could also avoid the overhead of the extra object creation and copying by writing a version of Object.assign() that copies properties only if they are missing:</p>
+
+<pre><code class="language-javascript">// Like Object.assign() but doesn&#39;t override existing properties
+// (and also doesn&#39;t handle Symbol properties)
+function merge(target, ...sources) {
+    for(let source of sources) {
+        for(let key of Object.keys(source)) {
+            if (!(key in target)) { // This is different than Object.assign()
+                target[key] = source[key];
+            }
+        }
+    }
+    return target;
+}
+Object.assign({x: 1}, {x: 2, y: 2}, {y: 3, z: 4})  // =&gt; {x: 2, y: 3, z: 4}
+merge({x: 1}, {x: 2, y: 2}, {y: 3, z: 4})          // =&gt; {x: 1, y: 2, z: 4}
+</code></pre>
+
+<p>It is straightforward to write other property manipulation utilities like this merge() function. A restrict() function could delete properties of an object if they do not appear in another template object, for example. Or a subtract() function could remove all of the properties of one object from another object.</p>
+
+<h2 id="toc_15">6.8 Serializing Objects</h2>
+
+<p>Object serialization is the process of converting an object’s state to a string from which it can later be restored. The functions JSON.stringify() and JSON.parse() serialize and restore JavaScript objects. These functions use the JSON data interchange format. JSON stands for “JavaScript Object Notation,” and its syntax is very similar to that of JavaScript object and array literals:</p>
+
+<pre><code class="language-javascript">let o = {x: 1, y: {z: [false, null, &quot;&quot;]}}; // Define a test object
+let s = JSON.stringify(o);   // s == &#39;{&quot;x&quot;:1,&quot;y&quot;:{&quot;z&quot;:[false,null,&quot;&quot;]}}&#39;
+let p = JSON.parse(s);       // p == {x: 1, y: {z: [false, null, &quot;&quot;]}}
+</code></pre>
+
+<p>JSON syntax is a subset of JavaScript syntax, and it cannot represent all JavaScript values. Objects, arrays, strings, finite numbers, true, false, and null are supported and can be serialized and restored. NaN, Infinity, and -Infinity are serialized to null. Date objects are serialized to ISO-formatted date strings (see the Date.toJSON() function), but JSON.parse() leaves these in string form and does not restore the original Date object. Function, RegExp, and Error objects and the undefined value cannot be serialized or restored. JSON.stringify() serializes only the enumerable own properties of an object. If a property value cannot be serialized, that property is simply omitted from the stringified output. Both JSON.stringify() and JSON.parse() accept optional second arguments that can be used to customize the serialization and/or restoration process by specifying a list of properties to be serialized, for example, or by converting certain values during the serialization or stringification process. Complete documentation for these functions is in §11.6.</p>
+
+<h2 id="toc_16">6.9 Object Methods</h2>
+
+<p>As discussed earlier, all JavaScript objects (except those explicitly created without a prototype) inherit properties from Object.prototype. These inherited properties are primarily methods, and because they are universally available, they are of particular interest to JavaScript programmers. We’ve already seen the hasOwnProperty() and propertyIsEnumerable() methods, for example. (And we’ve also already covered quite a few static functions defined on the Object constructor, such as Object.create() and Object.keys().) This section explains a handful of universal object methods that are defined on Object.prototype, but which are intended to be replaced by other, more specialized implementations. In the sections that follow, we show examples of defining these methods on a single object. In Chapter 9, you’ll learn how to define these methods more generally for an entire class of objects.</p>
+
+<h3 id="toc_17">6.9.1 The toString() Method</h3>
+
+<p>The toString() method takes no arguments; it returns a string that somehow represents the value of the object on which it is invoked. JavaScript invokes this method of an object whenever it needs to convert the object to a string. This occurs, for example, when you use the + operator to concatenate a string with an object or when you pass an object to a method that expects a string.</p>
+
+<p>The default toString() method is not very informative (though it is useful for determining the class of an object, as we will see in §14.4.3). For example, the following line of code simply evaluates to the string “[object Object]”:</p>
+
+<pre><code class="language-javascript">let s = { x: 1, y: 1 }.toString();  // s == &quot;[object Object]&quot;
+</code></pre>
+
+<p>Because this default method does not display much useful information, many classes define their own versions of toString(). For example, when an array is converted to a string, you obtain a list of the array elements, themselves each converted to a string, and when a function is converted to a string, you obtain the source code for the function. You might define your own toString() method like this:</p>
+
+<pre><code class="language-javascript">let point = {
+    x: 1,
+    y: 2,
+    toString: function() { return `(${this.x}, ${this.y})`; }
+};
+String(point)    // =&gt; &quot;(1, 2)&quot;: toString() is used for string conversions
+</code></pre>
+
+<h3 id="toc_18">6.9.2 The toLocaleString() Method</h3>
+
+<p>In addition to the basic toString() method, objects all have a toLocaleString(). The purpose of this method is to return a localized string representation of the object. The default toLocaleString() method defined by Object doesn’t do any localization itself: it simply calls toString() and returns that value. The Date and Number classes define customized versions of toLocaleString() that attempt to format numbers, dates, and times according to local conventions. Array defines a toLocaleString() method that works like toString() except that it formats array elements by calling their toLocaleString() methods instead of their toString() methods. You might do the same thing with a point object like this:</p>
+
+<pre><code class="language-javascript">let point = {
+    x: 1000,
+    y: 2000,
+    toString: function() { return `(${this.x}, ${this.y})`; },
+    toLocaleString: function() {
+        return `(${this.x.toLocaleString()}, ${this.y.toLocaleString()})`;
+    }
+};
+point.toString()        // =&gt; &quot;(1000, 2000)&quot;
+point.toLocaleString()  // =&gt; &quot;(1,000, 2,000)&quot;: note thousands separators
+</code></pre>
+
+<p>The internationalization classes documented in §11.7 can be useful when implementing a toLocaleString() method.</p>
+
+<h3 id="toc_19">6.9.3 The valueOf() Method</h3>
+
+<p>The valueOf() method is much like the toString() method, but it is called when JavaScript needs to convert an object to some primitive type other than a string—typically, a number. JavaScript calls this method automatically if an object is used in a context where a primitive value is required. The default valueOf() method does nothing interesting, but some of the built-in classes define their own valueOf() method. The Date class defines valueOf() to convert dates to numbers, and this allows Date objects to be chronologically compared with &lt; and &gt;. You could do something similar with a point object, defining a valueOf() method that returns the distance from the origin to the point:</p>
+
+<pre><code class="language-javascript">let point = {
+    x: 3,
+    y: 4,
+    valueOf: function() { return Math.hypot(this.x, this.y); }
+};
+Number(point)  // =&gt; 5: valueOf() is used for conversions to numbers
+point &gt; 4      // =&gt; true
+point &gt; 5      // =&gt; false
+point &lt; 6      // =&gt; true
+</code></pre>
+
+<h3 id="toc_20">6.9.4 The toJSON() Method</h3>
+
+<p>Object.prototype does not actually define a toJSON() method, but the JSON.stringify() method (see §6.8) looks for a toJSON() method on any object it is asked to serialize. If this method exists on the object to be serialized, it is invoked, and the return value is serialized, instead of the original object. The Date class (§11.4) defines a toJSON() method that returns a serializable string representation of the date. We could do the same for our Point object like this:</p>
+
+<pre><code class="language-javascript">let point = {
+    x: 1,
+    y: 2,
+    toString: function() { return `(${this.x}, ${this.y})`; },
+    toJSON: function() { return this.toString(); }
+};
+JSON.stringify([point])   // =&gt; &#39;[&quot;(1, 2)&quot;]&#39;
+</code></pre>
+
+<h2 id="toc_21">6.10 Extended Object Literal Syntax</h2>
+
+<p>Recent versions of JavaScript have extended the syntax for object literals in a number of useful ways. The following subsections explain these extensions.</p>
+
+<h3 id="toc_22">6.10.1 Shorthand Properties</h3>
+
+<p>Suppose you have values stored in variables x and y and want to create an object with properties named x and y that hold those values. With basic object literal syntax, you’d end up repeating each identifier twice:</p>
+
+<pre><code class="language-javascript">let x = 1, y = 2;
+let o = {
+    x: x,
+    y: y
+};
+</code></pre>
+
+<p>In ES6 and later, you can drop the colon and one copy of the identifier and end up with much simpler code:</p>
+
+<pre><code class="language-javascript">let x = 1, y = 2;
+let o = { x, y };
+o.x + o.y  // =&gt; 3
+</code></pre>
+
+<h3 id="toc_23">6.10.2 Computed Property Names</h3>
+
+<p>Sometimes you need to create an object with a specific property, but the name of that property is not a compile-time constant that you can type literally in your source code. Instead, the property name you need is stored in a variable or is the return value of a function that you invoke. You can’t use a basic object literal for this kind of property. Instead, you have to create an object and then add the desired properties as an extra step:</p>
+
+<pre><code class="language-javascript">const PROPERTY_NAME = &quot;p1&quot;;
+function computePropertyName() { return &quot;p&quot; + 2; }
+
+let o = {};
+o[PROPERTY_NAME] = 1;
+o[computePropertyName()] = 2;
+</code></pre>
+
+<p>It is much simpler to set up an object like this with an ES6 feature known as computed properties that lets you take the square brackets from the preceding code and move them directly into the object literal:</p>
+
+<pre><code class="language-javascript">const PROPERTY_NAME = &quot;p1&quot;;
+function computePropertyName() { return &quot;p&quot; + 2; }
+
+let p = {
+    [PROPERTY_NAME]: 1,
+    [computePropertyName()]: 2
+};
+
+p.p1 + p.p2 // =&gt; 3
+</code></pre>
+
+<p>With this new syntax, the square brackets delimit an arbitrary JavaScript expression. That expression is evaluated, and the resulting value (converted to a string, if necessary) is used as the property name.</p>
+
+<p>One situation where you might want to use computed properties is when you have a library of JavaScript code that expects to be passed objects with a particular set of properties, and the names of those properties are defined as constants in that library. If you are writing code to create the objects that will be passed to that library, you could hardcode the property names, but you’d risk bugs if you type the property name wrong anywhere, and you’d risk version mismatch issues if a new version of the library changes the required property names. Instead, you might find that it makes your code more robust to use computed property syntax with the property name constants defined by the library.</p>
+
+<h3 id="toc_24">6.10.3 Symbols as Property Names</h3>
+
+<p>The computed property syntax enables one other very important object literal feature. In ES6 and later, property names can be strings or symbols. If you assign a symbol to a variable or constant, then you can use that symbol as a property name using the computed property syntax:</p>
+
+<pre><code class="language-javascript">const extension = Symbol(&quot;my extension symbol&quot;);
+let o = {
+    [extension]: { /* extension data stored in this object */ }
+};
+o[extension].x = 0; // This won&#39;t conflict with other properties of o
+</code></pre>
+
+<p>As explained in §3.6, Symbols are opaque values. You can’t do anything with them other than use them as property names. Every Symbol is different from every other Symbol, however, which means that Symbols are good for creating unique property names. Create a new Symbol by calling the Symbol() factory function. (Symbols are primitive values, not objects, so Symbol() is not a constructor function that you invoke with new.) The value returned by Symbol() is not equal to any other Symbol or other value. You can pass a string to Symbol(), and this string is used when your Symbol is converted to a string. But this is a debugging aid only: two Symbols created with the same string argument are still different from one another.</p>
+
+<p>The point of Symbols is not security, but to define a safe extension mechanism for JavaScript objects. If you get an object from third-party code that you do not control and need to add some of your own properties to that object but want to be sure that your properties will not conflict with any properties that may already exist on the object, you can safely use Symbols as your property names. If you do this, you can also be confident that the third-party code will not accidentally alter your symbolically named properties. (That third-party code could, of course, use Object.getOwnPropertySymbols() to discover the Symbols you’re using and could then alter or delete your properties. This is why Symbols are not a security mechanism.)</p>
+
+<h3 id="toc_25">6.10.4 Spread Operator</h3>
+
+<p>In ES2018 and later, you can copy the properties of an existing object into a new object using the “spread operator” ... inside an object literal:</p>
+
+<pre><code class="language-javascript">let position = { x: 0, y: 0 };
+let dimensions = { width: 100, height: 75 };
+let rect = { ...position, ...dimensions };
+rect.x + rect.y + rect.width + rect.height // =&gt; 175
+</code></pre>
+
+<p>In this code, the properties of the position and dimensions objects are “spread out” into the rect object literal as if they had been written literally inside those curly braces. Note that this ... syntax is often called a spread operator but is not a true JavaScript operator in any sense. Instead, it is a special-case syntax available only within object literals. (Three dots are used for other purposes in other JavaScript contexts, but object literals are the only context where the three dots cause this kind of interpolation of one object into another one.)</p>
+
+<p>If the object that is spread and the object it is being spread into both have a property with the same name, then the value of that property will be the one that comes last:</p>
+
+<pre><code class="language-javascript">let o = { x: 1 };
+let p = { x: 0, ...o };
+p.x   // =&gt; 1: the value from object o overrides the initial value
+let q = { ...o, x: 2 };
+q.x   // =&gt; 2: the value 2 overrides the previous value from o.
+</code></pre>
+
+<p>Also note that the spread operator only spreads the own properties of an object, not any inherited ones:</p>
+
+<pre><code class="language-javascript">let o = Object.create({x: 1}); // o inherits the property x
+let p = { ...o };
+p.x                            // =&gt; undefined
+</code></pre>
+
+<p>Finally, it is worth noting that, although the spread operator is just three little dots in your code, it can represent a substantial amount of work to the JavaScript interpreter. If an object has n properties, the process of spreading those properties into another object is likely to be an O(n) operation. This means that if you find yourself using ... within a loop or recursive function as a way to accumulate data into one large object, you may be writing an inefficient O(n2) algorithm that will not scale well as n gets larger.</p>
+
+<h3 id="toc_26">6.10.5 Shorthand Methods</h3>
+
+<p>When a function is defined as a property of an object, we call that function a method (we’ll have a lot more to say about methods in Chapters 8 and 9). Prior to ES6, you would define a method in an object literal using a function definition expression just as you would define any other property of an object:</p>
+
+<pre><code class="language-javascript">let square = {
+    area: function() { return this.side * this.side; },
+    side: 10
+};
+square.area() // =&gt; 100
+</code></pre>
+
+<p>In ES6, however, the object literal syntax (and also the class definition syntax we’ll see in Chapter 9) has been extended to allow a shortcut where the function keyword and the colon are omitted, resulting in code like this:</p>
+
+<pre><code class="language-javascript">let square = {
+    area() { return this.side * this.side; },
+    side: 10
+};
+square.area() // =&gt; 100
+</code></pre>
+
+<p>Both forms of the code are equivalent: both add a property named area to the object literal, and both set the value of that property to the specified function. The shorthand syntax makes it clearer that area() is a method and not a data property like side.</p>
+
+<p>When you write a method using this shorthand syntax, the property name can take any of the forms that are legal in an object literal: in addition to a regular JavaScript identifier like the name area above, you can also use string literals and computed property names, which can include Symbol property names:</p>
+
+<pre><code class="language-javascript">const METHOD_NAME = &quot;m&quot;;
+const symbol = Symbol();
+let weirdMethods = {
+    &quot;method With Spaces&quot;(x) { return x + 1; },
+    [METHOD_NAME](x) { return x + 2; },
+    [symbol](x) { return x + 3; }
+};
+weirdMethods[&quot;method With Spaces&quot;](1)  // =&gt; 2
+weirdMethods[METHOD_NAME](1)           // =&gt; 3
+weirdMethods[symbol](1)                // =&gt; 4
+</code></pre>
+
+<p>Using a Symbol as a method name is not as strange as it seems. In order to make an object iterable (so it can be used with a for/of loop), you must define a method with the symbolic name Symbol.iterator, and there are examples of doing exactly that in Chapter 12.</p>
+
+<h3 id="toc_27">6.10.6 Property Getters and Setters</h3>
+
+<p>All of the object properties we’ve discussed so far in this chapter have been data properties with a name and an ordinary value. JavaScript also supports accessor properties, which do not have a single value but instead have one or two accessor methods: a getter and/or a setter.</p>
+
+<p>When a program queries the value of an accessor property, JavaScript invokes the getter method (passing no arguments). The return value of this method becomes the value of the property access expression. When a program sets the value of an accessor property, JavaScript invokes the setter method, passing the value of the righthand side of the assignment. This method is responsible for “setting,” in some sense, the property value. The return value of the setter method is ignored.</p>
+
+<p>If a property has both a getter and a setter method, it is a read/write property. If it has only a getter method, it is a read-only property. And if it has only a setter method, it is a write-only property (something that is not possible with data properties), and attempts to read it always evaluate to undefined.</p>
+
+<p>Accessor properties can be defined with an extension to the object literal syntax (unlike the other ES6 extensions we’ve seen here, getters and setters were introduced in ES5):</p>
+
+<pre><code class="language-javascript">let o = {
+    // An ordinary data property
+    dataProp: value,
+
+    // An accessor property defined as a pair of functions.
+    get accessorProp() { return this.dataProp; },
+    set accessorProp(value) { this.dataProp = value; }
+};
+</code></pre>
+
+<p>Accessor properties are defined as one or two methods whose name is the same as the property name. These look like ordinary methods defined using the ES6 shorthand except that getter and setter definitions are prefixed with get or set. (In ES6, you can also use computed property names when defining getters and setters. Simply replace the property name after get or set with an expression in square brackets.)</p>
+
+<p>The accessor methods defined above simply get and set the value of a data property, and there is no reason to prefer the accessor property over the data property. But as a more interesting example, consider the following object that represents a 2D Cartesian point. It has ordinary data properties to represent the x and y coordinates of the point, and it has accessor properties that give the equivalent polar coordinates of the point:</p>
+
+<pre><code class="language-javascript">let p = {
+    // x and y are regular read-write data properties.
+    x: 1.0,
+    y: 1.0,
+
+    // r is a read-write accessor property with getter and setter.
+    // Don&#39;t forget to put a comma after accessor methods.
+    get r() { return Math.hypot(this.x, this.y); },
+    set r(newvalue) {
+        let oldvalue = Math.hypot(this.x, this.y);
+        let ratio = newvalue/oldvalue;
+        this.x *= ratio;
+        this.y *= ratio;
+    },
+
+    // theta is a read-only accessor property with getter only.
+    get theta() { return Math.atan2(this.y, this.x); }
+};
+p.r     // =&gt; Math.SQRT2
+p.theta // =&gt; Math.PI / 4
+</code></pre>
+
+<p>Note the use of the keyword this in the getters and setter in this example. JavaScript invokes these functions as methods of the object on which they are defined, which means that within the body of the function, this refers to the point object p. So the getter method for the r property can refer to the x and y properties as this.x and this.y. Methods and the this keyword are covered in more detail in §8.2.2.</p>
+
+<p>Accessor properties are inherited, just as data properties are, so you can use the object p defined above as a prototype for other points. You can give the new objects their own x and y properties, and they’ll inherit the r and theta properties:</p>
+
+<pre><code class="language-javascript">let q = Object.create(p); // A new object that inherits getters and setters
+q.x = 3; q.y = 4;         // Create q&#39;s own data properties
+q.r                       // =&gt; 5: the inherited accessor properties work
+q.theta                   // =&gt; Math.atan2(4, 3)
+</code></pre>
+
+<p>The code above uses accessor properties to define an API that provides two representations (Cartesian coordinates and polar coordinates) of a single set of data. Other reasons to use accessor properties include sanity checking of property writes and returning different values on each property read:</p>
+
+<pre><code class="language-javascript">// This object generates strictly increasing serial numbers
+const serialnum = {
+    // This data property holds the next serial number.
+    // The _ in the property name hints that it is for internal use only.
+    _n: 0,
+
+    // Return the current value and increment it
+    get next() { return this._n++; },
+
+    // Set a new value of n, but only if it is larger than current
+    set next(n) {
+        if (n &gt; this._n) this._n = n;
+        else throw new Error(&quot;serial number can only be set to a larger value&quot;);
+    }
+};
+serialnum.next = 10;    // Set the starting serial number
+serialnum.next          // =&gt; 10
+serialnum.next          // =&gt; 11: different value each time we get next
+</code></pre>
+
+<p>Finally, here is one more example that uses a getter method to implement a property with “magical” behavior:</p>
+
+<pre><code class="language-javascript">// This object has accessor properties that return random numbers.
+// The expression &quot;random.octet&quot;, for example, yields a random number
+// between 0 and 255 each time it is evaluated.
+const random = {
+    get octet() { return Math.floor(Math.random()*256); },
+    get uint16() { return Math.floor(Math.random()*65536); },
+    get int16() { return Math.floor(Math.random()*65536)-32768; }
+};
+</code></pre>
+
+<h2 id="toc_28">6.11 Summary</h2>
+
+<p>This chapter has documented JavaScript objects in great detail, covering topics that include:</p>
+
+<p>Basic object terminology, including the meaning of terms like enumerable and own property.</p>
+
+<p>Object literal syntax, including the many new features in ES6 and later.</p>
+
+<p>How to read, write, delete, enumerate, and check for the presence of the properties of an object.</p>
+
+<p>How prototype-based inheritance works in JavaScript and how to create an object that inherits from another object with Object.create().</p>
+
+<p>How to copy properties from one object into another with Object.assign().</p>
+
+<p>All JavaScript values that are not primitive values are objects. This includes both arrays and functions, which are the topics of the next two chapters.</p>
+
+<hr/>
+
+<ol>
+<li>Remember; almost all objects have a prototype but most do not have a property named prototype. JavaScript inheritance works even if you can’t access the prototype object directly. But see §14.3 if you want to learn how to do that.</li>
+</ol>
+
+  </div>
+</div>
+<br /><br />
+<hr />
+<div class="row clearfix">
+  <div class="large-6 columns">
+    <div class="text-left" style="padding:15px 0px;">
+      
+      <a href="16101520447014.html" title="Previous Post: 第 5 章 语句">&laquo;
+        第 5 章 语句</a>
+      
+    </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="text-right" style="padding:15px 0px;">
+      
+      <a href="16101520446647.html" title="Next Post: 第 7 章 数组">第 7 章 数组 &raquo;</a>
+      
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div style="padding:0px 0.93em;" class="share-comments">
+    
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    var currentURL = '16101520446732.html';
+    $('#side-nav a').each(function () {
+      if ($(this).attr('href') == currentURL) {
+        $(this).parent().addClass('active');
+      }
+    });
+  });
+</script>  
+          </div>
+          <div class="large-3 medium-3 columns">
+            <div class="hide-for-small">
+              <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+                    
+                    <li class="side-title"><span>menu</span></li>
+                    
+                    <li>
+                      <a title="第 1 章 JavaScript 概述" href="16101538110586.html">第 1 章 JavaScript 概述</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 2 章 词法结构" href="16101520446811.html">第 2 章 词法结构</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 3 章 类型、值和变量" href="16101520446571.html">第 3 章 类型、值和变量</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 4 章 表达式和运算符" href="16101520447226.html">第 4 章 表达式和运算符</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 5 章 语句" href="16101520447014.html">第 5 章 语句</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 6 章 对象" href="16101520446732.html">第 6 章 对象</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 7 章 数组" href="16101520446647.html">第 7 章 数组</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 8 章 函数" href="16101520446503.html">第 8 章 函数</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 9 章 类" href="16101520446472.html">第 9 章 类</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 10 章 模块" href="16101520447047.html">第 10 章 模块</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 11 章 JavaScript 标准库" href="16101520447116.html">第 11 章 JavaScript 标准库</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 12 章 迭代器和生成器" href="16101520446533.html">第 12 章 迭代器和生成器</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 13 章 异步 JavaScript" href="16101520446778.html">第 13 章 异步 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 14 章 元编程" href="16101520446974.html">第 14 章 元编程</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 15 章 Web 浏览器中的 JavaScript" href="16101520447172.html">第 15 章 Web 浏览器中的 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 16 章 服务器端 JavaScript" href="16101520446610.html">第 16 章 服务器端 JavaScript</a>
+                    </li>
+                    
+                    <li>
+                      <a title="第 17 章 JavaScript 工具和扩展" href="16101520446688.html">第 17 章 JavaScript 工具和扩展</a>
+                    </li>
+                    
+                    
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-bottom">
+          <div class="row">
+            <hr />
+            <div class="small-9 columns">
+              <p class="copyright">Contact Me&nbsp;
+                Tel: +86 18641188786,&nbsp;
+                mail: 416376663@qq.com</p>
+            </div>
+            <div class="small-3 columns">
+              <p class="copyright text-right"><a href="#top">TOP</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="asset/js/foundation.min.js"></script>
+  <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  
+  
+  
+</body>
+
+</html>
