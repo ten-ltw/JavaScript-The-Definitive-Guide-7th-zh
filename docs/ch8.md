@@ -190,7 +190,7 @@ let squares = [1,2,3,4].map(x => x*x);               // squares == [1,4,9,16]
 
 Arrow functions differ from functions defined in other ways in one critical way: they inherit the value of the this keyword from the environment in which they are defined rather than defining their own invocation context as functions defined in other ways do. This is an important and very useful feature of arrow functions, and we’ll return to it again later in this chapter. Arrow functions also differ from other functions in that they do not have a prototype property, which means that they cannot be used as constructor functions for new classes (see §9.2).
 
-> 箭头函数不同于用关键字定义的函数：箭头函数从定义它们的环境继承this关键字，而不是像其他定义方式那样定义自己的调用上下文。这是箭头函数一个重要且特别实用的特性，我们会在这一章的后面再次提到它。箭头函数也不同于其他函数，它们没有有原型属性。这意味着它不能被当作一个构造函数去创建一个类（见 §9.2）。
+> 箭头函数不同于用关键字定义的函数：箭头函数从定义它们的环境继承 this 关键字，而不是像其他定义方式那样定义自己的调用上下文。这是箭头函数一个重要且特别实用的特性，我们会在这一章的后面再次提到它。箭头函数也不同于其他函数，它们没有有原型属性。这意味着它不能被当作一个构造函数去创建一个类（见 §9.2）。
 
 ### 8.1.4 Nested Functions
 In JavaScript, functions may be nested within other functions. For example:
@@ -622,7 +622,12 @@ timed(benchmark)(1000000) // => 500000500000; this is the sum of the numbers
 ### 8.3.5 Destructuring Function Arguments into Parameters
 When you invoke a function with a list of argument values, those values end up being assigned to the parameters declared in the function definition. This initial phase of function invocation is a lot like variable assignment. So it should not be surprising that we can use the techniques of destructuring assignment (see §3.10.3) with functions.
 
+> 用实参列表调用函数时，实参的值最终赋值给函数定义的参数。函数调用初始化阶段非常像变量赋值。所以我们不必惊讶于可以将解构赋值（见 §3.10.3）用于函数。
+
 If you define a function that has parameter names within square brackets, you are telling the function to expect an array value to be passed for each pair of square brackets. As part of the invocation process, the array arguments will be unpacked into the individually named parameters. As an example, suppose we are representing 2D vectors as arrays of two numbers, where the first element is the X coordinate and the second element is the Y coordinate. With this simple data structure, we could write the following function to add two vectors:
+
+> 如果一个函数的参数带有方括号，就说明函数要给每一个方括号传一个数组。在一个调用进程中，数组实参会被拆包传递给对应的参数。例如，假设我们将 2D 矢量表示为两个数字的数组，其中第一个元素是 X 坐标，第二个元素是 Y 坐标。用这个简单的数据结构，编写下面这个函数来添加两个矢量： 
+
 ```js
 function vectorAdd(v1, v2) {
     return [v1[0] + v2[0], v1[1] + v2[1]];
@@ -630,13 +635,19 @@ function vectorAdd(v1, v2) {
 vectorAdd([1,2], [3,4])  // => [4,6]
 ```
 The code would be easier to understand if we destructured the two vector arguments into more clearly named parameters:
-```
+
+> 如果下面这种方式解构这两个矢量实参，这段代码将更容易理解：
+
+```js
 function vectorAdd([x1,y1], [x2,y2]) { // Unpack 2 arguments into 4 parameters
     return [x1 + x2, y1 + y2];
 }
 vectorAdd([1,2], [3,4])  // => [4,6]
 ```
 Similarly, if you are defining a function that expects an object argument, you can destructure parameters of that object. Let’s use a vector example again, except this time, let’s suppose that we represent vectors as objects with x and y parameters:
+
+> 同样，如果定义一个函数时需要对象实参，你能对这个对象进行参数解构。再次实用矢量的例子，这一次，我们用 x 和 y 参数包装成对象来描述矢量：
+
 ```js
 // Multiply the vector {x,y} by a scalar value
 function vectorMultiply({x, y}, scalar) {
@@ -645,6 +656,9 @@ function vectorMultiply({x, y}, scalar) {
 vectorMultiply({x: 1, y: 2}, 2)  // => {x: 2, y: 4}
 ```
 This example of destructuring a single object argument into two parameters is a fairly clear one because the parameter names we use match the property names of the incoming object. The syntax is more verbose and more confusing when you need to destructure properties with one name into parameters with different names. Here’s the vector addition example, implemented for object-based vectors:
+
+> 这个例子将一个简单的对象实参解构成两个参数是很简单的，因为参数的名字和我们在对象中使用的属性名是匹配的。当您需要将一个名称的属性解构为具有不同名称的参数时，语法更加冗长和难懂。下面是一个矢量加法的例子，基于对象矢量的实现：
+
 ```js
 function vectorAdd(
     {x: x1, y: y1}, // Unpack 1st object into x1 and y1 params
@@ -657,7 +671,12 @@ vectorAdd({x: 1, y: 2}, {x: 3, y: 4})  // => {x: 4, y: 6}
 ```
 The tricky thing about destructuring syntax like {x:x1, y:y1} is remembering which are the property names and which are the parameter names. The rule to keep in mind for destructuring assignment and destructuring function calls is that the variables or parameters being declared go in the spots where you’d expect values to go in an object literal. So property names are always on the lefthand side of the colon, and the parameter (or variable) names are on the right.
 
+> 像 {x:x1, y:y1} 的解构语法棘手的是记住哪一个是属性名哪一个是参数名。牢记解构赋值和解构函数调用的规则，声明的变量或参数在对象字面量中的位置固定。属性名总是在冒号的左边，参数（或变量）名在右边。
+
 You can define parameter defaults with destructured parameters. Here’s vector multiplication that works with 2D or 3D vectors:
+
+> 您可以使用解构参数定义参数默认值。下面是适用于 2D 或 3D 矢量的矢量乘法：
+
 ```js
 // Multiply the vector {x,y} or {x,y,z} by a scalar value
 function vectorMultiply({x, y, z=0}, scalar) {
@@ -666,6 +685,9 @@ function vectorMultiply({x, y, z=0}, scalar) {
 vectorMultiply({x: 1, y: 2}, 2)  // => {x: 2, y: 4, z: 0}
 ```
 Some languages (like Python) allow the caller of a function to invoke a function with arguments specified in name=value form, which is convenient when there are many optional arguments or when the parameter list is long enough that it is hard to remember the correct order. JavaScript does not allow this directly, but you can approximate it by destructuring an object argument into your function parameters. Consider a function that copies a specified number of elements from one array into another array with optionally specified starting offsets for each array. Since there are five possible parameters, some of which have defaults, and it would be hard for a caller to remember which order to pass the arguments in, we can define and invoke the arraycopy() function like this:
+
+> 一些语言（像 Python）允许函数的调用者以 name=value 型式指定实参，这在有很多可选实参或者参数列表长到难以记住正确的顺序时是非常方便的。JavaScript 不允许直接这样做，但可以通过解构对象实参到函数参数中。构思一个函数将指定数量的元素从一个数组复制到另一个数组中，可以随意地为每个数组指定起始偏移量。如下有五个可传入参数，其中一些有默认值，并且调用者很难记住参数的顺序来传递实参，可以像这样定义和调用 arraycopy() 方法：
+
 ```js
 function arraycopy({from, to=from, n=from.length, fromIndex=0, toIndex=0}) {
     let valuesToCopy = from.slice(fromIndex, fromIndex + n);
@@ -676,6 +698,9 @@ let a = [1,2,3,4,5], b = [9,8,7,6,5];
 arraycopy({from: a, n: 3, to: b, toIndex: 4}) // => [9,8,7,6,1,2,3,5]
 ```
 When you destructure an array, you can define a rest parameter for extra values within the array that is being unpacked. That rest parameter within the square brackets is completely different than the true rest parameter for the function:
+
+> 当解构一个数组，在其被拆包时，可以定义一个剩余参数将其余值放在数组中。 在方括号中的剩余参数和真正的函数中的剩余参数是完全不同的：
+
 ```js
 // This function expects an array argument. The first two elements of that
 // array are unpacked into the x and y parameters. Any remaining elements
@@ -687,6 +712,9 @@ function f([x, y, ...coords], ...rest) {
 f([1, 2, 3, 4], 5, 6)   // => [3, 5, 6, 3, 4]
 ```
 In ES2018, you can also use a rest parameter when you destructure an object. The value of that rest parameter will be an object that has any properties that did not get destructured. Object rest parameters are often useful with the object spread operator, which is also a new feature of ES2018:
+
+> 在 ES2018，也可以用剩余参数解构对象。剩余参数是一个没有解构的属性的对象。对象剩余参数经常与对象展开操作符连用，这是 ES2018 的新特性：
+
 ```js
 // Multiply the vector {x,y} or {x,y,z} by a scalar value, retain other props
 function vectorMultiply({x, y, z=0, ...props}, scalar) {
@@ -695,6 +723,9 @@ function vectorMultiply({x, y, z=0, ...props}, scalar) {
 vectorMultiply({x: 1, y: 2, w: -1}, 2)  // => {x: 2, y: 4, z: 0, w: -1}
 ```
 Finally, keep in mind that, in addition to destructuring argument objects and arrays, you can also destructure arrays of objects, objects that have array properties, and objects that have object properties, to essentially any depth. Consider graphics code that represents circles as objects with x, y, radius, and color properties, where the color property is an array of red, green, and blue color components. You might define a function that expects a single circle object to be passed to it but destructures that circle object into six separate parameters:
+
+> 最后，请记住，除了可以解构实参对象和数组，也可以解构数组对象，对象有数组属性，并且对象还有对象的属性。构思一个将圆表示为具有 x、y、半径和颜色属性的对象的图形代码，颜色属性是一个数组有红色，绿色和蓝色组成。你可以定义一个函数，该函数希望将单个圆对象传递给它，但其解构为六个单独的参数：
+
 ```js
 function drawCircle({x, y, radius, color: [r, g, b]}) {
     // Not yet implemented
@@ -702,12 +733,21 @@ function drawCircle({x, y, radius, color: [r, g, b]}) {
 ```
 If function argument destructuring is any more complicated than this, I find that the code becomes harder to read, rather than simpler. Sometimes, it is clearer to be explicit about your object property access and array indexing.
 
+> 如果函数实参解构比这更复杂，我发现代码变得更难读，而不是更简单。有时，显示地对对象属性访问和数组索引会让代码更清晰。
+
 ### 8.3.6 Argument Types
 JavaScript method parameters have no declared types, and no type checking is performed on the values you pass to a function. You can help make your code self-documenting by choosing descriptive names for function arguments and by documenting them carefully in the comments for each function. (Alternatively, see §17.8 for a language extension that allows you to layer type checking on top of regular JavaScript.)
 
+> JavaScript方法的形参并未声明类型，在形参传入函数体之前也未做任何类型检查。可以采用语义化的单词来给函数实参命名，并在函数注释给每一个实参详细描述，以此使代码自文本化。
+
 As described in §3.9, JavaScript performs liberal type conversion as needed. So if you write a function that expects a string argument and then call that function with a value of some other type, the value you passed will simply be converted to a string when the function tries to use it as a string. All primitive types can be converted to strings, and all objects have toString() methods (if not necessarily useful ones), so an error never occurs in this case.
 
+> §3.9 已经提到，JavaScript 在必要时会进行类型转换。因此如果函数期 望接收一个字符串实参，而调用函数时传入其他类型的值，所传入的值会在函数体 内将其用做字符串的地方转换为字符串类型。所有的原始类型都可以转换为字符 串，所有的对象都包含 toString() 方法（尽管不一定有用），所以这种场景下是不会有任何错误的。
+
 This is not always true, however. Consider again the arraycopy() method shown earlier. It expects one or two array arguments and will fail if these arguments are of the wrong type. Unless you are writing a private function that will only be called from nearby parts of your code, it may be worth adding code to check the types of arguments like this. It is better for a function to fail immediately and predictably when passed bad values than to begin executing and fail later with an error message that is likely to be unclear. Here is an example function that performs type-checking:
+
+> 然而事情不总是这样，回头看一下刚才提到的 arraycopy() 方法。这个方法期望获得一个或两个实参，并且这些实参的类型错误会导致函数执行失败。除非所写的私有函数只会被附近的代码调用，你应当添加类似的实参类型检查逻辑，因为宁愿程序在传入非法值时报错，也不愿非法值导致程序在执行时报错，相比而言，逻辑执行时的报错消息不甚清晰且更难处理。下面这个例子中的函数就做了这种类型检查：
+
 ```js
 // Return the sum of the elements an iterable object a.
 // The elements of a must all be numbers.
@@ -728,33 +768,56 @@ sum([1,2,"3"]); // !TypeError: element 2 is not a number
 ## 8.4 Functions as Values
 The most important features of functions are that they can be defined and invoked. Function definition and invocation are syntactic features of JavaScript and of most other programming languages. In JavaScript, however, functions are not only syntax but also values, which means they can be assigned to variables, stored in the properties of objects or the elements of arrays, passed as arguments to functions, and so on.3
 
+> 函数可以定义，也可以调用，这是函数最重要的特性。函数定义和调用是  JavaScript 的词法特性，对于其他大多数编程语言来说亦是如此。然而在JavaScript 中，函数不仅是一种语法，也是值，也就是说，可以将函数赋值给变量，存储在对象的属性或数组的元素中，作为参数传入另外一个函数等。3
+
 To understand how functions can be JavaScript data as well as JavaScript syntax, consider this function definition:
+
+> 为了便于理解JavaScript中的函数是如何用做数据的以及JavaScript语法，来看一下这样一个函数定义：
+
 ```js
 function square(x) { return x*x; }
 ```
 This definition creates a new function object and assigns it to the variable square. The name of a function is really immaterial; it is simply the name of a variable that refers to the function object. The function can be assigned to another variable and still work the same way:
+
+> 这个定义创建一个新的函数对象，并将其赋值给变量 square。函数的名字实际上是无形的，它（square）仅仅是变量的名称，这个变量指向函数对象的引用。函数还可以赋值给其他的变量，并且仍可以正常工作：
+
 ```js
 let s = square;  // Now s refers to the same function that square does
 square(4)        // => 16
 s(4)             // => 16
 ```
 Functions can also be assigned to object properties rather than variables. As we’ve already discussed, we call the functions “methods” when we do this:
+
+> 除了可以将函数赋值给变量，同样可以将函数赋值给对象的属性。当函数作为对象的属性调用时，函数就称为“方法”：
+
 ```js
 let o = {square: function(x) { return x*x; }}; // An object literal
 let y = o.square(16);                          // y == 256
 ```
 Functions don’t even require names at all, as when they’re assigned to array elements:
+
+> 函数甚至不需要带名字，就像把它们赋值给数组元素：
+
 ```js
 let a = [x => x*x, 20]; // An array literal
 a[0](a[1])              // => 400
 ```
 The syntax of this last example looks strange, but it is still a legal function invocation expression!
 
+> 上面的例子看起来很奇怪，但的确是合法的函数调用表达式！
+
 As an example of how useful it is to treat functions as values, consider the Array.sort() method. This method sorts the elements of an array. Because there are many possible orders to sort by (numerical order, alphabetical order, date order, ascending, descending, and so on), the sort() method optionally takes a function as an argument to tell it how to perform the sort. This function has a simple job: for any two values it is passed, it returns a value that specifies which element would come first in a sorted array. This function argument makes Array.sort() perfectly general and infinitely flexible; it can sort any type of data into any conceivable order. Examples are shown in §7.8.6.
+
+> 举一个例子来说明将函数当作值来对待的益处，考虑下 Array.sort() 方法。这个方法用来对数组元素进行排序。因为排序的规则有很多（基于数值大小、字母表顺序、日期大小、从小到大、从大到小等），sort() 方法可以接收一个函数作为参数，用来 处理具体的排序操作。这个函数的作用非常简单：对于任意两个值都返回一个值，以指定它们在排序后的数组中的先后顺序。这个函数参数使得 Array.sort() 具有更完美的通用性和无限可扩展性，它可以对任何类型的数据进行任意排序。§7.8.6 有示例代码。
 
 Example 8-1 demonstrates the kinds of things that can be done when functions are used as values. This example may be a little tricky, but the comments explain what is going on.
 
+> 例 8-1 展示了将函数用做值时的一些例子，这段代码可能会难读一些，但注释解释了代码的具体含义：
+
 Example 8-1. Using functions as data
+
+> 例 8-1：用函数做值
+
 ```js
 // We define some simple functions here
 function add(x,y) { return x + y; }
@@ -796,6 +859,9 @@ operate2("pow", 10, 2)  // => 100
 ```
 ### 8.4.1 Defining Your Own Function Properties
 Functions are not primitive values in JavaScript, but a specialized kind of object, which means that functions can have properties. When a function needs a “static” variable whose value persists across invocations, it is often convenient to use a property of the function itself. For example, suppose you want to write a function that returns a unique integer whenever it is invoked. The function must never return the same value twice. In order to manage this, the function needs to keep track of the values it has already returned, and this information must persist across function invocations. You could store this information in a global variable, but that is unnecessary, because the information is used only by the function itself. It is better to store the information in a property of the Function object. Here is an example that returns a unique integer whenever it is called:
+
+> JavaScript 中的函数并不是原始值，而是一种特殊的对象，也就是说，函数可以拥有属性。当函数需要一个“静态”变量来在调用时保持某个值不变，最方便的方式就是给函数定义属性，而不是定义全局变量，显然定义全局变量会让命名空间变得更加杂乱无章。比如，假设你想写一个返回一个唯一整数的函数，不管在哪里调用函数都会返回这个整数。而函数不能两次返回同一个值，为了做到这一点，函数必须能够跟踪它每次返回的值，而且这些值的信息需要在不同的函数调过程中持久化。可以将这些信息存放到全局变量中，但这并不是必需的，因为这个信息仅仅是函数本身用到的。最好将这个信息保存到函数对象的一个属性中，下面这个例子就实现了这样一个函数，每次调用函数都会返回一个唯一的整数：
+
 ```js
 // Initialize the counter property of the function object.
 // Function declarations are hoisted so we really can
@@ -809,8 +875,12 @@ function uniqueInteger() {
 }
 uniqueInteger()  // => 0
 uniqueInteger()  // => 1
+```
 As another example, consider the following factorial() function that uses properties of itself (treating itself as an array) to cache previously computed results:
 
+> 来看另外一个例子，下面这个函数 factorial() 使用了自身的属性（将自身当做数 组来对待）来缓存上一次的计算结果：
+
+```js
 // Compute factorials and cache results as properties of the function itself.
 function factorial(n) {
     if (Number.isInteger(n) && n > 0) {           // Positive integers only
