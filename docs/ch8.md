@@ -478,12 +478,12 @@ Proxy objects (described in §14.7) have their behavior completely controlled by
 ## 8.3 Function Arguments and Parameters
 JavaScript function definitions do not specify an expected type for the function parameters, and function invocations do not do any type checking on the argument values you pass. In fact, JavaScript function invocations do not even check the number of arguments being passed. The subsections that follow describe what happens when a function is invoked with fewer arguments than declared parameters or with more arguments than declared parameters. They also demonstrate how you can explicitly test the type of function arguments if you need to ensure that a function is not invoked with inappropriate arguments.
 
-> JavaScript 中的函数定义并未指定函数形参的类型，函数调用也未对传入的实参值做任何类型检查。实际上，JavaScript 函数调用甚至不检查传入形参的个数。下面几节将会讨论当调用函数时的实参个数和声明的形参个数不匹配时出现的状况，同样说明了如何显式测试函数实参的类型，以避免非法的实参传入函数。
+> JavaScript 中的函数定义并未指定函数形参的类型，函数调用也未对传入的实参值做任何类型检查。实际上，JavaScript 函数调用甚至不检查传入形参的个数。下面几节将会讨论当调用函数时的实参个数和声明的形参个数不匹配时出现的状况，同样介绍了如何显式测试函数实参的类型，以避免非法的实参传入函数。
 
 ### 8.3.1 Optional Parameters and Defaults
 When a function is invoked with fewer arguments than declared parameters, the additional parameters are set to their default value, which is normally undefined. It is often useful to write functions so that some arguments are optional. Following is an example:
 
-> 当调用函数的时候传入的实参比函数声明时指定的形参个数要少，剩下的形参都将设置为undefined值。所以一些参数设置成可选的是非常实用的。看下面这个例子：
+> 当调用函数的时候传入的实参比函数声明时指定的形参个数要少，剩下的形参都将设置为 undefined 值。所以一些参数设置成可选的是非常实用的。看下面这个例子：
 
 ```js
 // Append the names of the enumerable properties of object o to the
@@ -501,14 +501,14 @@ getPropertyNames(p, a);      // a == ["x","y","z"]; add p's properties to it
 ```
 Instead of using an if statement in the first line of this function, you can use the || operator in this idiomatic way:
 
-> 如果在第一行代码中不使用 if 语句，可以使用 || 运算符，这是一种习惯用法：
+> 第一行代码中可以使用 || 运算符来代替一个 if 语句，这是一种习惯用法：
 
 ```js
 a = a || [];
 ```
 Recall from §4.10.2 that the || operator returns its first argument if that argument is truthy and otherwise returns its second argument. In this case, if any object is passed as the second argument, the function will use that object. But if the second argument is omitted (or null or another falsy value is passed), a newly created empty array will be used instead.
 
-> 回忆一下，§4.10.2 介绍了“||”运算符，如果第一个实参是真值的话就返回第一个实参；否则返回第二个实参。在这个场景下，如果作为第二个实参传入任意对象，那么函数就会使用这个对象。如果省略掉第二个实参（或者传递 null 以及其他任何假值），那么就新创建一个空数组，并赋值给a。
+> 回忆一下，§4.10.2 介绍了“||”运算符，如果第一个实参是真值的话就返回第一个实参；否则返回第二个实参。在这个场景下，如果作为第二个实参传入任意对象，那么函数就会使用这个对象。如果省略掉第二个实参（或者传递 null 以及其他任何假值），那么就新创建一个空数组，并赋值给 a。
 
 Note that when designing functions with optional arguments, you should be sure to put the optional ones at the end of the argument list so that they can be omitted. The programmer who calls your function cannot omit the first argument and pass the second: they would have to explicitly pass undefined as the first argument.
 
@@ -528,7 +528,7 @@ function getPropertyNames(o, a = []) {
 ```
 Parameter default expressions are evaluated when your function is called, not when it is defined, so each time this getPropertyNames() function is invoked with one argument, a new empty array is created and passed.2 It is probably easiest to reason about functions if the parameter defaults are constants (or literal expressions like [] and {}). But this is not required: you can use variables, or function invocations, for example, to compute the default value of a parameter. One interesting case is that, for functions with multiple parameters, you can use the value of a previous parameter to define the default value of the parameters that follow it:
 
-> 默认参数表达式只有在函数调用时进行计算，而不是在它定义时，所以每一次 getPropertyNames() 函数只传一个实参调用时，一个新的空数组被创建并传给参数。2 最容易理解的就是参数默认值是常量（或者字面量表达式 [] 和 []）。但这并不是必须的：举个例子，你可以用变量或者函数调用，计算一个默认参数的值。一个很有趣的情况是，对于有多个参数的函数，可以用前面的参数值来定义后面的参数默认值。
+> 默认参数表达式只有在函数调用时进行计算，而不是在它定义时，所以每一次 getPropertyNames() 函数只传一个实参调用时，一个新的空数组被创建并传给参数。2 最容易理解的就是参数默认值是常量（或者字面量表达式 [] 和 {}）。但这并不是必须的：举个例子，你可以用变量或者函数调用，计算一个默认参数的值。一个很有趣的情况是，对于有多个参数的函数，可以用前面的参数值来定义后面的参数默认值。
 
 ```js
 // This function returns an object representing a rectangle's dimensions.
@@ -538,7 +538,7 @@ rectangle(1)  // => { width: 1, height: 2 }
 ```
 This code demonstrates that parameter defaults work with arrow functions. The same is true for method shorthand functions and all other forms of function definitions.
 
-> 这段代码描述了尖头函数中的参数默认值。方法函数和其他形式的函数定义也是如此。
+> 这段代码描述了箭头函数中的参数默认值。方法函数和其他形式的函数定义也是如此。
 
 ### 8.3.2 Rest Parameters and Variable-Length Argument Lists
 Parameter defaults enable us to write functions that can be invoked with fewer arguments than parameters. Rest parameters enable the opposite case: they allow us to write functions that can be invoked with arbitrarily more arguments than parameters. Here is an example function that expects one or more numeric arguments and returns the largest one:
@@ -562,7 +562,7 @@ max(1, 10, 100, 2, 3, 1000, 4, 5, 6)  // => 1000
 ```
 A rest parameter is preceded by three periods, and it must be the last parameter in a function declaration. When you invoke a function with a rest parameter, the arguments you pass are first assigned to the non-rest parameters, and then any remaining arguments (i.e., the “rest” of the arguments) are stored in an array that becomes the value of the rest parameter. This last point is important: within the body of a function, the value of a rest parameter will always be an array. The array may be empty, but a rest parameter will never be undefined. (It follows from this that it is never useful—and not legal—to define a parameter default for a rest parameter.)
 
-> 剩余参数由三个 . 开始，必须是函数声明的最后一个参数。调用有剩余参数的函数时，传递的实参先赋值给非剩余参数，然后其余所有的实参（也就是“剩余”实参）存储在一个数组中变成剩余参数的值，最后一点非常重要：在一个函数体中，剩余参数的值总是一个数组。这个数组可能时空的，但是剩余参数永远不会是 undefined。（因此，从不会给剩余参数设置默认值，并且这也是不合法的。）
+> 剩余参数由三个 . 开始，必须是函数声明的最后一个参数。调用有剩余参数的函数时，传递的实参先赋值给非剩余参数，然后其余所有的实参（也就是“剩余”实参）存储在一个数组中变成剩余参数的值，最后一点非常重要：在一个函数体中，剩余参数的值总是一个数组。这个数组可能是空的，但是剩余参数永远不会是 undefined。（因此，从不会给剩余参数设置默认值，并且这也是不合法的。）
 
 Functions like the previous example that can accept any number of arguments are called variadic functions, variable arity functions, or vararg functions. This book uses the most colloquial term, varargs, which dates to the early days of the C programming language.
 
@@ -597,7 +597,7 @@ The Arguments object dates back to the earliest days of JavaScript and carries w
 ### 8.3.4 The Spread Operator for Function Calls
 The spread operator ... is used to unpack, or “spread out,” the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected. We’ve seen the spread operator used with array literals in §7.1.2. The operator can be used, in the same way, in function invocations:
 
-> 当需要单个值时，... 展开运算符用来拆包，者将元素从数组（或者其他的任何和迭代对象，例如字符串）中“展开”到上下文。我们已经在 §7.1.2 见到了展开运算符在数组字面量上的使用。展开运算符可以在函数调用中以同样方式使用：
+> 当需要单个值时，... 展开运算符用来拆包，或者说将元素从数组（或者其他的任何和迭代对象，例如字符串）中“展开”到上下文。我们已经在 §7.1.2 见到了展开运算符在数组字面量上的使用。展开运算符可以在函数调用中以同样方式使用：
 
 ```js
 let numbers = [5, 2, 10, -1, 9, 100, 1];
@@ -605,7 +605,7 @@ Math.min(...numbers)  // => -1
 ```
 Note that ... is not a true operator in the sense that it cannot be evaluated to produce a value. Instead, it is a special JavaScript syntax that can be used in array literals and function invocations.
 
-> 注意 ... 不是一个真正的运算符，因为它不能计算提供一个值。它是一个可以用在数组字面量和函数调用中的特殊的 JavaScript 语法。
+> 注意 ... 不是一个真正的运算符，因为它不能通过计算来提供一个值。它是一个可以用在数组字面量和函数调用中的特殊的 JavaScript 语法。
 
 When we use the same ... syntax in a function definition rather than a function invocation, it has the opposite effect to the spread operator. As we saw in §8.3.2, using ... in a function definition gathers multiple function arguments into an array. Rest parameters and the spread operator are often useful together, as in the following function, which takes a function argument and returns an instrumented version of the function for testing: 
 
@@ -645,7 +645,7 @@ When you invoke a function with a list of argument values, those values end up b
 
 If you define a function that has parameter names within square brackets, you are telling the function to expect an array value to be passed for each pair of square brackets. As part of the invocation process, the array arguments will be unpacked into the individually named parameters. As an example, suppose we are representing 2D vectors as arrays of two numbers, where the first element is the X coordinate and the second element is the Y coordinate. With this simple data structure, we could write the following function to add two vectors:
 
-> 如果一个函数的参数带有方括号，就说明函数要给每一个方括号传一个数组。在一个调用进程中，数组实参会被拆包传递给对应的参数。例如，假设我们将 2D 矢量表示为两个数字的数组，其中第一个元素是 X 坐标，第二个元素是 Y 坐标。用这个简单的数据结构，编写下面这个函数来添加两个矢量：
+> 如果一个函数的参数带有方括号，就说明函数要给每一个方括号传一个数组。在一个调用进程中，数组实参会被拆包传递给对应的参数。例如，假设我们将 2D 矢量表示为两个数字的数组，其中第一个元素是 X 坐标，第二个元素是 Y 坐标。用这个简单的数据结构，编写下面这个函数计算两个矢量的和：
 
 ```js
 function vectorAdd(v1, v2) {
@@ -676,7 +676,7 @@ vectorMultiply({x: 1, y: 2}, 2)  // => {x: 2, y: 4}
 ```
 This example of destructuring a single object argument into two parameters is a fairly clear one because the parameter names we use match the property names of the incoming object. The syntax is more verbose and more confusing when you need to destructure properties with one name into parameters with different names. Here’s the vector addition example, implemented for object-based vectors:
 
-> 这个例子将一个简单的对象实参解构成两个参数是很简单的，因为参数的名字和我们在对象中使用的属性名是匹配的。当您需要将一个名称的属性解构为具有不同名称的参数时，语法更加冗长和难懂。下面是一个矢量加法的例子，基于对象矢量的实现：
+> 这个例子将一个简单的对象实参解构成两个参数是很简单的，因为参数的名字和我们在对象中使用的属性名是匹配的。当您需要将同一个名称的属性解构为具有不同名称的参数时，语法更加冗长和难懂。下面是一个矢量加法的例子，基于对象矢量的实现：
 
 ```js
 function vectorAdd(
@@ -743,7 +743,7 @@ vectorMultiply({x: 1, y: 2, w: -1}, 2)  // => {x: 2, y: 4, z: 0, w: -1}
 ```
 Finally, keep in mind that, in addition to destructuring argument objects and arrays, you can also destructure arrays of objects, objects that have array properties, and objects that have object properties, to essentially any depth. Consider graphics code that represents circles as objects with x, y, radius, and color properties, where the color property is an array of red, green, and blue color components. You might define a function that expects a single circle object to be passed to it but destructures that circle object into six separate parameters:
 
-> 最后，请记住，除了可以解构实参对象和数组，也可以解构数组对象，对象有数组属性，并且对象还有对象的属性。构思一个将圆表示为具有 x、y、半径和颜色属性的对象的图形代码，颜色属性是一个数组有红色，绿色和蓝色组成。你可以定义一个函数，该函数希望将单个圆对象传递给它，但其解构为六个单独的参数：
+> 最后，请记住，除了可以解构实参对象和数组，也可以解构数组对象，对象有数组属性，并且对象还有对象的属性。构思一个将圆表示为具有 x、y、半径和颜色属性的对象的图形代码，颜色属性是一个数组由 RGB 组成。你可以定义一个函数，该函数希望将单个圆对象传递给它，但其解构为六个单独的参数：
 
 ```js
 function drawCircle({x, y, radius, color: [r, g, b]}) {
@@ -752,20 +752,20 @@ function drawCircle({x, y, radius, color: [r, g, b]}) {
 ```
 If function argument destructuring is any more complicated than this, I find that the code becomes harder to read, rather than simpler. Sometimes, it is clearer to be explicit about your object property access and array indexing.
 
-> 如果函数实参解构比这更复杂，我发现代码变得更难读，而不是更简单。有时，显示地对对象属性访问和数组索引会让代码更清晰。
+> 如果函数实参解构比这更复杂，代码会变得更难读，而不是更简单。有时，显示地对对象属性访问和数组索引会让代码更清晰。
 
 ### 8.3.6 Argument Types
 JavaScript method parameters have no declared types, and no type checking is performed on the values you pass to a function. You can help make your code self-documenting by choosing descriptive names for function arguments and by documenting them carefully in the comments for each function. (Alternatively, see §17.8 for a language extension that allows you to layer type checking on top of regular JavaScript.)
 
-> JavaScript方法的形参并未声明类型，在形参传入函数体之前也未做任何类型检查。可以采用语义化的单词来给函数实参命名，并在函数注释给每一个实参详细描述，以此使代码自文本化。
+> JavaScript 方法的形参并未声明类型，在形参传入函数体之前也未做任何类型检查。可以采用语义化的单词来给函数实参命名，并在函数注释给每一个实参详细描述，以此使代码自文本化。
 
 As described in §3.9, JavaScript performs liberal type conversion as needed. So if you write a function that expects a string argument and then call that function with a value of some other type, the value you passed will simply be converted to a string when the function tries to use it as a string. All primitive types can be converted to strings, and all objects have toString() methods (if not necessarily useful ones), so an error never occurs in this case.
 
-> §3.9 已经提到，JavaScript 在必要时会进行类型转换。因此如果函数期 望接收一个字符串实参，而调用函数时传入其他类型的值，所传入的值会在函数体 内将其用做字符串的地方转换为字符串类型。所有的原始类型都可以转换为字符 串，所有的对象都包含 toString() 方法（尽管不一定有用），所以这种场景下是不会有任何错误的。
+> §3.9 已经提到，JavaScript 在必要时会进行类型转换。因此如果函数期 望接收一个字符串实参，而调用函数时传入其他类型的值，所传入的值会在函数体内将其用做字符串的地方转换为字符串类型。所有的原始类型都可以转换为字符串，所有的对象都包含 toString() 方法（尽管不一定有用），所以这种场景下是不会有任何错误的。
 
 This is not always true, however. Consider again the arraycopy() method shown earlier. It expects one or two array arguments and will fail if these arguments are of the wrong type. Unless you are writing a private function that will only be called from nearby parts of your code, it may be worth adding code to check the types of arguments like this. It is better for a function to fail immediately and predictably when passed bad values than to begin executing and fail later with an error message that is likely to be unclear. Here is an example function that performs type-checking:
 
-> 然而事情不总是这样，回头看一下刚才提到的 arraycopy() 方法。这个方法期望获得一个或两个实参，并且这些实参的类型错误会导致函数执行失败。除非所写的私有函数只会被附近的代码调用，你应当添加类似的实参类型检查逻辑，因为宁愿程序在传入非法值时报错，也不愿非法值导致程序在执行时报错，相比而言，逻辑执行时的报错消息不甚清晰且更难处理。下面这个例子中的函数就做了这种类型检查：
+> 然而事情不总是这样，回头看一下刚才提到的 arraycopy() 方法。这个方法期望获得一个或两个实参，并且这些实参的类型错误会导致函数执行失败。除非所写的私有函数只会被附近的代码调用，你应当添加类似的实参类型检查逻辑。因为宁愿程序在传入非法值时报错，也不愿非法值导致程序在执行时报错，相比而言，逻辑执行时的报错消息不甚清晰且更难处理。下面这个例子中的函数就做了这种类型检查：
 
 ```js
 // Return the sum of the elements an iterable object a.
@@ -787,18 +787,18 @@ sum([1,2,"3"]); // !TypeError: element 2 is not a number
 ## 8.4 Functions as Values
 The most important features of functions are that they can be defined and invoked. Function definition and invocation are syntactic features of JavaScript and of most other programming languages. In JavaScript, however, functions are not only syntax but also values, which means they can be assigned to variables, stored in the properties of objects or the elements of arrays, passed as arguments to functions, and so on.3
 
-> 函数可以定义，也可以调用，这是函数最重要的特性。函数定义和调用是  JavaScript 的词法特性，对于其他大多数编程语言来说亦是如此。然而在JavaScript 中，函数不仅是一种语法，也是值，也就是说，可以将函数赋值给变量，存储在对象的属性或数组的元素中，作为参数传入另外一个函数等。3
+> 函数可以定义，也可以调用，这是函数最重要的特性。函数定义和调用是  JavaScript 的词法特性，对于其他大多数编程语言来说亦是如此。然而在 JavaScript 中，函数不仅是一种语法，也是值，也就是说，可以将函数赋值给变量，存储在对象的属性或数组的元素中，作为参数传入另外一个函数等。3
 
 To understand how functions can be JavaScript data as well as JavaScript syntax, consider this function definition:
 
-> 为了便于理解JavaScript中的函数是如何用做数据的以及JavaScript语法，来看一下这样一个函数定义：
+> 为了便于理解 JavaScript 中的函数是如何用做 Javascript 数据以及 JavaScript 语法的，来看一下这样一个函数定义：
 
 ```js
 function square(x) { return x*x; }
 ```
 This definition creates a new function object and assigns it to the variable square. The name of a function is really immaterial; it is simply the name of a variable that refers to the function object. The function can be assigned to another variable and still work the same way:
 
-> 这个定义创建一个新的函数对象，并将其赋值给变量 square。函数的名字实际上是无形的，它（square）仅仅是变量的名称，这个变量指向函数对象的引用。函数还可以赋值给其他的变量，并且仍可以正常工作：
+> 这个定义创建一个新的函数对象，并将其赋值给变量 square。函数的名字实际上是无形的，它（square）仅仅是变量的名称，这个变量是函数对象的引用。函数还可以赋值给其他的变量，并且仍可以正常工作：
 
 ```js
 let s = square;  // Now s refers to the same function that square does
@@ -827,7 +827,7 @@ The syntax of this last example looks strange, but it is still a legal function 
 
 As an example of how useful it is to treat functions as values, consider the Array.sort() method. This method sorts the elements of an array. Because there are many possible orders to sort by (numerical order, alphabetical order, date order, ascending, descending, and so on), the sort() method optionally takes a function as an argument to tell it how to perform the sort. This function has a simple job: for any two values it is passed, it returns a value that specifies which element would come first in a sorted array. This function argument makes Array.sort() perfectly general and infinitely flexible; it can sort any type of data into any conceivable order. Examples are shown in §7.8.6.
 
-> 举一个例子来说明将函数当作值来对待的益处，考虑下 Array.sort() 方法。这个方法用来对数组元素进行排序。因为排序的规则有很多（基于数值大小、字母表顺序、日期大小、从小到大、从大到小等），sort() 方法可以接收一个函数作为参数，用来 处理具体的排序操作。这个函数的作用非常简单：对于任意两个值都返回一个值，以指定它们在排序后的数组中的先后顺序。这个函数参数使得 Array.sort() 具有更完美的通用性和无限可扩展性，它可以对任何类型的数据进行任意排序。§7.8.6 有示例代码。
+> 举一个例子来说明将函数当作值来对待的益处，考虑下 Array.sort() 方法。这个方法用来对数组元素进行排序。因为排序的规则有很多（基于数值大小、字母表顺序、日期大小、从小到大、从大到小等），sort() 方法可以接收一个函数作为参数，用来处理具体的排序操作。这个函数的作用非常简单：对于任意两个值都返回一个值，以指定它们在排序后的数组中的先后顺序。这个函数参数使得 Array.sort() 具有更完美的通用性和无限可扩展性，它可以对任何类型的数据进行任意排序。§7.8.6 有示例代码。
 
 Example 8-1 demonstrates the kinds of things that can be done when functions are used as values. This example may be a little tricky, but the comments explain what is going on.
 
