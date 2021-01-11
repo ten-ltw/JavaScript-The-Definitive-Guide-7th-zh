@@ -1156,22 +1156,36 @@ const self = this;  // Make the this value available to nested functions
 ## 8.7 Function Properties, Methods, and Constructor
 We’ve seen that functions are values in JavaScript programs. The typeof operator returns the string “function” when applied to a function, but functions are really a specialized kind of JavaScript object. Since functions are objects, they can have properties and methods, just like any other object. There is even a Function() constructor to create new function objects. The subsections that follow document the length, name, and prototype properties; the call(), apply(), bind(), and toString() methods; and the Function() constructor.
 
+> 我们看到在 JavaScript 程序中，函数是值。对函数执行 typeof 运算会返回字符串“function”，但是函数是 JavaScript 中特殊的对象。因为函数也是对象，它们也可以拥有属性和方法，就像普通的对象可以拥有属性和方法一样。甚至可以用 Function() 构造函数来创建新的函数对象。接下来几节就会着重介绍函数 length、name 和 prototype 属性；the call()、 apply()、 bind() 和 toString() 方法；以及 Function() 构造函数。
+
 ### 8.7.1 The length Property
 The read-only length property of a function specifies the arity of the function—the number of parameters it declares in its parameter list, which is usually the number of arguments that the function expects. If a function has a rest parameter, that parameter is not counted for the purposes of this length property.
+
+> 函数的只读属性 length 指定函数参数个数--声明在其参数列表中的参数个数，大多数函数期望的实参个数。如果一个函数有一个剩余函数，它的参数个数不被计算入 length 属性。（经测试，可选参数也不计算 length。）
 
 ### 8.7.2 The name Property
 The read-only name property of a function specifies the name that was used when the function was defined, if it was defined with a name, or the name of the variable or property that an unnamed function expression was assigned to when it was first created. This property is primarily useful when writing debugging or error messages.
 
+> 如果使用名称定义函数，只读属性 name 指定函数定义时用的名称，或未命名函数表达式在首次创建时分配给的变量或属性的名称。此属性在编写调试或错误消息时很有用。
+
 ### 8.7.3 The prototype Property
 All functions, except arrow functions, have a prototype property that refers to an object known as the prototype object. Every function has a different prototype object. When a function is used as a constructor, the newly created object inherits properties from the prototype object. Prototypes and the prototype property were discussed in §6.2.3 and will be covered again in Chapter 9.
 
+> 所有函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做原型对象。每一个函数都包含不同的原型对象。当将函数用做构造函数的时候，新创建的对象会从原型对象上继承属性。§6.2.3 讨论了原型和 prototype 属性，在第9章里会有进一步讨论。
+
 ### 8.7.4 The call() and apply() Methods
 call() and apply() allow you to indirectly invoke (§8.2.4) a function as if it were a method of some other object. The first argument to both call() and apply() is the object on which the function is to be invoked; this argument is the invocation context and becomes the value of the this keyword within the body of the function. To invoke the function f() as a method of the object o (passing no arguments), you could use either call() or apply():
+
+> 我们可以将 call() 和apply () 看做是某个对象的方法，通过调用方法的形式来间接调用（见 §8.2.4）函数。call() 和 apply() 的第一个实参是要调用函数的母对象，它是调用上下文，在函数体内变成 this 关键字的值。要想以对象 o 的方法来调用函数 f()（没有实参传递），可以这样使用 call() 和 apply()：
+
 ```js
 f.call(o);
 f.apply(o);
 ```
 Either of these lines of code are similar to the following (which assume that o does not already have a property named m):
+
+> 每行代码和下面代码的功能类似（假设对象 o 中预先不存在名为 m 的属性）:
+
 ```js
 o.m = f;     // Make f a temporary method of o.
 o.m();       // Invoke it, passing no arguments.
@@ -1179,19 +1193,33 @@ delete o.m;  // Remove the temporary method.
 ```
 Remember that arrow functions inherit the this value of the context where they are defined. This cannot be overridden with the call() and apply() methods. If you call either of those methods on an arrow function, the first argument is effectively ignored.
 
+> 不要忘了，箭头函数从它定义的位置的上下文继承 this 值。这不能被 call() 和 apply() 方法重写。如果通过箭头函数调用它俩任何一个方法，第一个实参实际上都被忽略。
+
 Any arguments to call() after the first invocation context argument are the values that are passed to the function that is invoked (and these arguments are not ignored for arrow functions). For example, to pass two numbers to the function f() and invoke it as if it were a method of the object o, you could use code like this:
+
+> 对于 call() 来说，除了第一个作为调用上下文实参，之后的所有实参就是要传入待调用函数的值（并且，这部分实参对于箭头函数来说不被忽略）。比如，以对象 o 的方法的形式调用函数 f()，并传入两个数，可以使用这样的代码：
+
 ```js
 f.call(o, 1, 2);
 ```
 The apply() method is like the call() method, except that the arguments to be passed to the function are specified as an array:
+
+> apply() 方法和 call() 类似，但传入实参的形式和 call() 有所不同，它的实参都放入一个数组中：
+
 ```js
 f.apply(o, [1,2]);
 ```
 If a function is defined to accept an arbitrary number of arguments, the apply() method allows you to invoke that function on the contents of an array of arbitrary length. In ES6 and later, we can just use the spread operator, but you may see ES5 code that uses apply() instead. For example, to find the largest number in an array of numbers without using the spread operator, you could use the apply() method to pass the elements of the array to the Math.max() function:
+
+> 如果一个函数的实参可以是任意数量，用 apply() 方法允许你传入的参数数组可以是任意长度的。在 ES6 之后，我们可以用展开操作符，但是在 ES5 的代码中你可以看到这种情况是用 apply() 来替代。比如，不用展开操作符找出数组中最大的数值元素，调用 Math.max() 方法的时候可以给  apply() 传入一个包含任意个元素的数组：
+
 ```js
 let biggest = Math.max.apply(Math, arrayOfNumbers);
 ```
 The trace() function defined in the following is similar to the timed() function defined in §8.3.4, but it works for methods instead of functions. It uses the apply() method instead of a spread operator, and by doing that, it is able to invoke the wrapped method with the same arguments and the same this value as the wrapper method:
+
+> 下面定义的 trace() 与 §8.3.4 中定义的 timed() 函数类似，但是它对方法有效而不是函数。它使用 apply() 方法而不是展开运算符，通过这样做，它能够调用具有相同参数和与被包装方法相同的 this 值的包装方法。
+
 ```js
 // Replace the method named m of the object o with a version that logs
 // messages before and after invoking the original method.
