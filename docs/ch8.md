@@ -543,7 +543,7 @@ This code demonstrates that parameter defaults work with arrow functions. The sa
 ### 8.3.2 Rest Parameters and Variable-Length Argument Lists
 Parameter defaults enable us to write functions that can be invoked with fewer arguments than parameters. Rest parameters enable the opposite case: they allow us to write functions that can be invoked with arbitrarily more arguments than parameters. Here is an example function that expects one or more numeric arguments and returns the largest one:
 
-> 调用函数时允许传入的实参比函数声明时指定的形参个数少。剩余参数允许相反的情况：它允许我们在调用函数时，传入比型参多任意个数的实参。下面是一个可以传入一个或多个数值型实参的例子，并且返回最大的那个数：
+> 调用函数时允许传入的实参比函数声明时指定的形参个数少。剩余参数允许相反的情况：它允许我们在调用函数时，传入比型参多任意个数的实参。下面是一个可以传入一个或多个数值型实参的例子，并且返回其中最大的数：
 
 ```js
 function max(first=-Infinity, ...rest) {
@@ -562,12 +562,21 @@ max(1, 10, 100, 2, 3, 1000, 4, 5, 6)  // => 1000
 ```
 A rest parameter is preceded by three periods, and it must be the last parameter in a function declaration. When you invoke a function with a rest parameter, the arguments you pass are first assigned to the non-rest parameters, and then any remaining arguments (i.e., the “rest” of the arguments) are stored in an array that becomes the value of the rest parameter. This last point is important: within the body of a function, the value of a rest parameter will always be an array. The array may be empty, but a rest parameter will never be undefined. (It follows from this that it is never useful—and not legal—to define a parameter default for a rest parameter.)
 
+> 剩余参数由三个 . 开始，必须是函数声明的最后一个参数。调用有剩余参数的函数时，传递的实参先赋值给非剩余参数，然后其余所有的实参（也就是“剩余”实参）存储在一个数组中变成剩余参数的值，最后一点非常重要：在一个函数体中，剩余参数的值总是一个数组。这个数组可能时空的，但是剩余参数永远不会是 undefined。（因此，从不会给剩余参数设置默认值，并且这也是不合法的。）
+
 Functions like the previous example that can accept any number of arguments are called variadic functions, variable arity functions, or vararg functions. This book uses the most colloquial term, varargs, which dates to the early days of the C programming language.
+
+> 类似这种函数可以接收任意个数的实参，这种函数也称为“不定实参函数”，这个术语源自古老的C语言。
 
 Don’t confuse the ... that defines a rest parameter in a function definition with the ... spread operator, described in §8.3.4, which can be used in function invocations.
 
+> 不要混淆 ... 定义函数的剩余参数和 ... 展开运算符，将在 §8.3.4 描述展开运算符在函数调用中的应用。
+
 ### 8.3.3 The Arguments Object
 Rest parameters were introduced into JavaScript in ES6. Before that version of the language, varargs functions were written using the Arguments object: within the body of any function, the identifier arguments refers to the Arguments object for that invocation. The Arguments object is an array-like object (see §7.9) that allows the argument values passed to the function to be retrieved by number, rather than by name. Here is the max() function from earlier, rewritten to use the Arguments object instead of a rest parameter:
+
+> 剩余参数是在 ES6 中加入的概念。在这之前，不定实参函数是用 Arguments 对象实现的：在函数体中，标识符 Arguments 是指向实参对象的引用。Arguments 对象是一个类数组对象（参照 §7.9），这样可以通过数字下标就能访问传入函数的实参值，而不用非要通过名字来得到实参。下面的 max() 函数就是以前用 Arguments 对象代替剩余参数的例子：
+
 ```js
 function max(x) {
     let maxValue = -Infinity;
@@ -583,15 +592,25 @@ max(1, 10, 100, 2, 3, 1000, 4, 5, 6)  // => 1000
 ```
 The Arguments object dates back to the earliest days of JavaScript and carries with it some strange historical baggage that makes it inefficient and hard to optimize, especially outside of strict mode. You may still encounter code that uses the Arguments object, but you should avoid using it in any new code you write. When refactoring old code, if you encounter a function that uses arguments, you can often replace it with a ...args rest parameter. Part of the unfortunate legacy of the Arguments object is that, in strict mode, arguments is treated as a reserved word, and you cannot declare a function parameter or a local variable with that name.
 
+> Arguments 对象可追溯到 JavaScript 的最早时代，并带有一些奇怪的历史包袱，这使得它效率低下且难以优化，尤其是不在严格模式下。可能还会遇到一些代码使用 Arguments 对象，但是在编写新代码时要避免使用，可以用 ... 剩余函数来替代。Arguments 对象还有部分令人遗憾的遗产，在严格模式下，arguments 被视为保留字，不能声明具有该名称的局部变量来定义函数的参数。
+
 ### 8.3.4 The Spread Operator for Function Calls
 The spread operator ... is used to unpack, or “spread out,” the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected. We’ve seen the spread operator used with array literals in §7.1.2. The operator can be used, in the same way, in function invocations:
+
+> 当需要单个值时，... 展开运算符用来拆包，者将元素从数组（或者其他的任何和迭代对象，例如字符串）中“展开”到上下文。我们已经在 §7.1.2 见到了展开运算符在数组字面量上的使用。展开运算符可以在函数调用中以同样方式使用：
+
 ```js
 let numbers = [5, 2, 10, -1, 9, 100, 1];
 Math.min(...numbers)  // => -1
 ```
 Note that ... is not a true operator in the sense that it cannot be evaluated to produce a value. Instead, it is a special JavaScript syntax that can be used in array literals and function invocations.
 
-When we use the same ... syntax in a function definition rather than a function invocation, it has the opposite effect to the spread operator. As we saw in §8.3.2, using ... in a function definition gathers multiple function arguments into an array. Rest parameters and the spread operator are often useful together, as in the following function, which takes a function argument and returns an instrumented version of the function for testing:
+> 注意 ... 不是一个真正的运算符，因为它不能计算提供一个值。它是一个可以用在数组字面量和函数调用中的特殊的 JavaScript 语法。
+
+When we use the same ... syntax in a function definition rather than a function invocation, it has the opposite effect to the spread operator. As we saw in §8.3.2, using ... in a function definition gathers multiple function arguments into an array. Rest parameters and the spread operator are often useful together, as in the following function, which takes a function argument and returns an instrumented version of the function for testing: 
+
+> 在函数定义和函数调用中使用相同的 ... 语法时，和展开运算符有着相仿的效果。在 §8.3.2 中我们看到函数定义使用 ... 将复数个函数实参合并到一个数组中。剩余参数和展开运算符经常一同使用，就像下面这个函数：
+
 ```js
 // This function takes a function and returns a wrapped version
 function timed(f) {
@@ -618,8 +637,7 @@ function benchmark(n) {
 
 // Now invoke the timed version of that test function
 timed(benchmark)(1000000) // => 500000500000; this is the sum of the numbers
-```
-### 8.3.5 Destructuring Function Arguments into Parameters
+```### 8.3.5 Destructuring Function Arguments into Parameters
 When you invoke a function with a list of argument values, those values end up being assigned to the parameters declared in the function definition. This initial phase of function invocation is a lot like variable assignment. So it should not be surprising that we can use the techniques of destructuring assignment (see §3.10.3) with functions.
 
 > 用实参列表调用函数时，实参的值最终赋值给函数定义的参数。函数调用初始化阶段非常像变量赋值。所以我们不必惊讶于可以将解构赋值（见 §3.10.3）用于函数。
