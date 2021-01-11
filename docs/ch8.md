@@ -637,14 +637,15 @@ function benchmark(n) {
 
 // Now invoke the timed version of that test function
 timed(benchmark)(1000000) // => 500000500000; this is the sum of the numbers
-```### 8.3.5 Destructuring Function Arguments into Parameters
+```
+### 8.3.5 Destructuring Function Arguments into Parameters
 When you invoke a function with a list of argument values, those values end up being assigned to the parameters declared in the function definition. This initial phase of function invocation is a lot like variable assignment. So it should not be surprising that we can use the techniques of destructuring assignment (see §3.10.3) with functions.
 
 > 用实参列表调用函数时，实参的值最终赋值给函数定义的参数。函数调用初始化阶段非常像变量赋值。所以我们不必惊讶于可以将解构赋值（见 §3.10.3）用于函数。
 
 If you define a function that has parameter names within square brackets, you are telling the function to expect an array value to be passed for each pair of square brackets. As part of the invocation process, the array arguments will be unpacked into the individually named parameters. As an example, suppose we are representing 2D vectors as arrays of two numbers, where the first element is the X coordinate and the second element is the Y coordinate. With this simple data structure, we could write the following function to add two vectors:
 
-> 如果一个函数的参数带有方括号，就说明函数要给每一个方括号传一个数组。在一个调用进程中，数组实参会被拆包传递给对应的参数。例如，假设我们将 2D 矢量表示为两个数字的数组，其中第一个元素是 X 坐标，第二个元素是 Y 坐标。用这个简单的数据结构，编写下面这个函数来添加两个矢量： 
+> 如果一个函数的参数带有方括号，就说明函数要给每一个方括号传一个数组。在一个调用进程中，数组实参会被拆包传递给对应的参数。例如，假设我们将 2D 矢量表示为两个数字的数组，其中第一个元素是 X 坐标，第二个元素是 Y 坐标。用这个简单的数据结构，编写下面这个函数来添加两个矢量：
 
 ```js
 function vectorAdd(v1, v2) {
@@ -917,7 +918,12 @@ factorial[5]  // => 120; the call above caches this value
 ## 8.5 Functions as Namespaces
 Variables declared within a function are not visible outside of the function. For this reason, it is sometimes useful to define a function simply to act as a temporary namespace in which you can define variables without cluttering the global namespace.
 
+> 变量声明在函数内对于函数体外是不可见的。因此，有时定义函数作为临时命名空间非常有用，您可以在其中定义变量而不弄乱全局命名空间。
+
 Suppose, for example, you have a chunk of JavaScript code that you want to use in a number of different JavaScript programs (or, for client-side JavaScript, on a number of different web pages). Assume that this code, like most code, defines variables to store the intermediate results of its computation. The problem is that since this chunk of code will be used in many different programs, you don’t know whether the variables it creates will conflict with variables created by the programs that use it. The solution is to put the chunk of code into a function and then invoke the function. This way, variables that would have been global become local to the function:
+
+> 比如，假设你写了一段JavaScript模块代码，这段代码将要用在不同的 JavaScript 程序中（对于客户端 JavaScript 来讲通常是用在各种各样的网页中）。和大多数代码一样，假定这段代码定义了一个用以存储中间计算结果的变量。这样问题就来了，当模块代码放到不同的程序中运行时，你无法得知这个变量是否已经创建了，如果已经存在这个变量，那么将会和代码发生冲突。解决办法当然是将代码放入一个函数内，然后调用这个函数。这样全局变量就变成了函数内的局部变量：
+
 ```js
 function chunkNamespace() {
     // Chunk of code goes here
@@ -925,22 +931,37 @@ function chunkNamespace() {
     // instead of cluttering up the global namespace.
 }
 chunkNamespace();  // But don't forget to invoke the function!
+```
 This code defines only a single global variable: the function name chunkNamespace. If defining even a single property is too much, you can define and invoke an anonymous function in a single expression:
 
+> 这段代码仅仅定义了一个单独的全局变量：名为 chunkNamespace 的函数。如果还是太麻烦，可以用一个单独的表达式定义一个匿名函数并调用它：
+
+```js
 (function() {  // chunkNamespace() function rewritten as an unnamed expression.
     // Chunk of code goes here
 }());          // End the function literal and invoke it now.
 ```
 This technique of defining and invoking a function in a single expression is used frequently enough that it has become idiomatic and has been given the name “immediately invoked function expression.” Note the use of parentheses in the previous code example. The open parenthesis before function is required because without it, the JavaScript interpreter tries to parse the function keyword as a function declaration statement. With the parenthesis, the interpreter correctly recognizes this as a function definition expression. The leading parenthesis also helps human readers recognize when a function is being defined to be immediately invoked instead of defined for later use.
 
+> 这种定义匿名函数并立即在单个表达式中调用它的写法非常常见，并给它起了个名字“匿名调用函数表达式”。注意上面代码的圆括号的用法，function 之前的左圆括号是必需的，因为如果不写这个左圆括号，JavaScript 解释器会试图将关键字 function 解析为函数声明语句。使用圆括号 JavaScript 解释器才会正确地将其解析为函数定义表达式。使用括号是习惯用法，尽管有些时候没有必要也不应当省略。这里定义的函数会立即调用。
+
 This use of functions as namespaces becomes really useful when we define one or more functions inside the namespace function using variables within that namesapce, but then pass them back out as the return value of the namespace function. Functions like this are known as closures, and they’re the topic of the next section.
+
+> 函数用作命名空间很常用，在命名空间函数中定义一个或多个函数使用其中的变量，然后将他们作为函数命名空间的返回值。这样的函数称为闭包，它们是下一节的主题。
 
 ## 8.6 Closures
 Like most modern programming languages, JavaScript uses lexical scoping. This means that functions are executed using the variable scope that was in effect when they were defined, not the variable scope that is in effect when they are invoked. In order to implement lexical scoping, the internal state of a JavaScript function object must include not only the code of the function but also a reference to the scope in which the function definition appears. This combination of a function object and a scope (a set of variable bindings) in which the function’s variables are resolved is called a closure in the computer science literature.
 
+> 和其他大多数现代编程语言一样，JavaScript 也采用词法作用域。也就是说，函数的执行依赖于变量作用域，这个作用域是在函数定义时决定的，而不是函数调用时决定的。为了实现这种词法作用域，JavaScript 函数对象的内部状态不仅包含函数的代码逻辑，还必须包括对函数定义出现的作用域的引用。将函数对象可和作用域链相互关联起来（一对变量的绑定），函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称为闭包。
+
 Technically, all JavaScript functions are closures, but because most functions are invoked from the same scope that they were defined in, it normally doesn’t really matter that there is a closure involved. Closures become interesting when they are invoked from a different scope than the one they were defined in. This happens most commonly when a nested function object is returned from the function within which it was defined. There are a number of powerful programming techniques that involve this kind of nested function closures, and their use has become relatively common in JavaScript programming. Closures may seem confusing when you first encounter them, but it is important that you understand them well enough to use them comfortably.
 
+> 从技术的角度讲，所有的 JavaScript 函数都是闭包，但是大多数函数调用和定义在同一个作用域内，通常不会注意这里有涉及到闭包。当调用函数不和其定义处于同一作用域内时，事情就变得非常微妙。当一个函数嵌套了另外一个函数，外部函数将嵌套的函数对象作为返回值返回的时候往往会发生这种事情。有很多强大的编程技术都利用到了这类嵌套的函数闭包，以至于这种编程模式在 JavaScript 中非常常见。当你第一次碰到闭包时可能会觉得非常让人费解，一旦你理解掌握了闭包之后，就能非常自如地使用它了，了解这一点至关重要。
+
 The first step to understanding closures is to review the lexical scoping rules for nested functions. Consider the following code:
+
+> 理解闭包首先要了解嵌套函数的词法作用域规则。看一下这段代码：
+
 ```js
 let scope = "global scope";          // A global variable
 function checkscope() {
@@ -951,6 +972,9 @@ function checkscope() {
 checkscope()                         // => "local scope"
 ```
 The checkscope() function declares a local variable and then defines and invokes a function that returns the value of that variable. It should be clear to you why the call to checkscope() returns “local scope”. Now, let’s change the code just slightly. Can you tell what this code will return?
+
+> checkscope() 函数声明了一个局部变量，然后定义并执行了一个函数 f() ，函数 f() 返回了这个变量的值，最后将函数 f() 的执行结果返回。你应当非常清楚为什么调用 checkscope() 会返回 local scope。现在我们对这段代码做一点改动。你知道这段代码返回什么吗？
+
 ```js
 let scope = "global scope";          // A global variable
 function checkscope() {
@@ -962,9 +986,16 @@ let s = checkscope()();              // What does this return?
 ```
 In this code, a pair of parentheses has moved from inside checkscope() to outside of it. Instead of invoking the nested function and returning its result, checkscope() now just returns the nested function object itself. What happens when we invoke that nested function (with the second pair of parentheses in the last line of code) outside of the function in which it was defined?
 
+> 在这段代码中，我们将函数内的一对圆括号移动到了 checkscope() 之后。checkscope() 现在仅仅返回函数内嵌套的一个函数对象，而不是直接返回结果。在定义函数的作用域外面，调用这个嵌套的函数（包含最后一行代码的最后一对圆括号）会发生什么事情呢？
+
 Remember the fundamental rule of lexical scoping: JavaScript functions are executed using the scope they were defined in. The nested function f() was defined in a scope where the variable scope was bound to the value “local scope”. That binding is still in effect when f is executed, no matter where it is executed from. So the last line of the preceding code example returns “local scope”, not “global scope”. This, in a nutshell, is the surprising and powerful nature of closures: they capture the local variable (and parameter) bindings of the outer function within which they are defined.
 
+> 回想一下词法作用域的基本规则：JavaScript 函数的执行用到了作用域，这个作用域是函数定义的时候创建的。嵌套的函数 f() 定义在变量 scope 绑定的值是“local scope”的作用域里，这个绑定无论 f 函数在何处调用都依然有效。因此最后一行代码返回“local scope”，而不是“global scope”。简言之，闭包的这个特性强大到让人吃惊：它们可以捕捉到它们的外部函数所绑定的局部变量（和参数）。
+
 In §8.4.1, we defined a uniqueInteger() function that used a property of the function itself to keep track of the next value to be returned. A shortcoming of that approach is that buggy or malicious code could reset the counter or set it to a noninteger, causing the uniqueInteger() function to violate the “unique” or the “integer” part of its contract. Closures capture the local variables of a single function invocation and can use those variables as private state. Here is how we could rewrite the uniqueInteger() using an immediately invoked function expression to define a namespace and a closure that uses that namespace to keep its state private:
+
+> 在 §8.4.1 中定义了 uniqueInteger() 函数，这个函数使用自身的一个属性来保存每次返回的值，以便每次调用都能跟踪上次的返回值。但这种做法有一个问题，就是恶意代码可能将计数器重置或者把一个非整数赋值给它，导致 uniquenterger() 函数不一定能产生“唯一”的“整数”。而闭包可以捕捉到单个函数调用的局部变量，并将这些局部变量用做私有状态。下面是如何用立即调用函数表达式重写 uniqueInteger() 来定义命名空间和闭包来保持其状态私有化：
+
 ```js
 let uniqueInteger = (function() {  // Define and invoke
     let counter = 0;               // Private state of function below
@@ -975,7 +1006,12 @@ uniqueInteger()  // => 1
 ```
 In order to understand this code, you have to read it carefully. At first glance, the first line of code looks like it is assigning a function to the variable uniqueInteger. In fact, the code is defining and invoking (as hinted by the open parenthesis on the first line) a function, so it is the return value of the function that is being assigned to uniqueInteger. Now, if we study the body of the function, we see that its return value is another function. It is this nested function object that gets assigned to uniqueInteger. The nested function has access to the variables in its scope and can use the counter variable defined in the outer function. Once that outer function returns, no other code can see the counter variable: the inner function has exclusive access to it.
 
+> 你需要仔细阅读这段代码才能理解其含义。粗略来看，第一行代码看起来像将函数赋值给一个变量 uniqueInteger，实际上，这段代码定义了一个立即调用的函数（函数的开始带有左圆括号），因此是这个函数的返回值赋值给变量 uniqueInteger。现在，我们来看函数体，这个函数的返回值是另外一个函数。这是一个嵌套的函数，我们将它赋值给变量 uniqueInteger。嵌套的函数是可以访问作用域内的变量的，而且可以访问外部函数中定义的 counter 变量。当外部函数返回之后，其他任何代码都无法访问 counter 变量：只有内部的函数才能访问到它。
+
 Private variables like counter need not be exclusive to a single closure: it is perfectly possible for two or more nested functions to be defined within the same outer function and share the same scope. Consider the following code:
+
+> 像 counter 一样的私有变量不是只能用在一个单独的闭包内，在同一个外部函数内定义的多个嵌套函数也可以访问它，这多个嵌套函数都共享一个作用域，看一下这段代码：
+
 ```js
 function counter() {
     let n = 0;
@@ -994,7 +1030,12 @@ d.count()                           // => 1: d was not reset
 ```
 The counter() function returns a “counter” object. This object has two methods: count() returns the next integer, and reset() resets the internal state. The first thing to understand is that the two methods share access to the private variable n. The second thing to understand is that each invocation of counter() creates a new scope—independent of the scopes used by previous invocations—and a new private variable within that scope. So if you call counter() twice, you get two counter objects with different private variables. Calling count() or reset() on one counter object has no effect on the other.
 
+> counter() 函数返回了一个“计数器”对象，这个对象包含两个方法：count() 返回下一个整数，reset() 重置内部状态。首先要理解，这两个方法都可以访问私有变量n。再者，每次调用 counter() 都会创建一个新的作用域链和一个新的私有变量。因此，如果调用 counter() 两次，则会得到两个计数器对象，而且彼此包含不同的私有变量，调用其中一个计数器对象的 count() 或 reset() 不会影响到另外一个对象。
+
 It is worth noting here that you can combine this closure technique with property getters and setters. The following version of the counter() function is a variation on code that appeared in §6.10.6, but it uses closures for private state rather than relying on a regular object property:
+
+> 从技术角度看，其实可以将这个闭包合并为属性存取器方法 getter 和 setter。下面这段代码所示的 counter() 函数的版本是 §6.10.6 中代码的变种，所不同的是，这里私有状态的实现是利用了闭包，而不是利用普通的对象属性来实现：
+
 ```js
 function counter(n) {  // Function argument n is the private variable
     return {
@@ -1017,9 +1058,16 @@ c.count = 2000;    // !Error: count can only be set to a larger value
 ```
 Note that this version of the counter() function does not declare a local variable but just uses its parameter n to hold the private state shared by the property accessor methods. This allows the caller of counter() to specify the initial value of the private variable.
 
+> 需要注意的是，这个版本的 counter() 函数并未声明局部变量，而只是使用参数 n 来保存私有状态并与属性存取器方法共享。这样的话，调用 counter() 的函数就可以指定私有变量的初始值了。
+
 Example 8-2 is a generalization of the shared private state through the closures technique we’ve been demonstrating here. This example defines an addPrivateProperty() function that defines a private variable and two nested functions to get and set the value of that variable. It adds these nested functions as methods of the object you specify.
 
+> 例 8-2是这种使用闭包技术来共享的私有状态的通用做法。这个例子定义了 addPrivateProperty() 函数，这个函数定义了一个私有变量，以及两个嵌套的函数用来获取和设置这个私有变量的值。它将这些嵌套函数添加为所指定对象的方法：
+
 Example 8-2. Private property accessor methods using closures
+
+> 例 8-2：利用闭包实现的私有属性存取器方法
+
 ```js
 // This function adds property accessor methods for a property with
 // the specified name to the object o. The methods are named get<name>
@@ -1063,6 +1111,9 @@ o.getName()               // => "Frank"
 o.setName(0);             // !TypeError: try to set a value of the wrong type
 ```
 We’ve now seen a number of examples in which two closures are defined in the same scope and share access to the same private variable or variables. This is an important technique, but it is just as important to recognize when closures inadvertently share access to a variable that they should not share. Consider the following code:
+
+> 我们已经看到了很多例子，在同一个作用域中定义两个闭包，这两个闭包共享同样的私有变量或变量。这是一种非常重要的技术，但还是要特别小心那些不希望共享的变量往往不经意间共享给了其他的闭包，了解这一点也很重要。看一下下面这段代码：
+
 ```js
 // This function returns a function that always returns v
 function constfunc(v) { return () => v; }
@@ -1075,6 +1126,9 @@ for(var i = 0; i < 10; i++) funcs[i] = constfunc(i);
 funcs[5]()    // => 5
 ```
 When working with code like this that creates multiple closures using a loop, it is a common error to try to move the loop within the function that defines the closures. Think about the following code, for example:
+
+> 这段代码利用循环创建了很多个闭包，当写类似这种代码的时候往往会犯一个错误：那就是试图将循环代码移入定义这个闭包的函数之内，看一下这段代码：
+
 ```js
 // Return an array of functions that return the values 0-9
 function constfuncs() {
@@ -1090,7 +1144,12 @@ funcs[5]()    // => 10; Why doesn't this return 5?
 ```
 This code creates 10 closures and stores them in an array. The closures are all defined within the same invocation of the function, so they share access to the variable i. When constfuncs() returns, the value of the variable i is 10, and all 10 closures share this value. Therefore, all the functions in the returned array of functions return the same value, which is not what we wanted at all. It is important to remember that the scope associated with a closure is “live.” Nested functions do not make private copies of the scope or make static snapshots of the variable bindings. Fundamentally, the problem here is that variables declared with var are defined throughout the function. Our for loop declares the loop variable with var i, so the variable i is defined throughout the function rather than being more narrowly scoped to the body of the loop. The code demonstrates a common category of bugs in ES5 and before, but the introduction of block-scoped variables in ES6 addresses the issue. If we just replace the var with a let or a const, then the problem goes away. Because let and const are block scoped, each iteration of the loop defines a scope that is independent of the scopes for all other iterations, and each of these scopes has its own independent binding of i.
 
+> 上面这段代码创建了10个闭包，并将它们存储到一个数组中。这些闭包都是在同一个函数调用中定义的，因此它们可以共享变量i。当 constfuncs() 返回时，变量 i 的值是10，所有的闭包都共享这一个值，因此，数组中的函数的返回值都是同一个值，这不是我们想要的结果。关联到闭包的作用域都是“活动的”，记住这一点非常重要。嵌套的函数不会将作用域内的私有成员复制一份，也不会对所绑定的变量生成静态快照。从根本上讲，这里的问题是，使用 var 声明的变量，它的定义贯穿整个函数。我们的 for 循环使用 var i 声明循环变量，因此变量 i 在整个函数中都有定义，而不是更狭义地作用于循环的主体。该代码演示了 ES6 之前的常见 Bug 类别，但在 ES6 中引入块级变量作用域解决了这个问题。如果我们只是用 let 或 const 替换 var， 那么问题就消失了。由于 let 和 const 是块级作用域，因此循环的每个迭代都定义了一个独立于所有其他迭代的作用域，并且每个作用域都有其自己的独立绑定 i。
+
 Another thing to remember when writing closures is that this is a JavaScript keyword, not a variable. As discussed earlier, arrow functions inherit the this value of the function that contains them, but functions defined with the function keyword do not. So if you’re writing a closure that needs to use the this value of its containing function, you should use an arrow function, or call bind(), on the closure before returning it, or assign the outer this value to a variable that your closure will inherit:
+
+> 书写闭包的时候还需注意一件事情，this 是 JavaScript 的关键字，而不是变量。正如之前讨论的，箭头函数从包含它们的函数中继承 this，但是用 function 关键字定义的函数不是。所以如果写一个闭包需要使用包含它的函数的 this 值，要在闭包返回之前使用箭头函数或者用调用 bind()，或者将 this 值赋值给一个变量，这样你的闭包会继承它：
+
 ```js
 const self = this;  // Make the this value available to nested functions
 ```
