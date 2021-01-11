@@ -897,7 +897,7 @@ uniqueInteger()  // => 1
 ```
 As another example, consider the following factorial() function that uses properties of itself (treating itself as an array) to cache previously computed results:
 
-> 来看另外一个例子，下面这个函数 factorial() 使用了自身的属性（将自身当做数 组来对待）来缓存上一次的计算结果：
+> 来看另外一个例子，下面这个函数 factorial() 使用了自身的属性（将自身当做数组来对待）来缓存上一次的计算结果：
 
 ```js
 // Compute factorials and cache results as properties of the function itself.
@@ -922,7 +922,7 @@ Variables declared within a function are not visible outside of the function. Fo
 
 Suppose, for example, you have a chunk of JavaScript code that you want to use in a number of different JavaScript programs (or, for client-side JavaScript, on a number of different web pages). Assume that this code, like most code, defines variables to store the intermediate results of its computation. The problem is that since this chunk of code will be used in many different programs, you don’t know whether the variables it creates will conflict with variables created by the programs that use it. The solution is to put the chunk of code into a function and then invoke the function. This way, variables that would have been global become local to the function:
 
-> 比如，假设你写了一段JavaScript模块代码，这段代码将要用在不同的 JavaScript 程序中（对于客户端 JavaScript 来讲通常是用在各种各样的网页中）。和大多数代码一样，假定这段代码定义了一个用以存储中间计算结果的变量。这样问题就来了，当模块代码放到不同的程序中运行时，你无法得知这个变量是否已经创建了，如果已经存在这个变量，那么将会和代码发生冲突。解决办法当然是将代码放入一个函数内，然后调用这个函数。这样全局变量就变成了函数内的局部变量：
+> 比如，假设你写了一段 JavaScript 模块代码，这段代码将要用在不同的 JavaScript 程序中（对于客户端 JavaScript 来讲通常是用在各种各样的网页中）。和大多数代码一样，假定这段代码定义了一个用以存储中间计算结果的变量。这样问题就来了，当模块代码放到不同的程序中运行时，你无法得知这个变量是否已经创建了，如果已经存在这个变量，那么将会和代码发生冲突。解决办法当然是将代码放入一个函数内，然后调用这个函数。这样全局变量就变成了函数内的局部变量：
 
 ```js
 function chunkNamespace() {
@@ -943,7 +943,7 @@ This code defines only a single global variable: the function name chunkNamespac
 ```
 This technique of defining and invoking a function in a single expression is used frequently enough that it has become idiomatic and has been given the name “immediately invoked function expression.” Note the use of parentheses in the previous code example. The open parenthesis before function is required because without it, the JavaScript interpreter tries to parse the function keyword as a function declaration statement. With the parenthesis, the interpreter correctly recognizes this as a function definition expression. The leading parenthesis also helps human readers recognize when a function is being defined to be immediately invoked instead of defined for later use.
 
-> 这种定义匿名函数并立即在单个表达式中调用它的写法非常常见，并给它起了个名字“匿名调用函数表达式”。注意上面代码的圆括号的用法，function 之前的左圆括号是必需的，因为如果不写这个左圆括号，JavaScript 解释器会试图将关键字 function 解析为函数声明语句。使用圆括号 JavaScript 解释器才会正确地将其解析为函数定义表达式。使用括号是习惯用法，尽管有些时候没有必要也不应当省略。这里定义的函数会立即调用。
+> 这种定义匿名函数并立即在单个表达式中调用它的写法非常常见，并给它起了个名字“匿名调用函数表达式”。注意上面代码的圆括号的用法，function 之前的左圆括号是必需的，因为如果不写这个左圆括号，JavaScript 解释器会试图将关键字 function 解析为函数声明语句。使用圆括号 JavaScript 解释器才会正确地将其解析为函数定义表达式。使用前导括号也有助于人类阅读时区分函数定义是立即执行还是供以后使用。
 
 This use of functions as namespaces becomes really useful when we define one or more functions inside the namespace function using variables within that namesapce, but then pass them back out as the return value of the namespace function. Functions like this are known as closures, and they’re the topic of the next section.
 
@@ -952,7 +952,7 @@ This use of functions as namespaces becomes really useful when we define one or 
 ## 8.6 Closures
 Like most modern programming languages, JavaScript uses lexical scoping. This means that functions are executed using the variable scope that was in effect when they were defined, not the variable scope that is in effect when they are invoked. In order to implement lexical scoping, the internal state of a JavaScript function object must include not only the code of the function but also a reference to the scope in which the function definition appears. This combination of a function object and a scope (a set of variable bindings) in which the function’s variables are resolved is called a closure in the computer science literature.
 
-> 和其他大多数现代编程语言一样，JavaScript 也采用词法作用域。也就是说，函数的执行依赖于变量作用域，这个作用域是在函数定义时决定的，而不是函数调用时决定的。为了实现这种词法作用域，JavaScript 函数对象的内部状态不仅包含函数的代码逻辑，还必须包括对函数定义出现的作用域的引用。将函数对象可和作用域链相互关联起来（一对变量的绑定），函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称为闭包。
+> 和其他大多数现代编程语言一样，JavaScript 也采用词法作用域。也就是说，函数的执行依赖于变量作用域，这个作用域是在函数定义时决定的，而不是函数调用时决定的。为了实现这种词法作用域，JavaScript 函数对象的内部状态不仅包含函数的代码逻辑，还必须包括对函数定义出现的作用域的引用。将函数对象可和作用域相互关联起来（一对变量的绑定），函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称为闭包。
 
 Technically, all JavaScript functions are closures, but because most functions are invoked from the same scope that they were defined in, it normally doesn’t really matter that there is a closure involved. Closures become interesting when they are invoked from a different scope than the one they were defined in. This happens most commonly when a nested function object is returned from the function within which it was defined. There are a number of powerful programming techniques that involve this kind of nested function closures, and their use has become relatively common in JavaScript programming. Closures may seem confusing when you first encounter them, but it is important that you understand them well enough to use them comfortably.
 
@@ -1144,11 +1144,11 @@ funcs[5]()    // => 10; Why doesn't this return 5?
 ```
 This code creates 10 closures and stores them in an array. The closures are all defined within the same invocation of the function, so they share access to the variable i. When constfuncs() returns, the value of the variable i is 10, and all 10 closures share this value. Therefore, all the functions in the returned array of functions return the same value, which is not what we wanted at all. It is important to remember that the scope associated with a closure is “live.” Nested functions do not make private copies of the scope or make static snapshots of the variable bindings. Fundamentally, the problem here is that variables declared with var are defined throughout the function. Our for loop declares the loop variable with var i, so the variable i is defined throughout the function rather than being more narrowly scoped to the body of the loop. The code demonstrates a common category of bugs in ES5 and before, but the introduction of block-scoped variables in ES6 addresses the issue. If we just replace the var with a let or a const, then the problem goes away. Because let and const are block scoped, each iteration of the loop defines a scope that is independent of the scopes for all other iterations, and each of these scopes has its own independent binding of i.
 
-> 上面这段代码创建了10个闭包，并将它们存储到一个数组中。这些闭包都是在同一个函数调用中定义的，因此它们可以共享变量i。当 constfuncs() 返回时，变量 i 的值是10，所有的闭包都共享这一个值，因此，数组中的函数的返回值都是同一个值，这不是我们想要的结果。关联到闭包的作用域都是“活动的”，记住这一点非常重要。嵌套的函数不会将作用域内的私有成员复制一份，也不会对所绑定的变量生成静态快照。从根本上讲，这里的问题是，使用 var 声明的变量，它的定义贯穿整个函数。我们的 for 循环使用 var i 声明循环变量，因此变量 i 在整个函数中都有定义，而不是更狭义地作用于循环的主体。该代码演示了 ES6 之前的常见 Bug 类别，但在 ES6 中引入块级变量作用域解决了这个问题。如果我们只是用 let 或 const 替换 var， 那么问题就消失了。由于 let 和 const 是块级作用域，因此循环的每个迭代都定义了一个独立于所有其他迭代的作用域，并且每个作用域都有其自己的独立绑定 i。
+> 上面这段代码创建了10个闭包，并将它们存储到一个数组中。这些闭包都是在同一个函数调用中定义的，因此它们可以共享变量 i。当 constfuncs() 返回时，变量 i 的值是10，所有的闭包都共享这一个值，因此，数组中的函数的返回值都是同一个值，这不是我们想要的结果。关联到闭包的作用域都是“活动的”，记住这一点非常重要。嵌套的函数不会将作用域内的私有成员复制一份，也不会对所绑定的变量生成静态快照。从根本上讲，这里的问题是，使用 var 声明的变量，它的定义贯穿整个函数。我们的 for 循环使用 var i 声明循环变量，因此变量 i 在整个函数中都有定义，而不是更狭义地作用于循环的主体。该代码演示了 ES6 之前的常见 Bug 类别，但在 ES6 中引入块级变量作用域解决了这个问题。如果我们只是用 let 或 const 替换 var， 那么问题就消失了。由于 let 和 const 是块级作用域，因此循环的每个迭代都定义了一个独立于所有其他迭代的作用域，并且每个作用域都有其自己的独立绑定 i。
 
 Another thing to remember when writing closures is that this is a JavaScript keyword, not a variable. As discussed earlier, arrow functions inherit the this value of the function that contains them, but functions defined with the function keyword do not. So if you’re writing a closure that needs to use the this value of its containing function, you should use an arrow function, or call bind(), on the closure before returning it, or assign the outer this value to a variable that your closure will inherit:
 
-> 书写闭包的时候还需注意一件事情，this 是 JavaScript 的关键字，而不是变量。正如之前讨论的，箭头函数从包含它们的函数中继承 this，但是用 function 关键字定义的函数不是。所以如果写一个闭包需要使用包含它的函数的 this 值，要在闭包返回之前使用箭头函数或者用调用 bind()，或者将 this 值赋值给一个变量，这样你的闭包会继承它：
+> 书写闭包的时候还需注意一件事情，this 是 JavaScript 的关键字，而不是变量。正如之前讨论的，箭头函数从包含它们的函数中继承 this 值，但是用 function 关键字定义的函数不是。所以如果写一个闭包需要使用包含它的函数的 this 值，要在闭包返回之前使用箭头函数或者用调用 bind()，或者将 this 值赋值给一个变量，这样你的闭包会继承它：
 
 ```js
 const self = this;  // Make the this value available to nested functions
