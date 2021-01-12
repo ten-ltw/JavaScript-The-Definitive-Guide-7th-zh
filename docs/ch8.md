@@ -732,7 +732,7 @@ f([1, 2, 3, 4], 5, 6)   // => [3, 5, 6, 3, 4]
 ```
 In ES2018, you can also use a rest parameter when you destructure an object. The value of that rest parameter will be an object that has any properties that did not get destructured. Object rest parameters are often useful with the object spread operator, which is also a new feature of ES2018:
 
-> 在 ES2018，也可以用剩余参数解构对象。剩余参数是一个没有解构的属性的对象。对象剩余参数经常与对象展开操作符连用，这是 ES2018 的新特性：
+> 在 ES2018，也可以用剩余参数解构对象。剩余参数是一个没有解构的属性的对象。对象剩余参数经常与对象展开运算符连用，这是 ES2018 的新特性：
 
 ```js
 // Multiply the vector {x,y} or {x,y,z} by a scalar value, retain other props
@@ -1211,7 +1211,7 @@ f.apply(o, [1,2]);
 ```
 If a function is defined to accept an arbitrary number of arguments, the apply() method allows you to invoke that function on the contents of an array of arbitrary length. In ES6 and later, we can just use the spread operator, but you may see ES5 code that uses apply() instead. For example, to find the largest number in an array of numbers without using the spread operator, you could use the apply() method to pass the elements of the array to the Math.max() function:
 
-> 如果一个函数的实参可以是任意数量，用 apply() 方法允许你传入的参数数组可以是任意长度的。在 ES6 之后，我们可以用展开操作符，但是在 ES5 的代码中你可以看到这种情况是用 apply() 来替代。比如，不用展开操作符找出数组中最大的数值元素，调用 Math.max() 方法的时候可以给  apply() 传入一个包含任意个元素的数组：
+> 如果一个函数的实参可以是任意数量，用 apply() 方法允许你传入的参数数组可以是任意长度的。在 ES6 之后，我们可以用展开运算符，但是在 ES5 的代码中你可以看到这种情况是用 apply() 来替代。比如，不用展开运算符找出数组中最大的数值元素，调用 Math.max() 方法的时候可以给  apply() 传入一个包含任意个元素的数组：
 
 ```js
 let biggest = Math.max.apply(Math, arrayOfNumbers);
@@ -1235,6 +1235,9 @@ function trace(o, m) {
 ```
 ### 8.7.5 The bind() Method
 The primary purpose of bind() is to bind a function to an object. When you invoke the bind() method on a function f and pass an object o, the method returns a new function. Invoking the new function (as a function) invokes the original function f as a method of o. Any arguments you pass to the new function are passed to the original function. For example:
+
+> bind() 方法的主要作用就是将函数绑定至某个对象。当在函数 f() 上调用 bind() 方法并传入一个对象 o 作为参数，这个方法将返回一个新的函数。（以函数调用的方式）调用新的函数将会把原始的函数 f() 当做 o 的方法来调用。传入新函数的任何实参都将传入原始函数，比如：
+
 ```js
 function f(y) { return this.x + y; } // This function needs to be bound
 let o = { x: 1 };                    // An object we'll bind to
@@ -1245,7 +1248,12 @@ p.g(2)                               // => 3: g is still bound to o, not p.
 ```
 Arrow functions inherit their this value from the environment in which they are defined, and that value cannot be overridden with bind(), so if the function f() in the preceding code was defined as an arrow function, the binding would not work. The most common use case for calling bind() is to make non-arrow functions behave like arrow functions, however, so this limitation on binding arrow functions is not a problem in practice.
 
+> 箭头函数从它们定义的上下文中继承 this 值，并且其不可被 bind() 方法重写，所以如果上面的代码用箭头函数定义函数 f()，这个绑定不会生效。调用 bind() 方法的最常用场景是让不带箭头的函数的行为像箭头函数一样，所以实际上绑定箭头函数的 this 局限性并不是一个问题。
+
 The bind() method does more than just bind a function to an object, however. It can also perform partial application: any arguments you pass to bind() after the first are bound along with the this value. This partial application feature of bind() does work with arrow functions. Partial application is a common technique in functional programming and is sometimes called currying. Here are some examples of the bind() method used for partial application:
+
+> 但是 bind() 方法不仅仅是将函数绑定至一个对象。它还附带一些其他应用：除了第一个实参之外，传入 bind() 的实参也会绑定至 this 值。这个附带的应用在箭头函数上也同样生效。是一种常见的函数式编程技术，有时也被称为“柯里化”。参照下面这个例子中的 bind() 方法的实现：
+
 ```js
 let sum = (x,y) => x + y;      // Return the sum of 2 args
 let succ = sum.bind(null, 1);  // Bind the first argument to 1
@@ -1257,29 +1265,52 @@ g(3)     // => 6: this.x is bound to 1, y is bound to 2 and z is 3
 ```
 The name property of the function returned by bind() is the name property of the function that bind() was called on, prefixed with the word “bound”.
 
+> bind() 返回函数的名称属性是调用 bind() 的函数的名称属性前面加上前缀为单词"bound"。
+
 ### 8.7.6 The toString() Method
 Like all JavaScript objects, functions have a toString() method. The ECMAScript spec requires this method to return a string that follows the syntax of the function declaration statement. In practice, most (but not all) implementations of this toString() method return the complete source code for the function. Built-in functions typically return a string that includes something like “[native code]” as the function body.
 
+> 和所有的 JavaScript 对象一样，函数也有 toString() 方法，ECMAScript 规范规定这个方法返回一个字符串，这个字符串和函数声明语句的语法相关。实际上，大多数（非全部）的 toString() 方法的实现都返回函数的完整源码。内置函数往往返回一个类似”[native code]”的字符串作为函数体。
+
 ### 8.7.7 The Function() Constructor
 Because functions are objects, there is a Function() constructor that can be used to create new functions:
+
+> 因为函数是对象，有一个 Function() 构造函数可以用来创建新的函数：
+
 ```js
 const f = new Function("x", "y", "return x*y;");
 ```
 This line of code creates a new function that is more or less equivalent to a function defined with the familiar syntax:
+
+> 这一行代码创建一个新的函数，这个函数和通过下面代码定义的函数几乎等价：
+
 ```js
 const f = function(x, y) { return x*y; };
 ```
 The Function() constructor expects any number of string arguments. The last argument is the text of the function body; it can contain arbitrary JavaScript statements, separated from each other by semicolons. All other arguments to the constructor are strings that specify the parameter names for the function. If you are defining a function that takes no arguments, you would simply pass a single string—the function body—to the constructor.
 
+> Function()构造函数可以传入任意数量的字符串实参，最后一个实参所表示的文本就是函数体；它可以包含任意的 JavaScript 语句，每两条语句之间用分号分隔。传入构造函数的其他所有的实参字符串是指定函数的形参名字的字符串。如果定义的函数不包含任何参数，只须给构造函数简单地传入一个字符串——函数体——即可。
+
 Notice that the Function() constructor is not passed any argument that specifies a name for the function it creates. Like function literals, the Function() constructor creates anonymous functions.
+
+> 注意，Function()构造函数并不需要通过传入实参以指定函数名。就像函数字面量一样，Function() 构造函数创建一个匿名函数。
 
 There are a few points that are important to understand about the Function() constructor:
 
+> 关于 Function() 构造函数有几点需要特别注意：
+
 The Function() constructor allows JavaScript functions to be dynamically created and compiled at runtime.
+
+> Function() 构造函数允许 JavaScript 在运行时动态地创建并编译函数。
 
 The Function() constructor parses the function body and creates a new function object each time it is called. If the call to the constructor appears within a loop or within a frequently called function, this process can be inefficient. By contrast, nested functions and function expressions that appear within loops are not recompiled each time they are encountered.
 
+> 每次调用 Function() 构造函数都会解析函数体，并创建新的函数对象。如果是在一个循环或者多次调用的函数中执行这个构造函数，执行效率会受影响。相比之下，循环中的嵌套函数和函数定义表达式则不会每次执行时都重新编译。
+
 A last, very important point about the Function() constructor is that the functions it creates do not use lexical scoping; instead, they are always compiled as if they were top-level functions, as the following code demonstrates:
+
+> 最后一点，也是关于 Function() 构造函数非常重要的一点，就是它所创建的函数并不是使用词法作用域，相反，函数体代码的编译总是会在顶层函数如下面代码所示：
+
 ```js
 let scope = "global";
 function constructFunction() {
@@ -1292,11 +1323,19 @@ constructFunction()()  // => "global"
 ```
 The Function() constructor is best thought of as a globally scoped version of eval() (see §4.12.2) that defines new variables and functions in its own private scope. You will probably never need to use this constructor in your code.
 
+> 我们可以将 Function() 构造函数认为是在全局作用域中执行的 eval()（见  §4.12.2），eval() 可以在自己的私有作用域内定义新变量和函数，Function() 构造函数在实际编程过程中很少会用到。
+
 ## 8.8 Functional Programming
 JavaScript is not a functional programming language like Lisp or Haskell, but the fact that JavaScript can manipulate functions as objects means that we can use functional programming techniques in JavaScript. Array methods such as map() and reduce() lend themselves particularly well to a functional programming style. The sections that follow demonstrate techniques for functional programming in JavaScript. They are intended as a mind-expanding exploration of the power of JavaScript’s functions, not as a prescription for good programming style.
 
+> 和 Lisp、Haskell 不同，JavaScript 并非函数式编程语言，但在 JavaScript 中可以像操控对象一样操控函数，也就是说可以在 JavaScript 中应用函数式编程技术。数组方法诸如 map() 和 reduce() 就可以非常适合用于函数式编程风格。接下来的几节将会着重介绍 JavaScript 中的函数式编程技术。函数式编程旨在扩展对 JavaScript 函数功能功能的探索，而不是为了良好的编程风格。
+。
+
 ### 8.8.1 Processing Arrays with Functions
 Suppose we have an array of numbers and we want to compute the mean and standard deviation of those values. We might do that in nonfunctional style like this:
+
+> 假设有一个数组，数组元素都是数字，我们想要计算这些元素的平均值和标准差。若使用非函数式编程风格的话，代码会是这样：
+
 ```js
 let data = [1,1,3,5,5];  // This is our array of numbers
 
@@ -1315,6 +1354,9 @@ for(let i = 0; i < data.length; i++) {
 let stddev = Math.sqrt(total/(data.length-1));  // stddev == 2
 ```
 We can perform these same computations in concise functional style using the array methods map() and reduce() like this (see §7.8.1 to review these methods):
+
+> 可以使用数组方法 map() 和 reduce() 来实现同样的计算，这种实现极其简洁（参照 §7.8.1 来查看这些方法）
+
 ```js
 // First, define two simple functions
 const sum = (x,y) => x+y;
@@ -1328,11 +1370,17 @@ let stddev = Math.sqrt(deviations.map(square).reduce(sum)/(data.length-1));
 stddev  // => 2
 ```
 This new version of the code looks quite different than the first one, but it is still invoking methods on objects, so it has some object-oriented conventions remaining. Let’s write functional versions of the map() and reduce() methods:
+
+> 这个新版本的代码看起来跟第一版有很大不同，但是它仍然调用对象的方法，所以它还是面向对象编程。接下来用函数版本的 map() 和 reduce() 方法：
+
 ```js
 const map = function(a, ...args) { return a.map(...args); };
 const reduce = function(a, ...args) { return a.reduce(...args); };
 ```
 With these map() and reduce() functions defined, our code to compute the mean and standard deviation now looks like this:
+
+> 用这两个函数定义了 map() 和 reduce()，我们计算平均值和标准差变成这样：
+
 ```js
 const sum = (x,y) => x+y;
 const square = x => x*x;
@@ -1345,6 +1393,9 @@ stddev  // => 2
 ```
 ### 8.8.2 Higher-Order Functions
 A higher-order function is a function that operates on functions, taking one or more functions as arguments and returning a new function. Here is an example:
+
+> 所谓高阶函数就是操作函数的函数，它接收一个或多个函数作为参数，并返回一个新函数。来看这个例子：
+
 ```js
 // This higher-order function returns a new function that passes its
 // arguments to f and returns the logical negation of f's return value;
@@ -1360,6 +1411,9 @@ const odd = not(even);         // A new function that does the opposite
 [1,1,3,5,5].every(odd)         // => true: every element of the array is odd
 ```
 This not() function is a higher-order function because it takes a function argument and returns a new function. As another example, consider the mapper() function that follows. It takes a function argument and returns a new function that maps one array to another using that function. This function uses the map() function defined earlier, and it is important that you understand how the two functions are different:
+
+> 上面的 not() 函数就是一个高阶函数，因为它接收一个函数作为参数，并返回一个新函数。另外一个例子，来看下面的 mapper() 函数，它也是接收一个函数作为实参，并返回一个新函数，这个新函数将一个数组映射到另一个使用这个函数的数组上。这个函数使用了之前定义的 map() 函数，但要首先理解这两个函数有哪里不 同，理解这一点至关重要：
+
 ```js
 // Return a function that expects an array argument and applies f to
 // each element, returning the array of return values.
@@ -1373,6 +1427,9 @@ const incrementAll = mapper(increment);
 incrementAll([1,2,3])  // => [2,3,4]
 ```
 Here is another, more general, example that takes two functions, f and g, and returns a new function that computes f(g()):
+
+> 这里是一个更常见的例子，它接收两个函数 f() 和 g()，并返回一个新的函数用以计算 f(g())：
+
 ```js
 // Return a new function that computes f(g(...)).
 // The returned function h passes all of its arguments to g, then passes
@@ -1392,8 +1449,13 @@ compose(square, sum)(2,3)  // => 25; the square of the sum
 ```
 The partial() and memoize() functions defined in the sections that follow are two more important higher-order functions.
 
+> 本章后续几节中定义了 partial() 和 memoize() 函数，这两个函数是非常重要的高阶函数。
+
 ### 8.8.3 Partial Application of Functions
 The bind() method of a function f (see §8.7.5) returns a new function that invokes f in a specified context and with a specified set of arguments. We say that it binds the function to an object and partially applies the arguments. The bind() method partially applies arguments on the left—that is, the arguments you pass to bind() are placed at the start of the argument list that is passed to the original function. But it is also possible to partially apply arguments on the right:
+
+> 函数 f()（见 §8.7.5）的 bind() 方法返回一个新函数，给新函数传入特定的上下文和一组指定的参数，然后调用函数 f()。我们说它把函数“绑定至”对象并传入一部分参数。bind() 方法只是将实参放在（完整实参列表的）左侧，也就是说传入 bind() 的实参都是放在传入原始函数的实参列表开始的位置，但有时我们期望将传入 bind() 的实参放在（完整实参列表的）右侧：
+
 ```js
 // The arguments to this function are passed on the left
 function partialLeft(f, ...outerArgs) {
@@ -1435,12 +1497,18 @@ partialRight(f, 2)(3,4)        // =>  6: Bind last argument: 3 * (4 - 2)
 partial(f, undefined, 2)(3,4)  // => -6: Bind middle argument: 3 * (2 - 4)
 ```
 These partial application functions allow us to easily define interesting functions out of functions we already have defined. Here are some examples:
+
+> 利用这种不完全函数的编程技巧，可以编写一些有意思的代码，利用已有的函数来定义新的函数，参照下面这个例子：
+
 ```js
 const increment = partialLeft(sum, 1);
 const cuberoot = partialRight(Math.pow, 1/3);
 cuberoot(increment(26))  // => 3
 ```
 Partial application becomes even more interesting when we combine it with other higher-order functions. Here, for example, is a way to define the preceding not() function just shown using composition and partial application:
+
+> 当将不完全调用和其他高阶函数整合在一起的时候，事情就变得格外有趣了。比如，这里的例子定义了 not() 函数，它用到了刚才提到的不完全调用：
+
 ```js
 const not = partialLeft(compose, x => !x);
 const even = x => x % 2 === 0;
@@ -1449,6 +1517,9 @@ const isNumber = not(isNaN);
 odd(3) && isNumber(2)  // => true
 ```
 We can also use composition and partial application to redo our mean and standard deviation calculations in extreme functional style:
+
+> 我们也可以使用不完全调用的组合来重新组织求平均数和标准差的代码，这种编码风格是非常纯粹的函数式编程：
+
 ```js
 // sum() and square() functions are defined above. Here are some more:
 const product = (x,y) => x*y;
@@ -1470,6 +1541,9 @@ Notice that this code to compute mean and standard deviation is entirely functio
 
 ### 8.8.4 Memoization
 In §8.4.1, we defined a factorial function that cached its previously computed results. In functional programming, this kind of caching is called memoization. The code that follows shows a higher-order function, memoize(), that accepts a function as its argument and returns a memoized version of the function:
+
+> 在 §8.4.1 中定义了一个阶乘函数，它可以将上次的计算结果缓存起来。在函数式编程当中，这种缓存技巧叫做“记忆”（memorization）。下面的代码展示了一个高阶函数，memorize() 接收一个函数作为实参，并返回带有记忆能力的函数:
+
 ```js
 // Return a memoized version of f.
 // It only works if arguments to f all have distinct string representations.
@@ -1490,6 +1564,9 @@ function memoize(f) {
 }
 ```
 The memoize() function creates a new object to use as the cache and assigns this object to a local variable so that it is private to (in the closure of) the returned function. The returned function converts its arguments array to a string and uses that string as a property name for the cache object. If a value exists in the cache, it returns it directly. Otherwise, it calls the specified function to compute the value for these arguments, caches that value, and returns it. Here is how we might use memoize():
+
+> memorize() 函数创建一个新的对象，这个对象被当做缓存（的宿主）并赋值给一个局部变量，因此对于返回的函数来说它是私有的（在闭包中）。所返回的函数将它的实参数组转换成字符串，并将字符串用做缓存对象的属性名。如果在缓存中存在这个值，则直接返回它。否则，就调用既定的函数对实参进行计算，将计算结果缓存起来并返回，下面的代码展示了如何使用 memorize()：
+
 ```js
 // Return the Greatest Common Divisor of two integers using the Euclidian
 // algorithm: http://en.wikipedia.org/wiki/Euclidean_algorithm
@@ -1528,8 +1605,20 @@ A function defined inside of and returned by an enclosing function retains acces
 
 Functions are objects that can be manipulated by JavaScript, and this enables a functional style of programming.
 
+> 本章关键点总结如下：
+> 可以用函数关键字和 ES6 => 箭头函数来定义函数。
+> 可以以方法和构造函数的方式调用函数。
+> 一些 ES6 特性，允许参数设定默认值，可以用剩余参数将多个参数搜集到一个数组中，可以结构对象和数组实参到函数参数中。
+> 可以用 ... 展开运算符传递数组元素或者其他可迭代对象到函数调用。
+> 封闭函数内部定义并返回的函数保留对其词法作用域的访问，因此可以读取和写入外部函数内定义的变量。用这种方式使用的函数称为闭包，这是一种值得理解的技术。
+> 函数是可由 JavaScript 操作的对象，这使 JavaScript 支持函数式编程。
+
 ---
 
 1. The term was coined by Martin Fowler. See http://martinfowler.com/dslCatalog/methodChaining.html.
 2. If you are familiar with Python, note that this is different than Python, in which every invocation shares the same default value.
 3. This may not seem like a particularly interesting point unless you are familiar with more static languages, in which functions are part of a program but cannot be manipulated by the program.
+
+> 1. 这个术语最初是由 Martin Fowler 提出的，参见http://martinfowler.com/dslwip/MethodChaining.html。
+> 2. 这看起来不足为奇，但如果你对 Python 很熟悉，你会发现 Python 中的函数是程序的一 部分，但无法被程序操作。
+> 3. 这似乎并不是一个特别有趣的点，除非你熟悉更多的静态语言，其中函数是程序的一部分，但不能由程序操作。
