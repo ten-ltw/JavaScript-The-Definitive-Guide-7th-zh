@@ -1156,7 +1156,7 @@ const self = this;  // Make the this value available to nested functions
 ## 8.7 Function Properties, Methods, and Constructor
 We’ve seen that functions are values in JavaScript programs. The typeof operator returns the string “function” when applied to a function, but functions are really a specialized kind of JavaScript object. Since functions are objects, they can have properties and methods, just like any other object. There is even a Function() constructor to create new function objects. The subsections that follow document the length, name, and prototype properties; the call(), apply(), bind(), and toString() methods; and the Function() constructor.
 
-> 我们看到在 JavaScript 程序中，函数是值。对函数执行 typeof 运算会返回字符串“function”，但是函数是 JavaScript 中特殊的对象。因为函数也是对象，它们也可以拥有属性和方法，就像普通的对象可以拥有属性和方法一样。甚至可以用 Function() 构造函数来创建新的函数对象。接下来几节就会着重介绍函数 length、name 和 prototype 属性；the call()、 apply()、 bind() 和 toString() 方法；以及 Function() 构造函数。
+> 我们看到在 JavaScript 程序中，函数是值。对函数执行 typeof 运算会返回字符串“function”，但是函数是 JavaScript 中特殊的对象。因为函数也是对象，它们也可以拥有属性和方法，就像普通的对象可以拥有属性和方法一样。甚至可以用 Function() 构造函数来创建新的函数对象。接下来几节就会着重介绍函数 length、name 和 prototype 属性；call()、 apply()、 bind() 和 toString() 方法；以及 Function() 构造函数。
 
 ### 8.7.1 The length Property
 The read-only length property of a function specifies the arity of the function—the number of parameters it declares in its parameter list, which is usually the number of arguments that the function expects. If a function has a rest parameter, that parameter is not counted for the purposes of this length property.
@@ -1171,12 +1171,12 @@ The read-only name property of a function specifies the name that was used when 
 ### 8.7.3 The prototype Property
 All functions, except arrow functions, have a prototype property that refers to an object known as the prototype object. Every function has a different prototype object. When a function is used as a constructor, the newly created object inherits properties from the prototype object. Prototypes and the prototype property were discussed in §6.2.3 and will be covered again in Chapter 9.
 
-> 所有函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做原型对象。每一个函数都包含不同的原型对象。当将函数用做构造函数的时候，新创建的对象会从原型对象上继承属性。§6.2.3 讨论了原型和 prototype 属性，在第9章里会有进一步讨论。
+> 所有函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做原型对象。每一个函数都包含不同的原型对象。当将函数用作构造函数的时候，新创建的对象会从原型对象上继承属性。§6.2.3 讨论了原型和 prototype 属性，在第9章里会有进一步讨论。
 
 ### 8.7.4 The call() and apply() Methods
 call() and apply() allow you to indirectly invoke (§8.2.4) a function as if it were a method of some other object. The first argument to both call() and apply() is the object on which the function is to be invoked; this argument is the invocation context and becomes the value of the this keyword within the body of the function. To invoke the function f() as a method of the object o (passing no arguments), you could use either call() or apply():
 
-> 我们可以将 call() 和apply () 看做是某个对象的方法，通过调用方法的形式来间接调用（见 §8.2.4）函数。call() 和 apply() 的第一个实参是要调用函数的母对象，它是调用上下文，在函数体内变成 this 关键字的值。要想以对象 o 的方法来调用函数 f()（没有实参传递），可以这样使用 call() 和 apply()：
+> 我们可以将 call() 和 apply () 看做是某个对象的方法，通过调用方法的形式来间接调用（见 §8.2.4）函数。call() 和 apply() 的第一个实参是要调用函数的母对象，它是调用上下文，在函数体内变成 this 关键字的值。要想以对象 o 的方法来调用函数 f()（没有实参传递），可以这样使用 call() 和 apply()：
 
 ```js
 f.call(o);
@@ -1289,11 +1289,11 @@ const f = function(x, y) { return x*y; };
 ```
 The Function() constructor expects any number of string arguments. The last argument is the text of the function body; it can contain arbitrary JavaScript statements, separated from each other by semicolons. All other arguments to the constructor are strings that specify the parameter names for the function. If you are defining a function that takes no arguments, you would simply pass a single string—the function body—to the constructor.
 
-> Function()构造函数可以传入任意数量的字符串实参，最后一个实参所表示的文本就是函数体；它可以包含任意的 JavaScript 语句，每两条语句之间用分号分隔。传入构造函数的其他所有的实参字符串是指定函数的形参名字的字符串。如果定义的函数不包含任何参数，只须给构造函数简单地传入一个字符串——函数体——即可。
+> Function() 构造函数可以传入任意数量的字符串实参，最后一个实参所表示的文本就是函数体；它可以包含任意的 JavaScript 语句，每两条语句之间用分号分隔。传入构造函数的其他所有的实参字符串是指定函数的形参名字的字符串。如果定义的函数不包含任何参数，只须给构造函数简单地传入一个字符串——函数体——即可。
 
 Notice that the Function() constructor is not passed any argument that specifies a name for the function it creates. Like function literals, the Function() constructor creates anonymous functions.
 
-> 注意，Function()构造函数并不需要通过传入实参以指定函数名。就像函数字面量一样，Function() 构造函数创建一个匿名函数。
+> 注意，Function() 构造函数并不需要通过传入实参以指定函数名。就像函数字面量一样，Function() 构造函数创建一个匿名函数。
 
 There are a few points that are important to understand about the Function() constructor:
 
@@ -1309,7 +1309,7 @@ The Function() constructor parses the function body and creates a new function o
 
 A last, very important point about the Function() constructor is that the functions it creates do not use lexical scoping; instead, they are always compiled as if they were top-level functions, as the following code demonstrates:
 
-> 最后一点，也是关于 Function() 构造函数非常重要的一点，就是它所创建的函数并不是使用词法作用域，相反，函数体代码的编译总是会在顶层函数如下面代码所示：
+> 最后一点，也是关于 Function() 构造函数非常重要的一点，就是它所创建的函数并不是使用词法作用域，相反，函数体代码的编译类似顶层函数，如下面代码所示：
 
 ```js
 let scope = "global";
@@ -1329,7 +1329,6 @@ The Function() constructor is best thought of as a globally scoped version of ev
 JavaScript is not a functional programming language like Lisp or Haskell, but the fact that JavaScript can manipulate functions as objects means that we can use functional programming techniques in JavaScript. Array methods such as map() and reduce() lend themselves particularly well to a functional programming style. The sections that follow demonstrate techniques for functional programming in JavaScript. They are intended as a mind-expanding exploration of the power of JavaScript’s functions, not as a prescription for good programming style.
 
 > 和 Lisp、Haskell 不同，JavaScript 并非函数式编程语言，但在 JavaScript 中可以像操控对象一样操控函数，也就是说可以在 JavaScript 中应用函数式编程技术。数组方法诸如 map() 和 reduce() 就可以非常适合用于函数式编程风格。接下来的几节将会着重介绍 JavaScript 中的函数式编程技术。函数式编程旨在扩展对 JavaScript 函数功能功能的探索，而不是为了良好的编程风格。
-。
 
 ### 8.8.1 Processing Arrays with Functions
 Suppose we have an array of numbers and we want to compute the mean and standard deviation of those values. We might do that in nonfunctional style like this:
@@ -1355,7 +1354,7 @@ let stddev = Math.sqrt(total/(data.length-1));  // stddev == 2
 ```
 We can perform these same computations in concise functional style using the array methods map() and reduce() like this (see §7.8.1 to review these methods):
 
-> 可以使用数组方法 map() 和 reduce() 来实现同样的计算，这种实现极其简洁（参照 §7.8.1 来查看这些方法）
+> 可以使用数组方法 map() 和 reduce() 来实现同样的计算，这种实现极其简洁（参照 §7.8.1 来查看这些方法）：
 
 ```js
 // First, define two simple functions
@@ -1539,6 +1538,8 @@ let stddev = sqrt(product(reduce(map(data,
 ```
 Notice that this code to compute mean and standard deviation is entirely function invocations; there are no operators involved, and the number of parentheses has grown so large that this JavaScript is beginning to look like Lisp code. Again, this is not a style that I advocate for JavaScript programming, but it is an interesting exercise to see how deeply functional JavaScript code can be.
 
+> 注意，这段代码计算平均值和标准差完全是函数调用;没有涉及运算符，并且括号的数量增长如此之大让 JavaScript 开始看起来像 Lisp 代码。同样，这不是我提倡的 JavaScript 编程风格，但它是一个有趣的练习，看看 JavaScript 代码的功能有多深。
+
 ### 8.8.4 Memoization
 In §8.4.1, we defined a factorial function that cached its previously computed results. In functional programming, this kind of caching is called memoization. The code that follows shows a higher-order function, memoize(), that accepts a function as its argument and returns a memoized version of the function:
 
@@ -1606,11 +1607,17 @@ A function defined inside of and returned by an enclosing function retains acces
 Functions are objects that can be manipulated by JavaScript, and this enables a functional style of programming.
 
 > 本章关键点总结如下：
+> 
 > 可以用函数关键字和 ES6 => 箭头函数来定义函数。
+> 
 > 可以以方法和构造函数的方式调用函数。
-> 一些 ES6 特性，允许参数设定默认值，可以用剩余参数将多个参数搜集到一个数组中，可以结构对象和数组实参到函数参数中。
+> 
+> 一些 ES6 特性，允许参数设定默认值，可以用剩余参数将多个参数搜集到一个数组中，可以解构对象和数组实参到函数参数中。
+> 
 > 可以用 ... 展开运算符传递数组元素或者其他可迭代对象到函数调用。
+> 
 > 封闭函数内部定义并返回的函数保留对其词法作用域的访问，因此可以读取和写入外部函数内定义的变量。用这种方式使用的函数称为闭包，这是一种值得理解的技术。
+> 
 > 函数是可由 JavaScript 操作的对象，这使 JavaScript 支持函数式编程。
 
 ---
