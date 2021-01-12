@@ -15,11 +15,11 @@ The lexical structure of a programming language is the set of elementary rules t
 
 JavaScript is a case-sensitive language. This means that language keywords, variables, function names, and other identifiers must always be typed with a consistent capitalization of letters. The while keyword, for example, must be typed “while,” not “While” or “WHILE.” Similarly, online, Online, OnLine, and ONLINE are four distinct variable names.
 
-> JavaScript 是一种区分大小写的语言。这意味着语言关键字、变量、函数名和其他标识符必须始终以一致的大小写输入。例如，while 关键字必须输入“while”，而不是“While”或“WHILE”。同样，online, Online，OnLine 和ONLINE 是四个不同的变量名。
+> JavaScript 是一种区分大小写的语言。这意味着语言关键字、变量、函数名和其他标识符必须始终以一致的大小写输入。例如，while 关键字必须输入“while”，而不是“While”或“WHILE”。同样，online, Online，OnLine 和 ONLINE 是四个不同的变量名。
 
 JavaScript ignores spaces that appear between tokens in programs. For the most part, JavaScript also ignores line breaks (but see §2.6 for an exception). Because you can use spaces and newlines freely in your programs, you can format and indent your programs in a neat and consistent way that makes the code easy to read and understand.
 
-> JavaScript 忽略程序中标记之间出现的空格。在大多数情况下，JavaScript也会忽略换行符（但是，关于一个例外，请参阅 §2.6）。由于您可以在程序中自由地使用空格和换行符，因此您可以以一种整洁和一致的方式对程序进行格式化和缩进，从而使代码易于阅读和理解。
+> JavaScript 忽略程序中标记之间出现的空格。在大多数情况下，JavaScript 也会忽略换行符（但是，关于一个例外，请参阅 §2.6）。由于您可以在程序中自由地使用空格和换行符，因此您可以以一种整洁和一致的方式对程序进行格式化和缩进，从而使代码易于阅读和理解。
 
 In addition to the regular space character (`\u0020`), JavaScript also recognizes tabs, assorted ASCII control characters, and various Unicode space characters as whitespace. JavaScript recognizes newlines, carriage returns, and a carriage return/line feed sequence as line terminators.
 
@@ -205,7 +205,7 @@ let a; a = 3; console.log(a);
 
 JavaScript does treat the first line break as a semicolon because it cannot parse the code let a a without a semicolon. The second a could stand alone as the statement a;, but JavaScript does not treat the second line break as a semicolon because it can continue parsing the longer statement a = 3;.
 
-> JavaScript 确实把第一个换行符当作分号，因为它不能解析没有分号的代码。第二个 a 可以单独作为语句 a;，但JavaScript不会将第二个换行符作为分号处理，因为它可以继续解析较长的语句 a = 3;。
+> JavaScript 确实把第一个换行符当作分号，因为它不能解析没有分号的代码。第二个 a 可以单独作为语句 a;，但 JavaScript 不会将第二个换行符作为分号处理，因为它可以继续解析较长的语句 a = 3;。
 
 These statement termination rules lead to some surprising cases. This code looks like two separate statements separated with a newline:
 
