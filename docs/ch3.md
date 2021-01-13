@@ -611,13 +611,15 @@ The backslash at the end of the first line here escapes the initial newline so t
 
 TAGGED TEMPLATE LITERALS
 
+> **标签模版字面量**
+
 A powerful but less commonly used feature of template literals is that, if a function name (or “tag”) comes right before the opening backtick, then the text and the values of the expressions within the template literal are passed to the function. The value of this “tagged template literal” is the return value of the function. This could be used, for example, to apply HTML or SQL escaping to the values before substituting them into the text.
 
-> 模板字面值的一个强大但不太常用的特性是，如果一个函数名(或“标签”)恰好出现在开始的反勾之前，那么模板字面值中的文本和表达式的值就会传递给该函数。这个“标记模板字面量”的值是函数的返回值。例如，这可以用于在将值替换到文本之前对值应用HTML或SQL转义。
+> 模板字面值的一个强大但不太常用的特性是，如果一个函数名（或“标签”）恰好出现在开始的反勾之前，那么模板字面值中的文本和表达式的值就会传递给该函数。这个“标记模板字面量”的值是函数的返回值。例如，这可以用于在将值替换到文本之前对值应用 HTML 或 SQL 转义。
 
 ES6 has one built-in tag function: String.raw(). It returns the text within backticks without any processing of backslash escapes:
 
-> ES6有一个内置的标记函数:String.raw()。它在不处理任何反斜杠转义的情况下返回带有反引号的文本:
+> ES6 有一个内置的标记函数：String.raw()。它在不处理任何反斜杠转义的情况下返回带有反引号的文本:
 
 ```js
 `\n`.length            // => 1: the string has a single newline character
@@ -630,17 +632,17 @@ Note that even though the tag portion of a tagged template literal is a function
 
 The ability to define your own template tag functions is a powerful feature of JavaScript. These functions do not need to return strings, and they can be used like constructors, as if defining a new literal syntax for the language. We’ll see an example in §14.5.
 
-> 定义自己的模板标记函数的能力是JavaScript的一个强大特性。这些函数不需要返回字符串，它们可以像构造函数一样使用，就像为语言定义新的文字语法一样。我们将在§14.5中看到一个例子。
+> 定义自己的模板标记函数的能力是 JavaScript 的一个强大特性。这些函数不需要返回字符串，它们可以像构造函数一样使用，就像为语言定义新的文字语法一样。我们将在 §14.5 中看到一个例子。
 
 ### 3.3.5 Pattern Matching
 
 JavaScript defines a datatype known as a regular expression (or RegExp) for describing and matching patterns in strings of text. RegExps are not one of the fundamental datatypes in JavaScript, but they have a literal syntax like numbers and strings do, so they sometimes seem like they are fundamental. The grammar of regular expression literals is complex and the API they define is nontrivial. They are documented in detail in §11.3. Because RegExps are powerful and commonly used for text processing, however, this section provides a brief overview.
 
-> JavaScript定义了一种称为正则表达式(或RegExp)的数据类型，用于描述和匹配文本字符串中的模式。regexp并不是JavaScript中的基本数据类型之一，但它们像数字和字符串一样有字面语法，所以有时看起来它们似乎是基本的。正则表达式字面量的语法很复杂，它们定义的API也很重要。它们在§11.3中有详细的记录。但是，由于regexp功能强大，通常用于文本处理，因此本节提供一个简要概述。
+> JavaScript 定义了一种称为正则表达式（或RegExp）的数据类型，用于描述和匹配文本字符串中的模式。regexp 并不是 JavaScript 中的基本数据类型之一，但它们像数字和字符串一样有字面语法，所以有时看起来它们似乎是基本类型。正则表达式字面量的语法很复杂，它们定义的 API 也很重要。它们在 §11.3 中有详细的记录。但是，由于 regexp 功能强大，通常用于文本处理，因此本节提供一个简要概述。
 
 Text between a pair of slashes constitutes a regular expression literal. The second slash in the pair can also be followed by one or more letters, which modify the meaning of the pattern. For example:
 
-> 一对斜杠之间的文本构成了正则表达式字面量。对中的第二个斜杠还可以后跟一个或多个字母，它们修改了模式的含义。例如:
+> 一对斜杠之间的文本构成了正则表达式字面量。对中的第二个斜杠还可以后跟一个或多个字母，它们修改了模式的含义。例如：
 
 ```js
 /^HTML/;             // Match the letters H T M L at the start of a string
@@ -650,7 +652,7 @@ Text between a pair of slashes constitutes a regular expression literal. The sec
 
 RegExp objects define a number of useful methods, and strings also have methods that accept RegExp arguments. For example:
 
-> RegExp对象定义了许多有用的方法，字符串也有接受RegExp参数的方法。例如:
+> RegExp 对象定义了许多有用的方法，字符串也有接受 RegExp 参数的方法。例如：
 
 ```js
 let text = "testing: 1, 2, 3";   // Sample text
@@ -665,11 +667,11 @@ text.split(/\D+/)                // => ["","1","2","3"]: split on nondigits
 
 A boolean value represents truth or falsehood, on or off, yes or no. There are only two possible values of this type. The reserved words true and false evaluate to these two values.
 
-> 布尔值表示真或假、开或关、是或否。这种类型只有两个可能的值。保留字true和false计算这两个值。
+> 布尔值表示真或假、开或关、是或否。这种类型只有两个可能的值。保留字 true 和 false 计算这两个值。
 
 Boolean values are generally the result of comparisons you make in your JavaScript programs. For example:
 
-> 布尔值通常是你在JavaScript程序中进行比较的结果。例如:
+> 布尔值通常是你在 JavaScript 程序中进行比较的结果。例如：
 
 ```js
 a === 4
@@ -677,11 +679,11 @@ a === 4
 
 This code tests to see whether the value of the variable a is equal to the number 4. If it is, the result of this comparison is the boolean value true. If a is not equal to 4, the result of the comparison is false.
 
-> 这段代码测试变量a的值是否等于数字4。如果是，则此比较的结果为布尔值true。如果a不等于4，则比较的结果为false。
+> 这段代码测试变量 a 的值是否等于数字 4。如果是，则此比较的结果为布尔值 true。如果 a 不等于 4，则比较的结果为 false。
 
 Boolean values are commonly used in JavaScript control structures. For example, the if/else statement in JavaScript performs one action if a boolean value is true and another action if the value is false. You usually combine a comparison that creates a boolean value directly with a statement that uses it. The result looks like this:
 
-> 布尔值通常用于JavaScript的控制结构中。例如，JavaScript中的if/else语句在布尔值为true时执行一个动作，在值为false时执行另一个动作。通常将直接创建布尔值的比较与使用它的语句组合在一起。结果是这样的:
+> 布尔值通常用于 JavaScript 的控制结构中。例如，JavaScript 中的 if/else 语句在布尔值为 true 时执行一个动作，在值为 false 时执行另一个动作。通常将直接创建布尔值的比较与使用它的语句组合在一起。结果是这样的：
 
 ```js
 if (a === 4) {
@@ -693,11 +695,11 @@ if (a === 4) {
 
 This code checks whether a equals 4. If so, it adds 1 to b; otherwise, it adds 1 to a.
 
-> 这段代码检查a是否等于4。如果是，则给b加1;否则，它给a加1。
+> 这段代码检查 a 是否等于 4。如果是，则给 b 加 1；否则，它给 a 加 1。
 
 As we’ll discuss in §3.9, any JavaScript value can be converted to a boolean value. The following values convert to, and therefore work like, false:
 
-> 正如我们将在§3.9中讨论的，任何JavaScript值都可以转换为布尔值。下面的值会转换为false，因此工作方式类似于false:
+> 正如我们将在 §3.9 中讨论的，任何 JavaScript 值都可以转换为布尔值。下面的值会转换为 false，因此工作方式类似于 false：
 
 ```js
 undefined
@@ -710,11 +712,11 @@ NaN
 
 All other values, including all objects (and arrays) convert to, and work like, true. false, and the six values that convert to it, are sometimes called falsy values, and all other values are called truthy. Any time JavaScript expects a boolean value, a falsy value works like false and a truthy value works like true.
 
-> 所有其他值，包括所有对象(和数组)都转换为true，并像true一样工作。假值，以及转换为假值的六个值，有时被称为假值，其他所有值都被称为真值。任何时候JavaScript都需要一个布尔值，假值就像假，真值就像真。
+> 所有其他值，包括所有对象（和数组）都转换为 true，并像 true 一样工作。假值，以及转换为假值的六个值，有时被称为假值，其他所有值都被称为真值。任何时候 JavaScript 期望一个布尔值，都可以将假值作为 false 使用，真值作为 true。
 
 As an example, suppose that the variable o either holds an object or the value null. You can test explicitly to see if o is non-null with an if statement like this:
 
-> 例如，假设变量o保存一个对象或值为null。你可以使用如下的if语句来显式测试o是否非空:
+> 例如，假设变量 o 保存一个对象或值为 null。你可以使用如下的 if 语句来显式测试 o 是否非空：
 
 ```js
 if (o !== null) ...
@@ -722,7 +724,7 @@ if (o !== null) ...
 
 The not-equal operator !== compares o to null and evaluates to either true or false. But you can omit the comparison and instead rely on the fact that null is falsy and objects are truthy:
 
-> 不相等运算符!==将o与null进行比较，然后求值为true或false。但是你可以忽略比较，而是依赖null是假的，对象是真的这一事实:
+> 不相等运算符 !== 将 o 与 null 进行比较，然后求值为 true 或 false。但是你可以忽略比较，而是依赖 null 是假的，对象是真的：
 
 ```js
 if (o) ...
@@ -730,11 +732,11 @@ if (o) ...
 
 In the first case, the body of the if will be executed only if o is not null. The second case is less strict: it will execute the body of the if only if o is not false or any falsy value (such as null or undefined). Which if statement is appropriate for your program really depends on what values you expect to be assigned to o. If you need to distinguish null from 0 and "", then you should use an explicit comparison.
 
-> 在第一种情况下，if函数体只有在o不为空时才会执行。第二种情况不那么严格:它只在o不为假值或任何假值(如null或未定义)时执行if语句体。哪个if语句适合你的程序实际上取决于你希望给o赋什么值。如果你需要区分null和0和""，那么你应该使用显式比较。
+> 在第一种情况下，if 函数体只有在 o 不为空时才会执行。第二种情况不那么严格：它只在 o 不为假值或任何假值（如 null 或 undefined）时执行 if 语句体。哪个 if 语句适合你的程序实际上取决于你希望给 o 赋什么值。如果你需要区分 null 和 0 和 ""，那么你应该使用显式比较。
 
 Boolean values have a toString() method that you can use to convert them to the strings “true” or “false”, but they do not have any other useful methods. Despite the trivial API, there are three important boolean operators.
 
-> 布尔值有一个toString()方法，可以用来将它们转换为字符串“true”或“false”，但它们没有任何其他有用的方法。尽管API很简单，但是有三个重要的布尔运算符。
+> 布尔值有一个 toString() 方法，可以用来将它们转换为字符串“true”或“false”，但它们没有任何其他有用的方法。尽管 API 很简单，但是有三个重要的布尔运算符。
 
 The && operator performs the Boolean AND operation. It evaluates to a truthy value if and only if both of its operands are truthy; it evaluates to a falsy value otherwise. The || operator is the Boolean OR operation: it evaluates to a truthy value if either one (or both) of its operands is truthy and evaluates to a falsy value if both operands are falsy. Finally, the unary ! operator performs the Boolean NOT operation: it evaluates to true if its operand is falsy and evaluates to false if its operand is truthy. For example:
 
