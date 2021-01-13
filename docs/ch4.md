@@ -2,7 +2,7 @@
 
 This chapter documents JavaScript expressions and the operators with which many of those expressions are built. An expression is a phrase of JavaScript that can be evaluated to produce a value. A constant embedded literally in your program is a very simple kind of expression. A variable name is also a simple expression that evaluates to whatever value has been assigned to that variable. Complex expressions are built from simpler expressions. An array access expression, for example, consists of one expression that evaluates to an array followed by an open square bracket, an expression that evaluates to an integer, and a close square bracket. This new, more complex expression evaluates to the value stored at the specified index of the specified array. Similarly, a function invocation expression consists of one expression that evaluates to a function object and zero or more additional expressions that are used as the arguments to the function.
 
-> 本章介绍了JavaScript表达式和用于构建这些表达式的操作符。表达式是JavaScript的一个短语，可以计算它来产生一个值。在程序中嵌入的常量是一种非常简单的表达式。变量名也是一个简单的表达式，计算结果为分配给该变量的任何值。复杂的表达式是由简单的表达式构建的。例如，数组访问表达式由一个计算结果为数组的表达式、一个计算结果为整数的表达式和一个右方括号组成。这个新的更复杂的表达式计算为存储在指定数组的指定索引处的值。类似地，函数调用表达式由计算为函数对象的一个表达式和用作函数参数的零个或多个附加表达式组成。
+> 本章介绍了JavaScript表达式和用于构建这些表达式的运算符。表达式是JavaScript的一个短语，可以计算它来产生一个值。在程序中嵌入的常量是一种非常简单的表达式。变量名也是一个简单的表达式，计算结果为分配给该变量的任何值。复杂的表达式是由简单的表达式构建的。例如，数组访问表达式由一个计算结果为数组的表达式、一个计算结果为整数的表达式和一个右方括号组成。这个新的更复杂的表达式计算为存储在指定数组的指定索引处的值。类似地，函数调用表达式由计算为函数对象的一个表达式和用作函数参数的零个或多个附加表达式组成。
 
 The most common way to build a complex expression out of simpler expressions is with an operator. An operator combines the values of its operands (usually two of them) in some way and evaluates to a new value. The multiplication operator * is a simple example. The expression x * y evaluates to the product of the values of the expressions x and y. For simplicity, we sometimes say that an operator returns a value rather than “evaluates to” a value.
 
@@ -10,7 +10,7 @@ The most common way to build a complex expression out of simpler expressions is 
 
 This chapter documents all of JavaScript’s operators, and it also explains expressions (such as array indexing and function invocation) that do not use operators. If you already know another programming language that uses C-style syntax, you’ll find that the syntax of most of JavaScript’s expressions and operators is already familiar to you.
 
-> 这一章记录了所有的JavaScript操作符，也解释了不使用操作符的表达式(比如数组索引和函数调用)。如果您已经知道另一种使用c风格语法的编程语言，那么您会发现JavaScript的大多数表达式和操作符的语法对您来说已经很熟悉了。
+> 这一章记录了所有的JavaScript运算符，也解释了不使用运算符的表达式(比如数组索引和函数调用)。如果您已经知道另一种使用c风格语法的编程语言，那么您会发现JavaScript的大多数表达式和运算符的语法对您来说已经很熟悉了。
 
 ## 4.1 Primary Expressions
 

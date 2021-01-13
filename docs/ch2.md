@@ -268,7 +268,7 @@ This means that you must not insert a line break between return, break, or conti
 
 The second exception involves the ++ and −− operators (§4.8). These operators can be prefix operators that appear before an expression or postfix operators that appear after an expression. If you want to use either of these operators as postfix operators, they must appear on the same line as the expression they apply to. The third exception involves functions defined using concise “arrow” syntax: the => arrow itself must appear on the same line as the parameter list.
 
-> 第二个例外涉及到 ++ 和 -- 操作符（§4.8）。这些操作符可以是出现在表达式之前的前缀操作符，也可以是出现在表达式之后的后缀操作符。如果要使用这些操作符中的任何一个作为后缀操作符，则它们必须与应用它们的表达式出现在同一行。第三个异常涉及使用简洁的“箭头”语法定义的函数：=> 箭头本身必须与参数列表出现在同一行。
+> 第二个例外涉及到 ++ 和 -- 运算符（§4.8）。这些运算符可以是出现在表达式之前的前缀运算符，也可以是出现在表达式之后的后缀运算符。如果要使用这些运算符中的任何一个作为后缀运算符，则它们必须与应用它们的表达式出现在同一行。第三个异常涉及使用简洁的“箭头”语法定义的函数：=> 箭头本身必须与参数列表出现在同一行。
 
 ## 2.7 Summary
 

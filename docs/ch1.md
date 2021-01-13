@@ -6,7 +6,7 @@ JavaScript is the programming language of the web. The overwhelming majority of 
 
 If you are already familiar with other programming languages, it may help you to know that JavaScript is a high-level, dynamic, interpreted programming language that is well-suited to object-oriented and functional programming styles. JavaScript’s variables are untyped. Its syntax is loosely based on Java, but the languages are otherwise unrelated. JavaScript derives its first-class functions from Scheme and its prototype-based inheritance from the little-known language Self. But you do not need to know any of those languages, or be familiar with those terms, to use this book and learn JavaScript.
 
-> 如果您已经熟悉了其他编程语言，那么了解 JavaScript 是一种高级的、动态的、解释的编程语言可能会对您有所帮助，它非常适合面向对象和函数式编程风格。JavaScript 的变量是无类型的。它的语法松散地基于 Java，但是这两种语言在其他方面是无关的。JavaScript 的 first-class 类型函数衍生于 Scheme，从鲜为人知的 Self 继承基于原型的函数。但您不需要了解任何这些语言，或熟悉这些术语，以使用这本书和学习 JavaScript。
+> 如果您已经熟悉了其他编程语言，那么了解 JavaScript 是一种高级的、动态的、解释的编程语言可能会对您有所帮助，它非常适合面向对象和函数式编程风格。JavaScript 的变量是无类型的。它的语法不严格地讲基于 Java，但是这两种语言在其他方面是无关的。JavaScript 的 first-class 类型函数衍生于 Scheme，从鲜为人知的 Self 继承基于原型的函数。但您不需要了解任何这些语言，或熟悉这些术语，以使用这本书和学习 JavaScript。
 
 The name “JavaScript” is quite misleading. Except for a superficial syntactic resemblance, JavaScript is completely different from the Java programming language. And JavaScript has long since outgrown its scripting-language roots to become a robust and efficient general-purpose language suitable for serious software engineering and projects with huge codebases.
 
@@ -226,7 +226,7 @@ The syntax illustrated here for listing array elements within square braces or m
 
 One of the most common ways to form expressions in JavaScript is to use operators:
 
-> 在 JavaScript 中形成表达式最常见的方法之一是使用操作符：
+> 在 JavaScript 中形成表达式最常见的方法之一是使用运算符：
 
 ```js
 // Operators act on values (the operands) to produce a new value.

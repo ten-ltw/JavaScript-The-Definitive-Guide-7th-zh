@@ -2,41 +2,41 @@
 
 Computer programs work by manipulating values, such as the number 3.14 or the text “Hello World.” The kinds of values that can be represented and manipulated in a programming language are known as types, and one of the most fundamental characteristics of a programming language is the set of types it supports. When a program needs to retain a value for future use, it assigns the value to (or “stores” the value in) a variable. Variables have names, and they allow use of those names in our programs to refer to values. The way that variables work is another fundamental characteristic of any programming language. This chapter explains types, values, and variables in JavaScript. It begins with an overview and some definitions.
 
-> 计算机程序通过处理数值来工作，比如数字3.14或文本“Hello World”。在一种编程语言中可以表示和操作的值的种类称为类型，而编程语言最基本的特征之一就是它所支持的类型集。当程序需要保留一个值以供将来使用时，它将该值赋给(或将该值“存储”在)一个变量。变量有名称，它们允许在程序中使用这些名称来引用值。变量工作的方式是任何编程语言的另一个基本特征。本章解释了JavaScript中的类型、值和变量。它以概述和一些定义开始。
+> 计算机程序通过处理数值来工作，比如数字 3.14 或文本“Hello World”。在编程语言中可以表示和操作的值的种类称为类型，而编程语言最基本的特征之一就是它所支持的类型集。当程序需要保留一个值以供将来使用时，它将该值赋给（或将该值“存储”在）一个变量。变量有名称，它们允许在程序中使用这些名称来引用值。变量工作的方式是任何编程语言的另一个基本特征。本章解释了 JavaScript 中的类型、值和变量。它以概述和一些定义开始。
 
 ## 3.1 Overview and Definitions
 
 JavaScript types can be divided into two categories: primitive types and object types. JavaScript’s primitive types include numbers, strings of text (known as strings), and Boolean truth values (known as booleans). A significant portion of this chapter is dedicated to a detailed explanation of the numeric (§3.2) and string (§3.3) types in JavaScript. Booleans are covered in §3.4.
 
-> JavaScript类型可以分为两类:基本类型和对象类型。JavaScript的基本类型包括数字、文本字符串(称为字符串)和布尔真值(称为布尔值)。这一章的重要部分是专门详细解释JavaScript中的数字(3.2)和字符串(3.3)类型。在§3.4中介绍了布尔值。
+> JavaScript 类型可以分为两类：基本类型和对象类型。JavaScript 的基本类型包括数字、文本字符串（称为字符串）和布尔真实性值（称为布尔值）。这一章的重要部分是专门详细解释 JavaScript 中的数字（§3.2）和字符串（§3.3）类型。在 §3.4 中介绍了布尔值。
 
 The special JavaScript values null and undefined are primitive values, but they are not numbers, strings, or booleans. Each value is typically considered to be the sole member of its own special type. §3.5 has more about null and undefined. ES6 adds a new special-purpose type, known as Symbol, that enables the definition of language extensions without harming backward compatibility. Symbols are covered briefly in §3.6.
 
-> 特殊的JavaScript值null和undefined是基本值，但它们不是数字、字符串或布尔值。每个值通常被认为是它自己特殊类型的唯一成员。§3.5有更多关于null和undefined的内容。ES6添加了一种新的特殊用途类型，称为Symbol，它支持在不损害向后兼容性的情况下定义语言扩展。符号在§3.6中有简要介绍。
+> 特殊的 JavaScript 值 null 和 undefined 是基本值，但它们不是数字、字符串或布尔值。每个值通常被认为是它自己特殊类型的唯一成员。§3.5 有更多关于 null 和 undefined 的内容。ES6 添加了一种新的特殊用途类型，称为 Symbol，它支持在不损害向后兼容性的情况下定义语言扩展。符号在§3.6中有简要介绍。
 
 Any JavaScript value that is not a number, a string, a boolean, a symbol, null, or undefined is an object. An object (that is, a member of the type object) is a collection of properties where each property has a name and a value (either a primitive value or another object). One very special object, the global object, is covered in §3.7, but more general and more detailed coverage of objects is in Chapter 6.
 
-> 任何不是数字、字符串、布尔值、符号、null或未定义的JavaScript值都是对象。对象(即类型对象的成员)是属性的集合，其中每个属性都有一个名称和一个值(原始值或另一个对象)。一个非常特殊的对象，全局对象，在§3.7中已经介绍过了，但是在第6章中对对象进行了更广泛、更详细的介绍。
+> 任何不是数字、字符串、布尔值、符号、null 或 undefined 的 JavaScript 值都是对象。对象（即类型对象的成员）是属性的集合，其中每个属性都有一个名称和一个值（原始值或另一个对象）。一个非常特殊的对象，全局对象，在 §3.7 中介绍过了，但是在第6章中对对象进行了更广泛、更详细的介绍。
 
 An ordinary JavaScript object is an unordered collection of named values. The language also defines a special kind of object, known as an array, that represents an ordered collection of numbered values. The JavaScript language includes special syntax for working with arrays, and arrays have some special behavior that distinguishes them from ordinary objects. Arrays are the subject of Chapter 7.
 
-> 普通的JavaScript对象是命名值的无序集合。该语言还定义了一种特殊类型的对象，称为数组，它表示编号值的有序集合。JavaScript语言包含处理数组的特殊语法，数组有一些特殊的行为将它们与普通对象区分开来。数组是第7章的主题。
+> 普通的 JavaScript 对象是命名值的无序集合。该语言还定义了一种特殊类型的对象，称为数组，它表示编号值的有序集合。JavaScript 语言包含处理数组的特殊语法，数组有一些特殊的行为将它们与普通对象区分开来。数组是第7章的主题。
 
 In addition to basic objects and arrays, JavaScript defines a number of other useful object types. A Set object represents a set of values. A Map object represents a mapping from keys to values. Various “typed array” types facilitate operations on arrays of bytes and other binary data. The RegExp type represents textual patterns and enables sophisticated matching, searching, and replacing operations on strings. The Date type represents dates and times and supports rudimentary date arithmetic. Error and its subtypes represent errors that can arise when executing JavaScript code. All of these types are covered in Chapter 11.
 
-> 除了基本对象和数组之外，JavaScript还定义了许多其他有用的对象类型。Set对象表示一组值。Map对象表示从键到值的映射。各种“类型化数组”类型促进了对字节数组和其他二进制数据的操作。RegExp类型表示文本模式，支持对字符串进行复杂的匹配、搜索和替换操作。Date类型表示日期和时间，并支持基本的日期运算。Error及其子类型表示在执行JavaScript代码时可能出现的错误。所有这些类型都在第11章中介绍。
+> 除了基本对象和数组之外，JavaScript 还定义了许多其他有用的对象类型。Set 对象表示一组值。Map 对象表示从键到值的映射。各种“类型化数组”类型促进了对字节数组和其他二进制数据的操作。RegExp 类型表示文本模式，支持对字符串进行复杂的匹配、搜索和替换操作。Date 类型表示日期和时间，并支持基本的日期运算。Error 及其子类型表示在执行 JavaScript 代码时可能出现的错误。所有这些类型都在第11章中介绍。
 
 JavaScript differs from more static languages in that functions and classes are not just part of the language syntax: they are themselves values that can be manipulated by JavaScript programs. Like any JavaScript value that is not a primitive value, functions and classes are a specialized kind of object. They are covered in detail in Chapters 8 and 9.
 
-> JavaScript与更静态的语言的不同之处在于，函数和类不仅仅是语言语法的一部分:它们本身是可由JavaScript程序操作的值。像任何不是基本值的JavaScript值一样，函数和类是一种特殊的对象。它们将在第8章和第9章中详细介绍。
+> JavaScript 与更静态的语言的不同之处在于，函数和类不仅仅是语言语法的一部分：它们本身是可由 JavaScript 程序操作的值。像任何不是基本值的 JavaScript 值一样，函数和类是一种特殊的对象。它们将在第8章和第9章中详细介绍。
 
 The JavaScript interpreter performs automatic garbage collection for memory management. This means that a JavaScript programmer generally does not need to worry about destruction or deallocation of objects or other values. When a value is no longer reachable—when a program no longer has any way to refer to it—the interpreter knows it can never be used again and automatically reclaims the memory it was occupying. (JavaScript programmers do sometimes need to take care to ensure that values do not inadvertently remain reachable—and therefore nonreclaimable—longer than necessary.)
 
-> JavaScript解释器为内存管理执行自动垃圾收集。这意味着JavaScript程序员通常不需要担心对象或其他值的销毁或释放。当一个值不再可获得时——当程序不再有方法引用它时——解释器知道它再也不能被使用，并自动收回它所占用的内存。(JavaScript程序员有时确实需要注意确保值不会意外地保持可使用(因此不可收回)时间超过必要。)
+> JavaScript 解释器为内存管理执行自动垃圾收集。这意味着 JavaScript 程序员通常不需要担心对象或其他值的销毁或释放。当一个值不再可获得时——当程序不再有方法引用它时——解释器知道它再也不能被使用，并自动收回它所占用的内存。（JavaScript 程序员有时确实需要注意确保值不会意外地超时保持可用——导致不可收回。）
 
 JavaScript supports an object-oriented programming style. Loosely, this means that rather than having globally defined functions to operate on values of various types, the types themselves define methods for working with values. To sort the elements of an array a, for example, we don’t pass a to a sort() function. Instead, we invoke the sort() method of a:
 
-> JavaScript支持面向对象的编程风格。松散地说，这意味着不是用全局定义的函数来操作各种类型的值，而是由类型本身定义处理值的方法。例如，要对数组a的元素进行排序，我们不需要将a传递给sort()函数。相反，我们调用sort()方法:
+> JavaScript 支持面向对象的编程风格。不严格地说，这意味着不是用全局定义的函数来操作各种类型的值，而是由类型本身定义处理值的方法。例如，要对数组 a 的元素进行排序，我们不需要将 a 传递给 sort() 函数。相反，我们调用 sort() 方法：
 
 ```js
 a.sort();       // The object-oriented version of sort(a).
@@ -44,41 +44,41 @@ a.sort();       // The object-oriented version of sort(a).
 
 Method definition is covered in Chapter 9. Technically, it is only JavaScript objects that have methods. But numbers, strings, boolean, and symbol values behave as if they have methods. In JavaScript, null and undefined are the only values that methods cannot be invoked on.
 
-> 方法定义将在第9章中介绍。从技术上讲，只有JavaScript对象才有方法。但是数字、字符串、布尔值和符号值的行为就好像它们有方法一样。在JavaScript中，只有null和undefined值不能调用方法。
+> 方法定义将在第9章中介绍。从技术上讲，只有 JavaScript 对象才有方法。但是数字、字符串、布尔值和符号值的行为就好像它们有方法一样。在 JavaScript 中，只有 null 和 undefined 值不能调用方法。
 
 JavaScript’s object types are mutable and its primitive types are immutable. A value of a mutable type can change: a JavaScript program can change the values of object properties and array elements. Numbers, booleans, symbols, null, and undefined are immutable—it doesn’t even make sense to talk about changing the value of a number, for example. Strings can be thought of as arrays of characters, and you might expect them to be mutable. In JavaScript, however, strings are immutable: you can access the text at any index of a string, but JavaScript provides no way to alter the text of an existing string. The differences between mutable and immutable values are explored further in §3.8.
 
-> JavaScript的对象类型是可变的，它的基本类型是不可变的。可变类型的值可以更改:JavaScript程序可以更改对象属性和数组元素的值。数字、布尔值、符号、null和undefined都是不可更改的——例如，讨论更改某个数字的值甚至都没有意义。字符串可以看作是字符数组，您可能希望它们是可变的。然而，在JavaScript中，字符串是不可变的:您可以在字符串的任何索引处访问文本，但是JavaScript没有提供改变现有字符串文本的方法。可变值和不可变值之间的区别在§3.8中有进一步的探讨。
+> JavaScript 的对象类型是可变的，它的基本类型是不可变的。可变类型的值可以更改：JavaScript 程序可以更改对象属性和数组元素的值。数字、布尔值、符号、null 和 undefined 都是不可更改的——例如，讨论更改某个数字的值甚至都没有意义。字符串可以看作是字符数组，您可能希望它们是可变的。然而，在 JavaScript 中，字符串是不可变的：您可以在字符串的任何索引处访问文本，但是 JavaScript 没有提供改变现有字符串文本的方法。可变值和不可变值之间的区别在 §3.8 中有进一步的探讨。
 
 JavaScript liberally converts values from one type to another. If a program expects a string, for example, and you give it a number, it will automatically convert the number to a string for you. And if you use a non-boolean value where a boolean is expected, JavaScript will convert accordingly. The rules for value conversion are explained in §3.9. JavaScript’s liberal value conversion rules affect its definition of equality, and the == equality operator performs type conversions as described in §3.9.1. (In practice, however, the == equality operator is deprecated in favor of the strict equality operator ===, which does no type conversions. See §4.9.1 for more about both operators.)
 
-> JavaScript自由地将值从一种类型转换为另一种类型。例如，如果程序需要一个字符串，而您给了它一个数字，它会自动将数字转换为字符串。如果在需要布尔值的地方使用了非布尔值，JavaScript将相应地进行转换。值转换的规则在§3.9中解释。JavaScript的自由值转换规则会影响相等的定义，`==`相等操作符会执行§3.9.1中描述的类型转换。(然而，在实践中，==相等操作符已弃用，而使用严格的相等操作符`===`，它不进行类型转换。关于这两个操作符的更多信息请参见§4.9.1。)
+> JavaScript 自由地将值从一种类型转换为另一种类型。例如，如果程序需要一个字符串，而您给了它一个数字，它会自动将数字转换为字符串。如果在需要布尔值的地方使用了非布尔值，JavaScript 将相应地进行转换。值转换的规则在 §3.9 中解释。JavaScript 的自由值转换规则会影响相等的定义，`==`相等运算符会执行 §3.9.1 中描述的类型转换。（然而，在实践中，== 相等运算符已弃用，而使用严格的相等运算符`===`，它不进行类型转换。关于这两个运算符的更多信息请参见 §4.9.1。）
 
 Constants and variables allow you to use names to refer to values in your programs. Constants are declared with const and variables are declared with let (or with var in older JavaScript code). JavaScript constants and variables are untyped: declarations do not specify what kind of values will be assigned. Variable declaration and assignment are covered in §3.10.
 
-> 常量和变量允许您在程序中使用名称来引用值。常量是用const声明的，变量是用let声明的(在旧的JavaScript代码中是用var声明的)。JavaScript常量和变量都是无类型的:声明不指定要赋给哪种类型的值。变量声明和赋值见§3.10。
+> 常量和变量允许您在程序中使用名称来引用值。常量是用 const 声明的，变量是用 let 声明的（在旧的JavaScript代码中是用var声明的）。JavaScript 常量和变量都是无类型的：声明不指定要赋给哪种类型的值。变量声明和赋值见 §3.10。
 
 As you can see from this long introduction, this is a wide-ranging chapter that explains many fundamental details about how data is represented and manipulated in JavaScript. We’ll begin by diving right in to the details of JavaScript numbers and text.
 
-> 从这篇冗长的介绍中可以看出，这一章内容广泛，解释了关于如何在JavaScript中表示和操作数据的许多基本细节。首先，我们将深入了解JavaScript数字和文本的细节。
+> 从这篇冗长的介绍中可以看出，这一章内容广泛，解释了关于如何在 JavaScript 中表示和操作数据的许多基本细节。首先，我们将深入了解 JavaScript 数字和文本的细节。
 
 ## 3.2 Number
 JavaScript’s primary numeric type, Number, is used to represent integers and to approximate real numbers. JavaScript represents numbers using the 64-bit floating-point format defined by the IEEE 754 standard,1 which means it can represent numbers as large as ±1.7976931348623157 × 10308 and as small as ±5 × 10−324.
 
-> JavaScript的主要数字类型Number用于表示整数和近似实数。JavaScript使用IEEE 754标准定义的64位浮点格式表示数字1，这意味着它可以表示大到±1.7976931348623157×10308，小到±5×10−324的数字。
+> JavaScript 的主要数字类型 Number 用于表示整数和近似实数。JavaScript 使用 IEEE 754 标准定义的64位浮点格式表示数字1，这意味着它可以表示大到±1.7976931348623157×10308，小到±5×10−324的数字。
 
 The JavaScript number format allows you to exactly represent all integers between −9,007,199,254,740,992 (−253) and 9,007,199,254,740,992 (253), inclusive. If you use integer values larger than this, you may lose precision in the trailing digits. Note, however, that certain operations in JavaScript (such as array indexing and the bitwise operators described in Chapter 4) are performed with 32-bit integers. If you need to exactly represent larger integers, see §3.2.5.
 
-> JavaScript数字格式允许你精确地表示 9,007,199,254,740,992(−253) 和 9,007,199,254,740,992(253) 之间的所有整数。如果使用大于这个值的整数值，则可能会丢失末尾数字的精度。然而，请注意，JavaScript中的某些操作(如数组索引和第4章中描述的位操作符)是用32位整数执行的。如果你需要精确地表示更大的整数，请参阅§3.2.5。
+> JavaScript 数字格式允许你精确地表示 9,007,199,254,740,992(−253) 和 9,007,199,254,740,992(253) 之间的所有整数。如果使用大于这个值的整数值，则可能会丢失末尾数字的精度。然而，请注意，JavaScript 中的某些操作（如数组索引和第4章中描述的位运算符）是用 32 位整数执行的。如果你需要精确地表示更大的整数，请参阅 §3.2.5。
 
 When a number appears directly in a JavaScript program, it’s called a numeric literal. JavaScript supports numeric literals in several formats, as described in the following sections. Note that any numeric literal can be preceded by a minus sign (-) to make the number negative.
 
-> 当一个数字直接出现在JavaScript程序中时，它被称为数字文字。JavaScript支持几种格式的数字文字，如下面的章节所述。注意，任何数字文字前面都可以加一个减号(-)，以使数字为负。
+> 当一个数字直接出现在 JavaScript 程序中时，它被称为数字文字。JavaScript 支持几种格式的数字文字，如下面的章节所述。注意，任何数字文字前面都可以加一个减号(-)，以使数字为负。
 
 ### 3.2.1 Integer Literals
 In a JavaScript program, a base-10 integer is written as a sequence of digits. For example:
 
-> 在JavaScript程序中，以10为基数的整数被写成数字序列。例如:
+> 在 JavaScript 程序中，以 10 为基数的整数被写成数字序列。例如：
 
 ```js
 0
@@ -88,7 +88,7 @@ In a JavaScript program, a base-10 integer is written as a sequence of digits. F
 
 In addition to base-10 integer literals, JavaScript recognizes hexadecimal (base-16) values. A hexadecimal literal begins with 0x or 0X, followed by a string of hexadecimal digits. A hexadecimal digit is one of the digits 0 through 9 or the letters a (or A) through f (or F), which represent values 10 through 15. Here are examples of hexadecimal integer literals:
 
-> 除了以10为基数的整数字面量之外，JavaScript还可以识别十六进制(以16为基数)的值。以0x或0x开头的十六进制文字，后面跟着一串十六进制数字。16进制数字是数字0到9或字母A(或A)到f(或f)中的一个，表示值10到15。以下是十六进制整数字面量的例子:
+> 除了以 10 为基数的整数字面量之外，JavaScript 还可以识别十六进制（以 16 为基数）的值。以 0x 或 0x 开头的十六进制文字，后面跟着一串十六进制数字。16进制数字是数字 0 到 9 或字母 a（或A）到 f（或F）中的一个，表示值 10 到 15。以下是十六进制整数字面量的例子:
 
 ```js
 0xff       // => 255: (15*16 + 15)
@@ -97,7 +97,7 @@ In addition to base-10 integer literals, JavaScript recognizes hexadecimal (base
 
 In ES6 and later, you can also express integers in binary (base 2) or octal (base 8) using the prefixes 0b and 0o (or 0B and 0O) instead of 0x:
 
-> 在ES6及后续版本中，还可以使用前缀0b和0o(或0b和0o)来表示二进制(以2为基数)或八进制(以8为基数)的整数，而不是0x:
+> 在 ES6 及后续版本中，还可以使用前缀 0b 和 0o（或0B和0O）来表示二进制（以 2 为基数）或八进制（以 8 为基数）的整数，而不是 0x：
 
 ```js
 0b10101  // => 21:  (1*16 + 0*8 + 1*4 + 0*2 + 1*1)
@@ -106,15 +106,15 @@ In ES6 and later, you can also express integers in binary (base 2) or octal (bas
 ### 3.2.2 Floating-Point Literals
 Floating-point literals can have a decimal point; they use the traditional syntax for real numbers. A real value is represented as the integral part of the number, followed by a decimal point and the fractional part of the number.
 
-> 浮点字面值可以有小数点;他们使用传统的实数语法。实数表示为数字的整数部分，然后是小数点和小数部分。
+> 浮点字面值可以有小数点；他们使用传统的实数语法。实数表示为数字的整数部分，然后是小数点和小数部分。
 
 Floating-point literals may also be represented using exponential notation: a real number followed by the letter e (or E), followed by an optional plus or minus sign, followed by an integer exponent. This notation represents the real number multiplied by 10 to the power of the exponent.
 
-> 浮点字量也可以用指数表示法表示:一个实数后面跟着字母e(或e)，后面跟着一个可选的加号或减号，然后是一个整数指数。这个符号表示实数乘以10的指数次方。
+> 浮点字量也可以用指数表示法表示：一个实数后面跟着字母 e（或 E），后面跟着一个可选的加号或减号，然后是一个整数指数。这种记数方法表示的数值，是由前面的实数乘以10的指数次幂。
 
 More succinctly, the syntax is:
 
-> 更简洁地说，语法是:
+> 更简洁地说，语法是：
 
 ```js
 [digits][.digits][(E|e)[(+|-)]digits]
@@ -134,7 +134,7 @@ SEPARATORS IN NUMERIC LITERALS
 
 You can use underscores within numeric literals to break long literals up into chunks that are easier to read:
 
-> 你可以在数字字面值中使用下划线将长字面值分解成更容易阅读的块:
+> 你可以在数字字面值中使用下划线将长字面值分解成更容易阅读的块：
 ```js
 let billion = 1_000_000_000;   // Underscore as a thousands separator.
 let bytes = 0x89_AB_CD_EF;     // As a bytes separator.
@@ -144,17 +144,17 @@ let fraction = 0.123_456_789;  // Works in the fractional part, too.
 
 At the time of this writing in early 2020, underscores in numeric literals are not yet formally standardized as part of JavaScript. But they are in the advanced stages of the standardization process and are implemented by all major browsers and by Node.
 
-> 在2020年初撰写本文时，数字字面值中的下划线还没有作为JavaScript的一部分正式标准化。但是它们处于标准化过程的高级阶段，所有主要浏览器和节点都实现了它们。
+> 在 2020 年初撰写本文时，数字字面值中的下划线还没有作为 JavaScript 的一部分正式标准化。但是它们处于标准化过程的高级阶段，所有主要浏览器和节点都实现了它们。
 
 ### 3.2.3 Arithmetic in JavaScript
 
 JavaScript programs work with numbers using the arithmetic operators . that the language provides. These include + for addition, - for subtraction, * for multiplication, / for division, and % for modulo (remainder after division). ES2016 adds ** for exponentiation. Full details on these and other operators can be found in Chapter 4.
 
-> JavaScript程序使用算术运算符处理数字。这是语言提供的。这些参数包括+表示加法，-表示减法，*表示乘法，/表示除法，%表示取模(除后的余数)。ES2016为取幂添加了**。关于这些操作符和其他操作符的详细信息可以在第4章中找到。
+> JavaScript 程序使用算术运算符处理数字。这是语言提供的。这些参数包括 + 表示加法，- 表示减法，* 表示乘法，/ 表示除法，% 表示取模（除后的余数）。ES2016 为取幂添加了 **。关于这些运算符和其他运算符的详细信息可以在第4章中找到。
 
 In addition to these basic arithmetic operators, JavaScript supports more complex mathematical operations through a set of functions and constants defined as properties of the Math object:
 
-> 除了这些基本的算术运算符，JavaScript还通过定义为Math对象属性的一组函数和常量支持更复杂的数学运算:
+> 除了这些基本的算术运算符，JavaScript 还支持更加复杂的算术运算，这些复杂运算通过作为 Math 对象的属性定义的函数和常量来实现：
 
 ```js
 Math.pow(2,53)           // => 9007199254740992: 2 to the power 53
@@ -178,7 +178,7 @@ Math.exp(3)              // Math.E cubed
 
 ES6 defines more functions on the Math object:
 
-> ES6在Math对象上定义了更多的函数:
+> ES6 在 Math 对象上定义了更多的函数:
 
 ```js
 Math.cbrt(27)    // => 3: cube root
@@ -198,19 +198,19 @@ Math.asinh(x)    // Hyperbolic arcsine. Also Math.acosh(), Math.atanh()
 
 Arithmetic in JavaScript does not raise errors in cases of overflow, underflow, or division by zero. When the result of a numeric operation is larger than the largest representable number (overflow), the result is a special infinity value, Infinity. Similarly, when the absolute value of a negative value becomes larger than the absolute value of the largest representable negative number, the result is negative infinity, -Infinity. The infinite values behave as you would expect: adding, subtracting, multiplying, or dividing them by anything results in an infinite value (possibly with the sign reversed).
 
-> JavaScript中的算术在溢出、下溢或除以0的情况下不会引发错误。当数值操作的结果大于最大可表示数(溢出)时，结果是一个特殊的无穷值，即无穷。同样，当一个负数的绝对值大于最大可表示负数的绝对值时，结果是负无穷，负无穷。无穷值的行为与您预期的一样:加、减、乘或除任何值都会产生无穷值(可能符号颠倒)。
+> JavaScript 中的算术在溢出、下溢或除以 0 的情况下不会引发错误。当数值操作的结果大于最大可表示数（溢出）时，结果是一个特殊的无穷值，即 Infinity。同样，当一个负数的绝对值大于最大可表示负数的绝对值时，结果是负无穷，-Infinity。无穷值的行为与您预期的一样：加、减、乘或除任何值都会产生无穷值（可能符号颠倒）。
 
 Underflow occurs when the result of a numeric operation is closer to zero than the smallest representable number. In this case, JavaScript returns 0. If underflow occurs from a negative number, JavaScript returns a special value known as “negative zero.” This value is almost completely indistinguishable from regular zero and JavaScript programmers rarely need to detect it.
 
-> 当数值操作的结果比最小的可表示数字更接近于零时，就会发生下溢。在本例中，JavaScript返回0。如果下溢发生在负数，JavaScript将返回一个特殊的值，称为“负零”。这个值与普通的0几乎没有区别，JavaScript程序员几乎不需要检测它。
+> 当数值操作的结果比最小的可表示数字更接近于零时，就会发生下溢。在这种情况下，JavaScript 返回 0。如果下溢发生在负数，JavaScript 将返回一个特殊的值，称为“负零”。这个值与普通的 0 几乎没有区别，JavaScript 程序员几乎不需要检测它。
 
 Division by zero is not an error in JavaScript: it simply returns infinity or negative infinity. There is one exception, however: zero divided by zero does not have a well-defined value, and the result of this operation is the special not-a-number value, NaN. NaN also arises if you attempt to divide infinity by infinity, take the square root of a negative number, or use arithmetic operators with non-numeric operands that cannot be converted to numbers.
 
-> 在JavaScript中除以0不是错误:它只是返回无穷大或负无穷大。然而，有一个例外:0除以0没有一个定义良好的值，这个操作的结果是一个特殊的非数字值NaN。如果您试图将无穷除以无穷，取负数的平方根，或使用带有不能转换为数字的非数字操作数的算术操作符，则还会出现NaN。
+> 在 JavaScript 中除以 0 不是错误：它只是返回无穷大或负无穷大。然而，有一个例外：0 除以 0 没有一个定义良好的值，这个操作的结果是一个特殊的非数字值 NaN。如果您试图将无穷除以无穷，取负数的平方根，或使用带有不能转换为数字的非数字操作数的算术运算符，则还会出现 NaN。
 
 JavaScript predefines global constants Infinity and NaN to hold the positive infinity and not-a-number value, and these values are also available as properties of the Number object:
 
-> JavaScript预先定义了全局常量Infinity和NaN来保存正的Infinity和非-a- Number值，这些值也可以作为Number对象的属性:
+> JavaScript 预先定义了全局常量 Infinity 和 NaN 来保存正的无穷大和非数值，这些值也可以作为 Number 对象的属性：
 
 ```js
 Infinity                    // A positive number too big to represent
@@ -247,15 +247,15 @@ Number.EPSILON          // => 2**-52: smallest difference between numbers
 
 The not-a-number value has one unusual feature in JavaScript: it does not compare equal to any other value, including itself. This means that you can’t write x === NaN to determine whether the value of a variable x is NaN. Instead, you must write x != x or Number.isNaN(x). Those expressions will be true if, and only if, x has the same value as the global constant NaN.
 
-> not-a-number值在JavaScript中有一个不同寻常的特性:它不等于任何其他值，包括它自己。这意味着您不能编写x === NaN来确定变量x的值是否为NaN。相反，你必须写x != x或Number.isNaN(x)。当且仅当x具有与全局常量NaN相同的值时，这些表达式将为真。
+> 非数值在 JavaScript 中有一个不同寻常的特性：它不等于任何其他值，包括它自己。这意味着您不能编写`x === NaN`来确定变量 x 的值是否为 NaN。相反，你必须写`x != x`或`Number.isNaN(x)`。当且仅当 x 具有与全局常量 NaN 相同的值时，这些表达式将为真。
 
 The global function isNaN() is similar to Number.isNaN(). It returns true if its argument is NaN, or if that argument is a non-numeric value that cannot be converted to a number. The related function Number.isFinite() returns true if its argument is a number other than NaN, Infinity, or -Infinity. The global isFinite() function returns true if its argument is, or can be converted to, a finite number.
 
-> 全局函数isNaN()类似于Number.isNaN()。如果它的参数是NaN，或者该参数是一个不能转换为数字的非数字值，则返回true。相关函数number . isfinite()如果参数不是NaN、Infinity或-Infinity，则返回true。全局的isFinite()函数如果它的参数是一个有限数，或者可以转换为一个有限数，则返回true。
+> 全局函数 isNaN() 类似于 Number.isNaN()。如果它的参数是 NaN，或者该参数是一个不能转换为数字的非数字值，则返回 true。相关函数 Number.isFinite() 如果参数不是 NaN、Infinity 或 -Infinity，则返回 true。全局的 isFinite() 函数如果它的参数是一个有限数，或者可以转换为一个有限数，则返回 true。
 
 The negative zero value is also somewhat unusual. It compares equal (even using JavaScript’s strict equality test) to positive zero, which means that the two values are almost indistinguishable, except when used as a divisor:
 
-> 负零值也有些不寻常。它将equal(甚至使用JavaScript严格的相等测试)与正0进行比较，这意味着这两个值几乎无法区分，除非用作除数:
+> 负零值也有些不寻常。它和正零值是相等的（甚至使用 JavaScript 的严格相等测试来判断）。这意味着这两个值几乎一模一样，除了作为除数之外：
 
 ```js
 let zero = 0;         // Regular zero
@@ -267,15 +267,15 @@ zero === negz         // => true: zero and negative zero are equal
 
 There are infinitely many real numbers, but only a finite number of them (18,437,736,874,454,810,627, to be exact) can be represented exactly by the JavaScript floating-point format. This means that when you’re working with real numbers in JavaScript, the representation of the number will often be an approximation of the actual number.
 
-> 有无穷多的实数，但只有有限的数(确切地说，18,437,736,874,454,810,627)可以用JavaScript浮点格式精确地表示。这意味着当您在JavaScript中处理实数时，数字的表示通常是实际数字的近似值。
+> 有无穷多的实数，但只有有限的数（确切地说，18,437,736,874,454,810,627）可以用 JavaScript 浮点格式精确地表示。这意味着在 JavaScript 中处理实数时，数字的表示通常是实际数字的近似值。
 
 The IEEE-754 floating-point representation used by JavaScript (and just about every other modern programming language) is a binary representation, which can exactly represent fractions like 1/2, 1/8, and 1/1024. Unfortunately, the fractions we use most commonly (especially when performing financial calculations) are decimal fractions: 1/10, 1/100, and so on. Binary floating-point representations cannot exactly represent numbers as simple as 0.1.
 
-> JavaScript(以及几乎所有其他现代编程语言)使用的IEEE-754浮点表示法是二进制表示法，它可以精确地表示像1/2、1/8和1/1024这样的分数。不幸的是，我们最常用的分数(特别是在执行财务计算时)是十进制分数:1/10、1/100，等等。二进制浮点表示法不能精确地表示像0.1这样简单的数字。
+> JavaScript（以及几乎所有其他现代编程语言）使用的 IEEE-754 浮点表示法是二进制表示法，它可以精确地表示像 1/2、1/8 和 1/1024 这样的分数。不幸的是，我们最常用的分数（特别是在执行财务计算时）是十进制分数：1/10、1/100，等等。二进制浮点表示法不能精确地表示像 0.1 这样简单的数字。
 
 JavaScript numbers have plenty of precision and can approximate 0.1 very closely. But the fact that this number cannot be represented exactly can lead to problems. Consider this code:
 
-> JavaScript数字有足够的精度，可以非常接近0.1。但这个数字不能准确地表示，这可能会导致问题。考虑这段代码:
+> JavaScript 数字有足够的精度，可以非常接近 0.1。但这个数字不能准确地表示，这可能会导致问题。考虑这段代码：
 
 ```js
 let x = .3 - .2;    // thirty cents minus 20 cents
@@ -287,21 +287,21 @@ y === .1            // => true: .2-.1 is equal to .1
 
 Because of rounding error, the difference between the approximations of .3 and .2 is not exactly the same as the difference between the approximations of .2 and .1. It is important to understand that this problem is not specific to JavaScript: it affects any programming language that uses binary floating-point numbers. Also, note that the values x and y in the code shown here are very close to each other and to the correct value. The computed values are adequate for almost any purpose; the problem only arises when we attempt to compare values for equality.
 
-> 由于舍入误差，.3和。2的近似值与.2和。1的近似值之间的差并不完全相同。需要注意的是，这个问题并不是JavaScript特有的:它会影响任何使用二进制浮点数的编程语言。另外，请注意，这里显示的代码中的值x和y非常接近，也非常接近正确的值。计算的值几乎适用于任何目的;只有当我们试图比较平等的价值时，问题才会出现。
+> 由于舍入误差，.3 和 .2 的近似值与 .2 和 .1 的近似值之间的差并不完全相同。需要注意的是，这个问题并不是 JavaScript 特有的：它会影响任何使用二进制浮点数的编程语言。另外，请注意，这里显示的代码中的值 x 和 y 非常接近，也非常接近正确的值。计算的值几乎适用于任何目的；只有当我们试图比较平等的价值时，问题才会出现。
 
 If these floating-point approximations are problematic for your programs, consider using scaled integers. For example, you might manipulate monetary values as integer cents rather than fractional dollars.
 
-> 如果这些浮点逼近对您的程序有问题，请考虑使用缩放整数。例如，您可以将货币值操纵为整数美分，而不是小数美元。
+> 如果这些浮点逼使的程序出现问题时，请考虑使用缩放整数。例如，您可以将货币值转为整数美分，而不是小数美元。
 
 ### 3.2.5 Arbitrary Precision Integers with BigInt
 
 One of the newest features of JavaScript, defined in ES2020, is a new numeric type known as BigInt. As of early 2020, it has been implemented in Chrome, Firefox, Edge, and Node, and there is an implementation in progress in Safari. As the name implies, BigInt is a numeric type whose values are integers. The type was added to JavaScript mainly to allow the representation of 64-bit integers, which are required for compatibility with many other programming languages and APIs. But BigInt values can have thousands or even millions of digits, should you have need to work with numbers that large. (Note, however, that BigInt implementations are not suitable for cryptography because they do not attempt to prevent timing attacks.)
 
-> 在ES2020中定义的JavaScript最新特性之一是一种名为BigInt的新数字类型。到2020年初，它已经在Chrome、Firefox、Edge和Node中实现，Safari也正在实现中。顾名思义，BigInt是一种数值类型，其值为整数。该类型添加到JavaScript主要是为了支持64位整数的表示，这是与许多其他编程语言和api兼容所必需的。但是，如果需要处理这么大的数字，BigInt值可以有数千甚至数百万位数字。(但是，请注意，BigInt实现不适合密码学，因为它们不试图阻止计时攻击。)
+> 在 ES2020 中定义的 JavaScript 最新特性之一是一种名为 BigInt 的新数字类型。到 2020 年初，它已经在 Chrome、Firefox、Edge 和 Node 中实现，Safari 也正在实现中。顾名思义，BigInt 是一种数值类型，其值为整数。该类型添加到 JavaScript 主要是为了支持 64 位整数的表示，这是与许多其他编程语言和 api 兼容所必需的。但是，如果需要处理这么大的数字，BigInt 值可以有数千甚至数百万位数字。（但是，请注意，BigInt 实现不适合密码学，因为它们不试图阻止计时攻击。）
 
 BigInt literals are written as a string of digits followed by a lowercase letter n. By default, the are in base 10, but you can use the 0b, 0o, and 0x prefixes for binary, octal, and hexadecimal BigInts:
 
-> 默认情况下，are以10为基数，但对于二进制、八进制和十六进制的BigInt可以使用0b、0o和0x前缀:
+> Bigint 字面量以数字字符串编写，后跟小写字母 n。默认情况下，它是 10 进制的，但您可以将 0b、0o 和 0x 前缀用于二进制、八进制和十六进制 BigInts：
 
 ```js
 1234n                // A not-so-big BigInt literal
@@ -311,7 +311,7 @@ BigInt literals are written as a string of digits followed by a lowercase letter
 ```
 You can use BigInt() as a function for converting regular JavaScript numbers or strings to BigInt values:
 
-> 你可以使用BigInt()作为函数，将普通的JavaScript数字或字符串转换为BigInt值:
+> 你可以使用 BigInt() 作为函数，将普通的 JavaScript 数字或字符串转换为 BigInt 值:
 
 ```js
 BigInt(Number.MAX_SAFE_INTEGER)     // => 9007199254740991n
@@ -321,7 +321,7 @@ BigInt(string)                      // => 10n**100n: one googol
 
 Arithmetic with BigInt values works like arithmetic with regular JavaScript numbers, except that division drops any remainder and rounds down (toward zero):
 
-> 使用BigInt值的算术运算与使用常规JavaScript数字的算术运算类似，只不过除法会去掉任何余数并舍入(接近于0):
+> 使用 BigInt 值的算术运算与使用常规 JavaScript 数字的算术运算类似，只不过除法会去掉任何余数（归 0）:
 
 ```js
 1000n + 2000n  // => 3000n
@@ -334,11 +334,11 @@ Arithmetic with BigInt values works like arithmetic with regular JavaScript numb
 
 Although the standard +, -, *, /, %, and ** operators work with BigInt, it is important to understand that you may not mix operands of type BigInt with regular number operands. This may seem confusing at first, but there is a good reason for it. If one numeric type was more general than the other, it would be easy to define arithmetic on mixed operands to simply return a value of the more general type. But neither type is more general than the other: BigInt can represent extraordinarily large values, making it more general than regular numbers. But BigInt can only represent integers, making the regular JavaScript number type more general. There is no way around this problem, so JavaScript sidesteps it by simply not allowing mixed operands to the arithmetic operators.
 
-> 尽管标准的+、-、*、/、%和**操作符可用于BigInt，但重要的是要理解不能将BigInt类型的操作数与常规的数字操作数混合使用。乍一看，这可能令人困惑，但这是有充分理由的。如果一种数字类型比另一种类型更通用，那么很容易在混合操作数上定义算术，只返回更通用类型的值。但是这两种类型都比另一种更通用:BigInt可以表示非常大的值，这使得它比普通数字更通用。但是BigInt只能表示整数，这使得常规的JavaScript数字类型更加通用。没有办法绕过这个问题，所以JavaScript只是通过不允许算术操作符使用混合操作数来绕过这个问题。
+> 尽管标准的 +、-、*、/、% 和 ** 运算符可用于BigInt，但重要的是要理解不能将 BigInt 类型的操作数与常规的数字操作数混合使用。乍一看，这可能令人困惑，但这是有充分理由的。如果一种数字类型比另一种类型更通用，那么很容易在混合操作数上定义算术，只返回更通用类型的值。但是这两种类型都比另一种更通用：BigInt可以表示非常大的值，这使得它比普通数字更通用。但是 BigInt 只能表示整数，这使得常规的 JavaScript 数字类型更加通用。没有办法绕过这个问题，所以 JavaScript 只是通过不允许算术运算符使用混合操作数来绕过这个问题。
 
 Comparison operators, by contrast, do work with mixed numeric types (but see §3.9.1 for more about the difference between == and ===):
 
-> 相比之下，比较运算符适用于混合数值类型(关于==和===的区别，请参阅§3.9.1):
+> 相比之下，比较运算符适用于混合数值类型（关于 == 和 === 的区别，请参阅 §3.9.1）：
 
 ```js
 1 < 2n     // => true
@@ -349,12 +349,12 @@ Comparison operators, by contrast, do work with mixed numeric types (but see §3
 
 The bitwise operators (described in §4.8.3) generally work with BigInt operands. None of the functions of the Math object accept BigInt operands, however.
 
-> 按位操作符(在§4.8.3中描述)通常用于BigInt操作数。但是，Math对象的函数都不接受BigInt操作数。
+> 按位运算符（在 §4.8.3 中描述）通常用于 BigInt 操作数。但是，Math 对象的函数都不接受 BigInt 操作数。
 
 ### 3.2.6 Dates and Times
 JavaScript defines a simple Date class for representing and manipulating the numbers that represent dates and times. JavaScript Dates are objects, but they also have a numeric representation as a timestamp that specifies the number of elapsed milliseconds since January 1, 1970:
 
-> JavaScript定义了一个简单的Date类，用于表示和操作表示日期和时间的数字。JavaScript的日期是对象，但它们也有一个数字表示形式的时间戳，指定了自1970年1月1日以来经过的毫秒数:
+> JavaScript 定义了一个简单的 Date 类，用于表示和操作表示日期和时间的数字。JavaScript 的日期是对象，但它们也有一个数字表示形式的时间戳，指定了自1970年1月1日以来经过的毫秒数：
 
 ```js
 let timestamp = Date.now();  // The current time as a timestamp (a number).
@@ -364,19 +364,21 @@ let iso = now.toISOString(); // Convert to a string in standard format.
 ```
 The Date class and its methods are covered in detail in §11.4. But we will see Date objects again in §3.9.3 when we examine the details of JavaScript type conversions.
 
-> Date类及其方法在§11.4中有详细介绍。但在3.9.3节中，我们会在讨论JavaScript类型转换的细节时再次看到Date对象。
+> Date 类及其方法在 §11.4 中有详细介绍。但在 §3.9.3 节中，我们会在讨论 JavaScript 类型转换的细节时再次看到 Date 对象。
 
 ## 3.3 Text
 
 The JavaScript type for representing text is the string. A string is an immutable ordered sequence of 16-bit values, each of which typically represents a Unicode character. The length of a string is the number of 16-bit values it contains. JavaScript’s strings (and its arrays) use zero-based indexing: the first 16-bit value is at position 0, the second at position 1, and so on. The empty string is the string of length 0. JavaScript does not have a special type that represents a single element of a string. To represent a single 16-bit value, simply use a string that has a length of 1.
 
-> 表示文本的JavaScript类型是字符串。字符串是由16位值组成的不可变有序序列，每个值通常代表一个Unicode字符。字符串的长度是它包含的16位值的个数。JavaScript的字符串(及其数组)使用从零开始的索引:第一个16位的值位于位置0，第二个位于位置1，以此类推。空字符串是长度为0的字符串。JavaScript没有特殊的类型来表示字符串的单个元素。要表示单个16位值，只需使用长度为1的字符串。
+> 表示文本的 JavaScript 类型是字符串。字符串是由 16 位值组成的不可变有序序列，每个值通常代表一个 Unicode 字符。字符串的长度是它包含的 16 位值的个数。JavaScript 的字符串（及其数组）使用从零开始的索引：第一个 16 位的值位于位置 0，第二个位于位置 1，以此类推。空字符串是长度为 0 的字符串。JavaScript 没有特殊的类型来表示字符串的单个元素。要表示单个 16 位值，只需使用长度为 1 的字符串。
 
 CHARACTERS, CODEPOINTS, AND JAVASCRIPT STRINGS
 
+> **字符集，内码和JavaScript字符串**
+
 JavaScript uses the UTF-16 encoding of the Unicode character set, and JavaScript strings are sequences of unsigned 16-bit values. The most commonly used Unicode characters (those from the “basic multilingual plane”) have codepoints that fit in 16 bits and can be represented by one element of a string. Unicode characters whose codepoints do not fit in 16 bits are encoded using the rules of UTF-16 as a sequence (known as a “surrogate pair”) of two 16-bit values. This means that a JavaScript string of length 2 (two 16-bit values) might represent only a single Unicode character:
 
-> JavaScript使用Unicode字符集的UTF-16编码，JavaScript字符串是无符号的16位值序列。最常用的Unicode字符(来自“基本多语言平面”的字符)具有适合16位的代码点，可以由字符串的一个元素表示。编码点不适合16位的Unicode字符将使用UTF-16规则作为两个16位值的序列(称为“代理对”)进行编码。这意味着一个长度为2的JavaScript字符串(两个16位值)可能只代表一个Unicode字符:
+> JavaScript 使用 Unicode 字符集的 UTF-16 编码，JavaScript 字符串是无符号的 16 位值序列。最常用的 Unicode 字符（来自“基本多语种平面”的字符）都是通过 16 位的内码表示，并代表字符串中的单个字符。那些不能表示为16位的 Unicode 字符则遵循 UTF-16 编码规则——用两个 16 位值组成的一个序列（亦称做“代理项对”）表示。这意味着一个长度为 2 的 JavaScript 字符串（两个 16 位值）有可能表 一个 Unicode 字符：
 
 ```js
 let euro = "€";
@@ -387,17 +389,17 @@ love.length   // => 2: UTF-16 encoding of ❤ is "\ud83d\udc99"
 
 Most string-manipulation methods defined by JavaScript operate on 16-bit values, not characters. They do not treat surrogate pairs specially, they perform no normalization of the string, and don’t even ensure that a string is well-formed UTF-16.
 
-> JavaScript定义的大多数字符串操作方法操作的是16位值，而不是字符。它们没有特别对待代理对，它们没有对字符串执行规范化，甚至不确保字符串是格式良好的UTF-16。
+> JavaScript 定义的大多数字符串操作方法操作的是 16 位值，而不是字符。它们没有特别对待代理对，它们没有对字符串执行规范化，甚至不确保字符串是格式良好的 UTF-16。
 
 In ES6, however, strings are iterable, and if you use the for/of loop or ... operator with a string, it will iterate the actual characters of the string, not the 16-bit values.
 
-> 然而，在ES6中，字符串是可迭代的，如果你使用for/of循环或…操作符，它将迭代字符串的实际字符，而不是16位值。
+> 然而，在 ES6 中，字符串是可迭代的，如果你使用 for/of 循环或 … 运算符，它将迭代字符串的实际字符，而不是 16 位值。
 
 ### 3.3.1 String Literals
 
 To include a string in a JavaScript program, simply enclose the characters of the string within a matched pair of single or double quotes or backticks (' or " or `). Double-quote characters and backticks may be contained within strings delimited by single-quote characters, and similarly for strings delimited by double quotes and backticks. Here are examples of string literals:
 
-> 要在JavaScript程序中包含字符串，只需将字符串的字符包含在匹配的单引号或双引号或反引号(' or " or ')中。双引号字符和反引号可以包含在由单引号字符分隔的字符串中，由双引号和反引号分隔的字符串也是如此。以下是字符串字面量的例子:
+> 要在 JavaScript 程序中包含字符串，只需将字符串的字符包含在匹配的单引号或双引号或反引号（' or " or `）中。双引号字符和反引号可以包含在由单引号字符分隔的字符串中，由双引号和反引号分隔的字符串也是如此。以下是字符串字面量的例子:
 
 ```js
 ""  // The empty string: it has zero characters
@@ -411,11 +413,11 @@ To include a string in a JavaScript program, simply enclose the characters of th
 
 Strings delimited with backticks are a feature of ES6, and allow JavaScript expressions to be embedded within (or interpolated into) the string literal. This expression interpolation syntax is covered in §3.3.4.
 
-> 用反引号分隔的字符串是ES6的一个特性，它允许JavaScript表达式嵌入(或插入)字符串字面量。这种表达式插值语法在§3.3.4中介绍。
+> 用反引号包含的字符串是 ES6 的一个特性，它允许 JavaScript 表达式嵌入（或插入）字符串字面量。这种表达式插值语法在 §3.3.4 中介绍。
 
 The original versions of JavaScript required string literals to be written on a single line, and it is common to see JavaScript code that creates long strings by concatenating single-line strings with the + operator. As of ES5, however, you can break a string literal across multiple lines by ending each line but the last with a backslash `(\)`. Neither the backslash nor the line terminator that follow it are part of the string literal. If you need to include a newline character in a single-quoted or double-quoted string literal, use the character sequence \n (documented in the next section). The ES6 backtick syntax allows strings to be broken across multiple lines, and in this case, the line terminators are part of the string literal:
 
-> 最初的JavaScript版本要求将字符串文字写在单行上，通常会看到JavaScript代码通过使用+操作符连接单行字符串来创建长字符串。但是，在ES5中，您可以通过在每行末尾使用反斜杠`(\)`来将字符串分隔成多行。反斜杠及其后面的行结束符都不是字符串字面值的一部分。如果需要在单引号或双引号的字符串文字中包含换行字符，请使用字符序列\n(在下一节中介绍)。ES6反引号语法允许字符串跨多行分割，在这种情况下，行结束符是字符串字面值的一部分:
+> 最初的 JavaScript 版本要求将字符串文字写在单行上，通常会看到 JavaScript 代码通过使用 + 运算符连接单行字符串来创建长字符串。但是，在 ES5 中，您可以通过在每行末尾使用反斜杠（`\`）来将字符串分隔成多行。反斜杠及其后面的行结束符都不是字符串字面值的一部分。如果需要在单引号或双引号的字符串文字中包含换行字符，请使用字符序列 \n（在下一节中介绍）。ES6 反引号语法允许字符串跨多行分割，在这种情况下，行结束符是字符串字面值的一部分：
 
 ```js
 // A string representing 2 lines written on one line:
@@ -433,11 +435,11 @@ is included literally in this string`
 
 Note that when you use single quotes to delimit your strings, you must be careful with English contractions and possessives, such as can’t and O’Reilly’s. Since the apostrophe is the same as the single-quote character, you must use the backslash character (`\`) to “escape” any apostrophes that appear in single-quoted strings (escapes are explained in the next section).
 
-> 注意，当您使用单引号来分隔字符串时，必须小心使用英语缩写和所有格，如can 't和O 'Reilly 's。由于撇号与单引号字符相同，必须使用反斜杠字符(`\`)来“转义”出现在单引号字符串中的任何撇号(转义将在下一节中解释)。
+> 注意，当您使用单引号来分隔字符串时，必须小心使用英语缩写和所有格，如 can't 和 O'Reilly's。由于撇号与单引号字符相同，必须使用反斜杠字符（`\`）来“转义”出现在单引号字符串中的任何撇号（转义将在下一节中解释）。
 
 In client-side JavaScript programming, JavaScript code may contain strings of HTML code, and HTML code may contain strings of JavaScript code. Like JavaScript, HTML uses either single or double quotes to delimit its strings. Thus, when combining JavaScript and HTML, it is a good idea to use one style of quotes for JavaScript and the other style for HTML. In the following example, the string “Thank you” is single-quoted within a JavaScript expression, which is then double-quoted within an HTML event-handler attribute:
 
-> 在客户端JavaScript编程中，JavaScript代码可能包含HTML代码字符串，HTML代码可能包含JavaScript代码字符串。和JavaScript一样，HTML也使用单引号或双引号来分隔字符串。因此，在组合JavaScript和HTML时，最好使用一种风格的引号用于JavaScript，另一种风格的引号用于HTML。在下面的例子中，字符串“Thank you”在JavaScript表达式中被单引号引用，然后在HTML事件处理程序属性中被双引号引用:
+> 在客户端 JavaScript 编程中，JavaScript 代码可能包含 HTML 代码字符串，HTML 代码可能包含 JavaScript 代码字符串。和 JavaScript 一样，HTML 也使用单引号或双引号来分隔字符串。因此，在组合 JavaScript 和 HTML 时，最好使用一种风格的引号用于 JavaScript，另一种风格的引号用于 HTML。在下面的例子中，字符串“Thank you”在 JavaScript 表达式中被单引号引用，然后在 HTML 事件处理程序属性中被双引号引用:
 
 ```js
 <button onclick="alert('Thank you')">Click Me</button>
@@ -446,18 +448,18 @@ In client-side JavaScript programming, JavaScript code may contain strings of HT
 
 The backslash character `(\)` has a special purpose in JavaScript strings. Combined with the character that follows it, it represents a character that is not otherwise representable within the string. For example, \n is an escape sequence that represents a newline character.
 
-> 反斜杠字符`(\)`在JavaScript字符串中有特殊用途。与它后面的字符相结合，它表示字符串中不能以其他方式表示的字符。例如，\n是表示换行符的转义序列。
+> 反斜杠字符（`\`）在 JavaScript 字符串中有特殊用途。与它后面的字符相结合，它表示字符串中不能以其他方式表示的字符。例如，\n 是表示换行符的转义序列。
 
 Another example, mentioned earlier, is the \' escape, which represents the single quote (or apostrophe) character. This escape sequence is useful when you need to include an apostrophe in a string literal that is contained within single quotes. You can see why these are called escape sequences: the backslash allows you to escape from the usual interpretation of the single-quote character. Instead of using it to mark the end of the string, you use it as an apostrophe:
 
-前面提到的另一个例子是\'转义符，它表示单引号(或撇号)字符。当您需要在包含在单引号中的字符串文本中包含撇号时，这个转义序列非常有用。您可以看到为什么它们被称为转义序列:反斜杠允许您转义单引号字符的通常解释。不是用它来标记字符串的结束，而是用它作为撇号:
+> 前面提到的另一个例子是 \' 转义符，它表示单引号（或撇号）字符。当您需要在包含在单引号中的字符串文本中包含撇号时，这个转义序列非常有用。您可以看到为什么它们被称为转义序列：反斜杠允许您转义单引号字符的通常解释。不是用它来标记字符串的结束，而是用它作为撇号：
 
 ```js
 'You\'re right, it can\'t be a quote'
 ```
 Table 3-1 lists the JavaScript escape sequences and the characters they represent. Three escape sequences are generic and can be used to represent any character by specifying its Unicode character code as a hexadecimal number. For example, the sequence \xA9 represents the copyright symbol, which has the Unicode encoding given by the hexadecimal number A9. Similarly, the \u escape represents an arbitrary Unicode character specified by four hexadecimal digits or one to five digits when the digits are enclosed in curly braces: \u03c0 represents the character π, for example, and \u{1f600} represents the “grinning face” emoji.
 
-> JavaScript转义序列及其代表的字符如表3-1所示。三个转义序列是通用的，可以通过将Unicode字符代码指定为十六进制数来表示任何字符。例如，序列\xA9表示版权符号，它具有由十六进制数字A9给出的Unicode编码。同样，\u转义表示由四个十六进制数字或用花括号括起来的1 ~ 5个数字指定的任意Unicode字符:例如，\u03c0表示字符π，\u{1f600}表示“龇牙笑”表情。
+> JavaScript 转义序列及其代表的字符如表 3-1 所示。三个转义序列是通用的，可以通过将 Unicode 字符代码指定为十六进制数来表示任何字符。例如，序列 \xA9 表示版权符号，它具有由十六进制数字 A9 给出的 Unicode 编码。同样，\u 转义表示由四个十六进制数字或用花括号括起来的 1 ~ 5 个数字指定的任意 Unicode 字符：例如，\u03c0 表示字符 π，\u{1f600} 表示“龇牙笑”表情。
 
 Table 3-1. JavaScript escape sequences
 
@@ -479,13 +481,13 @@ Table 3-1. JavaScript escape sequences
 
 If the \ character precedes any character other than those shown in Table 3-1, the backslash is simply ignored (although future versions of the language may, of course, define new escape sequences). For example, `\#` is the same as #. Finally, as noted earlier, ES5 allows a backslash before a line break to break a string literal across multiple lines.
 
-> 如果\字符在表3-1中以外的任何字符之前，反斜杠将被忽略(当然，未来版本的语言可能会定义新的转义序列)。例如，`\#` 和#是一样的。最后，如前所述，ES5允许在换行之前使用反斜杠来跨多行分割字符串字面量。
+> 如果 \ 字符在表 3-1 中以外的任何字符之前，反斜杠将被忽略（当然，未来版本的语言可能会定义新的转义序列）。例如，`\#` 和 # 是一样的。最后，如前所述，ES5 允许在换行之前使用反斜杠来跨多行分割字符串字面量。
 
 ### 3.3.3 Working with Strings
 
 One of the built-in features of JavaScript is the ability to concatenate strings. If you use the + operator with numbers, it adds them. But if you use this operator on strings, it joins them by appending the second to the first. For example:
 
-> JavaScript的内置特性之一是连接字符串的能力。如果您对数字使用+运算符，它将它们相加。但是如果你在字符串上使用这个操作符，它通过将第二个操作符附加到第一个操作符上来连接字符串。例如:
+> JavaScript 的内置特性之一是连接字符串的能力。如果您对数字使用 + 运算符，它将它们相加。但是如果你在字符串上使用这个运算符，它通过将第二个运算符附加到第一个运算符上来连接字符串。例如：
 
 ```js
 let msg = "Hello, " + "world";   // Produces the string "Hello, world"
@@ -493,11 +495,11 @@ let greeting = "Welcome to my blog," + " " + name;
 ```
 Strings can be compared with the standard === equality and !== inequality operators: two strings are equal if and only if they consist of exactly the same sequence of 16-bit values. Strings can also be compared with the <, <=, >, and >= operators. String comparison is done simply by comparing the 16-bit values. (For more robust locale-aware string comparison and sorting, see §11.7.3.)
 
-> 字符串可以与标准的===相等和!==不等运算符进行比较:当且仅当两个字符串由完全相同的16位值序列组成时，它们才相等。字符串还可以与<、<=、>和>=操作符进行比较。字符串比较简单地通过比较16位值来完成。(更健壮的语言环境感知字符串比较和排序，见§11.7.3。)
+> 字符串可以与标准的 === 相等和 !== 不等运算符进行比较：当且仅当两个字符串由完全相同的 16 位值序列组成时，它们才相等。字符串还可以与 <、<=、> 和 >= 运算符进行比较。字符串比较简单地通过比较 16 位值来完成。（更健壮的语言环境感知字符串比较和排序，见 §11.7.3。）
 
 To determine the length of a string—the number of 16-bit values it contains—use the length property of the string:
 
-> 要确定一个字符串的长度-它包含的16位值的数量-使用字符串的length属性:
+> 要确定一个字符串的长度——它包含的 16 位值的数量——使用字符串的 length 属性：
 
 ```js
 s.length
@@ -505,7 +507,7 @@ s.length
 
 In addition to this length property, JavaScript provides a rich API for working with strings:
 
-> 除了这个length属性，JavaScript还提供了一个丰富的API来处理字符串:
+> 除了这个 length 属性，JavaScript 还提供了一个丰富的 API 来处理字符串：
 
 ```js
 let s = "Hello, world"; // Start with some text.
@@ -558,11 +560,11 @@ s.concat("!")           // => "Hello, world!": just use + operator instead
 
 Remember that strings are immutable in JavaScript. Methods like replace() and toUpperCase() return new strings: they do not modify the string on which they are invoked.
 
-> 记住，字符串在JavaScript中是不可变的。像replace()和toUpperCase()这样的方法返回新的字符串:它们不会修改调用它们的字符串。
+> 记住，字符串在 JavaScript 中是不可变的。像 replace() 和 toUpperCase() 这样的方法返回新的字符串：它们不会修改调用它们的字符串。
 
 Strings can also be treated like read-only arrays, and you can access individual characters (16-bit values) from a string using square brackets instead of the charAt() method:
 
-> 字符串也可以像只读数组一样处理，你可以使用方括号而不是charAt()方法从字符串中访问单个字符(16位值):
+> 字符串也可以像只读数组一样处理，你可以使用方括号而不是 charAt() 方法从字符串中访问单个字符（16 位值）:
 
 ```js
 let s = "hello, world";
@@ -573,13 +575,13 @@ s[s.length-1]         // => "d"
 
 In ES6 and later, string literals can be delimited with backticks:
 
-> 在ES6及以后的版本中，字符串文字可以用反引号分隔:
+> 在 ES6 及以后的版本中，字符串文字可以用反引号分隔：
 ```js
 let s = `hello world`;
 ```
 This is more than just another string literal syntax, however, because these template literals can include arbitrary JavaScript expressions. The final value of a string literal in backticks is computed by evaluating any included expressions, converting the values of those expressions to strings and combining those computed strings with the literal characters within the backticks:
 
-> 然而，这不仅仅是另一种字符串字面量语法，因为这些模板字面量可以包含任意的JavaScript表达式。反撇号中的字符串字面值的最终值是通过计算包含的任何表达式来计算的，将这些表达式的值转换为字符串，并将这些计算出来的字符串与反撇号中的字面值字符组合起来:
+> 然而，这不仅仅是另一种字符串字面量语法，因为这些模板字面量可以包含任意的 JavaScript 表达式。反引号中的字符串字面量的原始值是通过计算包含的表达式来计算的，将这些表达式的值转换为字符串，并将这些计算出来的字符串与反引号中的字面量字符组合起来:
 
 ```js
 let name = "Bill";
@@ -588,11 +590,11 @@ let greeting = `Hello ${ name }.`;  // greeting == "Hello Bill."
 
 Everything between the ${ and the matching } is interpreted as a JavaScript expression. Everything outside the curly braces is normal string literal text. The expression inside the braces is evaluated and then converted to a string and inserted into the template, replacing the dollar sign, the curly braces, and everything in between them.
 
-> ${和匹配}之间的所有内容都被解释为JavaScript表达式。大括号之外的都是普通的字符串文本。括号内的表达式被求值，然后转换为字符串并插入到模板中，替换美元符号、花括号以及它们之间的所有内容。
+> ${ 和匹配 } 之间的所有内容都被解释为 JavaScript 表达式。大括号之外的都是普通的字符串文本。括号内的表达式被求值，然后转换为字符串并插入到模板中，替换美元符号、花括号以及它们之间的所有内容。
 
 A template literal may include any number of expressions. It can use any of the escape characters that normal strings can, and it can span any number of lines, with no special escaping required. The following template literal includes four JavaScript expressions, a Unicode escape sequence, and at least four newlines (the expression values may include newlines as well):
 
-> 模板字面量可以包含任意数量的表达式。它可以使用普通字符串可以使用的任何转义字符，并且可以跨任意数量的行，不需要特殊转义。下面的模板文字包含四个JavaScript表达式，一个Unicode转义序列，以及至少四个换行符(表达式值也可以包含换行符):
+> 模板字面量可以包含任意数量的表达式。它可以使用普通字符串可以使用的任何转义字符，并且可以跨任意数量的行，不需要特殊转义。下面的模板文字包含四个 JavaScript 表达式，一个 Unicode 转义序列，以及至少四个换行符（表达式值也可以包含换行符）：
 
 ```js
 let errorMessage = `\
@@ -605,7 +607,7 @@ ${exception.stack}
 
 The backslash at the end of the first line here escapes the initial newline so that the resulting string begins with the Unicode ✘ character (\u2718) rather than a newline.
 
-> 第一行末尾的反斜杠转义了最初的换行符，这样产生的字符串以Unicode符合英语习惯的字符(\u2718)开始，而不是换行符。
+> 第一行末尾的反斜杠转义了最初的换行符，这样产生的字符串以 Unicode 符合英语习惯的字符（\u2718）开始，而不是换行符。
 
 TAGGED TEMPLATE LITERALS
 
@@ -720,7 +722,7 @@ if (o !== null) ...
 
 The not-equal operator !== compares o to null and evaluates to either true or false. But you can omit the comparison and instead rely on the fact that null is falsy and objects are truthy:
 
-> 不相等操作符!==将o与null进行比较，然后求值为true或false。但是你可以忽略比较，而是依赖null是假的，对象是真的这一事实:
+> 不相等运算符!==将o与null进行比较，然后求值为true或false。但是你可以忽略比较，而是依赖null是假的，对象是真的这一事实:
 
 ```js
 if (o) ...
@@ -732,11 +734,11 @@ In the first case, the body of the if will be executed only if o is not null. Th
 
 Boolean values have a toString() method that you can use to convert them to the strings “true” or “false”, but they do not have any other useful methods. Despite the trivial API, there are three important boolean operators.
 
-> 布尔值有一个toString()方法，可以用来将它们转换为字符串“true”或“false”，但它们没有任何其他有用的方法。尽管API很简单，但是有三个重要的布尔操作符。
+> 布尔值有一个toString()方法，可以用来将它们转换为字符串“true”或“false”，但它们没有任何其他有用的方法。尽管API很简单，但是有三个重要的布尔运算符。
 
 The && operator performs the Boolean AND operation. It evaluates to a truthy value if and only if both of its operands are truthy; it evaluates to a falsy value otherwise. The || operator is the Boolean OR operation: it evaluates to a truthy value if either one (or both) of its operands is truthy and evaluates to a falsy value if both operands are falsy. Finally, the unary ! operator performs the Boolean NOT operation: it evaluates to true if its operand is falsy and evaluates to false if its operand is truthy. For example:
 
-> &&运算符执行布尔和运算。当且仅当它的两个操作数都为真时，它的计算结果为真值;否则它将计算为假值。||操作符是布尔或操作符:如果其中一个操作数(或两个操作数)为真，则计算为真值;如果两个操作数都为假，则计算为假值。最后，一元!操作符执行布尔的NOT操作:如果操作数为假，则计算为真;如果操作数为真，则计算为假。例如:
+> &&运算符执行布尔和运算。当且仅当它的两个操作数都为真时，它的计算结果为真值;否则它将计算为假值。||运算符是布尔或运算符:如果其中一个操作数(或两个操作数)为真，则计算为真值;如果两个操作数都为假，则计算为假值。最后，一元!运算符执行布尔的NOT操作:如果操作数为假，则计算为真;如果操作数为真，则计算为假。例如:
 
 ```js
 if ((x === 0 && y === 0) || !(z === 0)) {
@@ -745,21 +747,21 @@ if ((x === 0 && y === 0) || !(z === 0)) {
 ```
 Full details on these operators are in §4.10.
 
-> 关于这些操作符的全部细节见§4.10。
+> 关于这些运算符的全部细节见§4.10。
 
 ## 3.5 null and undefined
 
 null is a language keyword that evaluates to a special value that is usually used to indicate the absence of a value. Using the typeof operator on null returns the string “object”, indicating that null can be thought of as a special object value that indicates “no object”. In practice, however, null is typically regarded as the sole member of its own type, and it can be used to indicate “no value” for numbers and strings as well as objects. Most programming languages have an equivalent to JavaScript’s null: you may be familiar with it as NULL, nil, or None.
 
-> null是一个语言关键字，其计算结果为一个特殊值，该值通常用于指示没有值。对null使用typeof操作符返回字符串“object”，表示null可以被认为是一个特殊的对象值，表示“没有对象”。然而，在实践中，null通常被视为它自己类型的唯一成员，它可以用来表示数字、字符串和对象的“无值”。大多数编程语言都有一个等价于JavaScript的null:您可能熟悉它为null、nil或None。
+> null是一个语言关键字，其计算结果为一个特殊值，该值通常用于指示没有值。对null使用typeof运算符返回字符串“object”，表示null可以被认为是一个特殊的对象值，表示“没有对象”。然而，在实践中，null通常被视为它自己类型的唯一成员，它可以用来表示数字、字符串和对象的“无值”。大多数编程语言都有一个等价于JavaScript的null:您可能熟悉它为null、nil或None。
 
 JavaScript also has a second value that indicates absence of value. The undefined value represents a deeper kind of absence. It is the value of variables that have not been initialized and the value you get when you query the value of an object property or array element that does not exist. The undefined value is also the return value of functions that do not explicitly return a value and the value of function parameters for which no argument is passed. undefined is a predefined global constant (not a language keyword like null, though this is not an important distinction in practice) that is initialized to the undefined value. If you apply the typeof operator to the undefined value, it returns “undefined”, indicating that this value is the sole member of a special type.
 
-> JavaScript还有第二个值，表示没有值。未定义的值代表一种更深层次的缺席。它是尚未初始化的变量的值，以及在查询不存在的对象属性或数组元素的值时获得的值。未定义的值也是没有显式返回值的函数的返回值，以及没有传递实参的函数形参的值。undefined是一个预定义的全局常量(不是像null这样的语言关键字，虽然这在实践中不是一个重要的区别)，它被初始化为undefined值。如果对未定义的值应用typeof操作符，它将返回" undefined "，表明该值是特殊类型的唯一成员。
+> JavaScript还有第二个值，表示没有值。未定义的值代表一种更深层次的缺席。它是尚未初始化的变量的值，以及在查询不存在的对象属性或数组元素的值时获得的值。未定义的值也是没有显式返回值的函数的返回值，以及没有传递实参的函数形参的值。undefined是一个预定义的全局常量(不是像null这样的语言关键字，虽然这在实践中不是一个重要的区别)，它被初始化为undefined值。如果对未定义的值应用typeof运算符，它将返回" undefined "，表明该值是特殊类型的唯一成员。
 
 Despite these differences, null and undefined both indicate an absence of value and can often be used interchangeably. The equality operator == considers them to be equal. (Use the strict equality operator === to distinguish them.) Both are falsy values: they behave like false when a boolean value is required. Neither null nor undefined have any properties or methods. In fact, using . or [] to access a property or method of these values causes a TypeError.
 
-> 尽管存在这些差异，null和undefined都表示没有值，并且经常可以互换使用。相等操作符==认为它们相等。(使用严格的相等操作符===来区分它们。)两者都是假值:当需要布尔值时，它们的行为类似于假值。null和undefined都没有任何属性或方法。事实上，使用。或[]访问这些值的属性或方法会导致TypeError。
+> 尽管存在这些差异，null和undefined都表示没有值，并且经常可以互换使用。相等运算符==认为它们相等。(使用严格的相等运算符===来区分它们。)两者都是假值:当需要布尔值时，它们的行为类似于假值。null和undefined都没有任何属性或方法。事实上，使用。或[]访问这些值的属性或方法会导致TypeError。
 
 I consider undefined to represent a system-level, unexpected, or error-like absence of value and null to represent a program-level, normal, or expected absence of value. I avoid using null and undefined when I can, but if I need to assign one of these values to a variable or property or pass or return one of these values to or from a function, I usually use null. Some programmers strive to avoid null entirely and use undefined in its place wherever they can.
 
@@ -985,7 +987,7 @@ Object-to-primitive conversion is somewhat more complicated, and it is the subje
 
 JavaScript has two operators that test whether two values are equal. The “strict equality operator,” ===, does not consider its operands to be equal if they are not of the same type, and this is almost always the right operator to use when coding. But because JavaScript is so flexible with type conversions, it also defines the == operator with a flexible definition of equality. All of the following comparisons are true, for example:
 
-> JavaScript有两个操作符来测试两个值是否相等。“严格的相等操作符”===如果它们不是同一类型的操作数，则不认为它们是相等的，在编码时，这几乎总是正确的操作符。但是，由于JavaScript在类型转换方面非常灵活，所以它还用灵活的相等定义定义了==操作符。下面所有的比较都是正确的，例如:
+> JavaScript有两个运算符来测试两个值是否相等。“严格的相等运算符”===如果它们不是同一类型的操作数，则不认为它们是相等的，在编码时，这几乎总是正确的运算符。但是，由于JavaScript在类型转换方面非常灵活，所以它还用灵活的相等定义定义了==运算符。下面所有的比较都是正确的，例如:
 
 ```js
 null == undefined // => true: These two values are treated as equal.
@@ -996,11 +998,11 @@ null == undefined // => true: These two values are treated as equal.
 
 §4.9.1 explains exactly what conversions are performed by the == operator in order to determine whether two values should be considered equal.
 
-> §4.9.1详细解释了==操作符执行什么转换来确定两个值是否应该被认为相等。
+> §4.9.1详细解释了==运算符执行什么转换来确定两个值是否应该被认为相等。
 
 Keep in mind that convertibility of one value to another does not imply equality of those two values. If undefined is used where a boolean value is expected, for example, it will convert to false. But this does not mean that undefined == false. JavaScript operators and statements expect values of various types and perform conversions to those types. The if statement converts undefined to false, but the == operator never attempts to convert its operands to booleans.
 
-> 请记住，一个值可转换为另一个值并不意味着这两个值相等。例如，如果在需要布尔值的地方使用undefined，它将转换为false。但这并不意味着undefined == false。JavaScript操作符和语句期望得到各种类型的值，并执行到这些类型的转换。if语句将undefined转换为false，但==操作符从不尝试将其操作数转换为布尔值。
+> 请记住，一个值可转换为另一个值并不意味着这两个值相等。例如，如果在需要布尔值的地方使用undefined，它将转换为false。但这并不意味着undefined == false。JavaScript运算符和语句期望得到各种类型的值，并执行到这些类型的转换。if语句将undefined转换为false，但==运算符从不尝试将其操作数转换为布尔值。
 
 ### 3.9.2 Explicit Conversions
 
@@ -1028,7 +1030,7 @@ As an aside, note that the Boolean(), Number(), and String() functions can also 
 
 Certain JavaScript operators perform implicit type conversions and are sometimes used explicitly for the purpose of type conversion. If one operand of the + operator is a string, it converts the other one to a string. The unary + operator converts its operand to a number. And the unary ! operator converts its operand to a boolean and negates it. These facts lead to the following type conversion idioms that you may see in some code:
 
-> 某些JavaScript操作符执行隐式类型转换，有时显式地用于类型转换。如果+操作符的一个操作数是字符串，则将另一个操作数转换为字符串。一元+操作符将其操作数转换为数字。还有一元数!运算符将其操作数转换为布尔值并对其求反。这些事实导致了以下类型转换习惯用法，你可能会在一些代码中看到:
+> 某些JavaScript运算符执行隐式类型转换，有时显式地用于类型转换。如果+运算符的一个操作数是字符串，则将另一个操作数转换为字符串。一元+运算符将其操作数转换为数字。还有一元数!运算符将其操作数转换为布尔值并对其求反。这些事实导致了以下类型转换习惯用法，你可能会在一些代码中看到:
 
 ```js
 x + ""   // => String(x)
@@ -1147,29 +1149,29 @@ When an object needs to be converted to a number, JavaScript first converts it t
 
 Built-in JavaScript functions and methods that expect numeric arguments convert object arguments to numbers in this way, and most (see the exceptions that follow) JavaScript operators that expect numeric operands convert objects to numbers in this way as well.
 
-> 期望数字参数的内置JavaScript函数和方法以这种方式将对象参数转换为数字，大多数期望数字操作数的JavaScript操作符(参见后面的异常)也以这种方式将对象转换为数字。
+> 期望数字参数的内置JavaScript函数和方法以这种方式将对象参数转换为数字，大多数期望数字操作数的JavaScript运算符(参见后面的异常)也以这种方式将对象转换为数字。
 
 SPECIAL CASE OPERATOR CONVERSIONS
 
 Operators are covered in detail in Chapter 4. Here, we explain the special case operators that do not use the basic object-to-string and object-to-number conversions described earlier.
 
-> 操作符将在第4章中详细介绍。这里，我们解释不使用前面描述的基本对象-字符串和对象-数字转换的特殊情况操作符。
+> 运算符将在第4章中详细介绍。这里，我们解释不使用前面描述的基本对象-字符串和对象-数字转换的特殊情况运算符。
 
 The + operator in JavaScript performs numeric addition and string concatenation. If either of its operands is an object, JavaScript converts them to primitive values using the no-preference algorithm. Once it has two primitive values, it checks their types. If either argument is a string, it converts the other to a string and concatenates the strings. Otherwise, it converts both arguments to numbers and adds them.
 
-> JavaScript中的+操作符执行数字相加和字符串连接。如果它的任意一个操作数是对象，JavaScript会使用无优先级算法将它们转换为原始值。一旦它有了两个原始值，它就检查它们的类型。如果其中一个参数是字符串，它将另一个参数转换为字符串并连接字符串。否则，它将两个参数都转换为数字并相加。
+> JavaScript中的+运算符执行数字相加和字符串连接。如果它的任意一个操作数是对象，JavaScript会使用无优先级算法将它们转换为原始值。一旦它有了两个原始值，它就检查它们的类型。如果其中一个参数是字符串，它将另一个参数转换为字符串并连接字符串。否则，它将两个参数都转换为数字并相加。
 
 The == and != operators perform equality and inequality testing in a loose way that allows type conversions. If one operand is an object and the other is a primitive value, these operators convert the object to primitive using the no-preference algorithm and then compare the two primitive values.
 
-> ==和!=操作符以一种允许类型转换的松散方式执行相等和不相等的测试。如果一个操作数是对象，另一个是基元值，这些操作符使用无优先级算法将对象转换为基元值，然后比较两个基元值。
+> ==和!=运算符以一种允许类型转换的不严格方式执行相等和不相等的测试。如果一个操作数是对象，另一个是基元值，这些运算符使用无优先级算法将对象转换为基元值，然后比较两个基元值。
 
 Finally, the relational operators <, <=, >, and >= compare the order of their operands and can be used to compare both numbers and strings. If either operand is an object, it is converted to a primitive value using the prefer-number algorithm. Note, however, that unlike the object-to-number conversion, the primitive values returned by the prefer-number conversion are not then converted to numbers.
 
-> 最后，关系操作符<、<=、>和>=比较其操作数的顺序，可用于比较数字和字符串。如果其中一个操作数是对象，则使用prefer-number算法将其转换为原始值。但是，请注意，与对象到数字的转换不同，preferred -number转换返回的原始值随后不会转换为数字。
+> 最后，关系运算符<、<=、>和>=比较其操作数的顺序，可用于比较数字和字符串。如果其中一个操作数是对象，则使用prefer-number算法将其转换为原始值。但是，请注意，与对象到数字的转换不同，preferred -number转换返回的原始值随后不会转换为数字。
 
 Note that the numeric representation of Date objects is meaningfully comparable with < and >, but the string representation is not. For Date objects, the no-preference algorithm converts to a string, so the fact that JavaScript uses the prefer-number algorithm for these operators means that we can use them to compare the order of two Date objects.
 
-> 请注意，Date对象的数字表示可以与<和>进行有意义的比较，但字符串表示不能。对于Date对象，no-preference算法会转换为字符串，因此JavaScript对这些操作符使用prefer-number算法的事实意味着我们可以使用它们来比较两个Date对象的顺序。
+> 请注意，Date对象的数字表示可以与<和>进行有意义的比较，但字符串表示不能。对于Date对象，no-preference算法会转换为字符串，因此JavaScript对这些运算符使用prefer-number算法的事实意味着我们可以使用它们来比较两个Date对象的顺序。
 
 THE TOSTRING() AND VALUEOF() METHODS
 
@@ -1388,7 +1390,7 @@ Although var and let have the same syntax, there are important differences in th
 ---
 
 > - 用var声明的变量没有块作用域。相反，它们的作用域是包含函数的主体，无论它们嵌套在函数内部有多深。
-> - 如果你在函数体之外使用var，它会声明一个全局变量。但是用var声明的全局变量与用let声明的全局变量在一个重要的方面不同。用var声明的全局变量是作为全局对象的属性实现的(§3.7)。全局对象可以引用为globalThis。如果你写var x = 2;在函数之外，它就像你写的globalThis。x = 2,。但是注意，这个类比并不完美:用全局var声明创建的属性不能用delete操作符删除(§4.13.4)。用let和const声明的全局变量和常量不是全局对象的属性。
+> - 如果你在函数体之外使用var，它会声明一个全局变量。但是用var声明的全局变量与用let声明的全局变量在一个重要的方面不同。用var声明的全局变量是作为全局对象的属性实现的(§3.7)。全局对象可以引用为globalThis。如果你写var x = 2;在函数之外，它就像你写的globalThis。x = 2,。但是注意，这个类比并不完美:用全局var声明创建的属性不能用delete运算符删除(§4.13.4)。用let和const声明的全局变量和常量不是全局对象的属性。
 > - 与用let声明的变量不同，用var多次声明同一个变量是合法的。而且因为var变量具有函数作用域而不是块作用域，所以这种类型的重声明实际上是很常见的。变量i经常被用来表示整数值，特别是作为for循环的索引变量。在有多个for循环的函数中，每个循环都以for(var i = 0;…因为var没有将这些变量作用域限定在循环体中，所以每个循环都(无害地)重新声明并初始化同一个变量。
 > - var声明最不寻常的特性之一就是吊装。当用var声明一个变量时，这个声明会被提升(或“悬挂”)到外围函数的顶部。变量的初始化保持在编写它的地方，但变量的定义移到函数的顶部。因此，用var声明的变量可以在外围函数的任何位置使用，不会出错。如果初始化代码还没有运行，那么变量的值可能是未定义的，但如果在变量初始化之前使用它，则不会出现错误。(这可能是bug的来源，也是let纠正的重要错误特性之一:如果你用let声明了一个变量，但试图在let语句运行之前使用它，你将得到一个实际的错误，而不仅仅是看到一个未定义的值。)
 
@@ -1400,7 +1402,7 @@ In strict mode (§5.6.3), if you attempt to use an undeclared variable, you’ll
 
 Global variables created in this accidental way are like global variables declared with var: they define properties of the global object. But unlike the properties defined by proper var declarations, these properties can be deleted with the delete operator (§4.13.4).
 
-> 以这种偶然方式创建的全局变量与用var声明的全局变量类似:它们定义全局对象的属性。但与正确的var声明定义的属性不同，这些属性可以通过delete操作符删除(§4.13.4)。
+> 以这种偶然方式创建的全局变量与用var声明的全局变量类似:它们定义全局对象的属性。但与正确的var声明定义的属性不同，这些属性可以通过delete运算符删除(§4.13.4)。
 
 ### 3.10.3 Destructuring Assignment
 
