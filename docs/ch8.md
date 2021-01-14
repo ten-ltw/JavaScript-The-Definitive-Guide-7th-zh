@@ -136,7 +136,7 @@ const sum = (x, y) => { return x + y; };
 
 But arrow functions support an even more compact syntax. If the body of the function is a single return statement, you can omit the return keyword, the semicolon that goes with it, and the curly braces, and write the body of the function as the expression whose value is to be returned:
 
-> 但是箭头函数支持更加简洁的语法。如果函数体只有一个简单的return语句，你可以省略return关键字，分号和花括号都一起省略，将函数体写成一个计算返回值的表达式。
+> 但是箭头函数支持更加简洁的语法。如果函数体只有一个简单的 return 语句，你可以省略 return 关键字，分号和花括号都一起省略，将函数体写成一个计算返回值的表达式。
 
 ```js
 const sum = (x, y) => x + y;
