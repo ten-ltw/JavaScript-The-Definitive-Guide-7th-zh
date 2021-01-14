@@ -461,11 +461,11 @@ If an object has getters or setters defined, then querying or setting the value 
 
 When an object is used in a string context (such as when it is concatenated with a string), its toString() method is called. Similarly, when an object is used in a numeric context, its valueOf() method is invoked. See §3.9.3 for details.
 
-> 对象用作一个字符串文本时（例如对象和一个字符串连接），它的 toString() 方法会被调用。同样的，对象用作一个数值型文本时，它的 valueOf() 方法被调用。详见 §3.9.3。
+> 当对象用作一个字符串文本时（例如对象和一个字符串连接），它的 toString() 方法会被调用。同样的，对象用作一个数值型文本时，它的 valueOf() 方法被调用。详见 §3.9.3。
 
 When you loop over the elements of an iterable object, there are a number of method calls that occur. Chapter 12 explains how iterators work at the function call level and demonstrates how to write these methods so that you can define your own iterable types.
 
-> 循环可迭代对象的元素时会产生很多方法调用。第12章介绍了迭代器在函数调用级别如何工作，并演示如何编写方法来定义自己的可迭代类型。
+> 当循环可迭代对象的元素时会产生很多方法调用。第12章介绍了迭代器在函数调用级别如何工作，并演示如何编写方法来定义自己的可迭代类型。
 
 A tagged template literal is a function invocation in disguise. §14.5 demonstrates how to write functions that can be used in conjunction with template literal strings.
 
@@ -694,7 +694,7 @@ The tricky thing about destructuring syntax like {x:x1, y:y1} is remembering whi
 
 You can define parameter defaults with destructured parameters. Here’s vector multiplication that works with 2D or 3D vectors:
 
-> 您可以使用解构参数定义参数默认值。下面是适用于 2D 或 3D 矢量的矢量乘法：
+> 可以使用解构参数定义参数默认值。下面是适用于 2D 或 3D 矢量的矢量乘法：
 
 ```js
 // Multiply the vector {x,y} or {x,y,z} by a scalar value
