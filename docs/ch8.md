@@ -136,7 +136,7 @@ const sum = (x, y) => { return x + y; };
 
 But arrow functions support an even more compact syntax. If the body of the function is a single return statement, you can omit the return keyword, the semicolon that goes with it, and the curly braces, and write the body of the function as the expression whose value is to be returned:
 
-> 但是箭头函数支持更加简洁的语法。如果函数体只有一个简单的return语句，你可以省略return关键字，分号和花括号都一起省略，将函数体写成一个计算返回值的表达式。
+> 但是箭头函数支持更加简洁的语法。如果函数体只有一个简单的 return 语句，你可以省略 return 关键字，分号和花括号都一起省略，将函数体写成一个计算返回值的表达式。
 
 ```js
 const sum = (x, y) => x + y;
@@ -164,7 +164,7 @@ Note that, when writing an arrow function, you must not put a new line between t
 
 Also, if the body of your arrow function is a single return statement but the expression to be returned is an object literal, then you have to put the object literal inside parentheses to avoid syntactic ambiguity between the curly braces of a function body and the curly braces of an object literal:
 
-> 此外，如果箭头函数体是一个单一的return语句，而且他返回的是一个对象字面量，那必须将对象字面量用圆括号包起来，避免将对象字面量的大括号误解成函数体的大括号。
+> 此外，如果箭头函数体是一个单一的 return 语句，而且他返回的是一个对象字面量，那必须将对象字面量用圆括号包起来，避免将对象字面量的大括号误解成函数体的大括号。
 
 ```js
 const f = x => { return { value: x }; };  // Good: f() returns an object
@@ -195,7 +195,7 @@ Arrow functions differ from functions defined in other ways in one critical way:
 ### 8.1.4 Nested Functions
 In JavaScript, functions may be nested within other functions. For example:
 
-> 在 JavaScript 中，函数可以嵌套在其他函数内。例如:
+> 在 JavaScript 中，函数可以嵌套在其他函数内。例如：
 
 ```js
 function hypotenuse(a, b) {
@@ -266,7 +266,7 @@ Full details on this conditional invocation syntax are in §4.5.1.
 
 For function invocation in non-strict mode, the invocation context (the this value) is the global object. In strict mode, however, the invocation context is undefined. Note that functions defined using the arrow syntax behave differently: they always inherit the this value that is in effect where they are defined.
 
-> 函数调用在非严格模式下，调用上下文（ this ）是全局对象。然而在严格模式下，调用上下文是undefined。注意箭头语法定义的函数行为是不同的：实际上它们总是继承它们定义位置的 this 值。
+> 函数调用在非严格模式下，调用上下文（ this ）是全局对象。然而在严格模式下，调用上下文是 undefined。注意箭头语法定义的函数行为是不同的：实际上它们总是继承它们定义位置的 this 值。
 
 Functions written to be invoked as functions (and not as methods) do not typically use the this keyword at all. The keyword can be used, however, to determine whether strict mode is in effect:
 
@@ -349,7 +349,7 @@ setRectSize(rect, width, height);
 ```
 The hypothetical functions invoked in these two lines of code may perform exactly the same operation on the (hypothetical) object rect, but the method-invocation syntax in the first line more clearly indicates the idea that it is the object rect that is the primary focus of the operation.
 
-> 我们假设这两行代码的功能完全一样，它们都作用于一个假定的对象 rect。可以看出，第一行的方法调用语法非常清晰地表明这个函数执行的载体是rect对象，函数中的所有操作都将基于这个对象。
+> 我们假设这两行代码的功能完全一样，它们都作用于一个假定的对象 rect。可以看出，第一行的方法调用语法非常清晰地表明这个函数执行的载体是 rect 对象，函数中的所有操作都将基于这个对象。
 
 #### METHOD CHAINING
 When methods return objects, you can use the return value of one method invocation as part of a subsequent invocation. This results in a series (or “chain”) of method invocations as a single expression. When working with Promise-based asynchronous operations (see Chapter 13), for example, it is common to write code structured like this:
@@ -362,18 +362,18 @@ doStepOne().then(doStepTwo).then(doStepThree).catch(handleErrors);
 ```
 When you write a method that does not have a return value of its own, consider having the method return this. If you do this consistently throughout your API, you will enable a style of programming known as method chaining1 in which an object can be named once and then multiple methods can be invoked on it:
 
-> 当方法并不需要返回值时，最好直接返回 this。如果在设计的API中一直采用这种方式，使用API就可以用方法链1风格的编程，在这种编程风格中，只要指定一次要调用的对象即可，余下的方法都可以基于此进行调用：
+> 当方法并不需要返回值时，最好直接返回 this。如果在设计的 API 中一直采用这种方式，使用 API 就可以用方法链 ^1 风格的编程，在这种编程风格中，只要指定一次要调用的对象即可，余下的方法都可以基于此进行调用：
 
 ```js
 new Square().x(100).y(100).size(50).outline("red").fill("blue").draw();
 ```
 Note that this is a keyword, not a variable or property name. JavaScript syntax does not allow you to assign a value to this.
 
-> 需要注意的是，this 是一个关键字，不是变量，也不是属性名。JavaScript 的语法不允许给this赋值。
+> 需要注意的是，this 是一个关键字，不是变量，也不是属性名。JavaScript 的语法不允许给 this 赋值。
 
 The this keyword is not scoped the way variables are, and, except for arrow functions, nested functions do not inherit the this value of the containing function. If a nested function is invoked as a method, its this value is the object it was invoked on. If a nested function (that is not an arrow function) is invoked as a function, then its this value will be either the global object (non-strict mode) or undefined (strict mode). It is a common mistake to assume that a nested function defined within a method and invoked as a function can use this to obtain the invocation context of the method. The following code demonstrates the problem:
 
-> 关键字 this 没有变量作用域的限制，除了箭头函数，嵌套函数不会从包含它的函数中继承 this。如果嵌套函数作为方法调用，其this的值指向调用它的对象。如果嵌套的函数作为函数调用（不包含箭头函数），其 this 值不是全局对象（非严格模式下）就是undefined（严格模式下）。很多人误以为在一个方法中的函数声明并以函数调用的方式去执行可以用 this 来获取方法的执行上下文。下面这个例子说明了这个问题：
+> 关键字 this 没有变量作用域的限制，除了箭头函数，嵌套函数不会从包含它的函数中继承 this。如果嵌套函数作为方法调用，其 this 的值指向调用它的对象。如果嵌套的函数作为函数调用（不包含箭头函数），其 this 值不是全局对象（非严格模式下）就是 undefined（严格模式下）。很多人误以为在一个方法中的函数声明并以函数调用的方式去执行可以用 this 来获取方法的执行上下文。下面这个例子说明了这个问题：
 
 ```js
 let o = {                 // An object o.
@@ -392,7 +392,7 @@ o.m();                    // Invoke the method m on the object o.
 ```
 Inside the nested function f(), the this keyword is not equal to the object o. This is widely considered to be a flaw in the JavaScript language, and it is important to be aware of it. The code above demonstrates one common workaround. Within the method m, we assign the this value to a variable self, and within the nested function f, we can use self instead of this to refer to the containing object.
 
-> 嵌套函数 f() 中，this 关键之不等于对象 o。这被广泛的认为是 Javascript 的一个缺陷，了解这一点是很是很重要的。上面的代码演示了一种常用的解决方案。在方法 m 中，将 this 值赋值给一个变量 self，在签到函数 f 中，可以用 self 代替 this 来引用包含它的对象。
+> 嵌套函数 f() 中，this 关键之不等于对象 o。这被广泛的认为是 JavaScript 的一个缺陷，了解这一点是很是很重要的。上面的代码演示了一种常用的解决方案。在方法 m 中，将 this 值赋值给一个变量 self，在签到函数 f 中，可以用 self 代替 this 来引用包含它的对象。
 
 In ES6 and later, another workaround to this issue is to convert the nested function f into an arrow function, which will properly inherit the this value:
 
@@ -423,7 +423,7 @@ We’ll talk more about bind() in §8.7.5.
 ### 8.2.3 Constructor Invocation
 If a function or method invocation is preceded by the keyword new, then it is a constructor invocation. (Constructor invocations were introduced in §4.6 and §6.2.2, and constructors will be covered in more detail in Chapter 9.) Constructor invocations differ from regular function and method invocations in their handling of arguments, invocation context, and return value.
 
-> 如果函数或者方法调用之前带有关键字new，它就构成构造函数调用（构造函数调用在 §4.6 和 §6.2.2 节有简单介绍，第9章会对构造函数做更详细的讨论）。构造函数调用和普通的函数调用以及方法调用在实参处理、调用上下文和返回值方面都有不同。
+> 如果函数或者方法调用之前带有关键字 new，它就构成构造函数调用（构造函数调用在 §4.6 和 §6.2.2 节有简单介绍，第9章会对构造函数做更详细的讨论）。构造函数调用和普通的函数调用以及方法调用在实参处理、调用上下文和返回值方面都有不同。
 
 If a constructor invocation includes an argument list in parentheses, those argument expressions are evaluated and passed to the function in the same way they would be for function and method invocations. It is not common practice, but you can omit a pair of empty parentheses in a constructor invocation. The following two lines, for example, are equivalent:
 
@@ -435,7 +435,7 @@ o = new Object;
 ```
 A constructor invocation creates a new, empty object that inherits from the object specified by the prototype property of the constructor. Constructor functions are intended to initialize objects, and this newly created object is used as the invocation context, so the constructor function can refer to it with the this keyword. Note that the new object is used as the invocation context even if the constructor invocation looks like a method invocation. That is, in the expression new o.m(), o is not used as the invocation context.
 
-> 构造函数调用创建一个新的空对象，这个对象继承自构造函数的 prototype 属性。构造函数试图初始化这个新创建的对象，并将这个对象用做其调用上下文，因此构造函数可以使用 this 关键字来引用这个新创建的对象。注意，尽管构造函数看起来像一个方法调用，它依然会使用这个新对象作为调用上下文。也就是说，在表达式 new o.m() 中，调用上下文并不是 o。
+> 构造函数调用创建一个新的空对象，这个对象继承自构造函数的 prototype 属性。构造函数试图初始化这个新创建的对象，并将这个对象用做其调用上下文，因此构造函数内可以使用 this 关键字来引用这个新创建的对象。注意，尽管构造函数看起来像一个方法调用，它依然会使用这个新对象作为调用上下文。也就是说，在表达式 new o.m() 中，调用上下文并不是 o。
 
 Constructor functions do not normally use the return keyword. They typically initialize the new object and then return implicitly when they reach the end of their body. In this case, the new object is the value of the constructor invocation expression. If, however, a constructor explicitly uses the return statement to return an object, then that object becomes the value of the invocation expression. If the constructor uses return with no value, or if it returns a primitive value, that return value is ignored and the new object is used as the value of the invocation.
 
@@ -461,11 +461,11 @@ If an object has getters or setters defined, then querying or setting the value 
 
 When an object is used in a string context (such as when it is concatenated with a string), its toString() method is called. Similarly, when an object is used in a numeric context, its valueOf() method is invoked. See §3.9.3 for details.
 
-> 对象用作一个字符串文本时（例如对象和一个字符串连接），它的 toString() 方法会被调用。同样的，对象用作一个数值型文本时，它的 valueOf() 方法被调用。详见 §3.9.3。
+> 当对象用作一个字符串文本时（例如对象和一个字符串连接），它的 toString() 方法会被调用。同样的，对象用作一个数值型文本时，它的 valueOf() 方法被调用。详见 §3.9.3。
 
 When you loop over the elements of an iterable object, there are a number of method calls that occur. Chapter 12 explains how iterators work at the function call level and demonstrates how to write these methods so that you can define your own iterable types.
 
-> 循环可迭代对象的元素时会产生很多方法调用。第12章介绍了迭代器在函数调用级别如何工作，并演示如何编写方法来定义自己的可迭代类型。
+> 当循环可迭代对象的元素时会产生很多方法调用。第12章介绍了迭代器在函数调用级别如何工作，并演示如何编写方法来定义自己的可迭代类型。
 
 A tagged template literal is a function invocation in disguise. §14.5 demonstrates how to write functions that can be used in conjunction with template literal strings.
 
@@ -694,7 +694,7 @@ The tricky thing about destructuring syntax like {x:x1, y:y1} is remembering whi
 
 You can define parameter defaults with destructured parameters. Here’s vector multiplication that works with 2D or 3D vectors:
 
-> 您可以使用解构参数定义参数默认值。下面是适用于 2D 或 3D 矢量的矢量乘法：
+> 可以使用解构参数定义参数默认值。下面是适用于 2D 或 3D 矢量的矢量乘法：
 
 ```js
 // Multiply the vector {x,y} or {x,y,z} by a scalar value
