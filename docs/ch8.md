@@ -115,7 +115,7 @@ let tensquared = (function(x) {return x*x;}(10));
 
 Note that the function name is optional for functions defined as expressions, and most of the preceding function expressions we’ve shown omit it. A function declaration actually declares a variable and assigns a function object to it. A function expression, on the other hand, does not declare a variable: it is up to you to assign the newly defined function object to a constant or variable if you are going to need to refer to it multiple times. It is a good practice to use const with function expressions so you don’t accidentally overwrite your functions by assigning new values.
 
-> 注意函数名称在函数表达式中是可选项，在大部分函数表达式中我们省略了它。函数声明实际上声明了一个变量并且将函数对象赋值给它。按照这个角度来看，函数表达式没有声明一个变量：可以根据它是否会多次调用由你自己决定是将新定义的函数对象赋值给一个常量还是变量。用 const 定义函数表达式是一个非常好的做法，你不会因为意外赋值而重写了你的函数。
+> 注意函数名称在函数表达式中是可选项，在大部分函数表达式中我们省略了它。函数声明实际上声明了一个变量并且将函数对象赋值给它。按照这个角度来看，函数表达式没有声明一个变量：可以根据它是否会多次调用由你自己决定是将新定义的函数对象赋值给一个常量还是变量。用 const 定义函数表达式是一个非常好的做法，你不会因为意外赋值而重写了你的函数。
 
 A name is allowed for functions, like the factorial function, that need to refer to themselves. If a function expression includes a name, the local function scope for that function will include a binding of that name to the function object. In effect, the function name becomes a local variable within the function. Most functions defined as expressions do not need names, which makes their definition more compact (though not nearly as compact as arrow functions, described below).
 
