@@ -41,10 +41,12 @@ Function declarations consist of the function keyword, followed by these compone
 - A pair of parentheses around a comma-separated list of zero or more identifiers. These identifiers are the parameter names for the function, and they behave like local variables within the body of the function.
 - A pair of curly braces with zero or more JavaScript statements inside. These statements are the body of the function: they are executed whenever the function is invoked.
 
-> 函数声明由 function 关键字组成，后面跟着这些组件:
-> - 函数名称标识符。名称是函数声明的必要部分:它用作变量的名称，并将新定义的函数对象赋值给该变量。
-> - 一对圆括号，其中包含由0个或者多个用逗号分隔的标识符组成的列表。这些标识符是函数的参数名，它们的行为类似于函数体中的局部变量。
-> - 一对花括号，其中包含由0条或者多条 JavaScript 语句。这些语句构成了函数体：每当函数调用时，就会执行这些语句。
+---
+
+函数声明由 function 关键字组成，后面跟着这些组件:
+- 函数名称标识符。名称是函数声明的必要部分:它用作变量的名称，并将新定义的函数对象赋值给该变量。
+- 一对圆括号，其中包含由0个或者多个用逗号分隔的标识符组成的列表。这些标识符是函数的参数名，它们的行为类似于函数体中的局部变量。
+- 一对花括号，其中包含由0条或者多条 JavaScript 语句。这些语句构成了函数体：每当函数调用时，就会执行这些语句。
 
 Here are some example function declarations:
 
