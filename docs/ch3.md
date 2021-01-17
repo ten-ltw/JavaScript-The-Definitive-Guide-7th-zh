@@ -251,7 +251,7 @@ The not-a-number value has one unusual feature in JavaScript: it does not compar
 
 The global function isNaN() is similar to Number.isNaN(). It returns true if its argument is NaN, or if that argument is a non-numeric value that cannot be converted to a number. The related function Number.isFinite() returns true if its argument is a number other than NaN, Infinity, or -Infinity. The global isFinite() function returns true if its argument is, or can be converted to, a finite number.
 
-> 全局函数 isNaN() 类似于 Number.isNaN()。如果它的参数是 NaN，或者该参数是一个不能转换为数字的非数字值，则返回 true。相关函数 Number.isFinite() 如果参数不是 NaN、Infinity 或 -Infinity，则返回 true。全局的 isFinite() 函数如果它的参数是一个有限数，或者可以转换为一个有限数，则返回 true。
+> 全局函数 isNaN() 类似于 Number.isNaN()。如果它的实参是 NaN，或者该实参是一个不能转换为数字的非数字值，则返回 true。相关函数 Number.isFinite() 如果实参不是 NaN、Infinity 或 -Infinity，则返回 true。全局的 isFinite() 函数如果它的实参是一个有限数，或者可以转换为一个有限数，则返回 true。
 
 The negative zero value is also somewhat unusual. It compares equal (even using JavaScript’s strict equality test) to positive zero, which means that the two values are almost indistinguishable, except when used as a divisor:
 
@@ -652,7 +652,7 @@ Text between a pair of slashes constitutes a regular expression literal. The sec
 
 RegExp objects define a number of useful methods, and strings also have methods that accept RegExp arguments. For example:
 
-> RegExp 对象定义了许多有用的方法，字符串也有接受 RegExp 参数的方法。例如：
+> RegExp 对象定义了许多有用的方法，字符串也有接受 RegExp 实参的方法。例如：
 
 ```js
 let text = "testing: 1, 2, 3";   // Sample text
@@ -740,7 +740,7 @@ Boolean values have a toString() method that you can use to convert them to the 
 
 The && operator performs the Boolean AND operation. It evaluates to a truthy value if and only if both of its operands are truthy; it evaluates to a falsy value otherwise. The || operator is the Boolean OR operation: it evaluates to a truthy value if either one (or both) of its operands is truthy and evaluates to a falsy value if both operands are falsy. Finally, the unary ! operator performs the Boolean NOT operation: it evaluates to true if its operand is falsy and evaluates to false if its operand is truthy. For example:
 
-> &&运算符执行布尔和运算。当且仅当它的两个操作数都为真时，它的计算结果为真值;否则它将计算为假值。||运算符是布尔或运算符:如果其中一个操作数(或两个操作数)为真，则计算为真值;如果两个操作数都为假，则计算为假值。最后，一元!运算符执行布尔的NOT操作:如果操作数为假，则计算为真;如果操作数为真，则计算为假。例如:
+> && 运算符执行布尔和运算。当且仅当它的两个操作数都为真时，它的计算结果为真值；否则它将计算为假值。|| 运算符是布尔或运算符：如果其中一个操作数（或两个操作数）为真，则计算为真值；如果两个操作数都为假，则计算为假值。最后，一元 ! 运算符执行布尔的 NOT 操作：如果操作数为假，则计算为真；如果操作数为真，则计算为假。例如：
 
 ```js
 if ((x === 0 && y === 0) || !(z === 0)) {
@@ -749,31 +749,31 @@ if ((x === 0 && y === 0) || !(z === 0)) {
 ```
 Full details on these operators are in §4.10.
 
-> 关于这些运算符的全部细节见§4.10。
+> 关于这些运算符的全部细节见 §4.10。
 
 ## 3.5 null and undefined
 
 null is a language keyword that evaluates to a special value that is usually used to indicate the absence of a value. Using the typeof operator on null returns the string “object”, indicating that null can be thought of as a special object value that indicates “no object”. In practice, however, null is typically regarded as the sole member of its own type, and it can be used to indicate “no value” for numbers and strings as well as objects. Most programming languages have an equivalent to JavaScript’s null: you may be familiar with it as NULL, nil, or None.
 
-> null是一个语言关键字，其计算结果为一个特殊值，该值通常用于指示没有值。对null使用typeof运算符返回字符串“object”，表示null可以被认为是一个特殊的对象值，表示“没有对象”。然而，在实践中，null通常被视为它自己类型的唯一成员，它可以用来表示数字、字符串和对象的“无值”。大多数编程语言都有一个等价于JavaScript的null:您可能熟悉它为null、nil或None。
+> null 是一个语言关键字，其计算结果为一个特殊值，该值通常用于指示没有值。对 null 使用 typeof 运算符返回字符串“object”，表示 null 可以被认为是一个特殊的对象值，表示“没有对象”。然而，在实践中，null 通常被视为它自己类型的唯一成员，它可以用来表示数字、字符串和对象的“无值”。大多数编程语言都有一个等价于 JavaScript 的 null：您可能熟悉它为 NULL、nil 或 None。
 
 JavaScript also has a second value that indicates absence of value. The undefined value represents a deeper kind of absence. It is the value of variables that have not been initialized and the value you get when you query the value of an object property or array element that does not exist. The undefined value is also the return value of functions that do not explicitly return a value and the value of function parameters for which no argument is passed. undefined is a predefined global constant (not a language keyword like null, though this is not an important distinction in practice) that is initialized to the undefined value. If you apply the typeof operator to the undefined value, it returns “undefined”, indicating that this value is the sole member of a special type.
 
-> JavaScript还有第二个值，表示没有值。未定义的值代表一种更深层次的缺席。它是尚未初始化的变量的值，以及在查询不存在的对象属性或数组元素的值时获得的值。未定义的值也是没有显式返回值的函数的返回值，以及没有传递实参的函数形参的值。undefined是一个预定义的全局常量(不是像null这样的语言关键字，虽然这在实践中不是一个重要的区别)，它被初始化为undefined值。如果对未定义的值应用typeof运算符，它将返回" undefined "，表明该值是特殊类型的唯一成员。
+> JavaScript 还有第二个值，表示没有值。undefined 值代表一种更深层次的缺席。它是尚未初始化的变量的值，以及在查询不存在的对象属性或数组元素的值时获得的值。未定义的值也是没有显式返回值的函数的返回值，以及没有传递实参的函数形参的值。undefined 是一个预定义的全局常量（不是像 null 这样的语言关键字，虽然这在实践中不是一个重要的区别），它被初始化为 undefined 值。如果对未定义的值应用 typeof 运算符，它将返回“undefined”，表明该值是特殊类型的唯一成员。
 
 Despite these differences, null and undefined both indicate an absence of value and can often be used interchangeably. The equality operator == considers them to be equal. (Use the strict equality operator === to distinguish them.) Both are falsy values: they behave like false when a boolean value is required. Neither null nor undefined have any properties or methods. In fact, using . or [] to access a property or method of these values causes a TypeError.
 
-> 尽管存在这些差异，null和undefined都表示没有值，并且经常可以互换使用。相等运算符==认为它们相等。(使用严格的相等运算符===来区分它们。)两者都是假值:当需要布尔值时，它们的行为类似于假值。null和undefined都没有任何属性或方法。事实上，使用。或[]访问这些值的属性或方法会导致TypeError。
+> 尽管存在这些差异，null 和 undefined 都表示没有值，并且经常可以互换使用。相等运算符 == 认为它们相等。（使用严格的相等运算符 === 来区分它们。）两者都是假值：当需要布尔值时，它们的行为类似于假值。null 和 undefined 都没有任何属性或方法。事实上，使用。或 [] 访问这些值的属性或方法会导致 TypeError。
 
 I consider undefined to represent a system-level, unexpected, or error-like absence of value and null to represent a program-level, normal, or expected absence of value. I avoid using null and undefined when I can, but if I need to assign one of these values to a variable or property or pass or return one of these values to or from a function, I usually use null. Some programmers strive to avoid null entirely and use undefined in its place wherever they can.
 
-> 我认为undefined表示系统级的、意外的或类似错误的值缺失，null表示程序级的、正常的或预期的值缺失。我避免使用null和未定义时，我可以，但如果我需要分配这些值的一个变量或属性，或传递或返回这些值的一个函数，我通常使用null。一些程序员努力避免完全使用null，并尽可能使用undefined。
+> 我认为 undefined 表示系统级的、意外的或类似错误的值缺失，null 表示程序级的、正常的或预期的值缺失。我尽可能避免使用 null 和 undefined，但如果我需要分配这些值给一个变量或属性，或函数传递或返回一个这些值，我通常使用 null。一些程序员避免使用 null，而使用 undefined。
 
 ## 3.6 Symbols
 
 Symbols were introduced in ES6 to serve as non-string property names. To understand Symbols, you need to know that JavaScript’s fundamental Object type is an unordered collection of properties, where each property has a name and a value. Property names are typically (and until ES6, were exclusively) strings. But in ES6 and later, Symbols can also serve this purpose:
 
-> 符号在ES6中被引入，用作非字符串属性名。要理解符号，您需要知道JavaScript的基本对象类型是属性的无序集合，其中每个属性都有一个名称和一个值。属性名通常是字符串(在ES6之前都是专有的)。但是在ES6和以后的版本中，符号也可以达到这个目的:
+> Symbol 在 ES6 中被引入，用作非字符串属性名。要理解 Symbol，您需要知道 JavaScript 的基本对象类型是属性的无序集合，其中每个属性都有一个名称和一个值。属性名通常是字符串（在 ES6 之前专有的）。但是在 ES6 和以后的版本中，Symbol 也可以达到这个目的：
 
 ```js
 let strname = "string name";      // A string to use as a property name
@@ -789,15 +789,15 @@ o[symname]                        // => 2: access the symbol-named property
 
 The Symbol type does not have a literal syntax. To obtain a Symbol value, you call the Symbol() function. This function never returns the same value twice, even when called with the same argument. This means that if you call Symbol() to obtain a Symbol value, you can safely use that value as a property name to add a new property to an object and do not need to worry that you might be overwriting an existing property with the same name. Similarly, if you use symbolic property names and do not share those symbols, you can be confident that other modules of code in your program will not accidentally overwrite your properties.
 
-> 符号类型没有文字语法。要获取符号值，可以调用Symbol()函数。这个函数不会两次返回相同的值，即使调用时带有相同的参数。这意味着，如果您调用Symbol()来获得一个符号值，您可以安全地使用该值作为属性名，向对象添加一个新属性，而不需要担心可能会用相同的名称覆盖现有的属性。类似地，如果您使用符号属性名而不共享这些符号，您可以确信程序中的其他模块不会意外地覆盖您的属性。
+> Symbol 类型没有文字语法。要获取符号值，可以调用 Symbol() 函数。这个函数不会两次返回相同的值，即使调用时带有相同的实参。这意味着，如果您调用 Symbol() 来获得一个 Symbol 值，您可以安全地使用该值作为属性名，向对象添加一个新属性，而不需要担心可能会用相同的名称覆盖现有的属性。同样，如果您使用 Symbol 属性名而不共享这些符号，您可以确信程序中的其他模块不会意外地覆盖您的属性。
 
 In practice, Symbols serve as a language extension mechanism. When ES6 introduced the for/of loop (§5.4.4) and iterable objects (Chapter 12), it needed to define standard method that classes could implement to make themselves iterable. But standardizing any particular string name for this iterator method would have broken existing code, so a symbolic name was used instead. As we’ll see in Chapter 12, Symbol.iterator is a Symbol value that can be used as a method name to make an object iterable.
 
-> 实际上，符号是一种语言扩展机制。当ES6引入for/of循环(§5.4.4)和iterable对象(第12章)时，它需要定义类可以实现的标准方法，使自己成为可迭代的。但是为这个迭代器方法标准化任何特定的字符串名称会破坏现有的代码，所以使用了一个符号名称代替。我们将在第十二章，符号中看到。iterator是一个符号值，可以用作方法名，使对象可迭代。
+> 实际上，Symbol 是一种语言扩展机制。当 ES6 引入 for/of 循环（ §5.4.4 ）和可迭代对象（第12章）时，它需要定义标准方法使类可以迭代。但用任何特定的字符串标准化命名这个迭代器方法都会破坏现有的代码，所以使用了一个符号名称代替。我们将在第12章中看到。Symbol.iterator 是一个 Symbol 值，可以用作方法名，使对象可迭代。
 
 The Symbol() function takes an optional string argument and returns a unique Symbol value. If you supply a string argument, that string will be included in the output of the Symbol’s toString() method. Note, however, that calling Symbol() twice with the same string produces two completely different Symbol values.
 
-> Symbol()函数接受一个可选的字符串参数，并返回一个唯一的符号值。如果提供一个字符串参数，该字符串将包含在符号的toString()方法的输出中。但是请注意，对同一个字符串调用Symbol()两次会产生两个完全不同的符号值。
+> Symbol() 函数接受一个可选的字符串实参，并返回一个唯一的符号值。如果提供一个字符串实参，该字符串将包含在符号的 toString() 方法的输出中。但是请注意，对同一个字符串调用 Symbol() 两次会产生两个完全不同的符号值。
 
 ```js
 let s = Symbol("sym_x");
@@ -1151,7 +1151,7 @@ When an object needs to be converted to a number, JavaScript first converts it t
 
 Built-in JavaScript functions and methods that expect numeric arguments convert object arguments to numbers in this way, and most (see the exceptions that follow) JavaScript operators that expect numeric operands convert objects to numbers in this way as well.
 
-> 期望数字参数的内置JavaScript函数和方法以这种方式将对象参数转换为数字，大多数期望数字操作数的JavaScript运算符(参见后面的异常)也以这种方式将对象转换为数字。
+> 期望数字实参的内置JavaScript函数和方法以这种方式将对象实参转换为数字，大多数期望数字操作数的JavaScript运算符(参见后面的异常)也以这种方式将对象转换为数字。
 
 SPECIAL CASE OPERATOR CONVERSIONS
 
@@ -1161,7 +1161,7 @@ Operators are covered in detail in Chapter 4. Here, we explain the special case 
 
 The + operator in JavaScript performs numeric addition and string concatenation. If either of its operands is an object, JavaScript converts them to primitive values using the no-preference algorithm. Once it has two primitive values, it checks their types. If either argument is a string, it converts the other to a string and concatenates the strings. Otherwise, it converts both arguments to numbers and adds them.
 
-> JavaScript中的+运算符执行数字相加和字符串连接。如果它的任意一个操作数是对象，JavaScript会使用无优先级算法将它们转换为原始值。一旦它有了两个原始值，它就检查它们的类型。如果其中一个参数是字符串，它将另一个参数转换为字符串并连接字符串。否则，它将两个参数都转换为数字并相加。
+> JavaScript中的+运算符执行数字相加和字符串连接。如果它的任意一个操作数是对象，JavaScript会使用无优先级算法将它们转换为原始值。一旦它有了两个原始值，它就检查它们的类型。如果其中一个实参是字符串，它将另一个实参转换为字符串并连接字符串。否则，它将两个实参都转换为数字并相加。
 
 The == and != operators perform equality and inequality testing in a loose way that allows type conversions. If one operand is an object and the other is a primitive value, these operators convert the object to primitive using the no-preference algorithm and then compare the two primitive values.
 
