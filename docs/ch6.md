@@ -163,29 +163,47 @@ To understand why this works, you need to know how properties are queried and se
 
 ## 6.3 Querying and Setting Properties
 To obtain the value of a property, use the dot (.) or square bracket ([]) operators described in §4.4. The lefthand side should be an expression whose value is an object. If using the dot operator, the righthand side must be a simple identifier that names the property. If using square brackets, the value within the brackets must be an expression that evaluates to a string that contains the desired property name:
+
+> §4.4 已经提到，可以通过点（.）或方括号（[]）运算符来获取属性的值。运算符左侧应当是一个表达式，它返回一个对象。如果使用点运算符，右侧必须是一个以属性名称命名的简单标识符。如果使用方括号，方括号内必须是一个计算结果为字符串的表达式，这个字符串就是属性的名字：
+
 ```js
 let author = book.author;       // Get the "author" property of the book.
 let name = author.surname;      // Get the "surname" property of the author.
 let title = book["main title"]; // Get the "main title" property of the book.
 ```
 To create or set a property, use a dot or square brackets as you would to query the property, but put them on the lefthand side of an assignment expression:
+
+> 和查询属性值的写法一样，通过点和方括号也可以创建属性或给属性赋值，但需要将它们放在赋值表达式的左侧：
+
 ```js
 book.edition = 7;                   // Create an "edition" property of book.
 book["main title"] = "ECMAScript";  // Change the "main title" property.
 ```
 When using square bracket notation, we’ve said that the expression inside the square brackets must evaluate to a string. A more precise statement is that the expression must evaluate to a string or a value that can be converted to a string or to a Symbol (§6.10.3). In Chapter 7, for example, we’ll see that it is common to use numbers inside the square brackets.
 
+> 当使用方括号时，我们说方括号内的表达式必须返回字符串。其实更严格地讲，表达式必须返回字符串或返回一个可以转换为字符串或 Symbol（§6.10.3）的值.在第7章里有一些例子中的方括号内使用了数字，这情况象是非常常见的。
+
 ### 6.3.1 Objects As Associative Arrays
 As explained in the preceding section, the following two JavaScript expressions have the same value:
+
+> 上文提到，下面两个表达式有相同的值：
+
 ```js
 object.property
 object["property"]
 ```
 The first syntax, using the dot and an identifier, is like the syntax used to access a static field of a struct or object in C or Java. The second syntax, using square brackets and a string, looks like array access, but to an array indexed by strings rather than by numbers. This kind of array is known as an associative array (or hash or map or dictionary). JavaScript objects are associative arrays, and this section explains why that is important.
 
+> 第一种语法使用点运算符和一个标识符，这和 C 和 Java 中访问一个结构体或对象的静态字段非常类似。第二种语法使用方括号和一个字符串，看起来更像数组，只是这个数组元素是通过字符串索引而不是数字索引。这种数组就是我们所说的关联数组（associative array）（也称做散列、映射或字典）。JavaScript 对象都是关联数组，本节将讨论它的重要性。
+
 In C, C++, Java, and similar strongly typed languages, an object can have only a fixed number of properties, and the names of these properties must be defined in advance. Since JavaScript is a loosely typed language, this rule does not apply: a program can create any number of properties in any object. When you use the . operator to access a property of an object, however, the name of the property is expressed as an identifier. Identifiers must be typed literally into your JavaScript program; they are not a datatype, so they cannot be manipulated by the program.
 
+> 在 C、C++、Java 和一些强类型语言中，对象只能拥有固定数目的属性，并且这些属性的名称必须提前定义好。由于 JavaScript 是一个弱类型语言，因此不适用这条规则：对象在程序中可以创建任意数量的属性。当使用 . 运算符访问对象的属性时，属性名用一个标识符来表示。标识符必须直接出现在 JavaScript 程序中，它们不是数据类型，所以无法在程序中修改。
+
 On the other hand, when you access a property of an object with the [] array notation, the name of the property is expressed as a string. Strings are JavaScript datatypes, so they can be manipulated and created while a program is running. So, for example, you can write the following code in JavaScript:
+
+> 另一种方式，当通过 [] 来访问对象的属性时，属性名通过字符串来表示。字符串是 JavaScript 的数据类型，在程序运行时可以修改和创建它们。因此，可以在 JavaScript 中使用下面这种代码：
+
 ```js
 let addr = "";
 for(let i = 0; i < 4; i++) {
@@ -194,9 +212,16 @@ for(let i = 0; i < 4; i++) {
 ```
 This code reads and concatenates the address0, address1, address2, and address3 properties of the customer object.
 
+> 这段代码读取 customer 对象的 address0、address1、address2 和 address3 属性，并将它们连接起来。
+
 This brief example demonstrates the flexibility of using array notation to access properties of an object with string expressions. This code could be rewritten using the dot notation, but there are cases in which only the array notation will do. Suppose, for example, that you are writing a program that uses network resources to compute the current value of the user’s stock market investments. The program allows the user to type in the name of each stock they own as well as the number of shares of each stock. You might use an object named portfolio to hold this information. The object has one property for each stock. The name of the property is the name of the stock, and the property value is the number of shares of that stock. So, for example, if a user holds 50 shares of stock in IBM, the portfolio.ibm property has the value 50.
 
+> 这个例子主要说明了通过字符串表达式使用数组标记来访问对象属性的灵活性。这段代码也可以通过点运算符来重写，但是一些场景只能使用数组写法来完成。假设你正在写一个程序，这个程序利用网络资源计算用户股票市场投资的当前价值。程序允许用户输入他们拥有的股票名称以及对应的数量。你可以用一个名为 portfolio 的对象来储存这些信息。每一个股票在对象中都有一个属性与之对应。属性名是股票名，属性值是股票持有份额。例如，如果用户持有 IBM 的 50 股，那么 portfolio.ibm 属性的值就为 50。
+
 Part of this program might be a function for adding a new stock to the portfolio:
+
+> 下面是程序的部分代码，这个函数用来给 portifolio 添加新的股票：
+
 ```js
 function addstock(portfolio, stockname, shares) {
     portfolio[stockname] = shares;
@@ -204,7 +229,12 @@ function addstock(portfolio, stockname, shares) {
 ```
 Since the user enters stock names at runtime, there is no way that you can know the property names ahead of time. Since you can’t know the property names when you write the program, there is no way you can use the . operator to access the properties of the portfolio object. You can use the [] operator, however, because it uses a string value (which is dynamic and can change at runtime) rather than an identifier (which is static and must be hardcoded in the program) to name the property.
 
+> 由于用户是在程序运行时输入股票名称，因此在之前无法得知这些股票的名称是什么。而由于在写程序的时候不知道属性名称，因此无法通过点运算符（.）来访问对象 portfolio 的属性。但可以使用 [] 运算符，因为它使用字符串值（字符串值是动态的，可以在运行时更改）而不是标识符（标识符是静态的，必须写死在程序中）作为索引对属性进行访问。
+
 In Chapter 5, we introduced the for/in loop (and we’ll see it again shortly, in §6.6). The power of this JavaScript statement becomes clear when you consider its use with associative arrays. Here is how you would use it when computing the total value of a portfolio:
+
+> 第5章介绍了 for/in 循环（§6.6 节还会进一步介绍）。当使用 for/in 循环遍历关联数组时，就可以清晰地体会到 for/in 的强大之处。下面的例子就是利用 for/in 计算  portfolio 的合计值：
+
 ```js
 function computeValue(portfolio) {
     let total = 0.0;
@@ -218,10 +248,17 @@ function computeValue(portfolio) {
 ```
 JavaScript objects are commonly used as associative arrays as shown here, and it is important to understand how this works. In ES6 and later, however, the Map class described in §11.1.2 is often a better choice than using a plain object.
 
+> 如本节所示，JavaScript 对象通常用作关联数组，理解其工作原理非常重要。但是，在 ES6 之后使用 Map 类常常是一个更好的选择，我们将在 §11.1.2 中进行描述。
+
 ### 6.3.2 Inheritance
 JavaScript objects have a set of “own properties,” and they also inherit a set of properties from their prototype object. To understand this, we must consider property access in more detail. The examples in this section use the Object.create() function to create objects with specified prototypes. We’ll see in Chapter 9, however, that every time you create an instance of a class with new, you are creating an object that inherits properties from a prototype object.
 
+> JavaScript 对象中有一组“自有属性”，也有一组属性是继承自它的原型对象。想要理解属性继承，必须更深入地了解属性访问的细节。这一节的例子通过使用 Object.create() 函数创建对象来指定它的原型。我们会在第9章再次看到它，但是，每次使用 new 创建类的实例时，您都会创建一个从原型对象继承属性的对象。
+
 Suppose you query the property x in the object o. If o does not have an own property with that name, the prototype object of o1 is queried for the property x. If the prototype object does not have an own property by that name, but has a prototype itself, the query is performed on the prototype of the prototype. This continues until the property x is found or until an object with a null prototype is searched. As you can see, the prototype attribute of an object creates a chain or linked list from which properties are inherited:
+
+> 假设要查询对象 o 的属性 x。如果 o 中不存在 x 名称的自由属性，那么将会继续在 o 的原型对象中查询属性 x。如果原型对象中也没有 x，但这个原型对象也有原型，那么继续在这个原型对象的原型上执行查询，直到找到 x 或者查找到一个原型是 null 的对象为止。可以看到，对象的原型属性构成了一个“链”，通过这个“链”可以实现属性的继承。
+
 ```js
 let o = {};               // o inherits object methods from Object.prototype
 o.x = 1;                  // and it now has an own property x.
@@ -234,7 +271,12 @@ q.x + q.y                 // => 3; x and y are inherited from o and p
 ```
 Now suppose you assign to the property x of the object o. If o already has an own (non-inherited) property named x, then the assignment simply changes the value of this existing property. Otherwise, the assignment creates a new property named x on the object o. If o previously inherited the property x, that inherited property is now hidden by the newly created own property with the same name.
 
+> 现在假设给对象 o 的属性 x 赋值，如果 o 中已经有属性 x（这个属性不是继承来的），那么这个赋值操作只改变这个已有属性 x 的值。否则，赋值操作给 o 添加一个新属性 x。如果之前 o 继承自属性 x，那么这个继承的属性就被新创建的同名属性覆盖了。
+
 Property assignment examines the prototype chain only to determine whether the assignment is allowed. If o inherits a read-only property named x, for example, then the assignment is not allowed. (Details about when a property may be set are in §6.3.3.) If the assignment is allowed, however, it always creates or sets a property in the original object and never modifies objects in the prototype chain. The fact that inheritance occurs when querying properties but not when setting them is a key feature of JavaScript because it allows us to selectively override inherited properties:
+
+> 属性赋值操作检查原型链只是判断是否允许赋值操作。例如，如果 o 继承自一个只读属性 x，那么赋值操作是不允许的（§6.3.3 将对此进行详细讨论）。 如果允许属性赋值操作，它也总是在原始对象上创建属性或对已有的属性赋值，而不会去修改原型链。在 JavaScript 中，只有在查询属性时才会体会到继承的存在，而设置属性则和继承无关，这是 JavaScript 的一个重要特性，该特性让程序员可以有选择地重写继承的属性。
+
 ```js
 let unitcircle = { r: 1 };         // An object to inherit from
 let c = Object.create(unitcircle); // c inherits the property r
@@ -243,6 +285,8 @@ c.r = 2;                           // c overrides its inherited property
 unitcircle.r                       // => 1: the prototype is not affected
 ```
 There is one exception to the rule that a property assignment either fails or creates or sets a property in the original object. If o inherits the property x, and that property is an accessor property with a setter method (see §6.10.6), then that setter method is called rather than creating a new property x in o. Note, however, that the setter method is called on the object o, not on the prototype object that defines the property, so if the setter method defines any properties, it will do so on o, and it will again leave the prototype chain unmodified.
+
+> 属性赋值要么失败，要么创建一个属性，要么在原始对象中设置属性。但有一个例外，如果 o 继承自属性 x，而这个属性是一个具有 setter 方法的存取器属性（参照 §6.10.6），那么这时将调用 setter 方法而不是给 o 创建一个属性 x。需要注意的是，setter 方法是由对象 o 调用的，而不是定义这个属性的原型对象调用的。因此如果 setter 方法定义任意属性，这个操作只是针对 o 本身，并不会修改原型链。
 
 ### 6.3.3 Property Access Errors
 Property access expressions do not always return or set a value. This section explains the things that can go wrong when you query or set a property.
