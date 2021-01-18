@@ -2,13 +2,13 @@
 
 Objects are JavaScript’s most fundamental datatype, and you have already seen them many times in the chapters that precede this one. Because objects are so important to the JavaScript language, it is important that you understand how they work in detail, and this chapter provides that detail. It begins with a formal overview of objects, then dives into practical sections about creating objects and querying, setting, deleting, testing, and enumerating the properties of objects. These property-focused sections are followed by sections that explain how to extend, serialize, and define important methods on objects. Finally, the chapter concludes with a long section about new object literal syntax in ES6 and more recent versions of the language.
 
-> 对象是 JavaScript 最基本的数据类型，在本章之前的章节中您已经多次看到它们。因为对象对 JavaScript 语言非常重要，所以了解它们的工作原理非常重要，本章将提供这些细节。它从对象的正式概述开始，然后深入到关于创建对象以及查询、设置、删除、测试和枚举对象属性的实用部分。在这些以属性为中心的部分之后，将介绍如何扩展、序列化和定义对象上的重要方法。最后，本章以一大段关于 ES6 中的新对象文字语法和该语言的最新版本结尾。
+> 对象是 JavaScript 最基本的数据类型，在本章之前的章节中您已经多次看到它们。因为对象对 JavaScript 语言非常重要，所以了解它们的工作原理非常重要，本章将提供这些细节。它从对象的正式概述开始，然后深入到关于创建对象以及查询、设置、删除、测试和枚举对象属性的实用部分。在这些以属性为中心的章节之后，将介绍如何扩展、序列化和定义对象上的重要方法。最后，本章以一大段关于 ES6 中的新对象文字语法和该语言的最新版本结尾。
 
 ## 6.1 Introduction to Objects
 
 An object is a composite value: it aggregates multiple values (primitive values or other objects) and allows you to store and retrieve those values by name. An object is an unordered collection of properties, each of which has a name and a value. Property names are usually strings (although, as we’ll see in §6.10.3, property names can also be Symbols), so we can say that objects map strings to values. This string-to-value mapping goes by various names—you are probably already familiar with the fundamental data structure under the name “hash,” “hashtable,” “dictionary,” or “associative array.” An object is more than a simple string-to-value map, however. In addition to maintaining its own set of properties, a JavaScript object also inherits the properties of another object, known as its “prototype.” The methods of an object are typically inherited properties, and this “prototypal inheritance” is a key feature of JavaScript.
 
-> 对象是一个复合值：它聚合了多个值（原始值或其他对象），并允许按名称存储和获取这些值。对象是属性的无序集合，每个属性都有一个名称和一个值。属性名通常是字符串（尽管，正如我们将在 §6.10.3 中看到的，属性名也可以是 Symbol），所以我们可以说对象将字符串映射到值。这种字符串到值的映射有不同的名称—您可能已经熟悉这种基本数据结构的别的名称“散列”（hash）、“散列表”（hashtable）、“字典”（dictionary）或“关联数组”（associative array）。然而，对象不仅仅是简单的字符串到值的映射。除了维护自己的属性集，JavaScript 对象还继承另一个对象的属性，即它的“原型”。对象的方法通常是继承的属性，而这种“原型继承”是 JavaScript 的一个关键特性。
+> 对象是一个复合值：它聚合了多个值（原始值或其他对象），并允许按名称存储和获取这些值。对象是属性的无序集合，每个属性都有一个名称和一个值。属性名通常是字符串（尽管，正如我们将在 §6.10.3 中看到的，属性名也可以是 Symbol），所以我们可以说对象将字符串映射到值。这种字符串到值的映射有不同的名称——您可能已经熟悉这种基本数据结构的别的名称“散列”（hash）、“散列表”（hashtable）、“字典”（dictionary）或“关联数组”（associative array）。然而，对象不仅仅是简单的字符串到值的映射。除了维护自己的属性集，JavaScript 对象还继承另一个对象的属性，即它的“原型”。对象的方法通常是继承的属性，而这种“原型继承”是 JavaScript 的一个关键特性。
 
 JavaScript objects are dynamic—properties can usually be added and deleted—but they can be used to simulate the static objects and “structs” of statically typed languages. They can also be used (by ignoring the value part of the string-to-value mapping) to represent sets of strings.
 
@@ -16,7 +16,7 @@ JavaScript objects are dynamic—properties can usually be added and deleted—b
 
 Any value in JavaScript that is not a string, a number, a Symbol, or true, false, null, or undefined is an object. And even though strings, numbers, and booleans are not objects, they can behave like immutable objects.
 
-> JavaScript 中任何不是字符串、数字、Symbol 或真、假、空或未定义的值都是对象。即使字符串、数字和布尔值不是对象，它们的行为和不可变对象非常类似。
+> JavaScript 中任何不是字符串、数字、Symbol 或 true、false、null 或 undefined 的值都是对象。即使字符串、数字和布尔值不是对象，它们的行为和不可变对象非常类似。
 
 Recall from §3.8 that objects are mutable and manipulated by reference rather than by value. If the variable x refers to an object and the code let y = x; is executed, the variable y holds a reference to the same object, not a copy of that object. Any modifications made to the object through the variable y are also visible through the variable x.
 
@@ -50,13 +50,13 @@ In addition to its name and value, each property has three property attributes:
 
 Many of JavaScript’s built-in objects have properties that are read-only, non-enumerable, or non-configurable. By default, however, all properties of the objects you create are writable, enumerable, and configurable. §14.1 explains techniques for specifying non-default property attribute values for your objects.
 
-> 许多 JavaScript 的内置对象具有只读、不可枚举或不可配置的属性。但是，在默认情况下，您创建的对象的所有属性都是可写、可枚举和可配置的。§14.1 解释了为对象指定非默认属性属性值的技巧。
+> 许多 JavaScript 的内置对象具有只读、不可枚举或不可配置的属性。但是，在默认情况下，创建的对象的所有属性都是可写、可枚举和可配置的。§14.1 解释了为对象指定非默认属性属性值的技巧。
 
 ## 6.2 Creating Objects
 
 Objects can be created with object literals, with the new keyword, and with the Object.create() function. The subsections below describe each technique.
 
-> 对象可以用对象字面量创建，可以用 new 关键字和 Object.create() 函数来创建。接下来的几部分对这些技术意义讲述。
+> 对象可以用对象字面量创建，也可以用 new 关键字和 Object.create() 函数来创建。接下来的几部分对这些技术一一讲述。
 
 ### 6.2.1 Object Literals
 
@@ -80,7 +80,7 @@ let book = {
 ```
 A trailing comma following the last property in an object literal is legal, and some programming styles encourage the use of these trailing commas so you’re less likely to cause a syntax error if you add a new property at the end of the object literal at some later time.
 
-> 对象文本中最后一个属性的尾随逗号是合法的，并且某些编程样式鼓励使用这些尾随逗号，因此，如果稍后在对象文本的末尾添加新属性，则不太可能导致语法错误。
+> 对象文本中最后一个属性的尾随逗号是合法的，并且某些编程样式鼓励使用这些尾随逗号，因为，如果之后在对象文本的末尾添加新属性，则不太可能导致语法错误。
 
 An object literal is an expression that creates and initializes a new and distinct object each time it is evaluated. The value of each property is evaluated each time the literal is evaluated. This means that a single object literal can create many new objects if it appears within the body of a loop or in a function that is called repeatedly, and that the property values of these objects may differ from each other.
 
@@ -93,7 +93,7 @@ The object literals shown here use simple syntax that has been legal since the e
 ### 6.2.2 Creating Objects with new
 The new operator creates and initializes a new object. The new keyword must be followed by a function invocation. A function used in this way is called a constructor and serves to initialize a newly created object. JavaScript includes constructors for its built-in types. For example:
 
-> new 运算符创建并初始化一个新的对象。new 关键字必须紧跟一个函数调用。这种方式使用函数叫做构造函数，其提供初始化一个新创建的对象的服务。在 JavaScript 中，内置类型都包含相对应的构造函数。例如：
+> new 运算符创建并初始化一个新的对象。new 关键字必须紧跟一个函数调用。这种方式使用函数叫做构造函数调用，其提供初始化一个新创建的对象的服务。在 JavaScript 中，内置类型都包含相对应的构造函数。例如：
 
 ```js
 let o = new Object();  // Create an empty object: same as {}.
@@ -140,14 +140,14 @@ let o2 = Object.create(null);             // o2 inherits no props or methods.
 ```
 If you want to create an ordinary empty object (like the object returned by {} or new Object()), pass Object.prototype:
 
-> 如果想创建一个普通的空对象（比如通过 {} 或 new Object() 创建的对象），需要传入 Object.prototype：
+> 如果想创建一个普通的空对象（像通过 {} 或 new Object() 创建的对象），需要传入 Object.prototype：
 
 ```js
 let o3 = Object.create(Object.prototype); // o3 is like {} or new Object().
 ```
 The ability to create a new object with an arbitrary prototype is a powerful one, and we’ll use Object.create() in a number of places throughout this chapter. (Object.create() also takes an optional second argument that describes the properties of the new object. This second argument is an advanced feature covered in §14.1.)
 
-> 可以通过任意原型创建新对象，这是一个强大的特性，并且本章我们会在很多地方使用 Object.create()。（Object.create() 也可以传入第二个可选实参来描述这个新的对象的属性。第二个实参是一个高级特性，在  §14.1 再进行描述。）
+> 可以通过任意原型创建新对象，这是一个强大的特性，并且本章我们会在很多地方使用 Object.create()。（Object.create() 也可以传入第二个可选实参来描述这个新的对象的属性。第二个实参是一个高级特性，在  §14.1 再进行描述。）
 
 One use for Object.create() is when you want to guard against unintended (but nonmalicious) modification of an object by a library function that you don’t have control over. Instead of passing the object directly to the function, you can pass an object that inherits from it. If the function reads properties of that object, it will see the inherited values. If it sets properties, however, those writes will not affect the original object.
 
@@ -181,7 +181,7 @@ book["main title"] = "ECMAScript";  // Change the "main title" property.
 ```
 When using square bracket notation, we’ve said that the expression inside the square brackets must evaluate to a string. A more precise statement is that the expression must evaluate to a string or a value that can be converted to a string or to a Symbol (§6.10.3). In Chapter 7, for example, we’ll see that it is common to use numbers inside the square brackets.
 
-> 当使用方括号时，我们说方括号内的表达式必须返回字符串。其实更严格地讲，表达式必须返回字符串或返回一个可以转换为字符串或 Symbol（§6.10.3）的值.在第7章里有一些例子中的方括号内使用了数字，这情况象是非常常见的。
+> 当使用方括号时，我们说方括号内的表达式必须返回字符串。其实更严格地讲，表达式必须返回字符串或返回一个可以转换为字符串的值或 Symbol（§6.10.3）。在第7章里有一些例子中的方括号内使用了数字，这情况是非常常用的。
 
 ### 6.3.1 Objects As Associative Arrays
 As explained in the preceding section, the following two JavaScript expressions have the same value:
