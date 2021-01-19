@@ -291,15 +291,26 @@ There is one exception to the rule that a property assignment either fails or cr
 ### 6.3.3 Property Access Errors
 Property access expressions do not always return or set a value. This section explains the things that can go wrong when you query or set a property.
 
+> 属性访问表达式并不总是返回或设置一个值。本节讲述查询或设置属性时的一些出错情况。
+
 It is not an error to query a property that does not exist. If the property x is not found as an own property or an inherited property of o, the property access expression o.x evaluates to undefined. Recall that our book object has a “sub-title” property, but not a “subtitle” property:
+
+> 查询一个不存在的属性并不会报错，如果在对象 o 自身的属性或继承的属性中均未找到属性 x，属性访问表达式 o.x 返回 undefined。回想一下我们的 book 对象有属性“sub-title”，而没有属性“subtitle”：
+
 ```js
 book.subtitle    // => undefined: property doesn't exist
 ```
 It is an error, however, to attempt to query a property of an object that does not exist. The null and undefined values have no properties, and it is an error to query properties of these values. Continuing the preceding example:
+
+> 但是，如果对象不存在，那么试图查询这个不存在的对象的属性就会报错。null 和 undefined 值都没有属性，因此查询这些值的属性会报错，接上例：
+
 ```js
 let len = book.subtitle.length; // !TypeError: undefined doesn't have length
 ```
-Property access expressions will fail if the lefthand side of the . is null or undefined. So when writing an expression like book.author.surname, you should be careful if you are not certain that book and book.author are actually defined. Here are two ways to guard against this kind of problem:
+Property access expressions will fail if the lefthand side of the . is null or undefined. So when writing an expression like book.author.surname, you should be careful if you are not certain that book and book.author are actually defined. Here are two ways to guard against this kind of problem: 
+
+> 如果 . 的左边是 null 或 undefined 时，其属性表达式会失败。所以当写一个像 book.author.surname 一样的表达式时，如果你不确定 book 和 book.author 确实被定义就要小心了。下面提供了两种避免出错的方法：
+
 ```js
 // A verbose and explicit technique
 let surname = undefined;
@@ -314,29 +325,52 @@ surname = book && book.author && book.author.surname;
 ```
 To understand why this idiomatic expression works to prevent TypeError exceptions, you might want to review the short-circuiting behavior of the && operator in §4.10.1.
 
+> 为了理解为什么这里的第二种方法可以避免类型错误异常，可以参照 §4.10. 1节 中关于 && 运算符的短路行为。
+
 As described in §4.4.1, ES2020 supports conditional property access with ?., which allows us to rewrite the previous assignment expression as:
+
+> 如 §4.4.1 中所描述，ES2020 支持用 ?. 条件属性访问，它允许这样重写上面的赋值表达式：
+
 ```js
 let surname = book?.author?.surname;
 ```
 Attempting to set a property on null or undefined also causes a TypeError. Attempts to set properties on other values do not always succeed, either: some properties are read-only and cannot be set, and some objects do not allow the addition of new properties. In strict mode (§5.6.3), a TypeError is thrown whenever an attempt to set a property fails. Outside of strict mode, these failures are usually silent.
 
+> 当然，给 null 和 undefined 设置属性也会报类型错误。给其他值设置属性也不总是成功，有一些属性是只读的，不能重新赋值，有一些对象不允许新增属性。在严格模式下（§5.6.3），属性设定失败时会抛出 TypeError 异常。在非严格模式下，这些失败的处理经常没有任何反应。
+
 The rules that specify when a property assignment succeeds and when it fails are intuitive but difficult to express concisely. An attempt to set a property p of an object o fails in these circumstances:
+
+> 尽管属性赋值成功或失败的规律看起来很简单，但要描述清楚并不容易。在这些场景下给对象 o 设置属性 p 会失败：
 
 o has an own property p that is read-only: it is not possible to set read-only properties.
 
+> o 中的属性 p 是只读的：不能给只读属性重新赋值。
+
 o has an inherited property p that is read-only: it is not possible to hide an inherited read-only property with an own property of the same name.
+
+> o 中的属性 p 是继承属性，且它是只读的：不能通过同名自有属性覆盖只读的继承属性。
 
 o does not have an own property p; o does not inherit a property p with a setter method, and o’s extensible attribute (see §14.2) is false. Since p does not already exist in o, and if there is no setter method to call, then p must be added to o. But if o is not extensible, then no new properties can be defined on it.
 
+> o 中不存在自有属性 p：o 没有使用 setter 方法继承属性 p，并且o的可扩展性是（见 §14.2）false。如果 o 中不存在 p，而且没有 setter 方法可供调用，则 p 一定会添加至 o 中。但如果 o 不是可扩展的，那么在 o 中不能定义新属性。
+
 ## 6.4 Deleting Properties
 The delete operator (§4.13.4) removes a property from an object. Its single operand should be a property access expression. Surprisingly, delete does not operate on the value of the property but on the property itself:
+
+> 删除运算符（§4.13.4）能删除对象中的属性。它的操作数应当是一个属性访问表达式。令人意外的是，delete 没有操作属性的值，而是操作属性的属性：
+
 ```js
 delete book.author;          // The book object now has no author property.
 delete book["main title"];   // Now it doesn't have "main title", either.
 ```
 The delete operator only deletes own properties, not inherited ones. (To delete an inherited property, you must delete it from the prototype object in which it is defined. Doing this affects every object that inherits from that prototype.)
 
+> delete 运算符只删除自由属性，不删除继承属性。（想要删除一个继承属性，必须从定义这个属性的原型对象上删除它。这会影响所有继承这个原型的对象。）
+
 A delete expression evaluates to true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property). delete also evaluates to true when used (meaninglessly) with an expression that is not a property access expression:
+
+> 如果删除成功或删除没有任何影响时删除表达式计算结果是 true（如删除不存在的属性）。delete 作用于非属性访问表达式（无用代码）时也返回 true。
+
 ```js
 let o = {x: 1};    // o has own property x and inherits property toString
 delete o.x         // => true: deletes property x
@@ -345,6 +379,9 @@ delete o.toString  // => true: does nothing (toString isn't an own property)
 delete 1           // => true: nonsense, but true anyway
 ```
 delete does not remove properties that have a configurable attribute of false. Certain properties of built-in objects are non-configurable, as are properties of the global object created by variable declaration and function declaration. In strict mode, attempting to delete a non-configurable property causes a TypeError. In non-strict mode, delete simply evaluates to false in this case:
+
+> delete 不能删除那些可配置性为 false 的属性。某些内置对象的属性是不可配置的，比如通过变量声明和函数声明创建的全局对象的属性。在严格模式中，删除一个不可配置属性会报一个类型错误。在非严格模式中，在这些情况下的 delete 操作会返回 false：
+
 ```js
 // In strict mode, all these deletions throw TypeError instead of returning false
 delete Object.prototype // => false: property is non-configurable
@@ -354,11 +391,17 @@ function f() {}         // Declare a global function
 delete globalThis.f     // => false: can't delete this property either
 ```
 When deleting configurable properties of the global object in non-strict mode, you can omit the reference to the global object and simply follow the delete operator with the property name:
+
+> 当在非严格模式中删除全局对象的可配值属性时，可以省略对全局对象的引用，直接在 delete 操作符后跟随要删除的属性名即可：
+
 ```js
 globalThis.x = 1;       // Create a configurable global property (no let or var)
 delete x                // => true: this property can be deleted
 ```
 In strict mode, however, delete raises a SyntaxError if its operand is an unqualified identifier like x, and you have to be explicit about the property access:
+
+> 然而在严格模式中，delete 后跟随一个非法的操作数（比如 x），则会报一个语法错误，因此必须显式指定对象及其属性：
+
 ```js
 delete x;               // SyntaxError in strict mode
 delete globalThis.x;    // This works
