@@ -577,10 +577,16 @@ Instead, what you can do is to create a new object, copy the defaults into it, a
 o = Object.assign({}, defaults, o);
 ```
 We’ll see in §6.10.4 that you can also express this object copy-and-override operation using the ... spread operator like this:
+
+> 我们会在 §6.10.4 见到，可以用 ... 展开操作符如下操作这个对象拷贝并重写：
+
 ```js
 o = {...defaults, ...o};
 ```
 We could also avoid the overhead of the extra object creation and copying by writing a version of Object.assign() that copies properties only if they are missing:
+
+> 为了避免对象创建和复制的额外开销，我们还可以通过编写一个 Object.assign() 仅在缺少属性时复制属性：
+
 ```js
 // Like Object.assign() but doesn't override existing properties
 // (and also doesn't handle Symbol properties)
@@ -599,14 +605,21 @@ merge({x: 1}, {x: 2, y: 2}, {y: 3, z: 4})          // => {x: 1, y: 2, z: 4}
 ```
 It is straightforward to write other property manipulation utilities like this merge() function. A restrict() function could delete properties of an object if they do not appear in another template object, for example. Or a subtract() function could remove all of the properties of one object from another object.
 
+> 编写其他属性操作公共函数很简单，就是像这个 merge() 函数。例如，如果对象的属性不出现在另一个模板对象中，则 restrict() 函数会删除这些属性。或者，subtract() 函数可以从其他对象中删除一个对象的所有属性。
+
 ## 6.8 Serializing Objects
 Object serialization is the process of converting an object’s state to a string from which it can later be restored. The functions JSON.stringify() and JSON.parse() serialize and restore JavaScript objects. These functions use the JSON data interchange format. JSON stands for “JavaScript Object Notation,” and its syntax is very similar to that of JavaScript object and array literals:
+
+> 对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。函数 JSON.stringify() 和 JSON.parse() 用来序列化和还原 JavaScript 对象。这些方法都使用 JSON 作为数据交换格式，JSON 的全称是“JavaScript Object Notation”——JavaScript 对象表示法，它的语法和 JavaScript 对象与数组字面量的语法非常相近：
+
 ```js
 let o = {x: 1, y: {z: [false, null, ""]}}; // Define a test object
 let s = JSON.stringify(o);   // s == '{"x":1,"y":{"z":[false,null,""]}}'
 let p = JSON.parse(s);       // p == {x: 1, y: {z: [false, null, ""]}}
 ```
 JSON syntax is a subset of JavaScript syntax, and it cannot represent all JavaScript values. Objects, arrays, strings, finite numbers, true, false, and null are supported and can be serialized and restored. NaN, Infinity, and -Infinity are serialized to null. Date objects are serialized to ISO-formatted date strings (see the Date.toJSON() function), but JSON.parse() leaves these in string form and does not restore the original Date object. Function, RegExp, and Error objects and the undefined value cannot be serialized or restored. JSON.stringify() serializes only the enumerable own properties of an object. If a property value cannot be serialized, that property is simply omitted from the stringified output. Both JSON.stringify() and JSON.parse() accept optional second arguments that can be used to customize the serialization and/or restoration process by specifying a list of properties to be serialized, for example, or by converting certain values during the serialization or stringification process. Complete documentation for these functions is in §11.6.
+
+> JSON 的语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值。支持对象、数组、字符串、无穷大数字、true、false 和 null，并且它们可以序列化和还原。NaN、Infinity 和 -Infinity 序列化的结果是 null，日期对象序列化的结果是 ISO 格式的日期字符串（参照 Date.toJSON() 函数），但 JSON.parse() 依然保留它们的字符 串形态，而不会将它们还原为原始日期对象。函数、RegExp、Error 对象和 undefined 值不能序列化和还原。JSON.stringify() 只能序列化对象可枚举的自有属性。对于一个不能序列化的属性来说，在序列化后的输出字符串中会将这个属性省略掉。JSON.stringify() 和 JSON.parse() 都可以接收第二个可选实参，通过传入需要序列化或还原的属性列表来定制自定义的序列化或还原操作。§11.6 有关于这些函数的详细文档。
 
 ## 6.9 Object Methods
 As discussed earlier, all JavaScript objects (except those explicitly created without a prototype) inherit properties from Object.prototype. These inherited properties are primarily methods, and because they are universally available, they are of particular interest to JavaScript programmers. We’ve already seen the hasOwnProperty() and propertyIsEnumerable() methods, for example. (And we’ve also already covered quite a few static functions defined on the Object constructor, such as Object.create() and Object.keys().) This section explains a handful of universal object methods that are defined on Object.prototype, but which are intended to be replaced by other, more specialized implementations. In the sections that follow, we show examples of defining these methods on a single object. In Chapter 9, you’ll learn how to define these methods more generally for an entire class of objects.
