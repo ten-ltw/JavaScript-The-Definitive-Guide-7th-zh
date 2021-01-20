@@ -409,7 +409,12 @@ delete globalThis.x;    // This works
 ## 6.5 Testing Properties
 JavaScript objects can be thought of as sets of properties, and it is often useful to be able to test for membership in the set—to check whether an object has a property with a given name. You can do this with the in operator, with the hasOwnProperty() and propertyIsEnumerable() methods, or simply by querying the property. The examples shown here all use strings as property names, but they also work with Symbols (§6.10.3).
 
+> JavaScript 对象可以看作属性的集合，我们经常会检测集合中成员的所属关系——判断某个属性是否存在于某个对象中。可以用 in 运算符、hasOwnPreperty() 和  propertyIsEnumerable() 方法来完成这个工作，甚至仅通过属性查询也可以做到这一点。这节的例子都是用字符串作为属性名称，但是也可以用 Symbol 作为属性名（§6.10.3）。
+
 The in operator expects a property name on its left side and an object on its right. It returns true if the object has an own property or an inherited property by that name:
+
+> in 运算符的左侧是属性名，右侧是对象。如果对象的自有属性或继承属性中包含这个属性则返回 true：
+
 ```js
 let o = { x: 1 };
 "x" in o         // => true: o has an own property "x"
@@ -417,6 +422,9 @@ let o = { x: 1 };
 "toString" in o  // => true: o inherits a toString property
 ```
 The hasOwnProperty() method of an object tests whether that object has an own property with the given name. It returns false for inherited properties:
+
+> 对象的 hasOwnProperty() 方法用来检测给定的名字是否是对象的自有属性。对于继承属性它将返回 false：
+
 ```js
 let o = { x: 1 };
 o.hasOwnProperty("x")        // => true: o has an own property x
@@ -424,6 +432,9 @@ o.hasOwnProperty("y")        // => false: o doesn't have a property y
 o.hasOwnProperty("toString") // => false: toString is an inherited property
 ```
 The propertyIsEnumerable() refines the hasOwnProperty() test. It returns true only if the named property is an own property and its enumerable attribute is true. Certain built-in properties are not enumerable. Properties created by normal JavaScript code are enumerable unless you’ve used one of the techniques shown in §14.1 to make them non-enumerable.
+
+> propertyIsEnumerable() 是 hasOwnProperty() 的增强版。只有检测到是自有属性且这个属性的可枚举性为 true 时它才返回 true。某些内置属性是不可枚举的。通常由 JavaScript 代码创建的属性都是可枚举的，除非使用  §14.1 中介绍的技术来让它们不可枚举。
+
 ```js
 let o = { x: 1 };
 o.propertyIsEnumerable("x")  // => true: o has an own enumerable property x
@@ -431,6 +442,9 @@ o.propertyIsEnumerable("toString")  // => false: not an own property
 Object.prototype.propertyIsEnumerable("toString") // => false: not enumerable
 ```
 Instead of using the in operator, it is often sufficient to simply query the property and use !== to make sure it is not undefined:
+
+> 除了使用 in 运算符之外，另一种更简便的方法是使用 !== 判断一个属性是否是 undefined：
+
 ```js
 let o = { x: 1 };
 o.x !== undefined        // => true: o has a property x
@@ -438,6 +452,9 @@ o.y !== undefined        // => false: o doesn't have a property y
 o.toString !== undefined // => true: o inherits a toString property
 ```
 There is one thing the in operator can do that the simple property access technique shown here cannot do. in can distinguish between properties that do not exist and properties that exist but have been set to undefined. Consider this code:
+
+> 然而有一种场景只能使用 in 运算符而不能使用上述属性访问的方式。in 可以区分不存在的属性和存在但值为 undefined 的属性。例如下面的代码：
+
 ```js
 let o = { x: undefined };  // Property is explicitly set to undefined
 o.x !== undefined          // => false: property exists but is undefined
@@ -450,7 +467,12 @@ delete o.x;                // Delete the property x
 ## 6.6 Enumerating Properties
 Instead of testing for the existence of individual properties, we sometimes want to iterate through or obtain a list of all the properties of an object. There are a few different ways to do this.
 
+> 除了检测对象的属性是否存在，我们还会经常遍历对象的属性。有几种不同的方法可以做到这一点。
+
 The for/in loop was covered in §5.4.5. It runs the body of the loop once for each enumerable property (own or inherited) of the specified object, assigning the name of the property to the loop variable. Built-in methods that objects inherit are not enumerable, but the properties that your code adds to objects are enumerable by default. For example:
+
+> §5.4.5 讨论过 for/in 循环，其可以在循环体中遍历指定对象中所有可枚举的属性（包括自有属性和继承的属性），把属性名称赋值给循环变量。对象继承的 内置方法不可枚举的，但在代码中给对象添加的属性都是可枚举的（除非用下文中提到的一个方法将它们转换为不可枚举的）。例如：
+
 ```js
 let o = {x: 1, y: 2, z: 3};          // Three enumerable own properties
 o.propertyIsEnumerable("toString")   // => false: not enumerable
@@ -459,6 +481,9 @@ for(let p in o) {                    // Loop through the properties
 }
 ```
 To guard against enumerating inherited properties with for/in, you can add an explicit check inside the loop body:
+
+> 为了防止 for/in 枚举到继承属性，可以在循环中添加显示检查：
+
 ```js
 for(let p in o) {
     if (!o.hasOwnProperty(p)) continue;       // Skip inherited properties
@@ -470,29 +495,54 @@ for(let p in o) {
 ```
 As an alternative to using a for/in loop, it is often easier to get an array of property names for an object and then loop through that array with a for/of loop. There are four functions you can use to get an array of property names:
 
+> 作为使用 for/in 循环的替代方法，通常更容易获取对象的属性名称数组，然后使用 for/of 循环遍历该数组。可以使用四个函数获取属性名称数组：
+
 Object.keys() returns an array of the names of the enumerable own properties of an object. It does not include non-enumerable properties, inherited properties, or properties whose name is a Symbol (see §6.10.3).
+
+> Object.keys() 返回对象的可枚举自有属性名称数组集合。数组内不包含不可枚举属性、继承属性或属性名是 Symbol（见 §6.10.3）的属性
 
 Object.getOwnPropertyNames() works like Object.keys() but returns an array of the names of non-enumerable own properties as well, as long as their names are strings.
 
+> Object.getOwnPropertyNames() 用起来和 Object.keys() 类似，但是它返回数组中也包含不可迭代的自有属性，只要它们的名字是字符串。
+
 Object.getOwnPropertySymbols() returns own properties whose names are Symbols, whether or not they are enumerable.
+
+> Object.getOwnPropertySymbols() 返回名称是 Symbol 的自有属性，无论它们是否可枚举。
 
 Reflect.ownKeys() returns all own property names, both enumerable and non-enumerable, and both string and Symbol. (See §14.6.)
 
+> Reflect.ownKeys() 返回所有的自由属性名称，包括可枚举和不可枚举类型，也包括字符串和 Symbol（见 §14.6）。
+
 There are examples of the use of Object.keys() with a for/of loop in §6.7.
+
+> 在 §6.7 中有例子使用 for/of 循环 Object.keys()。
 
 ### 6.6.1 Property Enumeration Order
 ES6 formally defines the order in which the own properties of an object are enumerated. Object.keys(), Object.getOwnPropertyNames(), Object.getOwnPropertySymbols(), Reflect.ownKeys(), and related methods such as JSON.stringify() all list properties in the following order, subject to their own additional constraints about whether they list non-enumerable properties or properties whose names are strings or Symbols:
 
+> ES6 正式定义元素的自有属性的枚举顺序。Object.keys()、Object.getOwnPropertyNames()、Object.getOwnPropertyNames()、Object.getOwnPropertySymbols()、Reflect.ownKeys() 和相关方法如JSON.stringify() 属性列表都按以下顺序排列的，受它们自身额外参数，是否是不可枚举属性列表或者属性是字符串或者 Symbol：
+
 String properties whose names are non-negative integers are listed first, in numeric order from smallest to largest. This rule means that arrays and array-like objects will have their properties enumerated in order.
+
+> 首先列出名称为非负整数的字符串属性，按从最小到最大的数字顺序列出。此规则意味着数组和数组类对象将按顺序枚举其属性。
 
 After all properties that look like array indexes are listed, all remaining properties with string names are listed (including properties that look like negative numbers or floating-point numbers). These properties are listed in the order in which they were added to the object. For properties defined in an object literal, this order is the same order they appear in the literal.
 
+> 列出所有看起来像数组索引的属性后，将列出所有具有字符串名称的剩余属性（包括看起来像负数或浮点数字的属性）。这些属性按添加到对象的顺序列出。对于在对象字面量中定义的属性，此顺序与它们在文本中显示的顺序相同。
+
 Finally, the properties whose names are Symbol objects are listed in the order in which they were added to the object.
+
+> 最后，其名称为 Symbol 对象的属性按添加到对象的顺序列出。
 
 The enumeration order for the for/in loop is not as tightly specified as it is for these enumeration functions, but implementations typically enumerate own properties in the order just described, then travel up the prototype chain enumerating properties in the same order for each prototype object. Note, however, that a property will not be enumerated if a property by that same name has already been enumerated, or even if a non-enumerable property by the same name has already been considered.
 
+> for/in 循环的枚举顺序不像这些枚举函数那样严格指定，但实现通常按刚才描述的顺序枚举自己的属性，然后向上移动原型链按相同顺序枚举每个原型对象的属性。但是请注意，如果已枚举具有相同名称的属性，或者不可枚举属性已经被检测过再次枚举到相同名称的属性，也不会枚举属性。
+
 ## 6.7 Extending Objects
 A common operation in JavaScript programs is needing to copy the properties of one object to another object. It is easy to do that with code like this:
+
+> 在 JavaScript 代码中有一个很常见的操作，需要将一个对象中的属性拷贝到另外一个对象。以下面的代码很容易实现：
+
 ```js
 let target = {x: 1}, source = {y: 2, z: 3};
 for(let key of Object.keys(source)) {
@@ -502,15 +552,27 @@ target  // => {x: 1, y: 2, z: 3}
 ```
 But because this is a common operation, various JavaScript frameworks have defined utility functions, often named extend(), to perform this copying operation. Finally, in ES6, this ability comes to the core JavaScript language in the form of Object.assign().
 
+> 但是因为这个是个常用的操作，各种 JavaScript 框架定义公用函数，经常命名为 extend() 来执行这个拷贝操作。最后在 ES6 中，这个功能以 Object.assign() 的形式被添加到 JavaScript 核心语言中。
+
 Object.assign() expects two or more objects as its arguments. It modifies and returns the first argument, which is the target object, but does not alter the second or any subsequent arguments, which are the source objects. For each source object, it copies the enumerable own properties of that object (including those whose names are Symbols) into the target object. It processes the source objects in argument list order so that properties in the first source object override properties by the same name in the target object and properties in the second source object (if there is one) override properties with the same name in the first source object.
+
+> Object.assign() 需要两个或多个对象作为其实参。它修改并返回第一个实参，即目标对象，但不会改变第二个或任何后续参数，这些参数是源对象。对于每个源对象，它将该对象的可枚举自有属性（包括名称为 Symbol 的属性）复制到目标对象中。它按源对象在实参列表顺序中的顺序处理，所以第一个源对象中的属性会重写在目标对象中的同名属性，然后以第二个源对象中的同名属性（如果有第二个源对象）再次重写第一个源对象重写后的属性。
 
 Object.assign() copies properties with ordinary property get and set operations, so if a source object has a getter method or the target object has a setter method, they will be invoked during the copy, but they will not themselves be copied.
 
+> Object.assign() 通过普通属性的 get 和 set 操作复制属性，因此，如果源对象具有 getter 方法或目标对象具有 setter 方法，则将在复制期间调用它们，但不会赋值方法本身。
+
 One reason to assign properties from one object into another is when you have an object that defines default values for many properties and you want to copy those default properties into another object if a property by that name does not already exist in that object. Using Object.assign() naively will not do what you want:
+
+> 将属性从一个对象分配到另一个对象的一个原因是，当有一个对象定义许多属性的默认值，希望将这些默认属性复制到另一个对象中,并且目标对象中不存在该名称的属性，使用 Object.assign() 不会得到想要的结果：
+
 ```js
 Object.assign(o, defaults);  // overwrites everything in o with defaults
 ```
 Instead, what you can do is to create a new object, copy the defaults into it, and then override those defaults with the properties in o:
+
+> 想得到这个效果需要创建一个新的对象，将默认值拷贝到其中，然后用 o 的属性重写默认值中的属性：
+
 ```js
 o = Object.assign({}, defaults, o);
 ```
