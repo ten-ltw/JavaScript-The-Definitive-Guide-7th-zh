@@ -2,7 +2,7 @@
 
 JavaScript objects were covered in Chapter 6. That chapter treated each object as a unique set of properties, different from every other object. It is often useful, however, to define a class of objects that share certain properties. Members, or instances, of the class have their own properties to hold or define their state, but they also have methods that define their behavior. These methods are defined by the class and shared by all instances. Imagine a class named Complex that represents and performs arithmetic on complex numbers, for example. A Complex instance would have properties to hold the real and imaginary parts (the state) of the complex number. And the Complex class would define methods to perform addition and multiplication (the behavior) of those numbers.
 
-> 第6章介绍了JavaScript对象。那一章把每个对象都看作是一组独特的属性，不同于其他对象。但是，定义一类共享某些属性的对象通常是有用的。类的成员或实例有自己的属性来保存或定义其状态，但它们也有定义其行为的方法。这些方法由类定义，并由所有实例共享。例如，假设有一个名为Complex的类，它表示并执行对复数的算术运算。一个复杂实例将具有一些属性来保存复数的实部和虚部(状态)。复杂类将定义方法来执行这些数字的加法和乘法(行为)。
+> 第 6 章介绍了JavaScript对象。那一章把每个对象都看作是一组独特的属性，不同于其他对象。但是，定义一类共享某些属性的对象通常是有用的。类的成员或实例有自己的属性来保存或定义其状态，但它们也有定义其行为的方法。这些方法由类定义，并由所有实例共享。例如，假设有一个名为Complex的类，它表示并执行对复数的算术运算。一个复杂实例将具有一些属性来保存复数的实部和虚部(状态)。复杂类将定义方法来执行这些数字的加法和乘法(行为)。
 
 In JavaScript, classes use prototype-based inheritance: if two objects inherit properties (generally function-valued properties, or methods) from the same prototype, then we say that those objects are instances of the same class. That, in a nutshell, is how JavaScript classes work. JavaScript prototypes and inheritance were covered in §6.2.3 and §6.3.2, and you will need to be familiar with the material in those sections to understand this chapter. This chapter covers prototypes in §9.1.
 
@@ -24,7 +24,7 @@ If you’re familiar with strongly typed object-oriented programming languages l
 
 In JavaScript, a class is a set of objects that inherit properties from the same prototype object. The prototype object, therefore, is the central feature of a class. Chapter 6 covered the Object.create() function that returns a newly created object that inherits from a specified prototype object. If we define a prototype object and then use Object.create() to create objects that inherit from it, we have defined a JavaScript class. Usually, the instances of a class require further initialization, and it is common to define a function that creates and initializes the new object. Example 9-1 demonstrates this: it defines a prototype object for a class that represents a range of values and also defines a factory function that creates and initializes a new instance of the class.
 
-> 在JavaScript中，类是一组从相同原型对象继承属性的对象。因此，原型对象是类的核心特性。第6章介绍了object. create()函数，它返回一个新创建的对象，该对象继承自一个指定的原型对象。如果我们定义了一个原型对象，然后使用object .create()创建从它继承的对象，那么我们就定义了一个JavaScript类。通常，类的实例需要进一步初始化，通常需要定义一个创建和初始化新对象的函数。示例9-1演示了这一点:它为表示一系列值的类定义了原型对象，还定义了创建和初始化类的新实例的工厂函数。
+> 在JavaScript中，类是一组从相同原型对象继承属性的对象。因此，原型对象是类的核心特性。第 6 章介绍了object. create()函数，它返回一个新创建的对象，该对象继承自一个指定的原型对象。如果我们定义了一个原型对象，然后使用object .create()创建从它继承的对象，那么我们就定义了一个JavaScript类。通常，类的实例需要进一步初始化，通常需要定义一个创建和初始化新对象的函数。示例9-1演示了这一点:它为表示一系列值的类定义了原型对象，还定义了创建和初始化类的新实例的工厂函数。
 
 Example 9-1. A simple JavaScript class
 ```js

@@ -60,7 +60,7 @@ null             // Absence of an object
 
 Complete details on numeric and string literals appear in Chapter 3.
 
-> 数值和字符串字面量的完整细节出现在第3章。
+> 数值和字符串字面量的完整细节出现在第 3 章。
 
 ## 2.4 Identifiers and Reserved Words
 
@@ -164,7 +164,7 @@ The Unicode standard defines the preferred encoding for all characters and speci
 
 Like many programming languages, JavaScript uses the semicolon (;) to separate statements (see Chapter 5) from one another. This is important for making the meaning of your code clear: without a separator, the end of one statement might appear to be the beginning of the next, or vice versa. In JavaScript, you can usually omit the semicolon between two statements if those statements are written on separate lines. (You can also omit a semicolon at the end of a program or if the next token in the program is a closing curly brace: }.) Many JavaScript programmers (and the code in this book) use semicolons to explicitly mark the ends of statements, even where they are not required. Another style is to omit semicolons whenever possible, using them only in the few situations that require them. Whichever style you choose, there are a few details you should understand about optional semicolons in JavaScript.
 
-> 像许多编程语言一样，JavaScript 使用分号（;）来分隔语句（参见第5章）。这对于明确代码的含义非常重要：如果没有分隔符，一条语句的结尾可能会是下一条语句的开始，反之亦然。在 JavaScript 中，如果两个语句写在不同的行上，通常可以省略这两个语句之间的分号。（如果程序的下一个标记是右花括号 }，也可以省略在程序末尾的分号。）许多 JavaScript 程序员（以及本书中的代码）使用分号来显式地标记语句的结束，即使在不需要分号的地方也是如此。另一种风格是尽可能省略分号，只在少数需要分号的情况下使用。无论您选择哪种样式，关于 JavaScript 中的可选分号，您都应该了解一些细节。
+> 像许多编程语言一样，JavaScript 使用分号（;）来分隔语句（参见第 5 章）。这对于明确代码的含义非常重要：如果没有分隔符，一条语句的结尾可能会是下一条语句的开始，反之亦然。在 JavaScript 中，如果两个语句写在不同的行上，通常可以省略这两个语句之间的分号。（如果程序的下一个标记是右花括号 }，也可以省略在程序末尾的分号。）许多 JavaScript 程序员（以及本书中的代码）使用分号来显式地标记语句的结束，即使在不需要分号的地方也是如此。另一种风格是尽可能省略分号，只在少数需要分号的情况下使用。无论您选择哪种样式，关于 JavaScript 中的可选分号，您都应该了解一些细节。
 
 Consider the following code. Since the two statements appear on separate lines, the first semicolon could be omitted:
 
@@ -239,7 +239,7 @@ let x = 0                         // Semicolon omitted here
 
 There are three exceptions to the general rule that JavaScript interprets line breaks as semicolons when it cannot parse the second line as a continuation of the statement on the first line. The first exception involves the return, throw, yield, break, and continue statements (see Chapter 5). These statements often stand alone, but they are sometimes followed by an identifier or expression. If a line break appears after any of these words (before any other tokens), JavaScript will always interpret that line break as a semicolon. For example, if you write:
 
-> 当 JavaScript 不能将第二行解析为第一行语句的延续时，它会将换行符解释为分号。第一个异常涉及到 return、throw、yield、break 和 continue 语句（参见第5章），这些语句通常是独立的，但有时会后跟一个标识符或表达式。如果一个换行符出现在这些单词之后（在任何其他标记之前），JavaScript 总是将该换行符解释为分号。例如，如果你写：
+> 当 JavaScript 不能将第二行解析为第一行语句的延续时，它会将换行符解释为分号。第一个异常涉及到 return、throw、yield、break 和 continue 语句（参见第 5 章），这些语句通常是独立的，但有时会后跟一个标识符或表达式。如果一个换行符出现在这些单词之后（在任何其他标记之前），JavaScript 总是将该换行符解释为分号。例如，如果你写：
 
 ```js
 return

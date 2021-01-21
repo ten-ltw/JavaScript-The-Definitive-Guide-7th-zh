@@ -40,7 +40,7 @@ Since 2010, another host environment has been available for JavaScript code. Ins
 
 Most of this book is focused on the JavaScript language itself. Chapter 11 documents the JavaScript standard library, Chapter 15 introduces the web browser host environment, and Chapter 16 introduces the Node host environment.
 
-> 这本书的大部分内容都集中在 JavaScript 语言本身。第11章介绍了 JavaScript 标准库，第15章介绍了 web 浏览器宿主，第16章介绍了 Node 宿主。
+> 这本书的大部分内容都集中在 JavaScript 语言本身。第 11 章介绍了 JavaScript 标准库，第 15 章介绍了 web 浏览器宿主，第 16 章介绍了 Node 宿主。
 
 This book covers low-level fundamentals first, and then builds on those to more advanced and higher-level abstractions. The chapters are intended to be read more or less in order. But learning a new programming language is never a linear process, and describing a language is not linear either: each language feature is related to other features, and this book is full of cross-references—sometimes backward and sometimes forward—to related material. This introductory chapter makes a quick first pass through the language, introducing key features that will make it easier to understand the in-depth treatment in the chapters that follow. If you are already a practicing JavaScript programmer, you can probably skip this chapter. (Although you might enjoy reading Example 1-1 at the end of the chapter before you move on.)
 
@@ -131,7 +131,7 @@ Open the developer tools window to see the greeting in the console.
 
 This section presents a quick introduction, through code examples, to the JavaScript language. After this introductory chapter, we dive into JavaScript at the lowest level: Chapter 2 explains things like JavaScript comments, semicolons, and the Unicode character set. Chapter 3 starts to get more interesting: it explains JavaScript variables and the values you can assign to those variables.
 
-> 本节通过代码示例快速介绍 JavaScript 语言。在这一介绍性章节之后，我们将深入到 JavaScript 的底层:第2章说明了 JavaScript 注释、分号和 Unicode 字符集等内容。第3章开始变得更有趣：它解释了 JavaScript 变量和你可以为这些变量赋值的值。
+> 本节通过代码示例快速介绍 JavaScript 语言。在这一介绍性章节之后，我们将深入到 JavaScript 的底层:第 2 章说明了 JavaScript 注释、分号和 Unicode 字符集等内容。第 3 章开始变得更有趣：它解释了 JavaScript 变量和你可以为这些变量赋值的值。
 
 Here’s some sample code to illustrate the highlights of those two chapters:
 
@@ -162,7 +162,7 @@ x = undefined;             // Undefined is another special value like null.
 
 Two other very important types that JavaScript programs can manipulate are objects and arrays. These are the subjects of Chapters 6 and 7, but they are so important that you’ll see them many times before you reach those chapters:
 
-> JavaScript 程序可以操作的另外两种非常重要的类型是对象和数组。这些是第6章和第7章的主题，但它们非常重要，在你读到这些章节之前，你会多次看到它们：
+> JavaScript 程序可以操作的另外两种非常重要的类型是对象和数组。这些是第 6 章和第 7 章的主题，但它们非常重要，在你读到这些章节之前，你会多次看到它们：
 
 ```js
 // JavaScript's most important datatype is the object.
@@ -222,7 +222,7 @@ You’ll see these comments used throughout the book.
 
 The syntax illustrated here for listing array elements within square braces or mapping object property names to property values inside curly braces is known as an initializer expression, and it is just one of the topics of Chapter 4. An expression is a phrase of JavaScript that can be evaluated to produce a value. For example, the use of . and [] to refer to the value of an object property or array element is an expression.
 
-> 这里演示的在方括号内列出数组元素或在花括号内将对象属性名映射到属性值的语法称为初始化表达式，它只是第4章的主题之一。表达式是 JavaScript 的一个短语，可以计算它来产生一个值。例如，的使用。和 [] 引用对象属性或数组元素的值是一个表达式。
+> 这里演示的在方括号内列出数组元素或在花括号内将对象属性名映射到属性值的语法称为初始化表达式，它只是第 4 章的主题之一。表达式是 JavaScript 的一个短语，可以计算它来产生一个值。例如，的使用。和 [] 引用对象属性或数组元素的值是一个表达式。
 
 One of the most common ways to form expressions in JavaScript is to use operators:
 
@@ -267,11 +267,11 @@ false === (x > y)          // => true: false is equal to false
 
 If JavaScript expressions are like phrases, then JavaScript statements are like full sentences. Statements are the topic of Chapter 5. Roughly, an expression is something that computes a value but doesn’t do anything: it doesn’t alter the program state in any way. Statements, on the other hand, don’t have a value, but they do alter the state. You’ve seen variable declarations and assignment statements above. The other broad category of statement is control structures, such as conditionals and loops. You’ll see examples below, after we cover functions.
 
-> 如果 JavaScript 表达式像短语，那么 JavaScript 语句就像完整的句子。这部分是第5章的主题。粗略地说，表达式不做任何事情只计算一个值：它不以任何方式改变程序状态。另一方面，语句没有值，但是它们可以改变状态。您已经在上面看到了变量声明和赋值语句。语句的另一大类是控制结构，比如条件语句和循环。在介绍函数之后，您将看到下面的示例。
+> 如果 JavaScript 表达式像短语，那么 JavaScript 语句就像完整的句子。这部分是第 5 章的主题。粗略地说，表达式不做任何事情只计算一个值：它不以任何方式改变程序状态。另一方面，语句没有值，但是它们可以改变状态。您已经在上面看到了变量声明和赋值语句。语句的另一大类是控制结构，比如条件语句和循环。在介绍函数之后，您将看到下面的示例。
 
 A function is a named and parameterized block of JavaScript code that you define once, and can then invoke over and over again. Functions aren’t covered formally until Chapter 8, but like objects and arrays, you’ll see them many times before you get to that chapter. Here are some simple examples:
 
-> 函数是一个已命名和参数化的 JavaScript 代码块，您只定义一次，然后可以反复调用它。函数直到第8章才正式介绍，但就像对象和数组一样，在进入这一章之前，您将多次看到它们。下面是一些简单的例子：
+> 函数是一个已命名和参数化的 JavaScript 代码块，您只定义一次，然后可以反复调用它。函数直到第 8 章才正式介绍，但就像对象和数组一样，在进入这一章之前，您将多次看到它们。下面是一些简单的例子：
 
 ```js
 // Functions are parameterized blocks of JavaScript code that we can invoke.
@@ -370,7 +370,7 @@ factorial2(5)              // => 120: 1*2*3*4*5
 
 JavaScript supports an object-oriented programming style, but it is significantly different than “classical” object-oriented programming languages. Chapter 9 covers object-oriented programming in JavaScript in detail, with lots of examples. Here is a very simple example that demonstrates how to define a JavaScript class to represent 2D geometric points. Objects that are instances of this class have a single method, named distance(), that computes the distance of the point from the origin:
 
-> JavaScript 支持面向对象的编程风格，但它与“经典的”面向对象编程语言有显著的不同。第9章详细介绍了 JavaScript 的面向对象编程，并提供了很多示例。下面是一个非常简单的示例，演示了如何定义一个 JavaScript 类来表示 2D 几何点。作为这个类的实例的对象有一个名为 distance() 的方法，它计算点到原点的距离：
+> JavaScript 支持面向对象的编程风格，但它与“经典的”面向对象编程语言有显著的不同。第 9 章详细介绍了 JavaScript 的面向对象编程，并提供了很多示例。下面是一个非常简单的示例，演示了如何定义一个 JavaScript 类来表示 2D 几何点。作为这个类的实例的对象有一个名为 distance() 的方法，它计算点到原点的距离：
 
 ```js
 class Point {              // By convention, class names are capitalized.

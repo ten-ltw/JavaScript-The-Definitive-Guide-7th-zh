@@ -16,19 +16,19 @@ The special JavaScript values null and undefined are primitive values, but they 
 
 Any JavaScript value that is not a number, a string, a boolean, a symbol, null, or undefined is an object. An object (that is, a member of the type object) is a collection of properties where each property has a name and a value (either a primitive value or another object). One very special object, the global object, is covered in §3.7, but more general and more detailed coverage of objects is in Chapter 6.
 
-> 任何不是数字、字符串、布尔值、符号、null 或 undefined 的 JavaScript 值都是对象。对象（即类型对象的成员）是属性的集合，其中每个属性都有一个名称和一个值（原始值或另一个对象）。一个非常特殊的对象，全局对象，在 §3.7 中介绍过了，但是在第6章中对对象进行了更广泛、更详细的介绍。
+> 任何不是数字、字符串、布尔值、符号、null 或 undefined 的 JavaScript 值都是对象。对象（即类型对象的成员）是属性的集合，其中每个属性都有一个名称和一个值（原始值或另一个对象）。一个非常特殊的对象，全局对象，在 §3.7 中介绍过了，但是在第 6 章中对对象进行了更广泛、更详细的介绍。
 
 An ordinary JavaScript object is an unordered collection of named values. The language also defines a special kind of object, known as an array, that represents an ordered collection of numbered values. The JavaScript language includes special syntax for working with arrays, and arrays have some special behavior that distinguishes them from ordinary objects. Arrays are the subject of Chapter 7.
 
-> 普通的 JavaScript 对象是命名值的无序集合。该语言还定义了一种特殊类型的对象，称为数组，它表示编号值的有序集合。JavaScript 语言包含处理数组的特殊语法，数组有一些特殊的行为将它们与普通对象区分开来。数组是第7章的主题。
+> 普通的 JavaScript 对象是命名值的无序集合。该语言还定义了一种特殊类型的对象，称为数组，它表示编号值的有序集合。JavaScript 语言包含处理数组的特殊语法，数组有一些特殊的行为将它们与普通对象区分开来。数组是第 7 章的主题。
 
 In addition to basic objects and arrays, JavaScript defines a number of other useful object types. A Set object represents a set of values. A Map object represents a mapping from keys to values. Various “typed array” types facilitate operations on arrays of bytes and other binary data. The RegExp type represents textual patterns and enables sophisticated matching, searching, and replacing operations on strings. The Date type represents dates and times and supports rudimentary date arithmetic. Error and its subtypes represent errors that can arise when executing JavaScript code. All of these types are covered in Chapter 11.
 
-> 除了基本对象和数组之外，JavaScript 还定义了许多其他有用的对象类型。Set 对象表示一组值。Map 对象表示从键到值的映射。各种“类型化数组”类型促进了对字节数组和其他二进制数据的操作。RegExp 类型表示文本模式，支持对字符串进行复杂的匹配、搜索和替换操作。Date 类型表示日期和时间，并支持基本的日期运算。Error 及其子类型表示在执行 JavaScript 代码时可能出现的错误。所有这些类型都在第11章中介绍。
+> 除了基本对象和数组之外，JavaScript 还定义了许多其他有用的对象类型。Set 对象表示一组值。Map 对象表示从键到值的映射。各种“类型化数组”类型促进了对字节数组和其他二进制数据的操作。RegExp 类型表示文本模式，支持对字符串进行复杂的匹配、搜索和替换操作。Date 类型表示日期和时间，并支持基本的日期运算。Error 及其子类型表示在执行 JavaScript 代码时可能出现的错误。所有这些类型都在第 11 章中介绍。
 
 JavaScript differs from more static languages in that functions and classes are not just part of the language syntax: they are themselves values that can be manipulated by JavaScript programs. Like any JavaScript value that is not a primitive value, functions and classes are a specialized kind of object. They are covered in detail in Chapters 8 and 9.
 
-> JavaScript 与更静态的语言的不同之处在于，函数和类不仅仅是语言语法的一部分：它们本身是可由 JavaScript 程序操作的值。像任何不是基本值的 JavaScript 值一样，函数和类是一种特殊的对象。它们将在第8章和第9章中详细介绍。
+> JavaScript 与更静态的语言的不同之处在于，函数和类不仅仅是语言语法的一部分：它们本身是可由 JavaScript 程序操作的值。像任何不是基本值的 JavaScript 值一样，函数和类是一种特殊的对象。它们将在第 8 章和第 9 章中详细介绍。
 
 The JavaScript interpreter performs automatic garbage collection for memory management. This means that a JavaScript programmer generally does not need to worry about destruction or deallocation of objects or other values. When a value is no longer reachable—when a program no longer has any way to refer to it—the interpreter knows it can never be used again and automatically reclaims the memory it was occupying. (JavaScript programmers do sometimes need to take care to ensure that values do not inadvertently remain reachable—and therefore nonreclaimable—longer than necessary.)
 
@@ -44,7 +44,7 @@ a.sort();       // The object-oriented version of sort(a).
 
 Method definition is covered in Chapter 9. Technically, it is only JavaScript objects that have methods. But numbers, strings, boolean, and symbol values behave as if they have methods. In JavaScript, null and undefined are the only values that methods cannot be invoked on.
 
-> 方法定义将在第9章中介绍。从技术上讲，只有 JavaScript 对象才有方法。但是数字、字符串、布尔值和符号值的行为就好像它们有方法一样。在 JavaScript 中，只有 null 和 undefined 值不能调用方法。
+> 方法定义将在第 9 章中介绍。从技术上讲，只有 JavaScript 对象才有方法。但是数字、字符串、布尔值和符号值的行为就好像它们有方法一样。在 JavaScript 中，只有 null 和 undefined 值不能调用方法。
 
 JavaScript’s object types are mutable and its primitive types are immutable. A value of a mutable type can change: a JavaScript program can change the values of object properties and array elements. Numbers, booleans, symbols, null, and undefined are immutable—it doesn’t even make sense to talk about changing the value of a number, for example. Strings can be thought of as arrays of characters, and you might expect them to be mutable. In JavaScript, however, strings are immutable: you can access the text at any index of a string, but JavaScript provides no way to alter the text of an existing string. The differences between mutable and immutable values are explored further in §3.8.
 
@@ -69,7 +69,7 @@ JavaScript’s primary numeric type, Number, is used to represent integers and t
 
 The JavaScript number format allows you to exactly represent all integers between −9,007,199,254,740,992 (−253) and 9,007,199,254,740,992 (253), inclusive. If you use integer values larger than this, you may lose precision in the trailing digits. Note, however, that certain operations in JavaScript (such as array indexing and the bitwise operators described in Chapter 4) are performed with 32-bit integers. If you need to exactly represent larger integers, see §3.2.5.
 
-> JavaScript 数字格式允许你精确地表示 9,007,199,254,740,992(−253) 和 9,007,199,254,740,992(253) 之间的所有整数。如果使用大于这个值的整数值，则可能会丢失末尾数字的精度。然而，请注意，JavaScript 中的某些操作（如数组索引和第4章中描述的位运算符）是用 32 位整数执行的。如果你需要精确地表示更大的整数，请参阅 §3.2.5。
+> JavaScript 数字格式允许你精确地表示 9,007,199,254,740,992(−253) 和 9,007,199,254,740,992(253) 之间的所有整数。如果使用大于这个值的整数值，则可能会丢失末尾数字的精度。然而，请注意，JavaScript 中的某些操作（如数组索引和第 4 章中描述的位运算符）是用 32 位整数执行的。如果你需要精确地表示更大的整数，请参阅 §3.2.5。
 
 When a number appears directly in a JavaScript program, it’s called a numeric literal. JavaScript supports numeric literals in several formats, as described in the following sections. Note that any numeric literal can be preceded by a minus sign (-) to make the number negative.
 
@@ -150,7 +150,7 @@ At the time of this writing in early 2020, underscores in numeric literals are n
 
 JavaScript programs work with numbers using the arithmetic operators . that the language provides. These include + for addition, - for subtraction, * for multiplication, / for division, and % for modulo (remainder after division). ES2016 adds ** for exponentiation. Full details on these and other operators can be found in Chapter 4.
 
-> JavaScript 程序使用算术运算符处理数字。这是语言提供的。这些参数包括 + 表示加法，- 表示减法，* 表示乘法，/ 表示除法，% 表示取模（除后的余数）。ES2016 为取幂添加了 **。关于这些运算符和其他运算符的详细信息可以在第4章中找到。
+> JavaScript 程序使用算术运算符处理数字。这是语言提供的。这些参数包括 + 表示加法，- 表示减法，* 表示乘法，/ 表示除法，% 表示取模（除后的余数）。ES2016 为取幂添加了 **。关于这些运算符和其他运算符的详细信息可以在第 4 章中找到。
 
 In addition to these basic arithmetic operators, JavaScript supports more complex mathematical operations through a set of functions and constants defined as properties of the Math object:
 
@@ -793,7 +793,7 @@ The Symbol type does not have a literal syntax. To obtain a Symbol value, you ca
 
 In practice, Symbols serve as a language extension mechanism. When ES6 introduced the for/of loop (§5.4.4) and iterable objects (Chapter 12), it needed to define standard method that classes could implement to make themselves iterable. But standardizing any particular string name for this iterator method would have broken existing code, so a symbolic name was used instead. As we’ll see in Chapter 12, Symbol.iterator is a Symbol value that can be used as a method name to make an object iterable.
 
-> 实际上，Symbol 是一种语言扩展机制。当 ES6 引入 for/of 循环（ §5.4.4 ）和可迭代对象（第12章）时，它需要定义标准方法使类可以迭代。但用任何特定的字符串标准化命名这个迭代器方法都会破坏现有的代码，所以使用了一个符号名称代替。我们将在第12章中看到。Symbol.iterator 是一个 Symbol 值，可以用作方法名，使对象可迭代。
+> 实际上，Symbol 是一种语言扩展机制。当 ES6 引入 for/of 循环（ §5.4.4 ）和可迭代对象（第 12 章）时，它需要定义标准方法使类可以迭代。但用任何特定的字符串标准化命名这个迭代器方法都会破坏现有的代码，所以使用了一个符号名称代替。我们将在第 12 章 中看到。Symbol.iterator 是一个 Symbol 值，可以用作方法名，使对象可迭代。
 
 The Symbol() function takes an optional string argument and returns a unique Symbol value. If you supply a string argument, that string will be included in the output of the Symbol’s toString() method. Note, however, that calling Symbol() twice with the same string produces two completely different Symbol values.
 
@@ -1157,7 +1157,7 @@ SPECIAL CASE OPERATOR CONVERSIONS
 
 Operators are covered in detail in Chapter 4. Here, we explain the special case operators that do not use the basic object-to-string and object-to-number conversions described earlier.
 
-> 运算符将在第4章中详细介绍。这里，我们解释不使用前面描述的基本对象-字符串和对象-数字转换的特殊情况运算符。
+> 运算符将在第 4 章中详细介绍。这里，我们解释不使用前面描述的基本对象-字符串和对象-数字转换的特殊情况运算符。
 
 The + operator in JavaScript performs numeric addition and string concatenation. If either of its operands is an object, JavaScript converts them to primitive values using the no-preference algorithm. Once it has two primitive values, it checks their types. If either argument is a string, it converts the other to a string and concatenates the strings. Otherwise, it converts both arguments to numbers and adds them.
 
@@ -1341,7 +1341,7 @@ The scope of a variable is the region of your program source code in which it is
 
 When a declaration appears at the top level, outside of any code blocks, we say it is a global variable or constant and has global scope. In Node and in client-side JavaScript modules (see Chapter 10), the scope of a global variable is the file that it is defined in. In traditional client-side JavaScript, however, the scope of a global variable is the HTML document in which it is defined. That is: if one `<script>` declares a global variable or constant, that variable or constant is defined in all of the `<script>` elements in that document (or at least all of the scripts that execute after the let or const statement executes).
 
-> 当声明出现在顶层，在任何代码块之外时，我们说它是一个全局变量或常量，具有全局作用域。在Node和客户端JavaScript模块中(见第10章)，全局变量的作用域是定义它的文件。然而，在传统的客户端JavaScript中，全局变量的作用域是定义它的HTML文档。也就是说:如果一个 `<script>` 声明一个全局变量或常量，该变量或常量定义在该文档中的所有 `<script>` 该文档中的元素(或至少在let或const语句之后执行的所有脚本)。
+> 当声明出现在顶层，在任何代码块之外时，我们说它是一个全局变量或常量，具有全局作用域。在Node和客户端JavaScript模块中(见第 10 章)，全局变量的作用域是定义它的文件。然而，在传统的客户端JavaScript中，全局变量的作用域是定义它的HTML文档。也就是说:如果一个 `<script>` 声明一个全局变量或常量，该变量或常量定义在该文档中的所有 `<script>` 该文档中的元素(或至少在let或const语句之后执行的所有脚本)。
 
 REPEATED DECLARATIONS
 
@@ -1485,7 +1485,7 @@ let [a, [b, c]] = [1, [2,2.5], 3]; // a == 1; b == 2; c == 2.5
 
 A powerful feature of array destructuring is that it does not actually require an array! You can use any iterable object (Chapter 12) on the righthand side of the assignment; any object that can be used with a for/of loop (§5.4.4) can also be destructured:
 
-> 数组解构的一个强大特性是它实际上不必须是个数组！你可以在赋值语句的右侧使用任何可迭代对象（第12章）;任何可以与 for/of 循环一起使用的对象（§5.4.4）也可以被解构:
+> 数组解构的一个强大特性是它实际上不必须是个数组！你可以在赋值语句的右侧使用任何可迭代对象（第 12 章）;任何可以与 for/of 循环一起使用的对象（§5.4.4）也可以被解构:
 
 ```js
 let [first, ...rest] = "Hello"; // first == "H"; rest == ["e","l","l","o"]

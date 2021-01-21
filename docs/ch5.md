@@ -2,7 +2,7 @@
 
 Chapter 4 described expressions as JavaScript phrases. By that analogy, statements are JavaScript sentences or commands. Just as English sentences are terminated and separated from one another with periods, JavaScript statements are terminated with semicolons (§2.6). Expressions are evaluated to produce a value, but statements are executed to make something happen.
 
-> 第4章将表达式描述为JavaScript短语。根据这个类比，语句就是JavaScript句子或命令。就像英语句子以句点结尾并彼此分开一样，JavaScript语句以分号结尾(§2.6)。表达式被计算以产生一个值，但是语句被执行以使某些事情发生。
+> 第 4 章将表达式描述为JavaScript短语。根据这个类比，语句就是JavaScript句子或命令。就像英语句子以句点结尾并彼此分开一样，JavaScript语句以分号结尾(§2.6)。表达式被计算以产生一个值，但是语句被执行以使某些事情发生。
 
 One way to “make something happen” is to evaluate an expression that has side effects. Expressions with side effects, such as assignments and function invocations, can stand alone as statements, and when used this way are known as expression statements. A similar category of statements are the declaration statements that declare new variables and define new functions.
 

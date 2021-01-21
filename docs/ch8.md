@@ -10,7 +10,7 @@ A function is a block of JavaScript code that is defined once but may be execute
 
 If a function is assigned to a property of an object, it is known as a method of that object. When a function is invoked on or through an object, that object is the invocation context or this value for the function. Functions designed to initialize a newly created object are called constructors. Constructors were described in §6.2 and will be covered again in Chapter 9.
 
-> 如果函数挂载在一个对象上作为其属性，它就被称为方法。当该方法在对象中被调用或通过对象调用时，该对象就是该方法函数的调用上下文或 this 值。用于初始化新创建的对象的函数称为构造函数。构造函数在 §6.2 中有介绍，我们将在第9章中再次谈到它。
+> 如果函数挂载在一个对象上作为其属性，它就被称为方法。当该方法在对象中被调用或通过对象调用时，该对象就是该方法函数的调用上下文或 this 值。用于初始化新创建的对象的函数称为构造函数。构造函数在 §6.2 中有介绍，我们将在第 9 章中再次谈到它。
 
 In JavaScript, functions are objects, and they can be manipulated by programs. JavaScript can assign functions to variables and pass them to other functions, for example. Since functions are objects, you can set properties on them and even invoke methods on them.
 
@@ -32,7 +32,7 @@ In object literals and class definitions, there is a convenient shorthand syntax
 
 Note that functions can also be defined with the Function() constructor, which is the subject of §8.7.7. Also, JavaScript defines some specialized kinds of functions. function* defines generator functions (see Chapter 12) and async function defines asynchronous functions (see Chapter 13).
 
-> 注意，函数也可以用 Function() 构造函数来定义，这是 §8.7.7 的主题。此外，JavaScript 还定义了一些特殊类型的函数。function* 定义函数生成器（见第12章）和 async function 定义异步函数（见第13章）。
+> 注意，函数也可以用 Function() 构造函数来定义，这是 §8.7.7 的主题。此外，JavaScript 还定义了一些特殊类型的函数。function* 定义函数生成器（见第 12 章）和 async function 定义异步函数（见第 13 章）。
 
 ### 8.1.1 Function Declarations
 
@@ -356,7 +356,7 @@ The hypothetical functions invoked in these two lines of code may perform exactl
 #### METHOD CHAINING
 When methods return objects, you can use the return value of one method invocation as part of a subsequent invocation. This results in a series (or “chain”) of method invocations as a single expression. When working with Promise-based asynchronous operations (see Chapter 13), for example, it is common to write code structured like this:
 
-> 当方法返回一个对象，这个对象还可以再调用它的方法。这种方法调用序列中（或“链”）每次的调用结果都是另外一个表达式的组成部分。比如，基于 Promise 的异步操作（参见第13章），我们常常会这样写代码：
+> 当方法返回一个对象，这个对象还可以再调用它的方法。这种方法调用序列中（或“链”）每次的调用结果都是另外一个表达式的组成部分。比如，基于 Promise 的异步操作（参见第 13 章），我们常常会这样写代码：
 
 ```js
 // Run three asynchronous operations in sequence, handling errors.
@@ -425,7 +425,7 @@ We’ll talk more about bind() in §8.7.5.
 ### 8.2.3 Constructor Invocation
 If a function or method invocation is preceded by the keyword new, then it is a constructor invocation. (Constructor invocations were introduced in §4.6 and §6.2.2, and constructors will be covered in more detail in Chapter 9.) Constructor invocations differ from regular function and method invocations in their handling of arguments, invocation context, and return value.
 
-> 如果函数或者方法调用之前带有关键字 new，它就构成构造函数调用（构造函数调用在 §4.6 和 §6.2.2 节有简单介绍，第9章会对构造函数做更详细的讨论）。构造函数调用和普通的函数调用以及方法调用在实参处理、调用上下文和返回值方面都有不同。
+> 如果函数或者方法调用之前带有关键字 new，它就构成构造函数调用（构造函数调用在 §4.6 和 §6.2.2 节有简单介绍，第 9 章会对构造函数做更详细的讨论）。构造函数调用和普通的函数调用以及方法调用在实参处理、调用上下文和返回值方面都有不同。
 
 If a constructor invocation includes an argument list in parentheses, those argument expressions are evaluated and passed to the function in the same way they would be for function and method invocations. It is not common practice, but you can omit a pair of empty parentheses in a constructor invocation. The following two lines, for example, are equivalent:
 
@@ -467,7 +467,7 @@ When an object is used in a string context (such as when it is concatenated with
 
 When you loop over the elements of an iterable object, there are a number of method calls that occur. Chapter 12 explains how iterators work at the function call level and demonstrates how to write these methods so that you can define your own iterable types.
 
-> 当循环可迭代对象的元素时会产生很多方法调用。第12章介绍了迭代器在函数调用级别如何工作，并演示如何编写方法来定义自己的可迭代类型。
+> 当循环可迭代对象的元素时会产生很多方法调用。第 12 章介绍了迭代器在函数调用级别如何工作，并演示如何编写方法来定义自己的可迭代类型。
 
 A tagged template literal is a function invocation in disguise. §14.5 demonstrates how to write functions that can be used in conjunction with template literal strings.
 
@@ -1173,7 +1173,7 @@ The read-only name property of a function specifies the name that was used when 
 ### 8.7.3 The prototype Property
 All functions, except arrow functions, have a prototype property that refers to an object known as the prototype object. Every function has a different prototype object. When a function is used as a constructor, the newly created object inherits properties from the prototype object. Prototypes and the prototype property were discussed in §6.2.3 and will be covered again in Chapter 9.
 
-> 所有函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做原型对象。每一个函数都包含不同的原型对象。当将函数用作构造函数的时候，新创建的对象会从原型对象上继承属性。§6.2.3 讨论了原型和 prototype 属性，在第9章里会有进一步讨论。
+> 所有函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做原型对象。每一个函数都包含不同的原型对象。当将函数用作构造函数的时候，新创建的对象会从原型对象上继承属性。§6.2.3 讨论了原型和 prototype 属性，在第 9 章里会有进一步讨论。
 
 ### 8.7.4 The call() and apply() Methods
 call() and apply() allow you to indirectly invoke (§8.2.4) a function as if it were a method of some other object. The first argument to both call() and apply() is the object on which the function is to be invoked; this argument is the invocation context and becomes the value of the this keyword within the body of the function. To invoke the function f() as a method of the object o (passing no arguments), you could use either call() or apply():

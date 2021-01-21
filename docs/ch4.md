@@ -45,7 +45,7 @@ this       // Evaluates to the "current" object
 
 We learned about true, false, and null in §3.4 and §3.5. Unlike the other keywords, this is not a constant—it evaluates to different values in different places in the program. The this keyword is used in object-oriented programming. Within the body of a method, this evaluates to the object on which the method was invoked. See §4.5, Chapter 8 (especially §8.2.2), and Chapter 9 for more on this.
 
-> 我们在§3.4和§3.5中学习了真、假和空。与其他关键字不同，这不是常量—它在程序的不同位置计算不同的值。关键字this用于面向对象编程。在方法体中，这将计算为调用该方法的对象。请参阅§4.5，第8章(特别是§8.2.2)和第9章来了解更多这方面的内容。
+> 我们在§3.4和§3.5中学习了真、假和空。与其他关键字不同，这不是常量—它在程序的不同位置计算不同的值。关键字this用于面向对象编程。在方法体中，这将计算为调用该方法的对象。请参阅§4.5，第 8 章(特别是§8.2.2)和第 9 章来了解更多这方面的内容。
 
 Finally, the third type of primary expression is a reference to a variable, constant, or property of the global object:
 
@@ -123,7 +123,7 @@ let rectangle = {
 
 We’ll see object and array initializers again in Chapters 6 and 7.
 
-> 我们将在第6章和第7章再次看到对象和数组初始化器。
+> 我们将在第 6 章和第 7 章再次看到对象和数组初始化器。
 
 ## 4.3 Function Definition Expressions
 
@@ -138,7 +138,7 @@ let square = function(x) { return x * x; };
 
 A function definition expression can also include a name for the function. Functions can also be defined using a function statement rather than a function expression. And in ES6 and later, function expressions can use a compact new “arrow function” syntax. Complete details on function definition are in Chapter 8.
 
-> 函数定义表达式还可以包含函数的名称。函数也可以使用函数语句而不是函数表达式来定义。在ES6及以后的版本中，函数表达式可以使用一种紧凑的新“箭头函数”语法。关于函数定义的完整细节见第8章。
+> 函数定义表达式还可以包含函数的名称。函数也可以使用函数语句而不是函数表达式来定义。在ES6及以后的版本中，函数表达式可以使用一种紧凑的新“箭头函数”语法。关于函数定义的完整细节见第 8 章。
 ## 4.4 Property Access Expressions
 
 A property access expression evaluates to the value of an object property or an array element. JavaScript defines two syntaxes for property access:
@@ -175,7 +175,7 @@ The .identifier syntax is the simpler of the two property access options, but no
 
 Objects and their properties are covered in detail in Chapter 6, and arrays and their elements are covered in Chapter 7.
 
-> 对象及其属性将在第6章详细介绍，数组及其元素将在第7章介绍。
+> 对象及其属性将在第 6 章详细介绍，数组及其元素将在第 7 章介绍。
 
 ### 4.4.1 Conditional Property Access
 

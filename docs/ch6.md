@@ -103,7 +103,7 @@ let r = new Map();     // Create a Map object for key/value mapping
 ```
 In addition to these built-in constructors, it is common to define your own constructor functions to initialize newly created objects. Doing so is covered in Chapter 9.
 
-> 除了这些内置构造函数，常常用自定义构造函数来初始化新对象。 第9章将详细讲述其中的细节。
+> 除了这些内置构造函数，常常用自定义构造函数来初始化新对象。 第 9 章将详细讲述其中的细节。
 
 ### 6.2.3 Prototypes
 Before we can cover the third object creation technique, we must pause for a moment to explain prototypes. Almost every JavaScript object has a second JavaScript object associated with it. This second object is known as a prototype, and the first object inherits properties from the prototype.
@@ -120,7 +120,7 @@ Object.prototype is one of the rare objects that has no prototype: it does not i
 
 An explanation of how property inheritance works is in §6.3.2. Chapter 9 explains the connection between prototypes and constructors in more detail: it shows how to define new “classes” of objects by writing a constructor function and setting its prototype property to the prototype object to be used by the “instances” created with that constructor. And we’ll learn how to query (and even change) the prototype of an object in §14.3.
 
-> §6.3.2 节讲述属性继承的工作机制。第9章将会更详细地讨论原型和构造函数：包括如何通过编写构造函数定义对象的“类”，以及给构造函数的 prototype 属性赋值可以让其“实例”直接使用这个原型上的属性和方法。并且在 §14.3 我们会学习如何查询（甚至改变）对象的原型。
+> §6.3.2 节讲述属性继承的工作机制。第 9 章将会更详细地讨论原型和构造函数：包括如何通过编写构造函数定义对象的“类”，以及给构造函数的 prototype 属性赋值可以让其“实例”直接使用这个原型上的属性和方法。并且在 §14.3 我们会学习如何查询（甚至改变）对象的原型。
 
 ### 6.2.4 Object.create()
 Object.create() creates a new object, using its first argument as the prototype of that object:
@@ -181,7 +181,7 @@ book["main title"] = "ECMAScript";  // Change the "main title" property.
 ```
 When using square bracket notation, we’ve said that the expression inside the square brackets must evaluate to a string. A more precise statement is that the expression must evaluate to a string or a value that can be converted to a string or to a Symbol (§6.10.3). In Chapter 7, for example, we’ll see that it is common to use numbers inside the square brackets.
 
-> 当使用方括号时，我们说方括号内的表达式必须返回字符串。其实更严格地讲，表达式必须返回字符串或返回一个可以转换为字符串的值或 Symbol（§6.10.3）。在第7章里有一些例子中的方括号内使用了数字，这情况是非常常用的。
+> 当使用方括号时，我们说方括号内的表达式必须返回字符串。其实更严格地讲，表达式必须返回字符串或返回一个可以转换为字符串的值或 Symbol（§6.10.3）。在第 7 章里有一些例子中的方括号内使用了数字，这情况是非常常用的。
 
 ### 6.3.1 Objects As Associative Arrays
 As explained in the preceding section, the following two JavaScript expressions have the same value:
@@ -233,7 +233,7 @@ Since the user enters stock names at runtime, there is no way that you can know 
 
 In Chapter 5, we introduced the for/in loop (and we’ll see it again shortly, in §6.6). The power of this JavaScript statement becomes clear when you consider its use with associative arrays. Here is how you would use it when computing the total value of a portfolio:
 
-> 第5章介绍了 for/in 循环（§6.6 节还会进一步介绍）。当使用 for/in 循环遍历关联数组时，就可以清晰地体会到 for/in 的强大之处。下面的例子就是利用 for/in 计算  portfolio 的合计值：
+> 第 5 章介绍了 for/in 循环（§6.6 节还会进一步介绍）。当使用 for/in 循环遍历关联数组时，就可以清晰地体会到 for/in 的强大之处。下面的例子就是利用 for/in 计算  portfolio 的合计值：
 
 ```js
 function computeValue(portfolio) {
@@ -253,7 +253,7 @@ JavaScript objects are commonly used as associative arrays as shown here, and it
 ### 6.3.2 Inheritance
 JavaScript objects have a set of “own properties,” and they also inherit a set of properties from their prototype object. To understand this, we must consider property access in more detail. The examples in this section use the Object.create() function to create objects with specified prototypes. We’ll see in Chapter 9, however, that every time you create an instance of a class with new, you are creating an object that inherits properties from a prototype object.
 
-> JavaScript 对象中有一组“自有属性”，也有一组属性是继承自它的原型对象。想要理解属性继承，必须更深入地了解属性访问的细节。这一节的例子通过使用 Object.create() 函数创建对象来指定它的原型。我们会在第9章再次看到它，但是，每次使用 new 创建类的实例时，您都会创建一个从原型对象继承属性的对象。
+> JavaScript 对象中有一组“自有属性”，也有一组属性是继承自它的原型对象。想要理解属性继承，必须更深入地了解属性访问的细节。这一节的例子通过使用 Object.create() 函数创建对象来指定它的原型。我们会在第 9 章再次看到它，但是，每次使用 new 创建类的实例时，您都会创建一个从原型对象继承属性的对象。
 
 Suppose you query the property x in the object o. If o does not have an own property with that name, the prototype object of o1 is queried for the property x. If the prototype object does not have an own property by that name, but has a prototype itself, the query is performed on the prototype of the prototype. This continues until the property x is found or until an object with a null prototype is searched. As you can see, the prototype attribute of an object creates a chain or linked list from which properties are inherited:
 
@@ -624,14 +624,24 @@ JSON syntax is a subset of JavaScript syntax, and it cannot represent all JavaSc
 ## 6.9 Object Methods
 As discussed earlier, all JavaScript objects (except those explicitly created without a prototype) inherit properties from Object.prototype. These inherited properties are primarily methods, and because they are universally available, they are of particular interest to JavaScript programmers. We’ve already seen the hasOwnProperty() and propertyIsEnumerable() methods, for example. (And we’ve also already covered quite a few static functions defined on the Object constructor, such as Object.create() and Object.keys().) This section explains a handful of universal object methods that are defined on Object.prototype, but which are intended to be replaced by other, more specialized implementations. In the sections that follow, we show examples of defining these methods on a single object. In Chapter 9, you’ll learn how to define these methods more generally for an entire class of objects.
 
+> 上文已经讨论过，所有的 JavaScript 对象都从 Object.prototype 继承属性（除了那些不通过原型显式创建的对象）。这些继承属性主要是方法，因为 JavaScript 程序员普遍对继承方法更感兴趣。例如我们已经见过的 hasOwnProperty() 和 propertyIsEnumerable() 方法。（并且我们也已经提到了一小部分定义在对象构造函数中的静态函数，像 Object.create() 和 Object.keys()。）本节介绍在 Object.prototype 上定义的少数通用对象方法，但是这些方法经常会被更专业的实现所取代。在下面的各节中，我们将展示在单个对象上定义这些方法的示例。在第 9 章中，您将学习如何更常规化地为整个对象类定义这些方法。
+
 ### 6.9.1 The toString() Method
 The toString() method takes no arguments; it returns a string that somehow represents the value of the object on which it is invoked. JavaScript invokes this method of an object whenever it needs to convert the object to a string. This occurs, for example, when you use the + operator to concatenate a string with an object or when you pass an object to a method that expects a string.
 
+> toString() 方法没有实参，它将返回一个表示调用这个方法的对象值的字符串。在需要将对象转换为字符串的时候，JavaScript 都会调用这个方法。比如，当使用 + 运算符连接一个字符串和一个对象时或者在希望使用字符串的方法中使用了对象时都会调用 toString()。
+
 The default toString() method is not very informative (though it is useful for determining the class of an object, as we will see in §14.4.3). For example, the following line of code simply evaluates to the string “[object Object]”:
+
+> 默认的 toString() 方法的返回值带有的信息量很少（尽管它在检测对象的类型时非常有用，参照 §14.4.3），例如，下面这行代码的计算结果为字符串”[object Object]”：
+
 ```js
 let s = { x: 1, y: 1 }.toString();  // s == "[object Object]"
 ```
 Because this default method does not display much useful information, many classes define their own versions of toString(). For example, when an array is converted to a string, you obtain a list of the array elements, themselves each converted to a string, and when a function is converted to a string, you obtain the source code for the function. You might define your own toString() method like this:
+
+> 由于默认的 toString() 方法并不会输出很多有用的信息，因此很多类都带有自定义的 toString()。例如，当数组转换为字符串的时候，结果是一个数组元素列表，只是每个元素都转换成了字符串，再比如，当函数转换为字符串的时候，得到函数的源代码。可以像下面这样自定义 toString() 方法：
+
 ```js
 let point = {
     x: 1,
@@ -642,6 +652,9 @@ String(point)    // => "(1, 2)": toString() is used for string conversions
 ```
 ### 6.9.2 The toLocaleString() Method
 In addition to the basic toString() method, objects all have a toLocaleString(). The purpose of this method is to return a localized string representation of the object. The default toLocaleString() method defined by Object doesn’t do any localization itself: it simply calls toString() and returns that value. The Date and Number classes define customized versions of toLocaleString() that attempt to format numbers, dates, and times according to local conventions. Array defines a toLocaleString() method that works like toString() except that it formats array elements by calling their toLocaleString() methods instead of their toString() methods. You might do the same thing with a point object like this:
+
+> 除了基本的 toString() 方法之外，对象都包含 toLocaleString() 方法，这个方法返回一个表示这个对象的本地化字符串。Object 中默认的 toLocaleString() 方法并不做任何本地化自身的操作，它仅调用 toString() 方法并返回对应值。Date 和 Number 类对 toLocaleString() 方法做了定制，可以用它对数字、日期和时间做本地化的转换。 Array 类的 toLocaleString() 方法和 toString() 方法很像，唯一的不同是每个数组元素会调用 toLocaleString() 方法转换为字符串，而不是调用各自的toString()方法。可以像这样使用 point 对象做到同样的效果：
+
 ```js
 let point = {
     x: 1000,
@@ -656,8 +669,13 @@ point.toLocaleString()  // => "(1,000, 2,000)": note thousands separators
 ```
 The internationalization classes documented in §11.7 can be useful when implementing a toLocaleString() method.
 
+> 在 §11.7 的国际化类中，toLocaleString() 方法的实现是非常有用的。
+
 ### 6.9.3 The valueOf() Method
 The valueOf() method is much like the toString() method, but it is called when JavaScript needs to convert an object to some primitive type other than a string—typically, a number. JavaScript calls this method automatically if an object is used in a context where a primitive value is required. The default valueOf() method does nothing interesting, but some of the built-in classes define their own valueOf() method. The Date class defines valueOf() to convert dates to numbers, and this allows Date objects to be chronologically compared with < and >. You could do something similar with a point object, defining a valueOf() method that returns the distance from the origin to the point:
+
+> valueOf() 方法和 toString() 方法非常类似，但往往当 JavaScript 需要将对象转换为某种原始值而非字符串的时候才会调用它，尤其是转换为数字的时候。如果在需要使用原始值的上下文中使用了对象，JavaScript 就会自动调用这个方法。默认的 valueOf() 方法不足为奇，但有些内置类自定义了 valueOf() 方法. Date 类定义 valueOf() 将日期转化成数值型，并且这允许 Date 对象使用 < 和 > 按时间先手顺序比较。可以对 point 对象做同样的事，定义一个 valueOf() 方法返回原点到点的距离：
+
 ```js
 let point = {
     x: 3,
@@ -671,6 +689,9 @@ point < 6      // => true
 ```
 ### 6.9.4 The toJSON() Method
 Object.prototype does not actually define a toJSON() method, but the JSON.stringify() method (see §6.8) looks for a toJSON() method on any object it is asked to serialize. If this method exists on the object to be serialized, it is invoked, and the return value is serialized, instead of the original object. The Date class (§11.4) defines a toJSON() method that returns a serializable string representation of the date. We could do the same for our Point object like this:
+
+> Object.prototype 实际上没有定义 toJSON() 方法，但对于需要执行序列化的对象来说，JSON.stringify() 方法（见 §6.8）会调用 toJSON() 方法。如果在待序列化的对象中存在这 个方法，则调用它，返回值即是序列化的结果，而不是原始的对象。Date 类（§11.4）定义了 toJSON() 方法返回日期的序列化字符串。我们可以这样对 point 对象做同样的事：
+
 ```js
 let point = {
     x: 1,
