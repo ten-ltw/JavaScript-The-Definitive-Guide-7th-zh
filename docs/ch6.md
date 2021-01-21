@@ -495,15 +495,15 @@ for(let p in o) {
 ```
 As an alternative to using a for/in loop, it is often easier to get an array of property names for an object and then loop through that array with a for/of loop. There are four functions you can use to get an array of property names:
 
-> 作为使用 for/in 循环的替代方法，通常更容易获取对象的属性名称数组，然后使用 for/of 循环遍历该数组。可以使用四个函数获取属性名称数组：
+> 作为使用 for/in 循环的替代方法，通常使用 for/of 循环遍历易获取对象的属性名称数组。可以使用四个函数获取属性名称数组：
 
 Object.keys() returns an array of the names of the enumerable own properties of an object. It does not include non-enumerable properties, inherited properties, or properties whose name is a Symbol (see §6.10.3).
 
-> Object.keys() 返回对象的可枚举自有属性名称数组集合。数组内不包含不可枚举属性、继承属性或属性名是 Symbol（见 §6.10.3）的属性
+> Object.keys() 返回对象的可枚举自有属性名称数组集合。数组内不包含不可枚举属性、继承属性或属性名称是 Symbol（见 §6.10.3）的属性
 
 Object.getOwnPropertyNames() works like Object.keys() but returns an array of the names of non-enumerable own properties as well, as long as their names are strings.
 
-> Object.getOwnPropertyNames() 用起来和 Object.keys() 类似，但是它返回数组中也包含不可迭代的自有属性，只要它们的名字是字符串。
+> Object.getOwnPropertyNames() 用起来和 Object.keys() 类似，但是它返回数组中也包含不可迭代的自有属性，只要它们的名称是字符串。
 
 Object.getOwnPropertySymbols() returns own properties whose names are Symbols, whether or not they are enumerable.
 
@@ -520,7 +520,7 @@ There are examples of the use of Object.keys() with a for/of loop in §6.7.
 ### 6.6.1 Property Enumeration Order
 ES6 formally defines the order in which the own properties of an object are enumerated. Object.keys(), Object.getOwnPropertyNames(), Object.getOwnPropertySymbols(), Reflect.ownKeys(), and related methods such as JSON.stringify() all list properties in the following order, subject to their own additional constraints about whether they list non-enumerable properties or properties whose names are strings or Symbols:
 
-> ES6 正式定义元素的自有属性的枚举顺序。Object.keys()、Object.getOwnPropertyNames()、Object.getOwnPropertyNames()、Object.getOwnPropertySymbols()、Reflect.ownKeys() 和相关方法如JSON.stringify() 属性列表都按以下顺序排列的，受它们自身额外参数，是否是不可枚举属性列表或者属性是字符串或者 Symbol：
+> ES6 正式定义元素的自有属性的枚举顺序。Object.keys()、Object.getOwnPropertyNames()、Object.getOwnPropertyNames()、Object.getOwnPropertySymbols()、Reflect.ownKeys() 和相关方法如 JSON.stringify() 属性列表都按以下顺序排列的，受它们自身是否是不可枚举属性列表或者属性是字符串或者 Symbol 影响：
 
 String properties whose names are non-negative integers are listed first, in numeric order from smallest to largest. This rule means that arrays and array-like objects will have their properties enumerated in order.
 
@@ -536,7 +536,7 @@ Finally, the properties whose names are Symbol objects are listed in the order i
 
 The enumeration order for the for/in loop is not as tightly specified as it is for these enumeration functions, but implementations typically enumerate own properties in the order just described, then travel up the prototype chain enumerating properties in the same order for each prototype object. Note, however, that a property will not be enumerated if a property by that same name has already been enumerated, or even if a non-enumerable property by the same name has already been considered.
 
-> for/in 循环的枚举顺序不像这些枚举函数那样严格指定，但实现通常按刚才描述的顺序枚举自己的属性，然后向上移动原型链按相同顺序枚举每个原型对象的属性。但是请注意，如果已枚举具有相同名称的属性，或者不可枚举属性已经被检测过再次枚举到相同名称的属性，也不会枚举属性。
+> for/in 循环的枚举顺序不像这些枚举函数那样严格指定，但实现通常按刚才描述的顺序枚举自己的属性，然后向上移动原型链按相同顺序枚举每个原型对象的属性。但是请注意，如果已枚举具有相同名称的属性，或者不可枚举属性已经被检测过再次枚举到相同名称的属性，都不会再次枚举。
 
 ## 6.7 Extending Objects
 A common operation in JavaScript programs is needing to copy the properties of one object to another object. It is easy to do that with code like this:
@@ -552,7 +552,7 @@ target  // => {x: 1, y: 2, z: 3}
 ```
 But because this is a common operation, various JavaScript frameworks have defined utility functions, often named extend(), to perform this copying operation. Finally, in ES6, this ability comes to the core JavaScript language in the form of Object.assign().
 
-> 但是因为这个是个常用的操作，各种 JavaScript 框架定义公用函数，经常命名为 extend() 来执行这个拷贝操作。最后在 ES6 中，这个功能以 Object.assign() 的形式被添加到 JavaScript 核心语言中。
+> 但是因为这个是个常用的操作，各种 JavaScript 框架定义公用函数，经常将其命名为 extend() 来执行这个拷贝操作。最后在 ES6 中，这个功能以 Object.assign() 的形式被添加到 JavaScript 核心语言中。
 
 Object.assign() expects two or more objects as its arguments. It modifies and returns the first argument, which is the target object, but does not alter the second or any subsequent arguments, which are the source objects. For each source object, it copies the enumerable own properties of that object (including those whose names are Symbols) into the target object. It processes the source objects in argument list order so that properties in the first source object override properties by the same name in the target object and properties in the second source object (if there is one) override properties with the same name in the first source object.
 
@@ -560,11 +560,11 @@ Object.assign() expects two or more objects as its arguments. It modifies and re
 
 Object.assign() copies properties with ordinary property get and set operations, so if a source object has a getter method or the target object has a setter method, they will be invoked during the copy, but they will not themselves be copied.
 
-> Object.assign() 通过普通属性的 get 和 set 操作复制属性，因此，如果源对象具有 getter 方法或目标对象具有 setter 方法，则将在复制期间调用它们，但不会赋值方法本身。
+> Object.assign() 通过普通属性的 get 和 set 操作复制属性，因此，如果源对象具有 getter 方法或目标对象具有 setter 方法，则将在复制期间调用它们，但不会复制方法本身。
 
 One reason to assign properties from one object into another is when you have an object that defines default values for many properties and you want to copy those default properties into another object if a property by that name does not already exist in that object. Using Object.assign() naively will not do what you want:
 
-> 将属性从一个对象分配到另一个对象的一个原因是，当有一个对象定义许多属性的默认值，希望将这些默认属性复制到另一个对象中,并且目标对象中不存在该名称的属性，使用 Object.assign() 不会得到想要的结果：
+> 思考将属性从一个对象分配到另一个对象，当有一个对象定义许多属性的默认值，希望将这些默认属性复制到另一个对象中,并且目标对象中不存在该名称的属性，使用 Object.assign() 不会得到想要的结果：
 
 ```js
 Object.assign(o, defaults);  // overwrites everything in o with defaults
@@ -619,7 +619,7 @@ let p = JSON.parse(s);       // p == {x: 1, y: {z: [false, null, ""]}}
 ```
 JSON syntax is a subset of JavaScript syntax, and it cannot represent all JavaScript values. Objects, arrays, strings, finite numbers, true, false, and null are supported and can be serialized and restored. NaN, Infinity, and -Infinity are serialized to null. Date objects are serialized to ISO-formatted date strings (see the Date.toJSON() function), but JSON.parse() leaves these in string form and does not restore the original Date object. Function, RegExp, and Error objects and the undefined value cannot be serialized or restored. JSON.stringify() serializes only the enumerable own properties of an object. If a property value cannot be serialized, that property is simply omitted from the stringified output. Both JSON.stringify() and JSON.parse() accept optional second arguments that can be used to customize the serialization and/or restoration process by specifying a list of properties to be serialized, for example, or by converting certain values during the serialization or stringification process. Complete documentation for these functions is in §11.6.
 
-> JSON 的语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值。支持对象、数组、字符串、无穷大数字、true、false 和 null，并且它们可以序列化和还原。NaN、Infinity 和 -Infinity 序列化的结果是 null，日期对象序列化的结果是 ISO 格式的日期字符串（参照 Date.toJSON() 函数），但 JSON.parse() 依然保留它们的字符 串形态，而不会将它们还原为原始日期对象。函数、RegExp、Error 对象和 undefined 值不能序列化和还原。JSON.stringify() 只能序列化对象可枚举的自有属性。对于一个不能序列化的属性来说，在序列化后的输出字符串中会将这个属性省略掉。JSON.stringify() 和 JSON.parse() 都可以接收第二个可选实参，通过传入需要序列化或还原的属性列表来定制自定义的序列化或还原操作。§11.6 有关于这些函数的详细文档。
+> JSON 的语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值。支持对象、数组、字符串、无穷大数字、true、false 和 null，并且它们可以序列化和还原。NaN、Infinity 和 -Infinity 序列化的结果是 null，日期对象序列化的结果是 ISO 格式的日期字符串（参照 Date.toJSON() 函数），但 JSON.parse() 依然保留它们的字符串形态，而不会将它们还原为原始日期对象。函数、RegExp、Error 对象和 undefined 值不能序列化和还原。JSON.stringify() 只能序列化对象可枚举的自有属性。对于一个不能序列化的属性来说，在序列化后的输出字符串中会将这个属性省略掉。JSON.stringify() 和 JSON.parse() 都可以接收第二个可选实参，通过传入需要序列化或还原的属性列表来定制自定义的序列化或还原操作。§11.6 有关于这些函数的详细文档。
 
 ## 6.9 Object Methods
 As discussed earlier, all JavaScript objects (except those explicitly created without a prototype) inherit properties from Object.prototype. These inherited properties are primarily methods, and because they are universally available, they are of particular interest to JavaScript programmers. We’ve already seen the hasOwnProperty() and propertyIsEnumerable() methods, for example. (And we’ve also already covered quite a few static functions defined on the Object constructor, such as Object.create() and Object.keys().) This section explains a handful of universal object methods that are defined on Object.prototype, but which are intended to be replaced by other, more specialized implementations. In the sections that follow, we show examples of defining these methods on a single object. In Chapter 9, you’ll learn how to define these methods more generally for an entire class of objects.
