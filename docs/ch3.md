@@ -16,7 +16,7 @@ The special JavaScript values null and undefined are primitive values, but they 
 
 Any JavaScript value that is not a number, a string, a boolean, a symbol, null, or undefined is an object. An object (that is, a member of the type object) is a collection of properties where each property has a name and a value (either a primitive value or another object). One very special object, the global object, is covered in §3.7, but more general and more detailed coverage of objects is in Chapter 6.
 
-> 任何不是数字、字符串、布尔值、符号、null 或 undefined 的 JavaScript 值都是对象。对象（即类型对象的成员）是属性的集合，其中每个属性都有一个名称和一个值（原始值或另一个对象）。一个非常特殊的对象，全局对象，在 §3.7 中介绍过了，但是在第 6 章中对对象进行了更广泛、更详细的介绍。
+> 任何不是数字、字符串、布尔值、Symbol、null 或 undefined 的 JavaScript 值都是对象。对象（即类型对象的成员）是属性的集合，其中每个属性都有一个名称和一个值（原始值或另一个对象）。一个非常特殊的对象，全局对象，在 §3.7 中介绍过了，但是在第 6 章中对对象进行了更广泛、更详细的介绍。
 
 An ordinary JavaScript object is an unordered collection of named values. The language also defines a special kind of object, known as an array, that represents an ordered collection of numbered values. The JavaScript language includes special syntax for working with arrays, and arrays have some special behavior that distinguishes them from ordinary objects. Arrays are the subject of Chapter 7.
 
