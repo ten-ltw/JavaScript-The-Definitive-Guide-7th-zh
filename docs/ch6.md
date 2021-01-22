@@ -653,7 +653,7 @@ String(point)    // => "(1, 2)": toString() is used for string conversions
 ### 6.9.2 The toLocaleString() Method
 In addition to the basic toString() method, objects all have a toLocaleString(). The purpose of this method is to return a localized string representation of the object. The default toLocaleString() method defined by Object doesn’t do any localization itself: it simply calls toString() and returns that value. The Date and Number classes define customized versions of toLocaleString() that attempt to format numbers, dates, and times according to local conventions. Array defines a toLocaleString() method that works like toString() except that it formats array elements by calling their toLocaleString() methods instead of their toString() methods. You might do the same thing with a point object like this:
 
-> 除了基本的 toString() 方法之外，对象都包含 toLocaleString() 方法，这个方法返回一个表示这个对象的本地化字符串。Object 中默认的 toLocaleString() 方法并不做任何本地化自身的操作，它仅调用 toString() 方法并返回对应值。Date 和 Number 类对 toLocaleString() 方法做了定制，可以用它对数字、日期和时间做本地化的转换。 Array 类的 toLocaleString() 方法和 toString() 方法很像，唯一的不同是每个数组元素会调用 toLocaleString() 方法转换为字符串，而不是调用各自的toString()方法。可以像这样使用 point 对象做到同样的效果：
+> 除了基本的 toString() 方法之外，对象都包含 toLocaleString() 方法，这个方法返回一个表示这个对象的本地化字符串。Object 中默认的 toLocaleString() 方法并不做任何本地化自身的操作，它仅调用 toString() 方法并返回对应值。Date 和 Number 类对 toLocaleString() 方法做了定制，可以用它对数字、日期和时间做本地化的转换。 Array 类的 toLocaleString() 方法和 toString() 方法很像，唯一的不同是每个数组元素会调用 toLocaleString() 方法转换为字符串，而不是调用各自的 toString() 方法。可以像这样使用 point 对象做到同样的效果：
 
 ```js
 let point = {
@@ -761,7 +761,7 @@ With this new syntax, the square brackets delimit an arbitrary JavaScript expres
 
 One situation where you might want to use computed properties is when you have a library of JavaScript code that expects to be passed objects with a particular set of properties, and the names of those properties are defined as constants in that library. If you are writing code to create the objects that will be passed to that library, you could hardcode the property names, but you’d risk bugs if you type the property name wrong anywhere, and you’d risk version mismatch issues if a new version of the library changes the required property names. Instead, you might find that it makes your code more robust to use computed property syntax with the property name constants defined by the library.
 
->可能想要使用计算属性的一个情况是，有一个 JavaScript 代码库，该库希望传递具有一组特定属性的对象，并且这些属性的名称定义为该库中的常量。如果要编写代码以创建将传递给该库的对象，可以硬编码属性名称，但如果在任何地方键入错误的属性名称，则存在错误风险；如果库的新版本更改了所需的属性名称，则存在版本不匹配问题的风险。相反，可能会发现，使用计算属性语法与库定义的属性名称常量时，它使代码更加健壮。
+> 可能想要使用计算属性的一个情况是，有一个 JavaScript 代码库，该库希望传递具有一组特定属性的对象，并且这些属性的名称定义为该库中的常量。如果要编写代码以创建将传递给该库的对象，可以硬编码属性名称，但如果在任何地方键入错误的属性名称，则存在错误风险；如果库的新版本更改了所需的属性名称，则存在版本不匹配问题的风险。相反，可能会发现，使用计算属性语法与库定义的属性名称常量时，它使代码更加健壮。
 
 ### 6.10.3 Symbols as Property Names
 The computed property syntax enables one other very important object literal feature. In ES6 and later, property names can be strings or symbols. If you assign a symbol to a variable or constant, then you can use that symbol as a property name using the computed property syntax:
