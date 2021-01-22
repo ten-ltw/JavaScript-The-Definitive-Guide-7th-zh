@@ -855,7 +855,7 @@ ES2020 finally defines globalThis as the standard way to refer to the global obj
 
 There is a fundamental difference in JavaScript between primitive values (undefined, null, booleans, numbers, and strings) and objects (including arrays and functions). Primitives are immutable: there is no way to change (or “mutate”) a primitive value. This is obvious for numbers and booleans—it doesn’t even make sense to change the value of a number. It is not so obvious for strings, however. Since strings are like arrays of characters, you might expect to be able to alter the character at any specified index. In fact, JavaScript does not allow this, and all string methods that appear to return a modified string are, in fact, returning a new string value. For example:
 
-> 在JavaScript中，原始值(未定义、null、布尔值、数字和字符串)和对象(包括数组和函数)之间存在根本的区别。原语是不可变的:不可能改变(或“突变”)原语值。这对于数字和布尔值来说是很明显的——甚至改变一个数字的值都没有意义。然而，对于字符串来说就不那么明显了。由于字符串类似于字符数组，您可能希望能够在任何指定的索引处更改字符。实际上，JavaScript不允许这样做，所有看起来返回修改过的字符串的字符串方法实际上都返回一个新的字符串值。例如:
+> JavaScript 中的原始值（undefined、null、布尔值、数字和字符串）与对象（包 括数组和函数）有着根本区别。原始值是不可更改的：任何方法都无法更改（或“突变”）一个原始值。对数字和布尔值来说显然如此——改变数字的值本身就说不通，而对字符串来说就不那么明显了，因为字符串看起来像由字符组成的数组，我们期望可以通过指定索引来修改字符串中的字符。实际上，JavaScript 是禁止这样做的。字符串中所有的方法看上去返回了一个修改后的字符串，实际上返回的 是一个新的字符串值。例如：
 
 ```js
 let s = "hello";   // Start with some lowercase text
@@ -865,11 +865,11 @@ s                  // => "hello": the original string has not changed
 
 Primitives are also compared by value: two values are the same only if they have the same value. This sounds circular for numbers, booleans, null, and undefined: there is no other way that they could be compared. Again, however, it is not so obvious for strings. If two distinct string values are compared, JavaScript treats them as equal if, and only if, they have the same length and if the character at each index is the same.
 
-> 原语还通过值进行比较:两个值只有在具有相同值时才相同。对于数字、布尔值、空值和未定义来说，这听起来是循环的:没有其他方法可以比较它们。然而，对于字符串来说，这并不是那么明显。如果比较两个不同的字符串值，JavaScript将当且仅当它们的长度相同且每个索引处的字符相同时，将它们视为相等。
+> 原始值的比较是值的比较：只有在它们的值相等时它们才相等。这对数字、布尔值、null 和 undefined 来说听起来有点儿难懂，并没有其他办法来比较它们。同样，对于字符串来说则并不明显：如果比较两个单独的字符串，当且仅当它们的长度相等且每个索引的字符都相等时，JavaScript 才认为它们相等。
 
 Objects are different than primitives. First, they are mutable—their values can change:
 
-> 对象不同于原语。首先，它们是可变的——它们的值可以改变:
+> 对象和原始值不同，首先，它们是可变的——它们的值是可修改的：
 
 ```js
 let o = { x: 1 };  // Start with an object
@@ -883,7 +883,7 @@ a[3] = 4;          // Add a new array element
 
 Objects are not compared by value: two distinct objects are not equal even if they have the same properties and values. And two distinct arrays are not equal even if they have the same elements in the same order:
 
-> 对象不按值进行比较:两个不同的对象即使具有相同的属性和值也不相等。两个不同的数组是不相等的，即使它们的元素顺序相同:
+> 对象的比较并非值的比较：即使两个对象包含同样的属性及相同的值，它们也是不相等的。各个索引元素完全相等的两个数组也不相等。
 
 ```js
 let o = {x: 1}, p = {x: 1};  // Two objects with the same properties
@@ -894,7 +894,7 @@ a === b                      // => false: distinct arrays are never equal
 
 Objects are sometimes called reference types to distinguish them from JavaScript’s primitive types. Using this terminology, object values are references, and we say that objects are compared by reference: two object values are the same if and only if they refer to the same underlying object.
 
-> 对象有时被称为引用类型，以区别于JavaScript的基本类型。使用这个术语，对象值是引用，我们说对象是通过引用来比较的:两个对象值是相同的，当且仅当它们引用相同的基础对象时。
+> 我们有时将对象称为引用类型（reference type），以此来和 JavaScript 的基本类型区分开来。依照术语的叫法，对象值都是引用（reference），对象的比较均是引用的比较：当且仅当它们引用同一个基对象时，它们才相等。
 
 ```js
 let a = [];   // The variable a refers to an empty array.
@@ -906,7 +906,7 @@ a === b       // => true: a and b refer to the same object, so they are equal.
 
 As you can see from this code, assigning an object (or array) to a variable simply assigns the reference: it does not create a new copy of the object. If you want to make a new copy of an object or array, you must explicitly copy the properties of the object or the elements of the array. This example demonstrates using a for loop (§5.4.3):
 
-> 正如您从这段代码中看到的，将对象(或数组)赋值给变量只会赋值引用:它不会创建对象的新副本。如果要创建对象或数组的新副本，则必须显式复制对象的属性或数组的元素。这个例子演示了如何使用for循环(§5.4.3):
+> 就像你刚看到的如上代码，将对象（或数组）赋值给一个变量，仅仅是赋值的引用值：对象本身并没有复制一次。如果你想得到一个对象或数组的副本，则必须显式复制对象的每个属性或数组的每个元素。下面这个例子则是通过循环来完成数组复制（§5.4.3）：
 
 ```js
 let a = ["a","b","c"];              // An array we want to copy
@@ -919,7 +919,7 @@ let c = Array.from(b);              // In ES6, copy arrays with Array.from()
 
 Similarly, if we want to compare two distinct objects or arrays, we must compare their properties or elements. This code defines a function to compare two arrays:
 
-> 类似地，如果要比较两个不同的对象或数组，则必须比较它们的属性或元素。这段代码定义了一个函数来比较两个数组:
+> 同样的，如果我们想比较两个单独的对象或者数组，则必须比较它们的属性或元素。下面这段代码定义了一个比较两个数组的函数：
 
 ```js
 function equalArrays(a, b) {
@@ -935,11 +935,11 @@ function equalArrays(a, b) {
 
 JavaScript is very flexible about the types of values it requires. We’ve seen this for booleans: when JavaScript expects a boolean value, you may supply a value of any type, and JavaScript will convert it as needed. Some values (“truthy” values) convert to true and others (“falsy” values) convert to false. The same is true for other types: if JavaScript wants a string, it will convert whatever value you give it to a string. If JavaScript wants a number, it will try to convert the value you give it to a number (or to NaN if it cannot perform a meaningful conversion).
 
-> JavaScript对于它所需要的值的类型非常灵活。对于布尔值，我们已经看到了这一点:当JavaScript需要一个布尔值时，你可以提供任何类型的值，JavaScript会根据需要进行转换。一些值(“真”值)转换为真，其他值(“假”值)转换为假。其他类型也是如此:如果JavaScript想要一个字符串，它会将你给它的任何值转换为字符串。如果JavaScript想要一个数字，它将尝试将您给它的值转换为一个数字(如果它不能执行有意义的转换，则转换为NaN)。
+> JavaScript 中取值所需类型非常灵活。从布尔值上就能看出这一点：当 JavaScript 需要一个布尔值时，你可以提供任何类型的值，JavaScript 会根据需要进行转换。一些值（真值）转换为 true，其他值（假值）转换为 false。这在 其他类型中同样适用：如果 JavaScript 期望使用一个字符串，它把给定的值将转换为字符串。如果 JavaScript 期望使用一个数字，它把给定的值将转换为数字（如果转换结果无意义的话将返回NaN）。
 
 Some examples:
 
-> 一些例子:
+> 一些例子如下:
 
 ```js
 10 + " objects"     // => "10 objects":  Number 10 converts to a string
@@ -950,7 +950,7 @@ n + " objects"      // => "NaN objects": NaN converts to string "NaN"
 
 Table 3-2 summarizes how values convert from one type to another in JavaScript. Bold entries in the table highlight conversions that you may find surprising. Empty cells indicate that no conversion is necessary and none is performed.
 
-> 表3-2总结了JavaScript中值如何从一种类型转换为另一种类型。表中粗体项突出显示您可能会感到惊讶的转换。空的单元格表示不需要转换，也不执行任何转换。
+> 表 3-2 简要说明了在 JavaScript 中如何进行类型转换。表 3-2 中的粗体部分突出显示了那些让你倍感意外的类型转换。空单元格表示不必要也没有执行转换。
 
 Table 3-2. JavaScript type conversions
 
@@ -959,21 +959,21 @@ Table 3-2. JavaScript type conversions
 | Value                         | to String         | to Number  | to Boolean |
 | ----------------------------- | ----------------- | ---------- | ---------- |
 | undefined                     | "undefined"       | NaN        | false      |
-| null                          | "null"            | 0          | false      |
-| true                          | "true"            | 1          |            |
-| false                         | "false"           | 0          |            |
-| "" (empty string)             |                   | 0          | false      |
+| null                          | "null"            | **0**      | false      |
+| true                          | "true"            | **1**      |            |
+| false                         | "false"           | **0**      |            |
+| "" (empty string)             |                   | **0**      | **false**  |
 | "1.2" (nonempty, numeric)     |                   | 1.2        | true       |
 | "one" (nonempty, non-numeric) |                   | NaN        | true       |
-| 0                             | "0"               |            | false      |
-| -0                            | "0"               |            | false      |
+| 0                             | "0"               |            | **false**  |
+| -0                            | "0"               |            | **false**  |
 | 1 (finite, non-zero)          | "1"               |            | true       |
 | Infinity                      | "Infinity"        |            | true       |
 | -Infinity                     | "-Infinity"       |            | true       |
-| NaN                           | "NaN"             |            | false      |
+| NaN                           | "NaN"             |            | **false**  |
 | {} (any object)               | see §3.9.3        | see §3.9.3 | true       |
-| [] (empty array)              | ""                | 0          | true       |
-| [9] (one numeric element)     | "9"               | 9          | true       |
+| [] (empty array)              | ""                | **0**      | true       |
+| [9] (one numeric element)     | "9"               | **9**      | true       |
 | ['a'] (any other array)       | use join() method | NaN        | true       |
 | function(){} (any function)   | see §3.9.3        | NaN        | true       |
 
