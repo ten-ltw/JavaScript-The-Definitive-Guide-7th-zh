@@ -805,11 +805,11 @@ s.toString()             // => "Symbol(sym_x)"
 ```
 toString() is the only interesting method of Symbol instances. There are two other Symbol-related functions you should know about, however. Sometimes when using Symbols, you want to keep them private to your own code so you have a guarantee that your properties will never conflict with properties used by other code. Other times, however, you might want to define a Symbol value and share it widely with other code. This would be the case, for example, if you were defining some kind of extension that you wanted other code to be able to participate in, as with the Symbol.iterator mechanism described earlier.
 
-> toString()是符号实例中唯一有趣的方法。但是，您还应该了解另外两个与符号相关的函数。有时在使用符号时，您希望将它们保留为您自己的代码的私有属性，这样就可以保证您的属性不会与其他代码使用的属性发生冲突。然而，在其他时候，您可能想要定义一个符号值并与其他代码广泛共享它。例如，如果您正在定义某种类型的扩展，您希望其他代码能够参与其中，就像符号一样，那么就会出现这种情况。前面描述的迭代器机制。
+> toString() 是 Symbol 实例中唯一有趣的方法。但是，您还应该了解另外两个与符号相关的函数。有时在使用符号时，您希望将它们保留为自己的代码的私有属性，这样就可以保证属性不会与其他代码使用的属性发生冲突。然而，在其他时候，可能想要定义一个 Symbol 值并与其他代码广泛共享它。例如，如果您正在定义某种希望其他代码能够参与的扩展，就像前面描述的 Symbol.iterator 机制。
 
 To serve this latter use case, JavaScript defines a global Symbol registry. The Symbol.for() function takes a string argument and returns a Symbol value that is associated with the string you pass. If no Symbol is already associated with that string, then a new one is created and returned; otherwise, the already existing Symbol is returned. That is, the Symbol.for() function is completely different than the Symbol() function: Symbol() never returns the same value twice, but Symbol.for() always returns the same value when called with the same string. The string passed to Symbol.for() appears in the output of toString() for the returned Symbol, and it can also be retrieved by calling Symbol.keyFor() on the returned Symbol.
 
-> 为了满足后一个用例，JavaScript定义了一个全局符号注册表。for()函数接受一个字符串参数，并返回与所传递的字符串相关联的符号值。如果没有与该字符串相关联的符号，则创建并返回一个新的符号;否则，返回已经存在的符号。也就是说，Symbol.for()函数与Symbol()函数完全不同:Symbol()不会两次返回相同的值，但Symbol.for()在使用相同的字符串调用时总是返回相同的值。传递给Symbol.for()的字符串出现在返回符号的toString()的输出中，也可以通过调用返回符号的Symbol. keyfor()来检索它。
+> 为了满足后一个用例，JavaScript 定义了一个全局 Symbol 注册表。Symbol.for() 函数接受一个字符串实参，并返回与所传递的字符串相关联的 Symbol 值。如果没有与该字符串相关联的符号，则创建并返回一个新的符号；否则，返回已经存在的符号。也就是说，Symbol.for() 函数与 Symbol() 函数完全不同：Symbol() 不会两次返回相同的值，但 Symbol.for() 在使用相同的字符串调用时总是返回相同的值。传递给 Symbol.for() 的字符串出现在返回符号的 toString() 的输出中，也可以通过调用返回符号的 Symbol.keyfor() 来检索它。
 
 ```js
 let s = Symbol.for("shared");
@@ -821,7 +821,7 @@ Symbol.keyFor(t) // => "shared"
 ## 3.7 The Global Object
 The preceding sections have explained JavaScript’s primitive types and values. Object types—objects, arrays, and functions—are covered in chapters of their own later in this book. But there is one very important object value that we must cover now. The global object is a regular JavaScript object that serves a very important purpose: the properties of this object are the globally defined identifiers that are available to a JavaScript program. When the JavaScript interpreter starts (or whenever a web browser loads a new page), it creates a new global object and gives it an initial set of properties that define:
 
-> 前面的章节已经解释了JavaScript的基本类型和值。对象类型——对象、数组和函数——将在本书后面的章节中介绍。但是有一个非常重要的对象值，我们现在必须讲一下。全局对象是一个常规的JavaScript对象，它有一个非常重要的用途:该对象的属性是JavaScript程序可用的全局定义的标识符。当JavaScript解释器启动时(或者每当web浏览器加载一个新页面时)，它会创建一个新的全局对象，并为其提供一组初始属性，这些属性定义:
+> 前面的章节已经解释了 JavaScript 的基本类型和值。对象类型——对象、数组和函数——将在本书后面的章节中介绍。但是有一个非常重要的对象值，我们现在必须讲一下。全局对象是一个常规的 JavaScript 对象，它有一个非常重要的用途：该对象的属性是 JavaScript 程序可用的全局定义的标识符。当 JavaScript 解释器启动时(或者每当 web 浏览器加载一个新页面时)，它会创建一个新的全局对象，并为其提供一组初始属性，这些属性定义：
 
 - Global constants like undefined, Infinity, and NaN
 - Global functions like isNaN(), parseInt() (§3.9.2), and eval() (§4.12)
@@ -830,10 +830,10 @@ The preceding sections have explained JavaScript’s primitive types and values.
 
 ---
 
-> - 全局常量，如undefined、Infinity和NaN
-> - 全局函数，如isNaN()， parseInt()(§3.9.2)和eval()(§4.12)
-> - 构造函数，如Date()， RegExp()， String()， Object()和Array()(§3.9.2)
-> - 全局对象，如Math和JSON(§6.8)
+> - 全局常量，如 undefined、Infinity 和 NaN
+> - 全局函数，如 isNaN()、 parseInt()（§3.9.2）和 eval()（§4.12）
+> - 构造函数，如 Date()、 RegExp()、 String()、 Object() 和 Array()（§3.9.2）
+> - 全局对象，如 Math 和 JSON（§6.8）
 
 The initial properties of the global object are not reserved words, but they deserve to be treated as if they are. This chapter has already described some of these global properties. Most of the others will be covered elsewhere in this book.
 
@@ -841,15 +841,15 @@ The initial properties of the global object are not reserved words, but they des
 
 In Node, the global object has a property named global whose value is the global object itself, so you can always refer to the global object by the name global in Node programs.
 
-> 在Node中，全局对象有一个名为global的属性，该属性的值就是全局对象本身，因此在Node程序中始终可以通过名称global来引用全局对象。
+> 在 Node 中，全局对象有一个名为 global 的属性，该属性的值就是全局对象本身，因此在 Node 程序中始终可以通过名称 global 来引用全局对象。
 
 In web browsers, the Window object serves as the global object for all JavaScript code contained in the browser window it represents. This global Window object has a self-referential window property that can be used to refer to the global object. The Window object defines the core global properties, but it also defines quite a few other globals that are specific to web browsers and client-side JavaScript. Web worker threads (§15.13) have a different global object than the Window with which they are associated. Code in a worker can refer to its global object as self.
 
-> 在web浏览器中，Window对象充当它所代表的浏览器窗口中包含的所有JavaScript代码的全局对象。这个全局窗口对象有一个自引用窗口属性，可以用来引用全局对象。Window对象定义了核心的全局属性，但是它也定义了一些其他的全局属性，这些全局属性是特定于web浏览器和客户端JavaScript的。Web worker线程(§15.13)有一个与它们相关联的窗口不同的全局对象。worker中的代码可以将其全局对象引用为self。
+> 在 web 浏览器中，Window 对象充当它所代表的浏览器窗口中包含的所有 JavaScript 代码的全局对象。这个全局窗口对象有一个自引用窗口属性，可以用来引用全局对象。Window 对象定义了核心的全局属性，但是它也定义了一些其他的全局属性，这些全局属性是特定于 web 浏览器和客户端 JavaScript 的。Web worker 线程（§15.13）有一个与它们相关联的窗口不同的全局对象。worker 中的代码可以将其全局对象引用为 self。
 
 ES2020 finally defines globalThis as the standard way to refer to the global object in any context. As of early 2020, this feature has been implemented by all modern browsers and by Node.
 
-> ES2020最终定义了globalThis作为在任何上下文中引用全局对象的标准方式。到2020年初，所有现代浏览器和Node都实现了该特性。
+> ES2020 最终定义了 globalThis 作为在任何上下文中引用全局对象的标准方式。到 2020 年初，所有现代浏览器和 Node 都实现了该特性。
 
 ## 3.8 Immutable Primitive Values and Mutable Object References
 
