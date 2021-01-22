@@ -709,7 +709,7 @@ Recent versions of JavaScript have extended the syntax for object literals in a 
 ### 6.10.1 Shorthand Properties
 Suppose you have values stored in variables x and y and want to create an object with properties named x and y that hold those values. With basic object literal syntax, you’d end up repeating each identifier twice:
 
-> 假设值存储在变量 x 和 y 中，并且想要创建具有名为 x 和 y 的属性的对象，这些属性包含这些值。使用基本对象文本语法，最终会重复每个标识符两次：
+> 假设值存储在变量 x 和 y 中，并且想要创建具有名为 x 和 y 的属性的对象，这些属性包含这些值。使用基本对象字面量语法，最终会重复每个标识符两次：
 
 ```js
 let x = 1, y = 2;
@@ -730,7 +730,7 @@ o.x + o.y  // => 3
 ### 6.10.2 Computed Property Names
 Sometimes you need to create an object with a specific property, but the name of that property is not a compile-time constant that you can type literally in your source code. Instead, the property name you need is stored in a variable or is the return value of a function that you invoke. You can’t use a basic object literal for this kind of property. Instead, you have to create an object and then add the desired properties as an extra step:
 
-> 有时需要创建具有特定属性的对象，但该属性的名称不是可以在源代码中键入的编译时常量。相反，需要的属性名称存储在变量中，或者是调用的函数的返回值。不能对此类属性使用基本对象字面量。而必须创建一个对象，然后作为额外的步骤，添加所需的属性：
+> 有时需要创建具有特定属性的对象，但该属性的名称不是可以在源代码中键入的编译时常量。相反，需要的属性名称存储在变量中，或者是调用的函数的返回值。不能对此类属性使用基本对象字面量。而必须创建一个对象，通过额外的步骤，添加所需的属性：
 
 ```js
 const PROPERTY_NAME = "p1";
@@ -742,7 +742,7 @@ o[computePropertyName()] = 2;
 ```
 It is much simpler to set up an object like this with an ES6 feature known as computed properties that lets you take the square brackets from the preceding code and move them directly into the object literal:
 
-> 使用称为计算属性的 ES6 特性设置这样的对象要简单得多，该功能允许从前面的代码中将方括号和其中的代码直接移动到对象字面量中：
+> 使用称为计算属性的 ES6 特性设置这样的对象要简单得多，该功能允许从前面的代码写入方括内并直接移动到对象字面量中：
 
 ```js
 const PROPERTY_NAME = "p1";
@@ -777,11 +777,11 @@ o[extension].x = 0; // This won't conflict with other properties of o
 ```
 As explained in §3.6, Symbols are opaque values. You can’t do anything with them other than use them as property names. Every Symbol is different from every other Symbol, however, which means that Symbols are good for creating unique property names. Create a new Symbol by calling the Symbol() factory function. (Symbols are primitive values, not objects, so Symbol() is not a constructor function that you invoke with new.) The value returned by Symbol() is not equal to any other Symbol or other value. You can pass a string to Symbol(), and this string is used when your Symbol is converted to a string. But this is a debugging aid only: two Symbols created with the same string argument are still different from one another.
 
-> 如 §3.6 中所述，符号是不透明值。除了将它们用作属性名称，不能对它们进行任何其他处理。但是，每个符号都不同于所有其他符号，这意味着符号适合创建唯一的属性名称。通过调用 Symbol() 工厂函数创建新 Symbol。（Symbol 是原始值，而不是对象，因此 Symbol() 不是使用 new 调用的构造函数。）Symbol() 返回的值不等于任何其他符号或其他值。可以将字符串传递给 Symbol()，当符号转换为字符串时，将使用此字符串。但是，这只是一个调试帮助：使用同一字符串参数创建的两个符号仍然彼此不同。
+> 如 §3.6 中所述，符号是不透明值。除了将它们用作属性名称，不能对它们进行任何其他处理。但是，每个 Symbol 都不同于所有其他 Symbol，这意味着 Symbol 适合创建唯一的属性名称。通过调用 Symbol() 工厂函数创建新 Symbol。（Symbol 是原始值，而不是对象，因此 Symbol() 不是使用 new 调用的构造函数。）Symbol() 返回的值不等于任何其他 Symbol 或其他值。可以将字符串传递给 Symbol()，当 Symbol 转换为字符串时，将使用此字符串。但是，这只是一个调试帮助：使用同一字符串参数创建的两个 Symbol 仍然彼此不同。
 
 The point of Symbols is not security, but to define a safe extension mechanism for JavaScript objects. If you get an object from third-party code that you do not control and need to add some of your own properties to that object but want to be sure that your properties will not conflict with any properties that may already exist on the object, you can safely use Symbols as your property names. If you do this, you can also be confident that the third-party code will not accidentally alter your symbolically named properties. (That third-party code could, of course, use Object.getOwnPropertySymbols() to discover the Symbols you’re using and could then alter or delete your properties. This is why Symbols are not a security mechanism.)
 
-> 符号的要点不是安全性，而是为 JavaScript 对象定义一个安全的扩展机制。如果从第三方代码获取对象，您无法控制该对象，并且需要向该对象添加自己的一些属性，但希望确保属性不会与对象上可能存在的任何属性冲突，可以安全地使用 Symbol 作为属性名称。如果这样做，还可以确信第三方代码不会意外更改 Symbol 命名的属性。（当然，该第三方代码可以使用 Object.getOwnPropertySymbols() 来发现您使用的 Symbol，然后可以更改或删除您的属性。这就是为什么符号不是安全机制。）
+> Symbol 的要点不是安全性，而是为 JavaScript 对象定义一个安全的扩展机制。如果从第三方代码获取对象，您无法控制该对象，并且需要向该对象添加自己的一些属性，但希望确保属性不会与对象上可能存在的任何属性冲突，可以安全地使用 Symbol 作为属性名称。如果这样做，还可以确信第三方代码不会意外更改 Symbol 命名的属性。（当然，该第三方代码可以使用 Object.getOwnPropertySymbols() 来发现你使用的 Symbol，然后可以更改或删除你的属性。这就是为什么符号不是安全机制。）
 
 ### 6.10.4 Spread Operator
 In ES2018 and later, you can copy the properties of an existing object into a new object using the “spread operator” ... inside an object literal:
@@ -796,7 +796,7 @@ rect.x + rect.y + rect.width + rect.height // => 175
 ```
 In this code, the properties of the position and dimensions objects are “spread out” into the rect object literal as if they had been written literally inside those curly braces. Note that this ... syntax is often called a spread operator but is not a true JavaScript operator in any sense. Instead, it is a special-case syntax available only within object literals. (Three dots are used for other purposes in other JavaScript contexts, but object literals are the only context where the three dots cause this kind of interpolation of one object into another one.)
 
-> 在此代码中，position 和 dimensions 对象的属性被展开到 rect 对象字面中，就像它们以字面量的方式写入这些大括号中一样。请注意，... 语法通常称为展开运算符，但在任何情况下都不是真正的 JavaScript 运算符。相反，它是一种特殊情况下语法，仅在对象文本中可用。（... 在别的 JavaScript 上下文中有其他用途，但是对象字面量上下文中只有这一种用法。）
+> 在此代码中，position 和 dimensions 对象的属性被展开到 rect 对象字面量中，就像它们以字面量的方式写入这些大括号中一样。请注意，... 语法通常称为展开运算符，但在任何情况下都不是真正的 JavaScript 运算符。相反，它是一种特殊情况下语法，仅在对象文本中可用。（... 在别的 JavaScript 上下文中有其他用途，但是对象字面量上下文中只有这一种用法。）
 
 If the object that is spread and the object it is being spread into both have a property with the same name, then the value of that property will be the one that comes last:
 
@@ -847,7 +847,7 @@ square.area() // => 100
 ```
 Both forms of the code are equivalent: both add a property named area to the object literal, and both set the value of that property to the specified function. The shorthand syntax makes it clearer that area() is a method and not a data property like side.
 
-> 两种形式是相同的：在对象字面量中添加一个名为 area 的属性，并指定一个函数为这个属性的值。速记语法更清晰阿看出 area() 是一个方法而不是一个像 side 一样的数据属性。
+> 两种形式是相同的：在对象字面量中添加一个名为 area 的属性，并指定一个函数为这个属性的值。速记语法更清晰的看出 area() 是一个方法而不是一个像 side 一样的数据属性。
 
 When you write a method using this shorthand syntax, the property name can take any of the forms that are legal in an object literal: in addition to a regular JavaScript identifier like the name area above, you can also use string literals and computed property names, which can include Symbol property names:
 
@@ -867,7 +867,7 @@ weirdMethods[symbol](1)                // => 4
 ```
 Using a Symbol as a method name is not as strange as it seems. In order to make an object iterable (so it can be used with a for/of loop), you must define a method with the symbolic name Symbol.iterator, and there are examples of doing exactly that in Chapter 12.
 
-> 使用符号作为方法名称并不像看起来那么奇怪。为了使对象可迭代（因此它可以与 for/of 循环一起使用），必须定义一个具有符号名称 Symbol.iterator 的方法，并且在第 12 章中有这样做的示例。
+> 使用 Symbol 作为方法名称并不像看起来那么奇怪。为了使对象可迭代（因此它可以与 for/of 循环一起使用），必须定义一个具有符号名称 Symbol.iterator 的方法，并且在第 12 章中有这样做的示例。
 
 ### 6.10.6 Property Getters and Setters
 All of the object properties we’ve discussed so far in this chapter have been data properties with a name and an ordinary value. JavaScript also supports accessor properties, which do not have a single value but instead have one or two accessor methods: a getter and/or a setter.
@@ -902,7 +902,7 @@ Accessor properties are defined as one or two methods whose name is the same as 
 
 The accessor methods defined above simply get and set the value of a data property, and there is no reason to prefer the accessor property over the data property. But as a more interesting example, consider the following object that represents a 2D Cartesian point. It has ordinary data properties to represent the x and y coordinates of the point, and it has accessor properties that give the equivalent polar coordinates of the point:
 
-> 上面定义的存储器方法只需获取并设置数据属性的值，没有理由将存储器属性替换为数据属性。但作为一个更有趣的示例，请考虑以下表示 2D 笛卡尔点的对象。它具有表示点的 x 和 y 坐标的普通数据属性，并且具有提供点等效极坐标的存储器属性：
+> 上面定义的存储器方法只需获取并设置数据属性的值，没有理由将存储器属性替换数据属性。但作为一个更有趣的示例，请考虑以下表示 2D 笛卡尔点的对象。它具有表示点的 x 和 y 坐标的普通数据属性，并且具有提供点等效极坐标的存储器属性：
 
 ```js
 let p = {
@@ -928,7 +928,7 @@ p.theta // => Math.PI / 4
 ```
 Note the use of the keyword this in the getters and setter in this example. JavaScript invokes these functions as methods of the object on which they are defined, which means that within the body of the function, this refers to the point object p. So the getter method for the r property can refer to the x and y properties as this.x and this.y. Methods and the this keyword are covered in more detail in §8.2.2.
 
-> 请注意，在本示例中的 getter 和 setter 中使用 this 关键字。JavaScript 以对象的方法的方式调用这些函数，这意味着在函数体中，this 指的是点对象 p。因此，r 属性的 getter 方法通过 this.x 和 this.y 获取到 x 和 y 属性的引用。方法以及 this 键字在 §8.2.2 中详细介绍。
+> 请注意，在本示例中的 getter 和 setter 中使用 this 关键字。JavaScript 以对象的方法的方式调用这些函数，这意味着在函数体中，this 指的是点对象 p。因此，r 属性的 getter 方法通过 this.x 和 this.y 获取到 x 和 y 属性的引用。方法以及 this 关键字在 §8.2.2 中详细介绍。
 
 Accessor properties are inherited, just as data properties are, so you can use the object p defined above as a prototype for other points. You can give the new objects their own x and y properties, and they’ll inherit the r and theta properties:
 
@@ -942,7 +942,7 @@ q.theta                   // => Math.atan2(4, 3)
 ```
 The code above uses accessor properties to define an API that provides two representations (Cartesian coordinates and polar coordinates) of a single set of data. Other reasons to use accessor properties include sanity checking of property writes and returning different values on each property read:
 
-> 上述代码使用存储器属性定义一个 API，该 API 提供一组数据的两种表示形式（笛卡尔坐标和极坐标）。使用存储器属性的其他情况包括属性写入的稳健性检测以及在每个属性上返回不同的值：
+> 上述代码使用存储器属性定义一个 API，该 API 提供一组数据的两种表示形式（笛卡尔坐标和极坐标）。使用存储器属性的其他场景包括属性写入的稳健性检测以及在每个属性上返回不同的值：
 
 ```js
 // This object generates strictly increasing serial numbers
@@ -1001,9 +1001,9 @@ All JavaScript values that are not primitive values are objects. This includes b
 
 > 如何读取、写入、删除、枚举和检查对象属性是否存在。
 
-> 基于原型的继承是如何在 JavaScript 中工作，以及如何使用 Object.create() 创建一个对象从另一个对象继承。
+> 基于原型的继承是如何在 JavaScript 中工作，以及如何使用 Object.create() 创建一个从另一个对象继承的对象。
 
-> 如何使用 Object.assign（） 将属性从一个对象复制到另一个对象。
+> 如何使用 Object.assign() 将属性从一个对象复制到另一个对象。
 
 > 所有 JavaScript 的非原始值都是对象。这包括数组和函数，这是接下来两章的主题。
 
@@ -1011,4 +1011,4 @@ All JavaScript values that are not primitive values are objects. This includes b
 
 1. Remember; almost all objects have a prototype but most do not have a property named prototype. JavaScript inheritance works even if you can’t access the prototype object directly. But see §14.3 if you want to learn how to do that.
 
-> 1. 记住，几乎所有对象都有一个原型，但大多数对象没有名为 prototype 的属性。即使您不能直接访问原型对象，JavaScript 继承依然工作。但是，如果你想学习如何做到这一点，请参阅 §14.3。
+> 1. 记住，几乎所有对象都有一个原型，但大多数对象没有名为 prototype 的属性。即使不能直接访问原型对象，JavaScript 继承依然工作。但是，如果你想学习如何做到这一点，请参阅 §14.3。
