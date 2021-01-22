@@ -979,17 +979,17 @@ Table 3-2. JavaScript type conversions
 
 The primitive-to-primitive conversions shown in the table are relatively straightforward. Conversion to boolean was already discussed in §3.4. Conversion to strings is well defined for all primitive values. Conversion to numbers is just a little trickier. Strings that can be parsed as numbers convert to those numbers. Leading and trailing spaces are allowed, but any leading or trailing nonspace characters that are not part of a numeric literal cause the string-to-number conversion to produce NaN. Some numeric conversions may seem surprising: true converts to 1, and false and the empty string convert to 0.
 
-> 表中显示的原语到原语的转换相对简单。到布尔值的转换在§3.4中已经讨论过了。对所有原始值都定义了到字符串的转换。转换成数字需要一点技巧。可以被解析为数字的字符串可以转换为这些数字。允许前导和尾随空格，但是任何不属于数字文字的前导或尾随非空格字符都会导致字符串到数字的转换产生NaN。一些数字转换可能看起来令人惊讶:true转换为1,false和空字符串转换为0。
+> 表中提到的原始值到原始值的转换相对简单，我们已经在 §3.4 讨论过转换为布尔值的情况了。所有原始值转换为字符串的情形也已经明确定义。转换为数字的情形比较微妙。那些以数字表示的字符串可以直接转换为数字，也允许在开始和结尾处带有空格。但在开始和结尾处的任意非空格字符都不会被当成数字直接量的一部分，进而造成字符串转换为数字的结果为 NaN。有一些数字转换看起来让人奇怪：true 转换为 1，false、空字符串 ”” 转换为 0。
 
 Object-to-primitive conversion is somewhat more complicated, and it is the subject of §3.9.3.
 
-> 对象到原语的转换要复杂一些，它是§3.9.3的主题。
+> 对象到原始值的转换要复杂一些，它是 §3.9.3 的主题。
 
 ### 3.9.1 Conversions and Equality
 
 JavaScript has two operators that test whether two values are equal. The “strict equality operator,” ===, does not consider its operands to be equal if they are not of the same type, and this is almost always the right operator to use when coding. But because JavaScript is so flexible with type conversions, it also defines the == operator with a flexible definition of equality. All of the following comparisons are true, for example:
 
-> JavaScript有两个运算符来测试两个值是否相等。“严格的相等运算符”===如果它们不是同一类型的操作数，则不认为它们是相等的，在编码时，这几乎总是正确的运算符。但是，由于JavaScript在类型转换方面非常灵活，所以它还用灵活的相等定义定义了==运算符。下面所有的比较都是正确的，例如:
+> JavaScript 有两个运算符来测试两个值是否相等。“严格的相等运算符”=== 的操作数不是同一类型则不认为它们是相等的，在编码时，这几乎总是正确的运算符。但是，由于 JavaScript 在类型转换方面非常灵活，所以它还定义了灵活相等运算符 ==。下面所有的比较都是正确的，例如：
 
 ```js
 null == undefined // => true: These two values are treated as equal.
@@ -1000,21 +1000,21 @@ null == undefined // => true: These two values are treated as equal.
 
 §4.9.1 explains exactly what conversions are performed by the == operator in order to determine whether two values should be considered equal.
 
-> §4.9.1详细解释了==运算符执行什么转换来确定两个值是否应该被认为相等。
+> §4.9.1 详细解释了 == 运算符执行什么转换来确定两个值是否应该被认为相等。
 
 Keep in mind that convertibility of one value to another does not imply equality of those two values. If undefined is used where a boolean value is expected, for example, it will convert to false. But this does not mean that undefined == false. JavaScript operators and statements expect values of various types and perform conversions to those types. The if statement converts undefined to false, but the == operator never attempts to convert its operands to booleans.
 
-> 请记住，一个值可转换为另一个值并不意味着这两个值相等。例如，如果在需要布尔值的地方使用undefined，它将转换为false。但这并不意味着undefined == false。JavaScript运算符和语句期望得到各种类型的值，并执行到这些类型的转换。if语句将undefined转换为false，但==运算符从不尝试将其操作数转换为布尔值。
+> 需要特别注意的是，一个值转换为另一个值并不意味着两个值相等。比如，如果在期望使用布尔值的地方使用了 undefined，它将会转换为 false，但这并不表明 undefined == false。JavaScript 运算符和语句期望使用多样化的数据类型，并可以相互转换。if 语句将 undefined 转换为 false，但“==”运算符从不试图将其操作数转换为布尔值。
 
 ### 3.9.2 Explicit Conversions
 
 Although JavaScript performs many type conversions automatically, you may sometimes need to perform an explicit conversion, or you may prefer to make the conversions explicit to keep your code clearer.
 
-> 尽管JavaScript会自动执行许多类型转换，但有时可能需要执行显式转换，或者您可能更喜欢显式转换，以保持代码更清晰。
+> 尽管 JavaScript 可以自动做许多类型转换，但有时仍需要做显式转换，或者为了使代码变得清晰易读而做显式转换。
 
 The simplest way to perform an explicit type conversion is to use the Boolean(), Number(), and String() functions:
 
-> 执行显式类型转换的最简单方法是使用Boolean()、Number()和String()函数:
+> 执行显式类型转换的最简单方法是使用 Boolean()、Number() 和 String() 函数:
 
 ```js
 Number("3")    // => 3
@@ -1028,11 +1028,11 @@ Any value other than null or undefined has a toString() method, and the result o
 
 As an aside, note that the Boolean(), Number(), and String() functions can also be invoked—with new—as constructor. If you use them this way, you’ll get a “wrapper” object that behaves just like a primitive boolean, number, or string value. These wrapper objects are a historical leftover from the earliest days of JavaScript, and there is never really any good reason to use them.
 
-> 顺便说一下，还可以使用new-as构造函数调用Boolean()、Number()和String()函数。如果以这种方式使用它们，就会得到一个行为类似原始布尔值、数字或字符串值的“包装器”对象。这些包装器对象是JavaScript早期遗留下来的，使用它们从来没有真正的好理由。
+> 顺便说一下，Boolean()、Number() 和 String() 函数可以作为构造函数调用（用 new 关键字）。如果以这种方式调用它们，就会得到一个行为类似原始布尔值、数字或字符串值的“包装器”对象。这些包装器对象是 JavaScript 早期遗留下来的，并且从来没有一个好的场景来使用他们。
 
 Certain JavaScript operators perform implicit type conversions and are sometimes used explicitly for the purpose of type conversion. If one operand of the + operator is a string, it converts the other one to a string. The unary + operator converts its operand to a number. And the unary ! operator converts its operand to a boolean and negates it. These facts lead to the following type conversion idioms that you may see in some code:
 
-> 某些JavaScript运算符执行隐式类型转换，有时显式地用于类型转换。如果+运算符的一个操作数是字符串，则将另一个操作数转换为字符串。一元+运算符将其操作数转换为数字。还有一元数!运算符将其操作数转换为布尔值并对其求反。这些事实导致了以下类型转换习惯用法，你可能会在一些代码中看到:
+> JavaScript 中的某些运算符会做隐式的类型转换，有时用于类型转换。如果“+”运算符的一个操作数是字符串，它将会把另外一个操作数转换为字符串。一元“+”运算符将其操作数转换为数字。同样，一元“！”运算符将其操作数转换为布尔值并取反。在代码中会经常见到这种类型转换的惯用法：
 
 ```js
 x + ""   // => String(x)
@@ -1043,11 +1043,11 @@ x-0      // => Number(x)
 
 Formatting and parsing numbers are common tasks in computer programs, and JavaScript has specialized functions and methods that provide more precise control over number-to-string and string-to-number conversions.
 
-> 格式化和解析数字是计算机程序中的常见任务，JavaScript有专门的函数和方法，可以对数字到字符串和字符串到数字的转换提供更精确的控制。
+> 在计算机程序中数字的解析和格式化是非常普通的工作，JavaScript 中提供了专门的函数和方法用来做更加精确的数字到字符串和字符串到数字的转换。
 
 The toString() method defined by the Number class accepts an optional argument that specifies a radix, or base, for the conversion. If you do not specify the argument, the conversion is done in base 10. However, you can also convert numbers in other bases (between 2 and 36). For example:
 
-> 由Number类定义的toString()方法接受一个可选参数，该参数指定转换的基数。如果不指定参数，则以10为基数进行转换。然而，您也可以转换其他基数的数字(2到36之间)。例如:
+> Number 类定义的 toString() 方法可以接收表示转换基数的可选实参，如果不指定此实参，转换规则将是基于十进制。同样，亦可以将数字转换为其他进制数（范围在2～36之间），例如：
 
 ```js
 let n = 17;
@@ -1058,7 +1058,7 @@ let hex = "0x" + n.toString(16);    // hex == "0x11"
 
 When working with financial or scientific data, you may want to convert numbers to strings in ways that give you control over the number of decimal places or the number of significant digits in the output, or you may want to control whether exponential notation is used. The Number class defines three methods for these kinds of number-to-string conversions. toFixed() converts a number to a string with a specified number of digits after the decimal point. It never uses exponential notation. toExponential() converts a number to a string using exponential notation, with one digit before the decimal point and a specified number of digits after the decimal point (which means that the number of significant digits is one larger than the value you specify). toPrecision() converts a number to a string with the number of significant digits you specify. It uses exponential notation if the number of significant digits is not large enough to display the entire integer portion of the number. Note that all three methods round the trailing digits or pad with zeros as appropriate. Consider the following examples:
 
-> 在处理金融或科学数据时，您可能希望将数字转换为字符串，以便控制输出中的小数位数或有效数字的数量，或者您可能希望控制是否使用指数表示法。Number类为这类数字到字符串的转换定义了三个方法。toFixed()将一个数字转换为小数点后指定数字数的字符串。它从不使用指数符号。toindex()使用指数表示法将数字转换为字符串，小数点前有一个数字，小数点后有指定的数字数(这意味着有效数字数比您指定的值大1)。topprecision()将一个数字转换为具有指定有效数字数量的字符串。如果有效数字的数目不足以显示数字的整型部分，则使用指数表示法。请注意，这三种方法都将末尾数字或垫片按需要舍入0。考虑以下例子:
+> 当处理财务或科学数据的时候，在做数字到字符串的转换过程中，你期望自己控制输出中小数点位置和有效数字位数，或者决定是否需要指数记数法。Number 类为这种数字到字符串的类型转换场景定义了三个方法。toFixed() 根据小数点后的指定位数将数字转换为字符串，它从不使用指数记数法。toExponential() 使用指数记数法将数字转换为指数形式的字符串，其中小数点前只有一位，小数点后的位数则由参数指定（也就是说有效数字位数比指定的位数要多一位），toPrecision() 根据指定的有效数字位数将数字转换成字符串。如果有效数字的位数少于数字整数部分的位数，则转换成指数形式。我们注意到，所有三个方法都会适当地进行四舍五入或填充 0。看一下下面几个例子：
 
 ```js
 let n = 123456.789;
@@ -1074,11 +1074,11 @@ n.toPrecision(10)    // => "123456.7890"
 
 In addition to the number-formatting methods shown here, the Intl.NumberFormat class defines a more general, internationalized number-formatting method. See §11.7.1 for details.
 
-> 除了这里显示的数字格式方法外，Intl。NumberFormat类定义了一个更通用的、国际化的数字格式化方法。详情见§11.7.1。
+> 除了这里显示的数字格式方法外，Intl.NumberFormat 类定义了一个更通用的、国际化的数字格式化方法。详情见 §11.7.1。
 
 If you pass a string to the Number() conversion function, it attempts to parse that string as an integer or floating-point literal. That function only works for base-10 integers and does not allow trailing characters that are not part of the literal. The parseInt() and parseFloat() functions (these are global functions, not methods of any class) are more flexible. parseInt() parses only integers, while parseFloat() parses both integers and floating-point numbers. If a string begins with “0x” or “0X”, parseInt() interprets it as a hexadecimal number. Both parseInt() and parseFloat() skip leading whitespace, parse as many numeric characters as they can, and ignore anything that follows. If the first nonspace character is not part of a valid numeric literal, they return NaN:
 
-> 如果将一个字符串传递给Number()转换函数，它将尝试将该字符串解析为整数或浮点字面值。该函数仅适用于基数为10的整数，不允许非文字部分的末尾字符。parseInt()和parseFloat()函数(它们是全局函数，不是任何类的方法)更加灵活。parseInt()只解析整数，而parseFloat()同时解析整数和浮点数。如果字符串以“0x”或“0x”开头，parseInt()将其解释为十六进制数。parseInt()和parseFloat()都跳过前导空格，解析尽可能多的数字字符，并忽略后面的任何内容。如果第一个非空格字符不是一个有效的数字文字的一部分，它们返回NaN:
+> 如果通过 Number() 转换函数传入一个字符串，它会试图将其转换为一个整数或浮点数直接量，这个方法只能基于十进制数进行转换，并且不能出现非法的尾随字符。parseInt() 函数和 parseFloat() 函数（它们是全局函数，不从属于任何类的方法）更加灵活。parseInt() 只解析整数，而 parseFloat() 则可以解析整数和浮点数。如果字符串前缀是“0x”或者“0X”，parseInt() 将其解释为十六进制数，parseInt() 和 parseFloat() 都会跳过任意数量的前导空格，尽可能解析更多数值字符，并忽略后面的内容。如果第一个非空格字符是非法的数字直接量，将最终返回 NaN：
 
 ```js
 parseInt("3 blind mice")     // => 3
@@ -1095,7 +1095,7 @@ parseFloat("$72.47")         // => NaN: numbers can't start with "$"
 
 parseInt() accepts an optional second argument specifying the radix (base) of the number to be parsed. Legal values are between 2 and 36. For example:
 
-> parseInt()接受第二个可选参数，指定要解析的数字的基数。合法值在2到36之间。例如:
+> parseInt() 接受第二个可选实参，指定数字转换的基数。合法值在2到36之间。例如:
 
 ```js
 parseInt("11", 2)     // => 3: (1*2 + 1)
@@ -1108,7 +1108,7 @@ parseInt("077", 10)   // => 77: (7*10 + 7)
 
 The previous sections have explained how you can explicitly convert values of one type to another type and have explained JavaScript’s implicit conversions of values from one primitive type to another primitive type. This section covers the complicated rules that JavaScript uses to convert objects to primitive values. It is long and obscure, and if this is your first reading of this chapter, you should feel free to skip ahead to §3.10.
 
-> 前几节解释了如何显式地将一种类型的值转换为另一种类型，并解释了JavaScript将值从一种原始类型隐式转换为另一种原始类型。本节介绍JavaScript用于将对象转换为原始值的复杂规则。它很长，晦涩难懂，如果这是你第一次阅读这一章，你可以直接跳到§3.10。
+> 前几节说明了如何显式地将一种类型的值转换为另一种类型，并说明了 JavaScript 如何将值从一种原始类型隐式转换为另一种原始类型。本节介绍 JavaScript 用于将对象转换为原始值的复杂规则。它很长，晦涩难懂，如果这是你第一次阅读这一章，你可以直接跳到 §3.10。
 
 One reason for the complexity of JavaScript’s object-to-primitive conversions is that some types of objects have more than one primitive representation. Date objects, for example, can be represented as strings or as numeric timestamps. The JavaScript specification defines three fundamental algorithms for converting objects to primitive values:
 
