@@ -564,7 +564,7 @@ Object.assign() copies properties with ordinary property get and set operations,
 
 One reason to assign properties from one object into another is when you have an object that defines default values for many properties and you want to copy those default properties into another object if a property by that name does not already exist in that object. Using Object.assign() naively will not do what you want:
 
-> 思考将属性从一个对象分配到另一个对象，当有一个对象定义许多属性的默认值，希望将这些默认属性复制到另一个对象中,并且目标对象中不存在该名称的属性，使用 Object.assign() 不会得到想要的结果：
+> 看这样一个场景，有一个对象定义许多属性的默认值，希望将这些默认属性中不存在于目标对象中的属性复制到目标对象中，使用 Object.assign() 不会得到想要的结果：
 
 ```js
 Object.assign(o, defaults);  // overwrites everything in o with defaults

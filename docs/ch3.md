@@ -1112,16 +1112,25 @@ The previous sections have explained how you can explicitly convert values of on
 
 One reason for the complexity of JavaScript’s object-to-primitive conversions is that some types of objects have more than one primitive representation. Date objects, for example, can be represented as strings or as numeric timestamps. The JavaScript specification defines three fundamental algorithms for converting objects to primitive values:
 
-> JavaScript的对象到原语转换复杂的一个原因是某些类型的对象有不止一个原语表示。例如，日期对象可以表示为字符串或数字时间戳。JavaScript规范定义了将对象转换为基本值的三种基本算法:
+> JavaScript 的对象到原始值转换复杂的一个原因是某些类型的对象有不止一个原始表现。例如，日期对象可以表示为字符串或数字时间戳。JavaScript 规范定义了将对象转换为基本值的三种基本算法：
 
 prefer-string
 This algorithm returns a primitive value, preferring a string value, if a conversion to string is possible.
 
+> 偏好字符串 prefer-string
+> 如果可以转换成字符串，这个算法会返回一个原始值，提供一个字符串。
+
 prefer-number
 This algorithm returns a primitive value, preferring a number, if such a conversion is possible.
 
+> 偏好数字 prefer-number
+> 如果可以转换，这个算法会返回一个原始值，提供一个数字。
+
 no-preference
 This algorithm expresses no preference about what type of primitive value is desired, and classes can define their own conversions. Of the built-in JavaScript types, all except Date implement this algorithm as prefer-number. The Date class implements this algorithm as prefer-string.
+
+> 无偏好 no-preference
+> 此算法表示不对任何类型原始值有偏好，并且可以定义自己的转换。在内置的 JavaScript 类型中，除 Date 之外，其他所有类型都将此算法实现为偏好数字。Date 类将偏好字符串作为无偏好转换算法。
 
 The implementation of these object-to-primitive conversion algorithms is explained at the end of this section. First, however, we explain how the algorithms are used in JavaScript.
 
@@ -1131,17 +1140,17 @@ OBJECT-TO-BOOLEAN CONVERSIONS
 
 Object-to-boolean conversions are trivial: all objects convert to true. Notice that this conversion does not require the use of the object-to-primitive algorithms described, and that it literally applies to all objects, including empty arrays and even the wrapper object new Boolean(false).
 
-> 对象到布尔的转换很简单:所有对象都转换为true。注意，这种转换不需要使用所描述的对象到原语算法，它实际上适用于所有对象，包括空数组，甚至包装器对象new Boolean(false)。
+> 对象到布尔的转换很简单：所有对象都转换为true。注意，这种转换不需要使用前面所描述的对象到原始值算法，它实际上适用于所有对象，包括空数组，甚至包装器对象 new Boolean(false)。
 
 OBJECT-TO-STRING CONVERSIONS
 
 When an object needs to be converted to a string, JavaScript first converts it to a primitive using the prefer-string algorithm, then converts the resulting primitive value to a string, if necessary, following the rules in Table 3-2.
 
-> 当一个对象需要转换为字符串时，JavaScript首先使用prefer-string算法将其转换为原语，然后根据表3-2的规则将得到的原语值转换为字符串。
+> 当一个对象需要转换为字符串时，JavaScript 首先使用 prefer-string 算法将其转换为原始值，然后根据表 3-2 的规则将得到的原语值转换为字符串。
 
 This kind of conversion happens, for example, if you pass an object to a built-in function that expects a string argument, if you call String() as a conversion function, and when you interpolate objects into template literals (§3.3.4).
 
-> 例如，如果你将一个对象传递给一个需要string参数的内置函数，如果你调用string()作为一个转换函数，以及当你将对象插入到模板字面量(§3.3.4)时，这种转换就会发生。
+> 例如，如果你将一个对象传递给一个需要 string 实参的内置函数，如果你调用 String() 作为一个转换函数，以及当你将对象插入到模板字面量（§3.3.4）时，这种转换就会发生。
 
 OBJECT-TO-NUMBER CONVERSIONS
 
