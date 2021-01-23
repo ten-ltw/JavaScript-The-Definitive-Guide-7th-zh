@@ -2,31 +2,34 @@
 
 JavaScript objects were covered in Chapter 6. That chapter treated each object as a unique set of properties, different from every other object. It is often useful, however, to define a class of objects that share certain properties. Members, or instances, of the class have their own properties to hold or define their state, but they also have methods that define their behavior. These methods are defined by the class and shared by all instances. Imagine a class named Complex that represents and performs arithmetic on complex numbers, for example. A Complex instance would have properties to hold the real and imaginary parts (the state) of the complex number. And the Complex class would define methods to perform addition and multiplication (the behavior) of those numbers.
 
-> 第 6 章介绍了JavaScript对象。那一章把每个对象都看作是一组独特的属性，不同于其他对象。但是，定义一类共享某些属性的对象通常是有用的。类的成员或实例有自己的属性来保存或定义其状态，但它们也有定义其行为的方法。这些方法由类定义，并由所有实例共享。例如，假设有一个名为Complex的类，它表示并执行对复数的算术运算。一个复杂实例将具有一些属性来保存复数的实部和虚部(状态)。复杂类将定义方法来执行这些数字的加法和乘法(行为)。
+> 第 6 章详细介绍了 JavaScript 对象，每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种“共享”的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个名为 Complex 的类用来表示复数，同时还定义了一些复数运算。一个 Complex 实例应当包含复数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）。
 
 In JavaScript, classes use prototype-based inheritance: if two objects inherit properties (generally function-valued properties, or methods) from the same prototype, then we say that those objects are instances of the same class. That, in a nutshell, is how JavaScript classes work. JavaScript prototypes and inheritance were covered in §6.2.3 and §6.3.2, and you will need to be familiar with the material in those sections to understand this chapter. This chapter covers prototypes in §9.1.
 
-> 在JavaScript中，类使用基于原型的继承:如果两个对象从同一个原型继承属性(通常是函数值属性或方法)，那么我们就说这些对象是同一个类的实例。简单地说，这就是JavaScript类的工作方式。在§6.2.3和§6.3.2中介绍了JavaScript原型和继承，要理解本章，您需要熟悉这些章节中的内容。本章涵盖了§9.1中的原型。
+> 在 JavaScript 中，类的实现是基于其原型继承机制的。如果两个实例都从同一个原型对象上继承了属性，我们说它们是同一个类的实例。JavaScript 原型和继承在 §6.2.3 和 §6.3.2 节中有详细讨论，为了更好地理解本章的内容，请务必首先阅读这两个章节。本章将会在 §9.1 中对原型做进一步讨论。
 
 If two objects inherit from the same prototype, this typically (but not necessarily) means that they were created and initialized by the same constructor function or factory function. Constructors have been covered in §4.6, §6.2.2, and §8.2.3, and this chapter has more in §9.2.
 
-> 如果两个对象继承了相同的原型，这通常(但不一定)意味着它们是由相同的构造函数或工厂函数创建和初始化的。构造函数已经在§4.6、§6.2.2和§8.2.3中介绍过，本章在§9.2中有更多内容。
+> 如果两个对象继承自同一个原型，往往意味着（但不是绝对）它们是由同一个构造函数创建并初始化的。我们已经在 §4.6、§6.2.2 和 §8.2.3 节中详细讲解了构造函数，§9.2 会有进一步讨论。
 
 JavaScript has always allowed the definition of classes. ES6 introduced a brand-new syntax (including a class keyword) that makes it even easier to create classes. These new JavaScript classes work in the same way that old-style classes do, and this chapter starts by explaining the old way of creating classes because that demonstrates more clearly what is going on behind the scenes to make classes work. Once we’ve explained those fundamentals, we’ll shift and start using the new, simplified class definition syntax.
 
-> JavaScript一直允许定义类。ES6引入了全新的语法(包括class关键字)，使创建类更加容易。这些新的JavaScript类的工作方式与旧式类相同，本章首先解释创建类的旧方法，因为这更清楚地展示了如何在幕后使类工作。一旦我们解释了这些基本原理，我们将改变并开始使用新的、简化的类定义语法。
+> JavaScript 一直允许定义类。ES6 引入了全新的语法（包括 class 关键字），使创建类更加容易。这些新的 JavaScript 类的工作方式与旧式类相同，本章首先解释创建类的旧方法，因为这更清楚地展示了类是如何工作的。一旦我们解释了这些基本原理，我们将改变并开始使用新的、简化的类定义语法。
 
 If you’re familiar with strongly typed object-oriented programming languages like Java or C++, you’ll notice that JavaScript classes are quite different from classes in those languages. There are some syntactic similarities, and you can emulate many features of “classical” classes in JavaScript, but it is best to understand up front that JavaScript’s classes and prototype-based inheritance mechanism are substantially different from the classes and class-based inheritance mechanism of Java and similar languages.
 
-> 如果您熟悉Java或c++等强类型的面向对象编程语言，您会注意到JavaScript类与这些语言中的类有很大的不同。它们在语法上有一些相似之处，而且您可以在JavaScript中模拟“经典”类的许多特性，但是最好预先了解JavaScript的类和基于原型的继承机制与Java和类似语言的类和基于类的继承机制有本质上的不同。
+> 如果你对诸如 Java 和 C++ 这种强类型的面向对象编程比较熟悉，你会发现 JavaScript 中的类和 Java 以及 C++ 中的类有很大不同。尽管在写法上类似，而且在 JavaScript 中也能“模拟”出很多经典的类的特性，但是最好要理解 JavaScript 的类和基于原型的继承机制，以及和传统的 Java（当然还有类似 Java 的语言）的类和基于类的继承机制的不同之处。
 
 ## 9.1 Classes and Prototypes
 
 In JavaScript, a class is a set of objects that inherit properties from the same prototype object. The prototype object, therefore, is the central feature of a class. Chapter 6 covered the Object.create() function that returns a newly created object that inherits from a specified prototype object. If we define a prototype object and then use Object.create() to create objects that inherit from it, we have defined a JavaScript class. Usually, the instances of a class require further initialization, and it is common to define a function that creates and initializes the new object. Example 9-1 demonstrates this: it defines a prototype object for a class that represents a range of values and also defines a factory function that creates and initializes a new instance of the class.
 
-> 在JavaScript中，类是一组从相同原型对象继承属性的对象。因此，原型对象是类的核心特性。第 6 章介绍了object. create()函数，它返回一个新创建的对象，该对象继承自一个指定的原型对象。如果我们定义了一个原型对象，然后使用object .create()创建从它继承的对象，那么我们就定义了一个JavaScript类。通常，类的实例需要进一步初始化，通常需要定义一个创建和初始化新对象的函数。示例9-1演示了这一点:它为表示一系列值的类定义了原型对象，还定义了创建和初始化类的新实例的工厂函数。
+> 在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在例 6-1 中定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象，参照例 9-1。例 9-1 给一个表示“值的范围”的类定义了原型对象，还定义了一个“工厂”函数用以创建并初始化类的实例。
 
 Example 9-1. A simple JavaScript class
+
+> 例 9-1：一个简单的 JavaScript 类
+
 ```js
 // This is a factory function that returns a new range object.
 function range(from, to) {
@@ -69,22 +72,41 @@ r.toString()             // => "(1...3)"
 ```
 There are a few things worth noting in the code of Example 9-1:
 
+> 在例 9-1 的代码中有一些事是值得注意的：
+
 This code defines a factory function range() for creating new Range objects.
+
+> 这段代码定义了一个工厂函数 range() 用来创建一个新的 Range 对象。
 
 It uses the methods property of this range() function as a convenient place to store the prototype object that defines the class. There is nothing special or idiomatic about putting the prototype object here.
 
+> 用 range() 函数的 methods 属性作为一个方便的地方来存放定义类的原型对象。只是将原型对象随意的放在一个地方，并不是一个规约或者习惯。
+
 The range() function defines from and to properties on each Range object. These are the unshared, noninherited properties that define the unique state of each individual Range object.
+
+> range() 函数在每个 Range 对象中都定义 from 和 to 属性。它们是非共享、非继承属性，是每个独立的 Range 对象的独特自有状态。
 
 The range.methods object uses the ES6 shorthand syntax for defining methods, which is why you don’t see the function keyword anywhere. (See §6.10.5 to review object literal shorthand method syntax.)
 
+> range.methods 对象应用了 ES6 的速记语法来定义方法，这是为什么没有看到 function 关键字的原因。（参照 §6.10.5 来复习对象字面量速记方法语法。）
+
 One of the methods in the prototype has the computed name (§6.10.2) Symbol.iterator, which means that it is defining an iterator for Range objects. The name of this method is prefixed with *, which indicates that it is a generator function instead of a regular function. Iterators and generators are covered in detail in Chapter 12. For now, the upshot is that instances of this Range class can be used with the for/of loop and with the ... spread operator.
 
+> 原型中的一个方法 Symbol.iterator 使用了计算属性名（§6.10.2），表明它是为 Range 对象定义一个迭代器。方法名称带有一个前缀 *，标识它是一个生成器函数而不是普通的函数。迭代器和生成器在第 12 章详细会详细描述。现在，只需要知道 Range 类的实例可以用 for/of 循环和可以用 ... 展开运算符。
+
 The shared, inherited methods defined in range.methods all use the from and to properties that were initialized in the range() factory function. In order to refer to them, they use the this keyword to refer to the object through which they were invoked. This use of this is a fundamental characteristic of the methods of any class.
+
+> 定义在 range.methods 中的共享继承方法都使用在 range() 工厂函数初始化的 from 和 to 属性。在这些方法被调用时,为了引用 from 和 to 属性，都使用 this 关键字来获取对象的引用。这种使用 this 是任何类中方法的基本特征。
 
 ## 9.2 Classes and Constructors
 Example 9-1 demonstrates a simple way to define a JavaScript class. It is not the idiomatic way to do so, however, because it did not define a constructor. A constructor is a function designed for the initialization of newly created objects. Constructors are invoked using the new keyword as described in §8.2.3. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. §6.2.3 introduced prototypes and emphasized that while almost all objects have a prototype, only a few objects have a prototype property. Finally, we can clarify this: it is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. Example 9-2 shows how we could alter the Range class of Example 9-1 to use a constructor function instead of a factory function. Example 9-2 demonstrates the idiomatic way to create a class in versions of JavaScript that do not support the ES6 class keyword. Even though class is well supported now, there is still lots of older JavaScript code around that defines classes like this, and you should be familiar with the idiom so that you can read old code and so that you understand what is going on “under the hood” when you use the class keyword.
 
+> 例 9-1 展示了一个简单方式来定义一个 JavaScript 类。但是这种方法并不常用，因为它没有定义一个构造函数。构造函数是用来初始化新建对象的。如 §8.2.3 中所述构造函数用 new 关键字来调用。使用 new 调用构造函数会自动创建一个新对象，因此构造函数本身只需初始化这个新对象的状态即可。§6.2.3 介绍并强调了虽然所有对象都有原型，但是只有一部分对象有一个 prototype 属性。最后，我们可以澄清这一点：是函数对象具有 prototype 属性。这意味着所有用同一构造函数创建的对象继承同一个对象，因此它们是同一类的成员。例 9-2 说明了如何使用一个构造函数来替代例 9-1 中的工厂函数来修改 Range 类。例 9-2 演示了在不支持 ES6 class 关键字版本的 JavaScript 中创建一个类的通用方法。即使时 class 已经很好支持的今天，仍然有很多旧的 JavaScript 代码用这种方式定义类，并且你必须熟悉这种习惯用法，以便于阅读旧代码，也能够在使用 class 关键字时明白在底层中发生了什么。
+
 Example 9-2. A Range class using a constructor
+
+> 例 9-2：使用构造函数来定义 Range
+
 ```js
 // This is a constructor function that initializes new Range objects.
 // Note that it does not create or return the object. It just initializes this.
