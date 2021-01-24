@@ -186,13 +186,23 @@ Fortunately, the new ES6 class syntax doesn’t allow the option of defining met
 ### 9.2.1 Constructors, Class Identity, and instanceof
 As we’ve seen, the prototype object is fundamental to the identity of a class: two objects are instances of the same class if and only if they inherit from the same prototype object. The constructor function that initializes the state of a new object is not fundamental: two constructor functions may have prototype properties that point to the same prototype object. Then, both constructors can be used to create instances of the same class.
 
+> 正如我们所看到的，原型对象是类的基本标识：只有两个对象继承同一原型对象时，这两个对象是同一类实例。构造函数初始化新创建对象的转台不是关键点：两个构造函数可能具有指向同一原型对象的原型属性。那么，两个构造函数都可用于创建同一类的实例。
+
 Even though constructors are not as fundamental as prototypes, the constructor serves as the public face of a class. Most obviously, the name of the constructor function is usually adopted as the name of the class. We say, for example, that the Range() constructor creates Range objects. More fundamentally, however, constructors are used as the righthand operand of the instanceof operator when testing objects for membership in a class. If we have an object r and want to know if it is a Range object, we can write:
+
+> 尽管构造函数不像原型那样重要，但是构造函数充当 class 的大众脸。最明显的时，构造函数的名称通常用作类的名称。例如，我们说 Range() 构造函数创建 Range 对象。然而，更重要的是测试类中对象的成员关系，构造函数在右边被用作 instanceof 运算符的操作数。如果有一个对象 r，并且想知道它是不是一个 Range 对象，可以这样写：
+
 ```js
 r instanceof Range   // => true: r inherits from Range.prototype
 ```
 The instanceof operator was described in §4.9.4. The lefthand operand should be the object that is being tested, and the righthand operand should be a constructor function that names a class. The expression o instanceof C evaluates to true if o inherits from C.prototype. The inheritance need not be direct: if o inherits from an object that inherits from an object that inherits from C.prototype, the expression will still evaluate to true.
 
+> instanceof 运算符在 §4.9.4 中有描述。左边的操作数是想要测试的对象，右边的操作数是命名类的构造函数。表达式 `o instanceof C` 计算结果为 true 时，o 继承自 C.prototype。不需要直接继承：如果 o 继承于一个继承了 C.prototype 的对象，表达式的计算结果也仍会是 true。
+
 Technically speaking, in the previous code example, the instanceof operator is not checking whether r was actually initialized by the Range constructor. Instead, it is checking whether r inherits from Range.prototype. If we define a function Strange() and set its prototype to be the same as Range.prototype, then objects created with new Strange() will count as Range objects as far as instanceof is concerned (they won’t actually work as Range objects, however, because their from and to properties have not been initialized):
+
+> 从技术上讲，在上一个代码示例中，instanceof 运算符的实例没有检查 r 是否实际由 Range 构造函数初始化。相反，它是检查 r 是否继承 Range.prototype。如果我们定义一个函数 Strange() 并将其原型设置与 Range.prototype 相同，则使用新 Strange() 创建的对象用 instanceof 运算符将算作 Range 对象（但是，它们实际上不会作为 Range 对象工作，因为它们的 from 和 to 属性尚未初始化）：
+
 ```js
 function Strange() {}
 Strange.prototype = Range.prototype;
@@ -200,7 +210,12 @@ new Strange() instanceof Range   // => true
 ```
 Even though instanceof cannot actually verify the use of a constructor, it still uses a constructor function as its righthand side because constructors are the public identity of a class.
 
+> 即使 instanceof 实际上不能验证使用了构造函数，它仍然使用构造函数作为其右侧，因为构造函数是类的公共标识。
+
 If you want to test the prototype chain of an object for a specific prototype and do not want to use the constructor function as an intermediary, you can use the isPrototypeOf() method. In Example 9-1, for example, we defined a class without a constructor function, so there is no way to use instanceof with that class. Instead, however, we could test whether an object r was a member of that constructor-less class with this code:
+
+> 如果要为特定原型测试对象的原型链，并且不想将构造函数用作媒介，可以使用 isPrototypeOf() 方法。例如，在示例 9-1 中，我们定义了一个没有构造函数的类，因此无法将 instanceof 与该类一起使用。但是，我们可以测试对象 r 是否是具有此代码的无构造函数类的成员：
+
 ```js
 range.methods.isPrototypeOf(r);  // range.methods is the prototype object.
 ```
