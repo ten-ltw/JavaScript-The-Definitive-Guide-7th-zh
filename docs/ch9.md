@@ -221,6 +221,9 @@ range.methods.isPrototypeOf(r);  // range.methods is the prototype object.
 ```
 ### 9.2.2 The constructor Property
 In Example 9-2, we set Range.prototype to a new object that contained the methods for our class. Although it was convenient to express those methods as properties of a single object literal, it was not actually necessary to create a new object. Any regular JavaScript function (excluding arrow functions, generator functions, and async functions) can be used as a constructor, and constructor invocations need a prototype property. Therefore, every regular JavaScript function1 automatically has a prototype property. The value of this property is an object that has a single, non-enumerable constructor property. The value of the constructor property is the function object:
+
+> 在例 9-2 中，将 Range.prototype 定义为一个新对象，这个对象包含类所需要的方法。其实没有必要新创建一个对象，用单个对象直接量的属性就可以方便地定义原型上的方法。任何普通 JavaScript 函数（除箭头函数、生成器函数和异步函数之外）都可以用做构造函数，并且调用构造函数是需要用到一个 prototye 属性的。因此，每个 JavaScript 函数都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象：
+
 ```js
 let F = function() {}; // This is a function object.
 let p = F.prototype;   // This is the prototype object associated with F.
@@ -228,15 +231,23 @@ let c = p.constructor; // This is the function associated with the prototype.
 c === F                // => true: F.prototype.constructor === F for any F
 ```
 The existence of this predefined prototype object with its constructor property means that objects typically inherit a constructor property that refers to their constructor. Since constructors serve as the public identity of a class, this constructor property gives the class of an object:
+
+> 可以看到构造函数的原型中存在预先定义好的 constructor 属性，这意味着对象通常继承的 constructor 是它们的构造函数的引用。由于构造函数是类的“公共标识”， 因此这个 constructor 属性为对象提供了类。
+
 ```js
 let o = new F();      // Create an object o of class F
 o.constructor === F   // => true: the constructor property specifies the class
 ```
 Figure 9-1 illustrates this relationship between the constructor function, its prototype object, the back reference from the prototype to the constructor, and the instances created with the constructor.
 
+> 如图 9-1 所示，图 9-1 展示了构造函数和原型对象之间的关系，包括原型到构造函数的反向引用以及构造函数创建的实例。
+
 <Figures figure="9-1">A constructor function, its prototype, and instances</Figures>
 
 Notice that Figure 9-1 uses our Range() constructor as an example. In fact, however, the Range class defined in Example 9-2 overwrites the predefined Range.prototype object with an object of its own. And the new prototype object it defines does not have a constructor property. So instances of the Range class, as defined, do not have a constructor property. We can remedy this problem by explicitly adding a constructor to the prototype:
+
+> 需要注意的是，图 9-1 用 Range() 构造函数作为示例。但实际上，例 9-2 中定义的 Range 类使用它自身的一个新对象重写了预定义的 Range.prototype 对象。这个新定义的原型对象不含有 constructor 属性。因此 Range 类的实例也不含有 constructor 属性。我们可以通过补救措施来修正这个问题，显式给原型添加一个构造函数：
+
 ```js
 Range.prototype = {
     constructor: Range,  // Explicitly set the constructor back-reference
@@ -245,6 +256,9 @@ Range.prototype = {
 };
 ```
 Another common technique that you are likely to see in older JavaScript code is to use the predefined prototype object with its constructor property and add methods to it one at a time with code like this:
+
+> 另一种常见的解决办法是使用预定义的原型对象，预定义的原型对象包含 constructor 属性，然后依次给原型对象添加方法：
+
 ```js
 // Extend the predefined Range.prototype object so we don't overwrite
 // the automatically created Range.prototype.constructor property.
