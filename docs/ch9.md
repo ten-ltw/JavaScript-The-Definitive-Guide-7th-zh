@@ -387,7 +387,12 @@ Unlike function declarations, class declarations are not “hoisted.” Recall f
 ### 9.3.1 Static Methods
 You can define a static method within a class body by prefixing the method declaration with the static keyword. Static methods are defined as properties of the constructor function rather than properties of the prototype object.
 
+> 可以通过使用静态关键字为方法声明前缀来定义类体中的静态方法。静态方法定义为构造函数的属性，而不是原型对象的属性。
+
 For example, suppose we added the following code to Example 9-3:
+
+> 例如，假设我们将以下代码添加到例 9-3 中：
+
 ```js
 static parse(s) {
     let matches = s.match(/^\((\d+)\.\.\.(\d+)\)$/);
@@ -398,18 +403,30 @@ static parse(s) {
 }
 ```
 The method defined by this code is Range.parse(), not Range.prototype.parse(), and you must invoke it through the constructor, not through an instance:
+
+> 此代码定义的方法是 Range.parse()， 而不是 Range.prototype.parse()， 您必须通过构造函数而不是通过实例调用它：
+
 ```js
 let r = Range.parse('(1...10)'); // Returns a new Range object
 r.parse('(1...10)');             // TypeError: r.parse is not a function
 ```
 You’ll sometimes see static methods called class methods because they are invoked using the name of the class/constructor. When this term is used, it is to contrast class methods with the regular instance methods that are invoked on instances of the class. Because static methods are invoked on the constructor rather than on any particular instance, it almost never makes sense to use the this keyword in a static method.
 
+> 有时会看到静态方法称为类方法，因为它们是使用类/构造函数的名称调用的。使用此术语时，将类方法与在类实例上调用的常规实例方法进行对比，由于静态方法在构造函数上调用，而不是在任何特定实例上调用，因此在静态方法中使用 this 关键字几乎从来就没有意义。
+
 We’ll see examples of static methods in Example 9-4.
+
+> 我们将在例 9-4 中看到静态方法的示例。
 
 ### 9.3.2 Getters, Setters, and other Method Forms
 Within a class body, you can define getter and setter methods (§6.10.6) just as you can in object literals. The only difference is that in class bodies, you don’t put a comma after the getter or setter. Example 9-4 includes a practical example of a getter method in a class.
 
+> 在类正文中，可以定义 getter 和 setter 方法（§6.10.6），就像在对象字面量中一样。唯一的区别是，在类正文中，不会将逗号放在 getter 或 setter 之后。例 9-4 包括类中 getter 方法的实际示例。
+
 In general, all of the shorthand method definition syntaxes allowed in object literals are also allowed in class bodies. This includes generator methods (marked with *) and methods whose names are the value of an expression in square brackets. In fact, you’ve already seen (in Example 9-3) a generator method with a computed name that makes the Range class iterable:
+
+> 通常，对象字面量中允许的所有速记方法定义语法也允许在类正文中使用。这包括生成器方法（用 * 标记）和名称为方括号中表达式值的方法。事实上，已经看到了（在例 9-3 中）具有计算名称的生成器方法，该方法使 Range 类可重复：
+
 ```js
 *[Symbol.iterator]() {
     for(let x = Math.ceil(this.from); x <= this.to; x++) yield x;
@@ -417,6 +434,8 @@ In general, all of the shorthand method definition syntaxes allowed in object li
 ```
 ### 9.3.3 Public, Private, and Static Fields
 In the discussion here of classes defined with the class keyword, we have only described the definition of methods within the class body. The ES6 standard only allows the creation of methods (including getters, setters, and generators) and static methods; it does not include syntax for defining fields. If you want to define a field (which is just an object-oriented synonym for “property”) on a class instance, you must do that in the constructor function or in one of the methods. And if you want to define a static field for a class, you must do that outside the class body, after the class has been defined. Example 9-4 includes examples of both kinds of fields.
+
+> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是"属性"的面向对象的同义词），则必须在构造函数函数或其中一个方法中这样做。如果要为类定义静态字段，则必须在类体之外（在类定义后）进行该字段。示例 9-4 包括这两种字段的示例。
 
 Standardization is underway, however, for extended class syntax that allows the definition of instance and static fields, in both public and private forms. The code shown in the rest of this section is not yet standard JavaScript as of early 2020 but is already supported in Chrome and partially supported (public instance fields only) in Firefox. The syntax for public instance fields is in common use by JavaScript programmers using the React framework and the Babel transpiler.
 
