@@ -151,7 +151,7 @@ Next, notice that the Range() constructor is invoked (at the end of the example)
 **CONSTRUCTORS AND NEW.TARGET**
 Within a function body, you can tell whether the function has been invoked as a constructor with the special expression new.target. If the value of that expression is defined, then you know that the function was invoked as a constructor, with the new keyword. When we discuss subclasses in §9.5, we’ll see that new.target is not always a reference to the constructor it is used in: it might also refer to the constructor function of a subclass.
 
-> 在函数体中，可以使用特殊的表达式 new.target 来判断函数是否以构造函数的方式调用。如果定义了该表达式的值，那么这个函数是通过 new 关键字调用的构造函数。当我们在 §9.5 中讨论子类时，我们会看到 new.target 不总是其所在的构造函数的引用：它可能还引用子类的构造函数。
+> 在函数正文中，可以使用特殊的表达式 new.target 来判断函数是否以构造函数的方式调用。如果定义了该表达式的值，那么这个函数是通过 new 关键字调用的构造函数。当我们在 §9.5 中讨论子类时，我们会看到 new.target 不总是其所在的构造函数的引用：它可能还引用子类的构造函数。
 
 If new.target is undefined, then the containing function was invoked as a function, without the new keyword. JavaScript’s various error constructors can be invoked without new, and if you want to emulate this feature in your own constructors, you can write them like this:
 
@@ -272,7 +272,12 @@ Range.prototype.toString = function() {
 ## 9.3 Classes with the class Keyword
 Classes have been part of JavaScript since the very first version of the language, but in ES6, they finally got their own syntax with the introduction of the class keyword. Example 9-3 shows what our Range class looks like when written with this new syntax.
 
+> 类自第一个版本以来一直是 JavaScript 的一部分，但在 ES6 中，它们最终引入 class 关键字得到了自己的语法。示例 9-3 显示了使用此新语法编写 Range 类的实现。
+
 Example 9-3. The Range class rewritten using class
+
+> 例 9-3：使用 class 编写 Range 类
+
 ```js
 class Range {
     constructor(from, to) {
@@ -304,17 +309,32 @@ r.toString()              // => "(1...3)"
 ```
 It is important to understand that the classes defined in Examples 9-2 and 9-3 work in exactly the same way. The introduction of the class keyword to the language does not alter the fundamental nature of JavaScript’s prototype-based classes. And although Example 9-3 uses the class keyword, the resulting Range object is a constructor function, just like the version defined in Example 9-2. The new class syntax is clean and convenient but is best thought of as “syntactic sugar” for the more fundamental class definition mechanism shown in Example 9-2.
 
+> 重要的是要了解，在示例 9-2 和 9-3 中定义的类的工作方式完全相同。将类关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作例 9-2 所示的基本类定义机制的语法糖。
+
 Note the following things about the class syntax in Example 9-3:
+
+> 注意在例 9-3 中关于 class 语法的一下几点：
 
 The class is declared with the class keyword, which is followed by the name of class and a class body in curly braces.
 
+> 用 class 关键字声明类，后面接一个类名，最后是花括号包含类的正文。
+
 The class body includes method definitions that use object literal method shorthand (which we also used in Example 9-1), where the function keyword is omitted. Unlike object literals, however, no commas are used to separate the methods from each other. (Although class bodies are superficially similar to object literals, they are not the same thing. In particular, they do not support the definition of properties with name/value pairs.)
+
+> 类正文包括使用对象字面量方法速记定义的方法（我们在例 9-1 中也使用了），其中省略了函数关键字。但是，与对象字面量不同，没有用逗号将方法彼此分开。（虽然类正文表面上与对象字面量相似，但它们不是一回事。与对象不同，类不支持具有名/值对的属性的定义。
 
 The keyword constructor is used to define the constructor function for the class. The function defined is not actually named “constructor”, however. The class declaration statement defines a new variable Range and assigns the value of this special constructor function to that variable.
 
+> 关键字 constructor 用于定义类的构造函数。但是，定义的函数实际上并不命名为 constructor。类声明语句定义一个新的变量 Range，并将此特殊构造函数的值分配给该变量。
+
 If your class does not need to do any initialization, you can omit the constructor keyword and its body, and an empty constructor function will be implicitly created for you.
 
+> 如果类不需要执行任何初始化，可以省略构造函数关键字及其正文，并将隐式创建一个空构造函数。
+
 If you want to define a class that subclasses—or inherits from—another class, you can use the extends keyword with the class keyword:
+
+> 如果要定义子类（或继承来自另一个类的类），可以使用 extends 关键字与 class 关键字：
+
 ```js
 // A Span is like a Range, but instead of initializing it with
 // a start and an end, we initialize it with a start and a length
