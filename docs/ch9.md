@@ -350,7 +350,12 @@ class Span extends Range {
 ```
 Creating subclasses is a whole topic of its own. We’ll return to it, and explain the extends and super keywords shown here, in §9.5.
 
+> 创建子类是完整的一节。我们将在 §9.5 重新讲到它，并解释这里的 extends 和 super 关键字。
+
 Like function declarations, class declarations have both statement and expression forms. Just as we can write:
+
+> 与函数声明一样，类声明同时具有语句和表达式形式。正如我们可以写：
+
 ```js
 let square = function(x) { return x * x; };
 square(3)  // => 9
@@ -361,13 +366,23 @@ new Square(3).area  // => 9
 ```
 As with function definition expressions, class definition expressions can include an optional class name. If you provide such a name, that name is only defined within the class body itself.
 
+> 与函数定义表达式一样，类定义表达式可以包含可选类名。如果提供这样的名称，则该名称仅在类正文本身中有定义。
+
 Although function expressions are quite common (particularly with the arrow function shorthand), in JavaScript programming, class definition expressions are not something that you are likely to use much unless you find yourself writing a function that takes a class as its argument and returns a subclass.
+
+> 尽管函数表达式很常见（尤其是使用箭头函数），但 JavaScript 编程中，类定义表达式并不是可能使用得太多的东西，除非正在编写一个以类为实参并返回子类的函数。
 
 We’ll conclude this introduction to the class keyword by mentioning a couple of important things you should know that are not apparent from class syntax:
 
+> 结束对 class 关键字的介绍前，最后提几个重要但是不易注意的类语法：
+
 All code within the body of a class declaration is implicitly in strict mode (§5.6.3), even if no "use strict" directive appears. This means, for example, that you can’t use octal integer literals or the with statement within class bodies and that you are more likely to get syntax errors if you forget to declare a variable before using it.
 
+> 类声明正文中的所有代码都隐式采用严格模式（§5.6.3），即使未出现"use strict"指令。例如，这意味着不能在类体中使用八进制整数字面量或 with 语句，并且如果您在使用变量之前忘记声明变量，则更有可能出现语法错误。
+
 Unlike function declarations, class declarations are not “hoisted.” Recall from §8.1.1 that function definitions behave as if they had been moved to the top of the enclosing file or enclosing function, meaning that you can invoke a function in code that comes before the actual definition of the function. Although class declarations are like function declarations in some ways, they do not share this hoisting behavior: you cannot instantiate a class before you declare it.
+
+> 与函数声明不同，类声明不是"声明提前"的。回想一下 §8.1.1 中，函数定义的行为就像它们被移动到封闭文件的顶部或封闭函数的顶部一样，这意味着可以在函数实际定义之前的代码中调用函数。尽管类声明在某些方面与函数声明一样，但它们不共享此提前行为：在声明类之前，不能实例化类。
 
 ### 9.3.1 Static Methods
 You can define a static method within a class body by prefixing the method declaration with the static keyword. Static methods are defined as properties of the constructor function rather than properties of the prototype object.
