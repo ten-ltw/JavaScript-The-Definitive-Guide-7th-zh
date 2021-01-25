@@ -72,7 +72,7 @@ r.toString()             // => "(1...3)"
 ```
 There are a few things worth noting in the code of Example 9-1:
 
-> 在例 9-1 的代码中有一些事是值得注意的：
+> 在例 9-1 的代码中有一下几点值得注意：
 
 This code defines a factory function range() for creating new Range objects.
 
@@ -80,7 +80,7 @@ This code defines a factory function range() for creating new Range objects.
 
 It uses the methods property of this range() function as a convenient place to store the prototype object that defines the class. There is nothing special or idiomatic about putting the prototype object here.
 
-> 用 range() 函数的 methods 属性作为一个方便的地方来存放定义类的原型对象。只是将原型对象随意的放在一个地方，并不是一个规约或者习惯。
+> 用 range() 函数的 methods 属性来存放定义类的原型对象。只是将原型对象随意的放在一个地方，并不是一个规约或者习惯。
 
 The range() function defines from and to properties on each Range object. These are the unshared, noninherited properties that define the unique state of each individual Range object.
 
@@ -96,12 +96,12 @@ One of the methods in the prototype has the computed name (§6.10.2) Symbol.iter
 
 The shared, inherited methods defined in range.methods all use the from and to properties that were initialized in the range() factory function. In order to refer to them, they use the this keyword to refer to the object through which they were invoked. This use of this is a fundamental characteristic of the methods of any class.
 
-> 定义在 range.methods 中的共享继承方法都使用在 range() 工厂函数初始化的 from 和 to 属性。在这些方法被调用时,为了引用 from 和 to 属性，都使用 this 关键字来获取对象的引用。这种使用 this 是任何类中方法的基本特征。
+> 定义在 range.methods 中的共享继承方法都使用在 range() 工厂函数初始化的 from 和 to 属性。在这些方法被调用时,为了引用 from 和 to 属性，都使用 this 关键字来获取对象的引用。this 这种用法是任何类中方法的基本特征。
 
 ## 9.2 Classes and Constructors
 Example 9-1 demonstrates a simple way to define a JavaScript class. It is not the idiomatic way to do so, however, because it did not define a constructor. A constructor is a function designed for the initialization of newly created objects. Constructors are invoked using the new keyword as described in §8.2.3. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. §6.2.3 introduced prototypes and emphasized that while almost all objects have a prototype, only a few objects have a prototype property. Finally, we can clarify this: it is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. Example 9-2 shows how we could alter the Range class of Example 9-1 to use a constructor function instead of a factory function. Example 9-2 demonstrates the idiomatic way to create a class in versions of JavaScript that do not support the ES6 class keyword. Even though class is well supported now, there is still lots of older JavaScript code around that defines classes like this, and you should be familiar with the idiom so that you can read old code and so that you understand what is going on “under the hood” when you use the class keyword.
 
-> 例 9-1 展示了一个简单方式来定义一个 JavaScript 类。但是这种方法并不常用，因为它没有定义一个构造函数。构造函数是用来初始化新建对象的。如 §8.2.3 中所述构造函数用 new 关键字来调用。使用 new 调用构造函数会自动创建一个新对象，因此构造函数本身只需初始化这个新对象的状态即可。§6.2.3 介绍并强调了虽然所有对象都有原型，但是只有一部分对象有一个 prototype 属性。最后，我们可以澄清这一点：是函数对象具有 prototype 属性。这意味着所有用同一构造函数创建的对象继承同一个对象，因此它们是同一类的成员。例 9-2 说明了如何使用一个构造函数来替代例 9-1 中的工厂函数来修改 Range 类。例 9-2 演示了在不支持 ES6 class 关键字版本的 JavaScript 中创建一个类的通用方法。即使时 class 已经很好支持的今天，仍然有很多旧的 JavaScript 代码用这种方式定义类，并且你必须熟悉这种习惯用法，以便于阅读旧代码，也能够在使用 class 关键字时明白在底层中发生了什么。
+> 例 9-1 展示了一个简单方式来定义一个 JavaScript 类。但是这种方法并不常用，因为它没有定义一个构造函数。构造函数是用来初始化新建对象的。如 §8.2.3 中所述构造函数用 new 关键字来调用。使用 new 调用构造函数会自动创建一个新对象，因此构造函数本身只需初始化这个新对象的状态即可。§6.2.3 介绍并强调了虽然所有对象都有原型，但是只有一部分对象有一个 prototype 属性。最后，我们可以澄清这一点：是函数对象具有 prototype 属性。这意味着所有用同一构造函数创建的对象继承同一个对象，因此它们是同一类的成员。例 9-2 说明了如何使用一个构造函数来替代例 9-1 中的工厂函数来修改 Range 类。例 9-2 演示了在不支持 ES6 class 关键字版本的 JavaScript 中创建一个类的通用方法。即使是 class 已经很好支持的今天，仍然有很多旧 JavaScript 代码用这种方式定义类，并且你必须熟悉这种习惯用法，以便于阅读旧代码，也能够在使用 class 关键字时明白在底层中发生了什么。
 
 Example 9-2. A Range class using a constructor
 
@@ -142,11 +142,11 @@ r.toString()              // => "(1...3)"
 ```
 It is worth comparing Examples 9-1 and 9-2 fairly carefully and noting the differences between these two techniques for defining classes. First, notice that we renamed the range() factory function to Range() when we converted it to a constructor. This is a very common coding convention: constructor functions define, in a sense, classes, and classes have names that (by convention) begin with capital letters. Regular functions and methods have names that begin with lowercase letters.
 
-> 将例 9-1 和例 9-2 中的代码做一个仔细的对比，可以发现两种定义类的技术并没有差别。首先，注意当工厂函数 range() 转化为构造函数时被重命名为 Range()。这里遵循了一个常见的编程约定：从某种意义上讲，定义构造函数既是定义类，并且类名首字母要大写。而普通的函数和方法都是首字母小写。
+> 将例 9-1 和例 9-2 中的代码做一个仔细的对比，可以发现两种类定义技术并的差别。首先，注意当工厂函数 range() 转化为构造函数时被重命名为 Range()。这里遵循了一个常见的编程约定：从某种意义上讲，定义构造函数即是定义类，并且类名首字母要大写。而普通的函数和方法都是首字母小写。
 
 Next, notice that the Range() constructor is invoked (at the end of the example) with the new keyword while the range() factory function was invoked without it. Example 9-1 uses regular function invocation (§8.2.1) to create the new object, and Example 9-2 uses constructor invocation (§8.2.3). Because the Range() constructor is invoked with new, it does not have to call Object.create() or take any action to create a new object. The new object is automatically created before the constructor is called, and it is accessible as the this value. The Range() constructor merely has to initialize this. Constructors do not even have to return the newly created object. Constructor invocation automatically creates a new object, invokes the constructor as a method of that object, and returns the new object. The fact that constructor invocation is so different from regular function invocation is another reason that we give constructors names that start with capital letters. Constructors are written to be invoked as constructors, with the new keyword, and they usually won’t work properly if they are invoked as regular functions. A naming convention that keeps constructor functions distinct from regular functions helps programmers know when to use new.
 
-> 再者，注意 Range() 构造函数是通过 new 关键字调用的（在示例代码的末尾）， 而 range() 工厂函数则不必使用 new。例 9-1 通过调用普通函数（§8.2.1）来创建新对象，例 9-2 则使用构造函数调用（§8.2.3）来创建新对象。由于 Range() 构造函数是通过 new 关键字调用的，因此不必调用 Object.create() 或其他什么逻辑来创建新对象。在调用构造函数之前就已经创建了新对象，并且通过 this 关键字可以获取这个新对象。Range() 构造函数只不过是初始化 this 而已。构造函数甚至不必返回这个新创建的对象，构造函数会自动创建对象，然后将构造函数作为这个对象的方法来调用一次，最后返回这个新对象。构造函数调用与常规函数调用如此不同，实际上，这是我们为构造函数命名以大写字母为名的另一个原因。构造函数就是用来“构造新对象”的，它必须通过关键字 new 调用，如果将构造函数用做普通函数的话，往往不会正常工作。开发者可以通过命名约定来（构造函数首字母大写，普通方法首字母小写）判断是否应当在函数之前冠以关键字 new。
+> 再者，注意 Range() 构造函数是通过 new 关键字调用的（在示例代码的末尾）， 而 range() 工厂函数则不必使用 new。例 9-1 通过调用普通函数（§8.2.1）来创建新对象，例 9-2 则使用构造函数调用（§8.2.3）来创建新对象。由于 Range() 构造函数是通过 new 关键字调用的，因此不必调用 Object.create() 或其他什么逻辑来创建新对象。在调用构造函数之前就已经创建了新对象，并且通过 this 关键字可以获取这个新对象。Range() 构造函数只不过是初始化 this 而已。构造函数甚至不必返回这个新创建的对象，构造函数会自动创建对象，然后将构造函数作为这个对象的方法来调用一次，最后返回这个新对象。构造函数调用与常规函数调用如此不同，实际上，这是我们为构造函数命名以大写字母为名的另一个原因。构造函数就是用来“构造新对象”的，它必须通过关键字 new 调用，如果将构造函数用做普通函数的话，往往不会正常工作。开发者可以通过命名规约来（构造函数首字母大写，普通方法首字母小写）判断是否应当在函数之前冠以关键字 new。
 
 **CONSTRUCTORS AND NEW.TARGET**
 Within a function body, you can tell whether the function has been invoked as a constructor with the special expression new.target. If the value of that expression is defined, then you know that the function was invoked as a constructor, with the new keyword. When we discuss subclasses in §9.5, we’ll see that new.target is not always a reference to the constructor it is used in: it might also refer to the constructor function of a subclass.
@@ -169,7 +169,7 @@ This technique only works for constructors defined in this old-fashioned way. Cl
 
 Another critical difference between Examples 9-1 and 9-2 is the way the prototype object is named. In the first example, the prototype was range.methods. This was a convenient and descriptive name, but arbitrary. In the second example, the prototype is Range.prototype, and this name is mandatory. An invocation of the Range() constructor automatically uses Range.prototype as the prototype of the new Range object.
 
-> 例 9-1 和 9-2 之间的另一个关键区别是原型对象的命名方式。在第一个示例中，原型是 range.methods。这是一个方便和描述性的名称，但随意。在第二个示例中，原型为 Range.prototype，此名称是规定的。Range（）构造函数的调用自动使用 Range.prototype 作为新 Range 对象的原型。
+> 例 9-1 和 9-2 之间的另一个关键区别是原型对象的命名方式。在第一个示例中，原型是 range.methods。这是一个方便和描述性的名称，但随意。在第二个示例中，原型为 Range.prototype，此名称是规定的。Range() 构造函数的调用自动使用 Range.prototype 作为新 Range 对象的原型。
 
 Finally, also note the things that do not change between Examples 9-1 and 9-2 : the range methods are defined and invoked in the same way for both classes. Because Example 9-2 demonstrates the idiomatic way to create classes in versions of JavaScript before ES6, it does not use the ES6 shorthand method syntax in the prototype object and explicitly spells out the methods with the function keyword. But you can see that the implementation of the methods is the same in both examples.
 
@@ -186,7 +186,7 @@ Fortunately, the new ES6 class syntax doesn’t allow the option of defining met
 ### 9.2.1 Constructors, Class Identity, and instanceof
 As we’ve seen, the prototype object is fundamental to the identity of a class: two objects are instances of the same class if and only if they inherit from the same prototype object. The constructor function that initializes the state of a new object is not fundamental: two constructor functions may have prototype properties that point to the same prototype object. Then, both constructors can be used to create instances of the same class.
 
-> 正如我们所看到的，原型对象是类的基本标识：只有两个对象继承同一原型对象时，这两个对象是同一类实例。构造函数初始化新创建对象的转台不是关键点：两个构造函数可能具有指向同一原型对象的原型属性。那么，两个构造函数都可用于创建同一类的实例。
+> 正如我们所看到的，原型对象是类的基本标识：只有两个对象继承同一原型对象时，这两个对象是同一类实例。构造函数的关键点不是初始化新创建对象的状态：两个构造函数可能具有指向同一原型对象的原型属性。那么，两个构造函数都可用于创建同一类的实例。
 
 Even though constructors are not as fundamental as prototypes, the constructor serves as the public face of a class. Most obviously, the name of the constructor function is usually adopted as the name of the class. We say, for example, that the Range() constructor creates Range objects. More fundamentally, however, constructors are used as the righthand operand of the instanceof operator when testing objects for membership in a class. If we have an object r and want to know if it is a Range object, we can write:
 
@@ -210,7 +210,7 @@ new Strange() instanceof Range   // => true
 ```
 Even though instanceof cannot actually verify the use of a constructor, it still uses a constructor function as its righthand side because constructors are the public identity of a class.
 
-> 即使 instanceof 实际上不能验证使用了构造函数，它仍然使用构造函数作为其右侧，因为构造函数是类的公共标识。
+> 实际上即使 instanceof 不能验证使用了构造函数，它仍然使用构造函数作为其右侧，因为构造函数是类的公共标识。
 
 If you want to test the prototype chain of an object for a specific prototype and do not want to use the constructor function as an intermediary, you can use the isPrototypeOf() method. In Example 9-1, for example, we defined a class without a constructor function, so there is no way to use instanceof with that class. Instead, however, we could test whether an object r was a member of that constructor-less class with this code:
 
@@ -222,7 +222,7 @@ range.methods.isPrototypeOf(r);  // range.methods is the prototype object.
 ### 9.2.2 The constructor Property
 In Example 9-2, we set Range.prototype to a new object that contained the methods for our class. Although it was convenient to express those methods as properties of a single object literal, it was not actually necessary to create a new object. Any regular JavaScript function (excluding arrow functions, generator functions, and async functions) can be used as a constructor, and constructor invocations need a prototype property. Therefore, every regular JavaScript function1 automatically has a prototype property. The value of this property is an object that has a single, non-enumerable constructor property. The value of the constructor property is the function object:
 
-> 在例 9-2 中，将 Range.prototype 定义为一个新对象，这个对象包含类所需要的方法。其实没有必要新创建一个对象，用单个对象直接量的属性就可以方便地定义原型上的方法。任何普通 JavaScript 函数（除箭头函数、生成器函数和异步函数之外）都可以用做构造函数，并且调用构造函数是需要用到一个 prototye 属性的。因此，每个 JavaScript 函数都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象：
+> 在例 9-2 中，将 Range.prototype 定义为一个新对象，这个对象包含类所需要的方法。其实没有必要新创建一个对象，用单个对象字面量的属性就可以方便地定义原型上的方法。任何普通 JavaScript 函数（除箭头函数、生成器函数和异步函数之外）都可以用做构造函数，并且调用构造函数是需要一个 prototype 属性的。因此，每个 JavaScript 函数都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象：
 
 ```js
 let F = function() {}; // This is a function object.
