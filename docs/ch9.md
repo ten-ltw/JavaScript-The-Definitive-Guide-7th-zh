@@ -435,11 +435,16 @@ In general, all of the shorthand method definition syntaxes allowed in object li
 ### 9.3.3 Public, Private, and Static Fields
 In the discussion here of classes defined with the class keyword, we have only described the definition of methods within the class body. The ES6 standard only allows the creation of methods (including getters, setters, and generators) and static methods; it does not include syntax for defining fields. If you want to define a field (which is just an object-oriented synonym for “property”) on a class instance, you must do that in the constructor function or in one of the methods. And if you want to define a static field for a class, you must do that outside the class body, after the class has been defined. Example 9-4 includes examples of both kinds of fields.
 
-> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是"属性"的面向对象的同义词），则必须在构造函数函数或其中一个方法中这样做。如果要为类定义静态字段，则必须在类体之外（在类定义后）进行该字段。示例 9-4 包括这两种字段的示例。
+> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是面向对象中"属性"的同义词），则必须在构造函数函数或其中一个方法中这样做。如果要为类定义静态字段，则必须在类正文之外（在类定义后）进行该字段。例 9-4 包括这各种字段的示例。
 
 Standardization is underway, however, for extended class syntax that allows the definition of instance and static fields, in both public and private forms. The code shown in the rest of this section is not yet standard JavaScript as of early 2020 but is already supported in Chrome and partially supported (public instance fields only) in Firefox. The syntax for public instance fields is in common use by JavaScript programmers using the React framework and the Babel transpiler.
 
+> 但是，对于允许以公有和 私有形式定义实例和静态字段的扩展类语法，正在进行标准化。本节其余部分中显示的代码在 2020 年初还不是标准 JavaScript，但在 Chrome 中已经支持，并且 Firefox 中已部分支持（仅使公有实例字段）。使用 React 框架和 Babel 编译器的 JavaScript 程序员常用公有实例字段的语法。
+
 Suppose you’re writing a class like this one, with a constructor that initializes three fields:
+
+> 假设你正在编写一个这样的类，其中一个构造函数初始化了三个字段：
+
 ```js
 class Buffer {
     constructor() {
@@ -450,6 +455,9 @@ class Buffer {
 }
 ```
 With the new instance field syntax that is likely to be standardized, you could instead write:
+
+> 使用可能标准化的新实例字段语法，可以这样编写：
+
 ```js
 class Buffer {
     size = 0;
@@ -459,9 +467,16 @@ class Buffer {
 ```
 The field initialization code has moved out of the constructor and now appears directly in the class body. (That code is still run as part of the constructor, of course. If you do not define a constructor, the fields are initialized as part of the implicitly created constructor.) The this. prefixes that appeared on the lefthand side of the assignments are gone, but note that you still must use this. to refer to these fields, even on the righthand side of the initializer assignments. The advantage of initializing your instance fields in this way is that this syntax allows (but does not require) you to put the initializers up at the top of the class definition, making it clear to readers exactly what fields will hold the state of each instance. You can declare fields without an initializer by just writing the name of the field followed by a semicolon. If you do that, the initial value of the field will be undefined. It is better style to always make the initial value explicit for all of your class fields.
 
+> 字段初始化代码已移出构造函数，现在直接显示在类正文中。（当然，该代码仍作为构造函数的一部分运行。如果不定义构造函数，则字段初始化为隐式创建的构造函数的一部分。赋值左侧的 this.  前缀消失，但请注意，即使在初始化赋值的右侧仍必须使用 this. 前缀引用这些字段。这种方式初始化实例字段的优点是，此语法允许（但不需要）将初始化放在类定义的顶部，使读者清楚地了解字段在每个实例将保存的状态。可以只写字段名后面跟一个分号来只声明不初始化一个字段。如果这样做，字段的初始值将是 undefined。显式设定初始化字段的值是比较好的风格。
+
 Before the addition of this field syntax, class bodies looked a lot like object literals using shortcut method syntax, except that the commas had been removed. This field syntax—with equals signs and semicolons instead of colons and commas—makes it clear that class bodies are not at all the same as object literals.
 
+> 在添加字段语法之前，类正文看起来很像使用快捷方法语法的对象字面量，只不过逗号被删除。字段语法（使用等号和分号代替冒号和逗号）清楚地表明类正文与对象字面量不相同。
+
 The same proposal that seeks to standardize these instance fields also defines private instance fields. If you use the instance field initialization syntax shown in the previous example to define a field whose name begins with # (which is not normally a legal character in JavaScript identifiers), that field will be usable (with the # prefix) within the class body but will be invisible and inaccessible (and therefore immutable) to any code outside of the class body. If, for the preceding hypothetical Buffer class, you wanted to ensure that users of the class could not inadvertently modify the size field of an instance, you could use a private #size field instead, then define a getter function to provide read-only access to the value:
+
+> 寻求标准化的实例字段同时也定义了私有实例字段。如果使用上例中所示的实例字段初始化语法来定义其名称以 # 开头的字段（在 JavaScript 标识符中通常不是合法字符），则该字段在类正文中可用（使用 # 前缀），但对类正文之外的任何代码不可见且不可访问（因此不可变）。如果对于前面的 Buffer 类，要确保类的用户不会无意中修改实例的 size 字段，可以改为使用私有 #size 字段，然后定义 getter 函数以提供对值的只读访问：
+
 ```js
 class Buffer {
     #size = 0;
@@ -470,7 +485,12 @@ class Buffer {
 ```
 Note that private fields must be declared using this new field syntax before they can be used. You can’t just write this.#size = 0; in the constructor of a class unless you include a “declaration” of the field directly in the class body.
 
+> 请注意，必须先使用新字段语法声明私有字段，然后才能使用它们。你不能只在类的构造函数中写 `this.#size = 0;`，除非直接在类正文中包含字段的"声明"。
+
 Finally, a related proposal seeks to standardize the use of the static keyword for fields. If you add static before a public or private field declaration, those fields will be created as properties of the constructor function instead of properties of instances. Consider the static Range.parse() method we’ve defined. It included a fairly complex regular expression that might be good to factor out into its own static field. With the proposed new static field syntax, we could do that like this:
+
+> 最后，寻求标准化建议字段使用 static 关键字。如果在公有或私有字段声明之前添加静态字段，这些字段将创建为构造函数的属性，而不是实例的属性。考虑我们定义的静态 Range.parse() 方法。它包括一个相当复杂的正则表达式，将其拆分到它自有的静态字段中可能会更好。使用建议的新静态字段语法，我们可以这编写：
+
 ```js
 static integerRangePattern = /^\((\d+)\.\.\.(\d+)\)$/;
 static parse(s) {
@@ -483,10 +503,17 @@ static parse(s) {
 ```
 If we wanted this static field to be accessible only within the class, we could make it private using a name like #pattern.
 
+> 如果我们希望此静态字段只能在类中访问，我们可以使用像 #pattern 这样的名称将其私有化。
+
 ### 9.3.4 Example: A Complex Number Class
 Example 9-4 defines a class to represent complex numbers. The class is a relatively simple one, but it includes instance methods (including getters), static methods, instance fields, and static fields. It includes some commented-out code demonstrating how we might use the not-yet-standard syntax for defining instance fields and static fields within the class body.
 
+> 例 9-4 定义了一个表示复数的类。该类相对简单，但它包括实例方法（包括 getters）、静态方法、实例字段和静态字段。它包括一些注释掉的代码，演示如何使用尚未加入标准的语法定义类正文中的实例字段和静态字段。
+
 Example 9-4. Complex.js: a complex number class
+
+> 例 9-4：Complex.js：一个复数类
+
 ```js
 /**
  * Instances of this Complex class represent complex numbers.
@@ -552,8 +579,13 @@ class Complex {
 Complex.ZERO = new Complex(0,0);
 Complex.ONE = new Complex(1,0);
 Complex.I = new Complex(0,1);
+```
+
 With the Complex class of Example 9-4 defined, we can use the constructor, instance fields, instance methods, class fields, and class methods with code like this:
 
+> 定义了例 9-4 的 Complex 类后，我们可以将构造函数、实例字段、实例方法、类字段和类方法如下使用：
+
+```js
 let c = new Complex(2, 3);     // Create a new object with the constructor
 let d = new Complex(c.i, c.r); // Use instance fields of c
 c.plus(d).toString()           // => "{5,5}"; use instance methods
