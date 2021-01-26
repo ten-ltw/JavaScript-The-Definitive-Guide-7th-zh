@@ -307,7 +307,7 @@ o.m(x, y);
 ```
 The code in this example is an invocation expression: it includes a function expression o.m and two argument expressions, x and y. The function expression is itself a property access expression, and this means that the function is invoked as a method rather than as a regular function.
 
-> 例子中的代码是一个调用表达式：它包含一个函数表达式 o.m 和两个实参表达式 x 和 y。函数表达式本身是一个属性访问表达式，这意味着该函数被当作一个方法调用，而不是一个普通的函数。
+> 示例中的代码是一个调用表达式：它包含一个函数表达式 o.m 和两个实参表达式 x 和 y。函数表达式本身是一个属性访问表达式，这意味着该函数被当作一个方法调用，而不是一个普通的函数。
 
 The arguments and return value of a method invocation are handled exactly as described for regular function invocation. Method invocations differ from function invocations in one important way, however: the invocation context. Property access expressions consist of two parts: an object (in this case o) and a property name (m). In a method-invocation expression like this, the object o becomes the invocation context, and the function body can refer to that object by using the keyword this. Here is a concrete example:
 
@@ -833,11 +833,11 @@ As an example of how useful it is to treat functions as values, consider the Arr
 
 Example 8-1 demonstrates the kinds of things that can be done when functions are used as values. This example may be a little tricky, but the comments explain what is going on.
 
-> 例 8-1 展示了将函数用做值时的一些例子，这段代码可能会难读一些，但注释解释了代码的具体含义：
+> 示例 8-1 展示了将函数用做值时的一些例子，这段代码可能会难读一些，但注释解释了代码的具体含义：
 
 Example 8-1. Using functions as data
 
-> 例 8-1：用函数做值
+> 示例 8-1：用函数做值
 
 ```js
 // We define some simple functions here
@@ -1064,11 +1064,11 @@ Note that this version of the counter() function does not declare a local variab
 
 Example 8-2 is a generalization of the shared private state through the closures technique we’ve been demonstrating here. This example defines an addPrivateProperty() function that defines a private variable and two nested functions to get and set the value of that variable. It adds these nested functions as methods of the object you specify.
 
-> 例 8-2是这种使用闭包技术来共享的私有状态的通用做法。这个例子定义了 addPrivateProperty() 函数，这个函数定义了一个私有变量，以及两个嵌套的函数用来获取和设置这个私有变量的值。它将这些嵌套函数添加为所指定对象的方法：
+> 示例 8-2是这种使用闭包技术来共享的私有状态的通用做法。这个例子定义了 addPrivateProperty() 函数，这个函数定义了一个私有变量，以及两个嵌套的函数用来获取和设置这个私有变量的值。它将这些嵌套函数添加为所指定对象的方法：
 
 Example 8-2. Private property accessor methods using closures
 
-> 例 8-2：利用闭包实现的私有属性存取器方法
+> 示例 8-2：利用闭包实现的私有属性存取器方法
 
 ```js
 // This function adds property accessor methods for a property with

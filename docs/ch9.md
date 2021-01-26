@@ -24,11 +24,11 @@ If you’re familiar with strongly typed object-oriented programming languages l
 
 In JavaScript, a class is a set of objects that inherit properties from the same prototype object. The prototype object, therefore, is the central feature of a class. Chapter 6 covered the Object.create() function that returns a newly created object that inherits from a specified prototype object. If we define a prototype object and then use Object.create() to create objects that inherit from it, we have defined a JavaScript class. Usually, the instances of a class require further initialization, and it is common to define a function that creates and initializes the new object. Example 9-1 demonstrates this: it defines a prototype object for a class that represents a range of values and also defines a factory function that creates and initializes a new instance of the class.
 
-> 在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在例 6-1 中定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象，参照例 9-1。例 9-1 给一个表示“值的范围”的类定义了原型对象，还定义了一个“工厂”函数用以创建并初始化类的实例。
+> 在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在示例 6-1 中定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象，参照示例 9-1。示例 9-1 给一个表示“值的范围”的类定义了原型对象，还定义了一个“工厂”函数用以创建并初始化类的实例。
 
 Example 9-1. A simple JavaScript class
 
-> 例 9-1：一个简单的 JavaScript 类
+> 示例 9-1：一个简单的 JavaScript 类
 
 ```js
 // This is a factory function that returns a new range object.
@@ -72,7 +72,7 @@ r.toString()             // => "(1...3)"
 ```
 There are a few things worth noting in the code of Example 9-1:
 
-> 在例 9-1 的代码中有一下几点值得注意：
+> 在示例 9-1 的代码中有一下几点值得注意：
 
 This code defines a factory function range() for creating new Range objects.
 
@@ -101,11 +101,11 @@ The shared, inherited methods defined in range.methods all use the from and to p
 ## 9.2 Classes and Constructors
 Example 9-1 demonstrates a simple way to define a JavaScript class. It is not the idiomatic way to do so, however, because it did not define a constructor. A constructor is a function designed for the initialization of newly created objects. Constructors are invoked using the new keyword as described in §8.2.3. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. §6.2.3 introduced prototypes and emphasized that while almost all objects have a prototype, only a few objects have a prototype property. Finally, we can clarify this: it is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. Example 9-2 shows how we could alter the Range class of Example 9-1 to use a constructor function instead of a factory function. Example 9-2 demonstrates the idiomatic way to create a class in versions of JavaScript that do not support the ES6 class keyword. Even though class is well supported now, there is still lots of older JavaScript code around that defines classes like this, and you should be familiar with the idiom so that you can read old code and so that you understand what is going on “under the hood” when you use the class keyword.
 
-> 例 9-1 展示了一个简单方式来定义一个 JavaScript 类。但是这种方法并不常用，因为它没有定义一个构造函数。构造函数是用来初始化新建对象的。如 §8.2.3 中所述构造函数用 new 关键字来调用。使用 new 调用构造函数会自动创建一个新对象，因此构造函数本身只需初始化这个新对象的状态即可。§6.2.3 介绍并强调了虽然所有对象都有原型，但是只有一部分对象有一个 prototype 属性。最后，我们可以澄清这一点：是函数对象具有 prototype 属性。这意味着所有用同一构造函数创建的对象继承同一个对象，因此它们是同一类的成员。例 9-2 说明了如何使用一个构造函数来替代例 9-1 中的工厂函数来修改 Range 类。例 9-2 演示了在不支持 ES6 class 关键字版本的 JavaScript 中创建一个类的通用方法。即使是 class 已经很好支持的今天，仍然有很多旧 JavaScript 代码用这种方式定义类，并且你必须熟悉这种习惯用法，以便于阅读旧代码，也能够在使用 class 关键字时明白在底层中发生了什么。
+> 示例 9-1 展示了一个简单方式来定义一个 JavaScript 类。但是这种方法并不常用，因为它没有定义一个构造函数。构造函数是用来初始化新建对象的。如 §8.2.3 中所述构造函数用 new 关键字来调用。使用 new 调用构造函数会自动创建一个新对象，因此构造函数本身只需初始化这个新对象的状态即可。§6.2.3 介绍并强调了虽然所有对象都有原型，但是只有一部分对象有一个 prototype 属性。最后，我们可以澄清这一点：是函数对象具有 prototype 属性。这意味着所有用同一构造函数创建的对象继承同一个对象，因此它们是同一类的成员。示例 9-2 说明了如何使用一个构造函数来替代示例 9-1 中的工厂函数来修改 Range 类。示例 9-2 演示了在不支持 ES6 class 关键字版本的 JavaScript 中创建一个类的通用方法。即使是 class 已经很好支持的今天，仍然有很多旧 JavaScript 代码用这种方式定义类，并且你必须熟悉这种习惯用法，以便于阅读旧代码，也能够在使用 class 关键字时明白在底层中发生了什么。
 
 Example 9-2. A Range class using a constructor
 
-> 例 9-2：使用构造函数来定义 Range
+> 示例 9-2：使用构造函数来定义 Range
 
 ```js
 // This is a constructor function that initializes new Range objects.
@@ -142,11 +142,11 @@ r.toString()              // => "(1...3)"
 ```
 It is worth comparing Examples 9-1 and 9-2 fairly carefully and noting the differences between these two techniques for defining classes. First, notice that we renamed the range() factory function to Range() when we converted it to a constructor. This is a very common coding convention: constructor functions define, in a sense, classes, and classes have names that (by convention) begin with capital letters. Regular functions and methods have names that begin with lowercase letters.
 
-> 将例 9-1 和例 9-2 中的代码做一个仔细的对比，可以发现两种类定义技术并的差别。首先，注意当工厂函数 range() 转化为构造函数时被重命名为 Range()。这里遵循了一个常见的编程约定：从某种意义上讲，定义构造函数即是定义类，并且类名首字母要大写。而普通的函数和方法都是首字母小写。
+> 将示例 9-1 和示例 9-2 中的代码做一个仔细的对比，可以发现两种类定义技术并的差别。首先，注意当工厂函数 range() 转化为构造函数时被重命名为 Range()。这里遵循了一个常见的编程约定：从某种意义上讲，定义构造函数即是定义类，并且类名首字母要大写。而普通的函数和方法都是首字母小写。
 
 Next, notice that the Range() constructor is invoked (at the end of the example) with the new keyword while the range() factory function was invoked without it. Example 9-1 uses regular function invocation (§8.2.1) to create the new object, and Example 9-2 uses constructor invocation (§8.2.3). Because the Range() constructor is invoked with new, it does not have to call Object.create() or take any action to create a new object. The new object is automatically created before the constructor is called, and it is accessible as the this value. The Range() constructor merely has to initialize this. Constructors do not even have to return the newly created object. Constructor invocation automatically creates a new object, invokes the constructor as a method of that object, and returns the new object. The fact that constructor invocation is so different from regular function invocation is another reason that we give constructors names that start with capital letters. Constructors are written to be invoked as constructors, with the new keyword, and they usually won’t work properly if they are invoked as regular functions. A naming convention that keeps constructor functions distinct from regular functions helps programmers know when to use new.
 
-> 再者，注意 Range() 构造函数是通过 new 关键字调用的（在示例代码的末尾）， 而 range() 工厂函数则不必使用 new。例 9-1 通过调用普通函数（§8.2.1）来创建新对象，例 9-2 则使用构造函数调用（§8.2.3）来创建新对象。由于 Range() 构造函数是通过 new 关键字调用的，因此不必调用 Object.create() 或其他什么逻辑来创建新对象。在调用构造函数之前就已经创建了新对象，并且通过 this 关键字可以获取这个新对象。Range() 构造函数只不过是初始化 this 而已。构造函数甚至不必返回这个新创建的对象，构造函数会自动创建对象，然后将构造函数作为这个对象的方法来调用一次，最后返回这个新对象。构造函数调用与常规函数调用如此不同，实际上，这是我们为构造函数命名以大写字母为名的另一个原因。构造函数就是用来“构造新对象”的，它必须通过关键字 new 调用，如果将构造函数用做普通函数的话，往往不会正常工作。开发者可以通过命名规约来（构造函数首字母大写，普通方法首字母小写）判断是否应当在函数之前冠以关键字 new。
+> 再者，注意 Range() 构造函数是通过 new 关键字调用的（在示例代码的末尾）， 而 range() 工厂函数则不必使用 new。示例 9-1 通过调用普通函数（§8.2.1）来创建新对象，示例 9-2 则使用构造函数调用（§8.2.3）来创建新对象。由于 Range() 构造函数是通过 new 关键字调用的，因此不必调用 Object.create() 或其他什么逻辑来创建新对象。在调用构造函数之前就已经创建了新对象，并且通过 this 关键字可以获取这个新对象。Range() 构造函数只不过是初始化 this 而已。构造函数甚至不必返回这个新创建的对象，构造函数会自动创建对象，然后将构造函数作为这个对象的方法来调用一次，最后返回这个新对象。构造函数调用与常规函数调用如此不同，实际上，这是我们为构造函数命名以大写字母为名的另一个原因。构造函数就是用来“构造新对象”的，它必须通过关键字 new 调用，如果将构造函数用做普通函数的话，往往不会正常工作。开发者可以通过命名规约来（构造函数首字母大写，普通方法首字母小写）判断是否应当在函数之前冠以关键字 new。
 
 **CONSTRUCTORS AND NEW.TARGET**
 Within a function body, you can tell whether the function has been invoked as a constructor with the special expression new.target. If the value of that expression is defined, then you know that the function was invoked as a constructor, with the new keyword. When we discuss subclasses in §9.5, we’ll see that new.target is not always a reference to the constructor it is used in: it might also refer to the constructor function of a subclass.
@@ -169,11 +169,11 @@ This technique only works for constructors defined in this old-fashioned way. Cl
 
 Another critical difference between Examples 9-1 and 9-2 is the way the prototype object is named. In the first example, the prototype was range.methods. This was a convenient and descriptive name, but arbitrary. In the second example, the prototype is Range.prototype, and this name is mandatory. An invocation of the Range() constructor automatically uses Range.prototype as the prototype of the new Range object.
 
-> 例 9-1 和 9-2 之间的另一个关键区别是原型对象的命名方式。在第一个示例中，原型是 range.methods。这是一个方便和描述性的名称，但随意。在第二个示例中，原型为 Range.prototype，此名称是规定的。Range() 构造函数的调用自动使用 Range.prototype 作为新 Range 对象的原型。
+> 示例 9-1 和 9-2 之间的另一个关键区别是原型对象的命名方式。在第一个示例中，原型是 range.methods。这是一个方便和描述性的名称，但随意。在第二个示例中，原型为 Range.prototype，此名称是规定的。Range() 构造函数的调用自动使用 Range.prototype 作为新 Range 对象的原型。
 
 Finally, also note the things that do not change between Examples 9-1 and 9-2 : the range methods are defined and invoked in the same way for both classes. Because Example 9-2 demonstrates the idiomatic way to create classes in versions of JavaScript before ES6, it does not use the ES6 shorthand method syntax in the prototype object and explicitly spells out the methods with the function keyword. But you can see that the implementation of the methods is the same in both examples.
 
-> 最后，还要注意示例 9-1 和 9-2 之间不变的部分：对两个类来说，range 方法以相同的方式定义和调用。由于示例 9-2 演示了在 ES6 之前在 JavaScript 版本中创建类的惯用方法，因此它没原型对象中使用 ES6 速记方法语法，并且使用 function 关键字显式拼出方法名。但是，可以看到，在这两个示例中，方法的实现是相同的。
+> 最后，还要注意示例 9-1 和 9-2 之间不变的部分：对两个类来说，range 方法以相同的方式定义和调用。由于示示例 9-2 演示了在 ES6 之前在 JavaScript 版本中创建类的惯用方法，因此它没原型对象中使用 ES6 速记方法语法，并且使用 function 关键字显式拼出方法名。但是，可以看到，在这两个示例中，方法的实现是相同的。
 
 Importantly, note that neither of the two range examples uses arrow functions when defining constructors or methods. Recall from §8.1.3 that functions defined in this way do not have a prototype property and so cannot be used as constructors. Also, arrow functions inherit the this keyword from the context in which they are defined rather than setting it based on the object through which they are invoked, and this makes them useless for methods because the defining characteristic of methods is that they use this to refer to the instance on which they were invoked.
 
@@ -222,7 +222,7 @@ range.methods.isPrototypeOf(r);  // range.methods is the prototype object.
 ### 9.2.2 The constructor Property
 In Example 9-2, we set Range.prototype to a new object that contained the methods for our class. Although it was convenient to express those methods as properties of a single object literal, it was not actually necessary to create a new object. Any regular JavaScript function (excluding arrow functions, generator functions, and async functions) can be used as a constructor, and constructor invocations need a prototype property. Therefore, every regular JavaScript function1 automatically has a prototype property. The value of this property is an object that has a single, non-enumerable constructor property. The value of the constructor property is the function object:
 
-> 在例 9-2 中，将 Range.prototype 定义为一个新对象，这个对象包含类所需要的方法。其实没有必要新创建一个对象，用单个对象字面量的属性就可以方便地定义原型上的方法。任何普通 JavaScript 函数（除箭头函数、生成器函数和异步函数之外）都可以用做构造函数，并且调用构造函数是需要一个 prototype 属性的。因此，每个 JavaScript 函数都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象：
+> 在示例 9-2 中，将 Range.prototype 定义为一个新对象，这个对象包含类所需要的方法。其实没有必要新创建一个对象，用单个对象字面量的属性就可以方便地定义原型上的方法。任何普通 JavaScript 函数（除箭头函数、生成器函数和异步函数之外）都可以用做构造函数，并且调用构造函数是需要一个 prototype 属性的。因此，每个 JavaScript 函数都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象：
 
 ```js
 let F = function() {}; // This is a function object.
@@ -246,7 +246,7 @@ Figure 9-1 illustrates this relationship between the constructor function, its p
 
 Notice that Figure 9-1 uses our Range() constructor as an example. In fact, however, the Range class defined in Example 9-2 overwrites the predefined Range.prototype object with an object of its own. And the new prototype object it defines does not have a constructor property. So instances of the Range class, as defined, do not have a constructor property. We can remedy this problem by explicitly adding a constructor to the prototype:
 
-> 需要注意的是，图 9-1 用 Range() 构造函数作为示例。但实际上，例 9-2 中定义的 Range 类使用它自身的一个新对象重写了预定义的 Range.prototype 对象。这个新定义的原型对象不含有 constructor 属性。因此 Range 类的实例也不含有 constructor 属性。我们可以通过补救措施来修正这个问题，显式给原型添加一个构造函数：
+> 需要注意的是，图 9-1 用 Range() 构造函数作为示例。但实际上，示例 9-2 中定义的 Range 类使用它自身的一个新对象重写了预定义的 Range.prototype 对象。这个新定义的原型对象不含有 constructor 属性。因此 Range 类的实例也不含有 constructor 属性。我们可以通过补救措施来修正这个问题，显式给原型添加一个构造函数：
 
 ```js
 Range.prototype = {
@@ -272,11 +272,11 @@ Range.prototype.toString = function() {
 ## 9.3 Classes with the class Keyword
 Classes have been part of JavaScript since the very first version of the language, but in ES6, they finally got their own syntax with the introduction of the class keyword. Example 9-3 shows what our Range class looks like when written with this new syntax.
 
-> 类自第一个版本以来一直是 JavaScript 的一部分，但在 ES6 中，它们最终引入 class 关键字得到了自己的语法。示例 9-3 显示了使用此新语法编写 Range 类的实现。
+> 类自第一个版本以来一直是 JavaScript 的一部分，但在 ES6 中，它们最终引入 class 关键字得到了自己的语法。示示例 9-3 显示了使用此新语法编写 Range 类的实现。
 
 Example 9-3. The Range class rewritten using class
 
-> 例 9-3：使用 class 编写 Range 类
+> 示例 9-3：使用 class 编写 Range 类
 
 ```js
 class Range {
@@ -309,11 +309,11 @@ r.toString()              // => "(1...3)"
 ```
 It is important to understand that the classes defined in Examples 9-2 and 9-3 work in exactly the same way. The introduction of the class keyword to the language does not alter the fundamental nature of JavaScript’s prototype-based classes. And although Example 9-3 uses the class keyword, the resulting Range object is a constructor function, just like the version defined in Example 9-2. The new class syntax is clean and convenient but is best thought of as “syntactic sugar” for the more fundamental class definition mechanism shown in Example 9-2.
 
-> 重要的是要了解，在示例 9-2 和 9-3 中定义的类的工作方式完全相同。将类关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作例 9-2 所示的基本类定义机制的语法糖。
+> 重要的是要了解，在示示例 9-2 和 9-3 中定义的类的工作方式完全相同。将类关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作示例 9-2 所示的基本类定义机制的语法糖。
 
 Note the following things about the class syntax in Example 9-3:
 
-> 注意在例 9-3 中关于 class 语法的一下几点：
+> 注意在示例 9-3 中关于 class 语法的一下几点：
 
 The class is declared with the class keyword, which is followed by the name of class and a class body in curly braces.
 
@@ -321,7 +321,7 @@ The class is declared with the class keyword, which is followed by the name of c
 
 The class body includes method definitions that use object literal method shorthand (which we also used in Example 9-1), where the function keyword is omitted. Unlike object literals, however, no commas are used to separate the methods from each other. (Although class bodies are superficially similar to object literals, they are not the same thing. In particular, they do not support the definition of properties with name/value pairs.)
 
-> 类正文包括使用对象字面量方法速记定义的方法（我们在例 9-1 中也使用了），其中省略了函数关键字。但是，与对象字面量不同，没有用逗号将方法彼此分开。（虽然类正文表面上与对象字面量相似，但它们不是一回事。与对象不同，类不支持具有名/值对的属性的定义。
+> 类正文包括使用对象字面量方法速记定义的方法（我们在示例 9-1 中也使用了），其中省略了函数关键字。但是，与对象字面量不同，没有用逗号将方法彼此分开。（虽然类正文表面上与对象字面量相似，但它们不是一回事。与对象不同，类不支持具有名/值对的属性的定义。
 
 The keyword constructor is used to define the constructor function for the class. The function defined is not actually named “constructor”, however. The class declaration statement defines a new variable Range and assigns the value of this special constructor function to that variable.
 
@@ -378,20 +378,20 @@ We’ll conclude this introduction to the class keyword by mentioning a couple o
 
 All code within the body of a class declaration is implicitly in strict mode (§5.6.3), even if no "use strict" directive appears. This means, for example, that you can’t use octal integer literals or the with statement within class bodies and that you are more likely to get syntax errors if you forget to declare a variable before using it.
 
-> 类声明正文中的所有代码都隐式采用严格模式（§5.6.3），即使未出现"use strict"指令。例如，这意味着不能在类体中使用八进制整数字面量或 with 语句，并且如果您在使用变量之前忘记声明变量，则更有可能出现语法错误。
+> 类声明正文中的所有代码都隐式采用严格模式（§5.6.3），即使未出现"use strict"指令。例如，这意味着不能在类正文中使用八进制整数字面量或 with 语句，并且如果在使用变量之前忘记声明变量，则更有可能出现语法错误。
 
 Unlike function declarations, class declarations are not “hoisted.” Recall from §8.1.1 that function definitions behave as if they had been moved to the top of the enclosing file or enclosing function, meaning that you can invoke a function in code that comes before the actual definition of the function. Although class declarations are like function declarations in some ways, they do not share this hoisting behavior: you cannot instantiate a class before you declare it.
 
-> 与函数声明不同，类声明不是"声明提前"的。回想一下 §8.1.1 中，函数定义的行为就像它们被移动到封闭文件的顶部或封闭函数的顶部一样，这意味着可以在函数实际定义之前的代码中调用函数。尽管类声明在某些方面与函数声明一样，但它们不共享此提前行为：在声明类之前，不能实例化类。
+> 与函数声明不同，类声明不是"声明提前"的。回想一下 §8.1.1 中，函数定义的行为就像它们被移动到封闭文件的顶部或封闭函数的顶部一样，这意味着可以在函数实际定义之前的代码中调用函数。尽管类声明在某些方面与函数声明一样，但它们不共享这种提前行为：在声明类之前，不能实例化类。
 
 ### 9.3.1 Static Methods
 You can define a static method within a class body by prefixing the method declaration with the static keyword. Static methods are defined as properties of the constructor function rather than properties of the prototype object.
 
-> 可以通过使用静态关键字为方法声明前缀来定义类体中的静态方法。静态方法定义为构造函数的属性，而不是原型对象的属性。
+> 可以通过使用 static 关键字作为方法声明前缀来定义类正文中的静态方法。静态方法定义为构造函数的属性，而不是原型对象的属性。
 
 For example, suppose we added the following code to Example 9-3:
 
-> 例如，假设我们将以下代码添加到例 9-3 中：
+> 例如，假设我们将以下代码添加到示例 9-3 中：
 
 ```js
 static parse(s) {
@@ -404,7 +404,7 @@ static parse(s) {
 ```
 The method defined by this code is Range.parse(), not Range.prototype.parse(), and you must invoke it through the constructor, not through an instance:
 
-> 此代码定义的方法是 Range.parse()， 而不是 Range.prototype.parse()， 您必须通过构造函数而不是通过实例调用它：
+> 此代码定义的方法是 Range.parse()， 而不是 Range.prototype.parse()， 必须通过构造函数而不是通过实例调用它：
 
 ```js
 let r = Range.parse('(1...10)'); // Returns a new Range object
@@ -416,16 +416,16 @@ You’ll sometimes see static methods called class methods because they are invo
 
 We’ll see examples of static methods in Example 9-4.
 
-> 我们将在例 9-4 中看到静态方法的示例。
+> 我们将在示例 9-4 中看到静态方法的示例。
 
 ### 9.3.2 Getters, Setters, and other Method Forms
 Within a class body, you can define getter and setter methods (§6.10.6) just as you can in object literals. The only difference is that in class bodies, you don’t put a comma after the getter or setter. Example 9-4 includes a practical example of a getter method in a class.
 
-> 在类正文中，可以定义 getter 和 setter 方法（§6.10.6），就像在对象字面量中一样。唯一的区别是，在类正文中，不会将逗号放在 getter 或 setter 之后。例 9-4 包括类中 getter 方法的实际示例。
+> 在类正文中，可以定义 getter 和 setter 方法（§6.10.6），就像在对象字面量中一样。唯一的区别是，在类正文中，不会将逗号放在 getter 或 setter 之后。示例 9-4 包括类中 getter 方法的实际示例。
 
 In general, all of the shorthand method definition syntaxes allowed in object literals are also allowed in class bodies. This includes generator methods (marked with *) and methods whose names are the value of an expression in square brackets. In fact, you’ve already seen (in Example 9-3) a generator method with a computed name that makes the Range class iterable:
 
-> 通常，对象字面量中允许的所有速记方法定义语法也允许在类正文中使用。这包括生成器方法（用 * 标记）和名称为方括号中表达式值的方法。事实上，已经看到了（在例 9-3 中）具有计算名称的生成器方法，该方法使 Range 类可重复：
+> 通常，对象字面量中允许的所有速记方法定义语法也允许在类正文中使用。这包括生成器方法（用 * 标记）和名称为方括号中表达式值的方法。事实上，已经看到了（在示例 9-3 中）具有计算名称的生成器方法，该方法使 Range 类可重复：
 
 ```js
 *[Symbol.iterator]() {
@@ -435,11 +435,11 @@ In general, all of the shorthand method definition syntaxes allowed in object li
 ### 9.3.3 Public, Private, and Static Fields
 In the discussion here of classes defined with the class keyword, we have only described the definition of methods within the class body. The ES6 standard only allows the creation of methods (including getters, setters, and generators) and static methods; it does not include syntax for defining fields. If you want to define a field (which is just an object-oriented synonym for “property”) on a class instance, you must do that in the constructor function or in one of the methods. And if you want to define a static field for a class, you must do that outside the class body, after the class has been defined. Example 9-4 includes examples of both kinds of fields.
 
-> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是面向对象中"属性"的同义词），则必须在构造函数函数或其中一个方法中这样做。如果要为类定义静态字段，则必须在类正文之外（在类定义后）进行该字段。例 9-4 包括这各种字段的示例。
+> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是面向对象中"属性"的同义词），则必须在构造函数函数或其中一个方法中这样做。如果要为类定义静态字段，则必须在类正文之外（在类定义后）进行该字段。示例 9-4 包括这各种字段的示例。
 
 Standardization is underway, however, for extended class syntax that allows the definition of instance and static fields, in both public and private forms. The code shown in the rest of this section is not yet standard JavaScript as of early 2020 but is already supported in Chrome and partially supported (public instance fields only) in Firefox. The syntax for public instance fields is in common use by JavaScript programmers using the React framework and the Babel transpiler.
 
-> 但是，对于允许以公有和 私有形式定义实例和静态字段的扩展类语法，正在进行标准化。本节其余部分中显示的代码在 2020 年初还不是标准 JavaScript，但在 Chrome 中已经支持，并且 Firefox 中已部分支持（仅使公有实例字段）。使用 React 框架和 Babel 编译器的 JavaScript 程序员常用公有实例字段的语法。
+> 但是，对于允许以公有和私有形式定义实例和静态字段的扩展类语法正在进行标准化。本节其余部分中显示的代码在 2020 年初还不是标准 JavaScript，但在 Chrome 中已经支持，并且 Firefox 中已部分支持（仅使公有实例字段）。使用 React 框架和 Babel 编译器的 JavaScript 程序员常用公有实例字段的语法。
 
 Suppose you’re writing a class like this one, with a constructor that initializes three fields:
 
@@ -467,15 +467,15 @@ class Buffer {
 ```
 The field initialization code has moved out of the constructor and now appears directly in the class body. (That code is still run as part of the constructor, of course. If you do not define a constructor, the fields are initialized as part of the implicitly created constructor.) The this. prefixes that appeared on the lefthand side of the assignments are gone, but note that you still must use this. to refer to these fields, even on the righthand side of the initializer assignments. The advantage of initializing your instance fields in this way is that this syntax allows (but does not require) you to put the initializers up at the top of the class definition, making it clear to readers exactly what fields will hold the state of each instance. You can declare fields without an initializer by just writing the name of the field followed by a semicolon. If you do that, the initial value of the field will be undefined. It is better style to always make the initial value explicit for all of your class fields.
 
-> 字段初始化代码已移出构造函数，现在直接显示在类正文中。（当然，该代码仍作为构造函数的一部分运行。如果不定义构造函数，则字段初始化为隐式创建的构造函数的一部分。赋值左侧的 this.  前缀消失，但请注意，即使在初始化赋值的右侧仍必须使用 this. 前缀引用这些字段。这种方式初始化实例字段的优点是，此语法允许（但不需要）将初始化放在类定义的顶部，使读者清楚地了解字段在每个实例将保存的状态。可以只写字段名后面跟一个分号来只声明不初始化一个字段。如果这样做，字段的初始值将是 undefined。显式设定初始化字段的值是比较好的风格。
+> 字段初始化代码已移出构造函数，现在直接显示在类正文中。（当然，该代码仍作为构造函数的一部分运行。如果不定义构造函数，则字段初始化为隐式创建的构造函数的一部分。赋值左侧的 this. 前缀消失，但请注意即使是在初始化赋值的右侧，仍必须使用 this. 前缀引用这些字段。这种方式初始化实例字段的优点是，此语法允许（但不需要）将初始化放在类定义的顶部，使读者清楚地了解字段在每个实例将保存的状态。可以通过字段名后面跟一个分号来只声明不初始化一个字段。如果这样做，字段的初始值将是 undefined。显式设定初始化字段的值是比较好的风格。
 
 Before the addition of this field syntax, class bodies looked a lot like object literals using shortcut method syntax, except that the commas had been removed. This field syntax—with equals signs and semicolons instead of colons and commas—makes it clear that class bodies are not at all the same as object literals.
 
-> 在添加字段语法之前，类正文看起来很像使用快捷方法语法的对象字面量，只不过逗号被删除。字段语法（使用等号和分号代替冒号和逗号）清楚地表明类正文与对象字面量不相同。
+> 在添加字段语法之前，类正文看起来很像使用快捷方法语法的对象字面量，只不过逗号被删除。字段语法（使用等号和分号代替冒号和逗号）清楚地表明类正文与对象字面量不完全相同。
 
 The same proposal that seeks to standardize these instance fields also defines private instance fields. If you use the instance field initialization syntax shown in the previous example to define a field whose name begins with # (which is not normally a legal character in JavaScript identifiers), that field will be usable (with the # prefix) within the class body but will be invisible and inaccessible (and therefore immutable) to any code outside of the class body. If, for the preceding hypothetical Buffer class, you wanted to ensure that users of the class could not inadvertently modify the size field of an instance, you could use a private #size field instead, then define a getter function to provide read-only access to the value:
 
-> 寻求标准化的实例字段同时也定义了私有实例字段。如果使用上例中所示的实例字段初始化语法来定义其名称以 # 开头的字段（在 JavaScript 标识符中通常不是合法字符），则该字段在类正文中可用（使用 # 前缀），但对类正文之外的任何代码不可见且不可访问（因此不可变）。如果对于前面的 Buffer 类，要确保类的用户不会无意中修改实例的 size 字段，可以改为使用私有 #size 字段，然后定义 getter 函数以提供对值的只读访问：
+> 标准化中的实例字段同时也定义了私有实例字段。如果使用上例中所示的实例字段初始化语法来定义其名称以 # 开头的字段（在 JavaScript 标识符中通常不是合法字符），则该字段在类正文中可用（使用 # 前缀），但对类正文之外的任何代码不可见且不可访问（因此不可变）。如果对于前面的 Buffer 类，要确保类的用户不会无意中修改实例的 size 字段，可以改为使用私有 #size 字段，然后定义 getter 函数以提供对值的只读访问：
 
 ```js
 class Buffer {
@@ -489,7 +489,7 @@ Note that private fields must be declared using this new field syntax before the
 
 Finally, a related proposal seeks to standardize the use of the static keyword for fields. If you add static before a public or private field declaration, those fields will be created as properties of the constructor function instead of properties of instances. Consider the static Range.parse() method we’ve defined. It included a fairly complex regular expression that might be good to factor out into its own static field. With the proposed new static field syntax, we could do that like this:
 
-> 最后，寻求标准化建议字段使用 static 关键字。如果在公有或私有字段声明之前添加静态字段，这些字段将创建为构造函数的属性，而不是实例的属性。考虑我们定义的静态 Range.parse() 方法。它包括一个相当复杂的正则表达式，将其拆分到它自有的静态字段中可能会更好。使用建议的新静态字段语法，我们可以这编写：
+> 最后，在标准化过程中相关建议字段使用 static 关键字。如果在公有或私有字段声明之前添加静态字段，这些字段将创建为构造函数的属性，而不是实例的属性。思考我们定义的静态 Range.parse() 方法。它包括一个相当复杂的正则表达式，将其拆分到它自有的静态字段中可能会更好。使用建议的新静态字段语法，我们可以这编写：
 
 ```js
 static integerRangePattern = /^\((\d+)\.\.\.(\d+)\)$/;
@@ -508,11 +508,11 @@ If we wanted this static field to be accessible only within the class, we could 
 ### 9.3.4 Example: A Complex Number Class
 Example 9-4 defines a class to represent complex numbers. The class is a relatively simple one, but it includes instance methods (including getters), static methods, instance fields, and static fields. It includes some commented-out code demonstrating how we might use the not-yet-standard syntax for defining instance fields and static fields within the class body.
 
-> 例 9-4 定义了一个表示复数的类。该类相对简单，但它包括实例方法（包括 getters）、静态方法、实例字段和静态字段。它包括一些注释掉的代码，演示如何使用尚未加入标准的语法定义类正文中的实例字段和静态字段。
+> 示例 9-4 定义了一个表示复数的类。该类相对简单，但它包括实例方法（包括 getters）、静态方法、实例字段和静态字段。它包括一些注释掉的代码，演示如何使用尚未加入标准的语法定义类正文中的实例字段和静态字段。
 
 Example 9-4. Complex.js: a complex number class
 
-> 例 9-4：Complex.js：一个复数类
+> 示例 9-4：Complex.js：一个复数类
 
 ```js
 /**
@@ -583,7 +583,7 @@ Complex.I = new Complex(0,1);
 
 With the Complex class of Example 9-4 defined, we can use the constructor, instance fields, instance methods, class fields, and class methods with code like this:
 
-> 定义了例 9-4 的 Complex 类后，我们可以将构造函数、实例字段、实例方法、类字段和类方法如下使用：
+> 定义了示例 9-4 的 Complex 类后，我们可以将构造函数、实例字段、实例方法、类字段和类方法如下使用：
 
 ```js
 let c = new Complex(2, 3);     // Create a new object with the constructor

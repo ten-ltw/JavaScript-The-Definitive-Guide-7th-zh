@@ -50,7 +50,7 @@ This book covers low-level fundamentals first, and then builds on those to more 
 
 When learning a new programming language, it’s important to try the examples in the book, then modify them and try them again to test your understanding of the language. To do that, you need a JavaScript interpreter.
 
-> 在学习一门新的编程语言时，试一试书中的例子是很重要的，然后修改它们，再试一次来测试你对这门语言的理解。为此，需要一个 JavaScript 解释器。
+> 在学习一门新的编程语言时，试一试书中的示例是很重要的，然后修改它们，再试一次来测试你对这门语言的理解。为此，需要一个 JavaScript 解释器。
 
 The easiest way to try out a few lines of JavaScript is to open up the web developer tools in your web browser (with F12, Ctrl-Shift-I, or Command-Option-I) and select the Console tab. You can then type code at the prompt and see the results as you type. Browser developer tools often appear as panes at the bottom or right of the browser window, but you can usually detach them as separate windows (as pictured in Figure 1-1), which is often quite convenient.
 
