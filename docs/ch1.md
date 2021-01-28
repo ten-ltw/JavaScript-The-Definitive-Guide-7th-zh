@@ -131,7 +131,7 @@ Open the developer tools window to see the greeting in the console.
 
 This section presents a quick introduction, through code examples, to the JavaScript language. After this introductory chapter, we dive into JavaScript at the lowest level: Chapter 2 explains things like JavaScript comments, semicolons, and the Unicode character set. Chapter 3 starts to get more interesting: it explains JavaScript variables and the values you can assign to those variables.
 
-> 本节通过代码示例快速介绍 JavaScript 语言。在这一介绍性章节之后，我们将深入到 JavaScript 的底层:第 2 章说明了 JavaScript 注释、分号和 Unicode 字符集等内容。第 3 章开始变得更有趣：它解释了 JavaScript 变量和你可以为这些变量赋值的值。
+> 本节通过代码示例快速介绍 JavaScript 语言。在这一介绍性章节之后，我们将深入到 JavaScript 的底层:第 2 章说明了 JavaScript 注释、分号和 Unicode 字符集等内容。第 3 章开始变得更有趣：它说明了 JavaScript 变量和你可以为这些变量赋值的值。
 
 Here’s some sample code to illustrate the highlights of those two chapters:
 
@@ -576,4 +576,4 @@ histogramFromStdin().then(histogram => { console.log(histogram.toString()); });
 
 This book explains JavaScript from the bottom up. This means that we start with low-level details like comments, identifiers, variables, and types; then build to expressions, statements, objects, and functions; and then cover high-level language abstractions like classes and modules. I take the word definitive in the title of this book seriously, and the coming chapters explain the language at a level of detail that may feel off-putting at first. True mastery of JavaScript requires an understanding of the details, however, and I hope that you will make time to read this book cover to cover. But please don’t feel that you need to do that on your first reading. If you find yourself feeling bogged down in a section, simply skip to the next. You can come back and master the details once you have a working knowledge of the language as a whole.
 
-> 这本书从下至上地解释了 JavaScript。这意味着我们从底层细节开始，比如注释、标识符、变量和类型；然后构建表达式、语句、对象和函数；然后介绍高级语言抽象，比如类和模块。我在这本书的标题中认真地使用了“权威”这个词，接下来的章节会详细地解释这种语言，一开始可能会让人感到不快。然而，真正掌握 JavaScript 需要了解细节，我希望您能抽出时间从头到尾阅读这本书。但请不要觉得在第一次阅读时就需要这样做。如果你发现自己在某个章节陷入困境，直接跳到下一个章节。一旦你对语言有了整体的应用知识，你可以回过头来掌握细节。
+> 这本书从下至上地说明了 JavaScript。这意味着我们从底层细节开始，比如注释、标识符、变量和类型；然后构建表达式、语句、对象和函数；然后介绍高级语言抽象，比如类和模块。我在这本书的标题中认真地使用了“权威”这个词，接下来的章节会详细地解释这种语言，一开始可能会让人感到不快。然而，真正掌握 JavaScript 需要了解细节，我希望您能抽出时间从头到尾阅读这本书。但请不要觉得在第一次阅读时就需要这样做。如果你发现自己在某个章节陷入困境，直接跳到下一个章节。一旦你对语言有了整体的应用知识，你可以回过头来掌握细节。

@@ -821,7 +821,7 @@ Symbol.keyFor(t) // => "shared"
 ## 3.7 The Global Object
 The preceding sections have explained JavaScript’s primitive types and values. Object types—objects, arrays, and functions—are covered in chapters of their own later in this book. But there is one very important object value that we must cover now. The global object is a regular JavaScript object that serves a very important purpose: the properties of this object are the globally defined identifiers that are available to a JavaScript program. When the JavaScript interpreter starts (or whenever a web browser loads a new page), it creates a new global object and gives it an initial set of properties that define:
 
-> 前面的章节已经解释了 JavaScript 的基本类型和值。对象类型——对象、数组和函数——将在本书后面的章节中介绍。但是有一个非常重要的对象值，我们现在必须讲一下。全局对象是一个常规的 JavaScript 对象，它有一个非常重要的用途：该对象的属性是 JavaScript 程序可用的全局定义的标识符。当 JavaScript 解释器启动时(或者每当 web 浏览器加载一个新页面时)，它会创建一个新的全局对象，并为其提供一组初始属性，这些属性定义：
+> 前面的章节已经说明了 JavaScript 的基本类型和值。对象类型——对象、数组和函数——将在本书后面的章节中介绍。但是有一个非常重要的对象值，我们现在必须讲一下。全局对象是一个常规的 JavaScript 对象，它有一个非常重要的用途：该对象的属性是 JavaScript 程序可用的全局定义的标识符。当 JavaScript 解释器启动时(或者每当 web 浏览器加载一个新页面时)，它会创建一个新的全局对象，并为其提供一组初始属性，这些属性定义：
 
 - Global constants like undefined, Infinity, and NaN
 - Global functions like isNaN(), parseInt() (§3.9.2), and eval() (§4.12)
@@ -1000,7 +1000,7 @@ null == undefined // => true: These two values are treated as equal.
 
 §4.9.1 explains exactly what conversions are performed by the == operator in order to determine whether two values should be considered equal.
 
-> §4.9.1 详细解释了 == 运算符执行什么转换来确定两个值是否应该被认为相等。
+> §4.9.1 详细说明了 == 运算符执行什么转换来确定两个值是否应该被认为相等。
 
 Keep in mind that convertibility of one value to another does not imply equality of those two values. If undefined is used where a boolean value is expected, for example, it will convert to false. But this does not mean that undefined == false. JavaScript operators and statements expect values of various types and perform conversions to those types. The if statement converts undefined to false, but the == operator never attempts to convert its operands to booleans.
 
@@ -1223,7 +1223,7 @@ OBJECT-TO-PRIMITIVE CONVERSION ALGORITHMS
 
 With the toString() and valueOf() methods explained, we can now explain approximately how the three object-to-primitive algorithms work (the complete details are deferred until §14.4.7):
 
-> 在解释了toString()和valueOf()方法之后，我们现在可以大致解释这三种从对象到原语的算法是如何工作的(完整的细节将在§14.4.7中给出):
+> 在说明了toString()和valueOf()方法之后，我们现在可以大致解释这三种从对象到原语的算法是如何工作的(完整的细节将在§14.4.7中给出):
 
 - The prefer-string algorithm first tries the toString() method. If the method is defined and returns a primitive value, then JavaScript uses that primitive value (even if it is not a string!). If toString() does not exist or if it returns an object, then JavaScript tries the valueOf() method. If that method exists and returns a primitive value, then JavaScript uses that value. Otherwise, the conversion fails with a TypeError.
 - The prefer-number algorithm works like the prefer-string algorithm, except that it tries valueOf() first and toString() second.
