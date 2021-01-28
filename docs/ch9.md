@@ -646,7 +646,7 @@ In object-oriented programming, a class B can extend or subclass another class A
 
 This section starts by showing how to define subclasses the old, pre-ES6 way, and then quickly moves on to demonstrate subclassing using the class and extends keywords and superclass constructor method invocation with the super keyword. Next is a subsection about avoiding subclasses and relying on object composition instead of inheritance. The section ends with an extended example that defines a hierarchy of Set classes and demonstrates how abstract classes can be used to separate interface from implementation.
 
-> 本节首先演示 ES6 之前如何定义子类，然后演示使用 class 和 extends 关键字的子类和使用 super 关键字调用父类构造函数。再接下来 todo。
+> 本节首先演示 ES6 之前如何定义子类，然后演示使用 class 和 extends 关键字的子类和使用 super 关键字调用父类构造函数。再接下来一节是关于避免使用子类而依靠对象组合代替继承。本章最后结束于一个扩展的示例，定义 Set 类的层次结构和演示如何使用抽象类将接口与实现分离。
 
 ### 9.5.1 Subclasses and Prototypes
 Suppose we wanted to define a Span subclass of the Range class from Example 9-2. This subclass will work just like a Range, but instead of initializing it with a start and an end, we’ll instead specify a start and a distance, or span. An instance of this Span class is also an instance of the Range superclass. A span instance inherits a customized toString() method from Span.prototype, but in order to be a subclass of Range, it must also inherit methods (such as includes()) from Range.prototype.
