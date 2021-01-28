@@ -92,11 +92,11 @@ The range.methods object uses the ES6 shorthand syntax for defining methods, whi
 
 One of the methods in the prototype has the computed name (§6.10.2) Symbol.iterator, which means that it is defining an iterator for Range objects. The name of this method is prefixed with *, which indicates that it is a generator function instead of a regular function. Iterators and generators are covered in detail in Chapter 12. For now, the upshot is that instances of this Range class can be used with the for/of loop and with the ... spread operator.
 
-> 原型中的一个方法 Symbol.iterator 使用了计算属性名（§6.10.2），表明它是为 Range 对象定义一个迭代器。方法名称带有一个前缀 *，标识它是一个生成器函数而不是普通的函数。迭代器和生成器在第 12 章详细会详细描述。现在，只需要知道 Range 类的实例可以用 for/of 循环和可以用 ... 展开运算符。
+> 原型中的一个方法 Symbol.iterator 使用了计算属性名（§6.10.2），表明它是为 Range 对象定义一个迭代器。方法名称带有一个前缀 *，标识它是一个生成器函数而不是普通的函数。迭代器和生成器在第 12 章会详细描述。现在，只需要知道 Range 类的实例可以用 for/of 循环和可以用 ... 展开运算符。
 
 The shared, inherited methods defined in range.methods all use the from and to properties that were initialized in the range() factory function. In order to refer to them, they use the this keyword to refer to the object through which they were invoked. This use of this is a fundamental characteristic of the methods of any class.
 
-> 定义在 range.methods 中的共享继承方法都使用在 range() 工厂函数初始化的 from 和 to 属性。在这些方法被调用时,为了引用 from 和 to 属性，都使用 this 关键字来获取对象的引用。this 这种用法是任何类中方法的基本特征。
+> 定义在 range.methods 中的共享继承方法都使用在 range() 工厂函数初始化的 from 和 to 属性。在这些方法被调用时，为了引用 from 和 to 属性，都使用 this 关键字来获取对象的引用。this 这种用法是任何类中方法的基本特征。
 
 ## 9.2 Classes and Constructors
 Example 9-1 demonstrates a simple way to define a JavaScript class. It is not the idiomatic way to do so, however, because it did not define a constructor. A constructor is a function designed for the initialization of newly created objects. Constructors are invoked using the new keyword as described in §8.2.3. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. §6.2.3 introduced prototypes and emphasized that while almost all objects have a prototype, only a few objects have a prototype property. Finally, we can clarify this: it is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. Example 9-2 shows how we could alter the Range class of Example 9-1 to use a constructor function instead of a factory function. Example 9-2 demonstrates the idiomatic way to create a class in versions of JavaScript that do not support the ES6 class keyword. Even though class is well supported now, there is still lots of older JavaScript code around that defines classes like this, and you should be familiar with the idiom so that you can read old code and so that you understand what is going on “under the hood” when you use the class keyword.
@@ -105,7 +105,7 @@ Example 9-1 demonstrates a simple way to define a JavaScript class. It is not th
 
 Example 9-2. A Range class using a constructor
 
-> 示例 9-2：使用构造函数来定义 Range
+> 示例 9-2：使用构造函数的 Range 类
 
 ```js
 // This is a constructor function that initializes new Range objects.
@@ -142,7 +142,7 @@ r.toString()              // => "(1...3)"
 ```
 It is worth comparing Examples 9-1 and 9-2 fairly carefully and noting the differences between these two techniques for defining classes. First, notice that we renamed the range() factory function to Range() when we converted it to a constructor. This is a very common coding convention: constructor functions define, in a sense, classes, and classes have names that (by convention) begin with capital letters. Regular functions and methods have names that begin with lowercase letters.
 
-> 将示例 9-1 和示例 9-2 中的代码做一个仔细的对比，可以发现两种类定义技术并的差别。首先，注意当工厂函数 range() 转化为构造函数时被重命名为 Range()。这里遵循了一个常见的编程约定：从某种意义上讲，定义构造函数即是定义类，并且类名首字母要大写。而普通的函数和方法都是首字母小写。
+> 将示例 9-1 和示例 9-2 中的代码做一个仔细的对比，可以发现两种类定义技术的差别。首先，注意当工厂函数 range() 转化为构造函数时被重命名为 Range()。这里遵循了一个常见的编程约定：从某种意义上讲，定义构造函数即是定义类，并且类名首字母要大写。而普通的函数和方法都是首字母小写。
 
 Next, notice that the Range() constructor is invoked (at the end of the example) with the new keyword while the range() factory function was invoked without it. Example 9-1 uses regular function invocation (§8.2.1) to create the new object, and Example 9-2 uses constructor invocation (§8.2.3). Because the Range() constructor is invoked with new, it does not have to call Object.create() or take any action to create a new object. The new object is automatically created before the constructor is called, and it is accessible as the this value. The Range() constructor merely has to initialize this. Constructors do not even have to return the newly created object. Constructor invocation automatically creates a new object, invokes the constructor as a method of that object, and returns the new object. The fact that constructor invocation is so different from regular function invocation is another reason that we give constructors names that start with capital letters. Constructors are written to be invoked as constructors, with the new keyword, and they usually won’t work properly if they are invoked as regular functions. A naming convention that keeps constructor functions distinct from regular functions helps programmers know when to use new.
 
@@ -173,7 +173,7 @@ Another critical difference between Examples 9-1 and 9-2 is the way the prototyp
 
 Finally, also note the things that do not change between Examples 9-1 and 9-2 : the range methods are defined and invoked in the same way for both classes. Because Example 9-2 demonstrates the idiomatic way to create classes in versions of JavaScript before ES6, it does not use the ES6 shorthand method syntax in the prototype object and explicitly spells out the methods with the function keyword. But you can see that the implementation of the methods is the same in both examples.
 
-> 最后，还要注意示例 9-1 和 9-2 之间不变的部分：对两个类来说，range 方法以相同的方式定义和调用。由于示示例 9-2 演示了在 ES6 之前在 JavaScript 版本中创建类的惯用方法，因此它没原型对象中使用 ES6 速记方法语法，并且使用 function 关键字显式拼出方法名。但是，可以看到，在这两个示例中，方法的实现是相同的。
+> 最后，还要注意示例 9-1 和 9-2 之间不变的部分：对两个类来说，range 方法以相同的方式定义和调用。由于示例 9-2 演示了在 ES6 之前在 JavaScript 版本中创建类的惯用方法，因此它没原型对象中使用 ES6 速记方法语法，并且使用 function 关键字显式拼出方法名。但是，可以看到，在这两个示例中，方法的实现是相同的。
 
 Importantly, note that neither of the two range examples uses arrow functions when defining constructors or methods. Recall from §8.1.3 that functions defined in this way do not have a prototype property and so cannot be used as constructors. Also, arrow functions inherit the this keyword from the context in which they are defined rather than setting it based on the object through which they are invoked, and this makes them useless for methods because the defining characteristic of methods is that they use this to refer to the instance on which they were invoked.
 
@@ -272,7 +272,7 @@ Range.prototype.toString = function() {
 ## 9.3 Classes with the class Keyword
 Classes have been part of JavaScript since the very first version of the language, but in ES6, they finally got their own syntax with the introduction of the class keyword. Example 9-3 shows what our Range class looks like when written with this new syntax.
 
-> 类自第一个版本以来一直是 JavaScript 的一部分，但在 ES6 中，它们最终引入 class 关键字得到了自己的语法。示示例 9-3 显示了使用此新语法编写 Range 类的实现。
+> 类自第一个版本以来一直是 JavaScript 的一部分，但在 ES6 中，它们最终引入 class 关键字得到了自己的语法。示例 9-3 显示了使用此新语法编写 Range 类的实现。
 
 Example 9-3. The Range class rewritten using class
 
@@ -309,7 +309,7 @@ r.toString()              // => "(1...3)"
 ```
 It is important to understand that the classes defined in Examples 9-2 and 9-3 work in exactly the same way. The introduction of the class keyword to the language does not alter the fundamental nature of JavaScript’s prototype-based classes. And although Example 9-3 uses the class keyword, the resulting Range object is a constructor function, just like the version defined in Example 9-2. The new class syntax is clean and convenient but is best thought of as “syntactic sugar” for the more fundamental class definition mechanism shown in Example 9-2.
 
-> 重要的是要了解，在示示例 9-2 和 9-3 中定义的类的工作方式完全相同。将类关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作示例 9-2 所示的基本类定义机制的语法糖。
+> 重要的是要了解，在示例 9-2 和 9-3 中定义的类的工作方式完全相同。将类关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作示例 9-2 所示的基本类定义机制的语法糖。
 
 Note the following things about the class syntax in Example 9-3:
 
