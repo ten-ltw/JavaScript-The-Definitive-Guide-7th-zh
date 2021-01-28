@@ -832,7 +832,7 @@ The extends keyword makes it easy to create subclasses. But that does not mean t
 
 Suppose, for example, we wanted a Histogram class that behaves something like JavaScript’s Set class, except that instead of just keeping track of whether a value has been added to set or not, it instead maintains a count of the number of times the value has been added. Because the API for this Histogram class is similar to Set, we might consider subclassing Set and adding a count() method. On the other hand, once we start thinking about how we might implement this count() method, we might realize that the Histogram class is more like a Map than a Set because it needs to maintain a mapping between values and the number of times they have been added. So instead of subclassing Set, we can create a class that defines a Set-like API but implements those methods by delegating to an internal Map object. Example 9-7 shows how we could do this.
 
-> 例如，假设我们想要一个行为类似于 JavaScript 的 Set 类的 Histogram 类，只不过，它不只是跟踪是否给 set 添加了值，还维护该值添加次数的计数。由于 Histogram 类的 API 与 Set 类似，因此我们可以考虑子类化 Set 并添加 count() 方法。另一方面，一旦我们开始考虑如何实现 count() 方法，我们可能会意识到 Histogram 类更像是一个 Map 而不是一个 Set，因为它需要维护值与添加它们次数之间的映射。因此，我们可以创建一个类，该类定义一个类似 Set 的 API，但通过委派给内部 Map 对象来实现这些方法，而不是创建 Set 的子类。示例 9-7 显示了我们如何做到这一点。
+> 例如，假设我们想要一个行为类似于 JavaScript 的 Set 类的 Histogram 类，只不过，它不只是跟踪是否给集合添加了值，还维护该值添加次数的计数。由于 Histogram 类的 API 与 Set 类似，因此我们可以考虑 Set 子类并添加 count() 方法。另一方面，一旦我们开始考虑如何实现 count() 方法，我们可能会意识到 Histogram 类更像是一个 Map 而不是一个 Set，因为它需要维护值与添加它们次数之间的映射。因此，我们可以创建一个类，该类定义一个类似 Set 的 API，但委托内部 Map 对象来实现这些方法，而不是创建 Set 的子类。示例 9-7 显示了我们如何做到这一点。
 
 Example 9-7. Histogram.js: a Set-like class implemented with delegation
 
@@ -885,12 +885,12 @@ class Histogram {
 ```
 All the Histogram() constructor does in Example 9-7 is create a Map object. And most of the methods are one-liners that just delegate to a method of the map, making the implementation quite simple. Because we used delegation rather than inheritance, a Histogram object is not an instance of Set or Map. But Histogram implements a number of commonly used Set methods, and in an untyped language like JavaScript, that is often good enough: a formal inheritance relationship is sometimes nice, but often optional.
 
-> 在示例 9-7 中，Histogram() 构造函数创建一个 Map 对象。大多数方法都是单行，它们只是委托给 Map 的方法，使得实现变得非常简单。因为我们使用委托而不是继承，因此 Histogram 对象不是 Set 或 Map 的实例。但是，Histogram 实现了许多常用的 Set 方法，并没有过多的使用额外的 JavaScript，这通常足够好：正式的继承关系有时是不错的，但通常是可选的。
+> 在示例 9-7 中，Histogram() 构造函数创建一个 Map 对象。大多数方法都是单行，它们只是委托给 Map 的方法，使得实现变得非常简单。因为我们使用委托而不是继承，所以 Histogram 对象不是 Set 或 Map 的实例。但是，Histogram 实现了许多常用的 Set 方法，并没有过多的使用额外的 JavaScript，这通常足够好：有条理的继承关系有时是不错，但通常是可选的。
 
 ### 9.5.4 Class Hierarchies and Abstract Classes
 Example 9-6 demonstrated how we can subclass Map. Example 9-7 demonstrated how we can instead delegate to a Map object without actually subclassing anything. Using JavaScript classes to encapsulate data and modularize your code is often a great technique, and you may find yourself using the class keyword frequently. But you may find that you prefer composition to inheritance and that you rarely need to use extends (except when you’re using a library or framework that requires you to extend its base classes).
 
-> 示例 9-6 演示了如创建 Map 的子类。示例 9-7 演示了如何在不创建子类的情况下将委托给 Map 对象。使用 JavaScript 类封装数据和模块化代码通常是一种很好的技术，你可能会发现自己经常使用类关键字。但是，你可能会发现，你更喜欢组合而不是继承，而且很少需要使用 extends（除非使用需要扩展库或框架）。
+> 示例 9-6 演示了如创建 Map 的子类。示例 9-7 演示了如何在不创建子类的情况下将委托给 Map 对象。使用 JavaScript 类封装数据和模块化代码通常是一种很好的技术，你可能会发现自己经常使用类关键字。但是，你可能会发现，你更喜欢组合而不是继承，而且很少需要使用 extends（除非使用需要扩展的库或框架）。
 
 There are some circumstances when multiple levels of subclassing are appropriate, however, and we’ll end this chapter with an extended example that demonstrates a hierarchy of classes representing different kinds of sets. (The set classes defined in Example 9-8 are similar to, but not completely compatible with, JavaScript’s built-in Set class.)
 
@@ -898,7 +898,7 @@ There are some circumstances when multiple levels of subclassing are appropriate
 
 Example 9-8 defines lots of subclasses, but it also demonstrates how you can define abstract classes—classes that do not include a complete implementation—to serve as a common superclass for a group of related subclasses. An abstract superclass can define a partial implementation that all subclasses inherit and share. The subclasses, then, only need to define their own unique behavior by implementing the abstract methods defined—but not implemented—by the superclass. Note that JavaScript does not have any formal definition of abstract methods or abstract classes; I’m simply using that name here for unimplemented methods and incompletely implemented classes.
 
-> 示例 9-8 定义了大量子类，但它也演示了如何定义抽象类（不包括完整实现的类）作为一组相关子类的通用父类。抽象父类可以定义所有子类继承和共享的部分实现。因此，子类只需要通过实现父类定义的抽象方法（但不是实现）来定义它们自己的独特行为。请注意，JavaScript 对抽象方法或抽象类没有任何正式定义；我只是将这个名字用于未实现的方法和不完全实现的类。
+> 示例 9-8 定义了大量子类，但它也演示了如何定义抽象类（不包括完整实现的类）作为一组相关子类的通用父类。抽象父类可以定义所有子类继承和共享的部分实现。因此，子类只需要通过实现父类定义的抽象方法（没有实现）来定义它们自己的独特行为。请注意，JavaScript 对抽象方法或抽象类没有任何正式定义；我只是将这个名字用于未实现的方法和不完全实现的类。
 
 Example 9-8 is well commented and stands on its own. I encourage you to read it as a capstone example for this chapter on classes. The final class in Example 9-8 does a lot of bit manipulation with the &, |, and ~ operators, which you can review in §4.8.3.
 
@@ -1124,7 +1124,7 @@ Objects that are members of the same class inherit properties from the same prot
 
 Prior to ES6, classes were more typically defined by first defining a constructor function. Functions created with the function keyword have a prototype property, and the value of this property is an object that is used as the prototype of all objects created when the function is invoked with new as a constructor. By initializing this prototype object, you can define the shared methods of your class. Although the prototype object is the key feature of the class, the constructor function is the public identity of the class.
 
-> 在 ES6 之前，类通常通过首先定义构造函数来定义。使用 function 关键字创建的函数具有原型属性，this 属性的值是使用 new 将函数用作构造函数调用时创建对象使用的原型对象。通过初始化此原型对象，可以定义类的共享方法。虽然原型对象是类的关键特性，但构造函数是类的公共标识。
+> 在 ES6 之前，典型的类定义先定义构造函数。使用 function 关键字创建的函数具有原型属性，this 属性的值是使用 new 将函数用作构造函数调用时创建的对象的原型对象。通过初始化此原型对象，可以定义类的共享方法。虽然原型对象是类的关键特性，但构造函数是类的公共标识。
 
 ES6 introduces a class keyword that makes it easier to define classes, but under the hood, constructor and prototype mechanism remains the same.
 
@@ -1145,4 +1145,5 @@ Subclasses can invoke the constructor of their superclass or overridden methods 
 2. See Design Patterns (Addison-Wesley Professional) by Erich Gamma et al. or Effective Java (Addison-Wesley Professional) by Joshua Bloch, for example.
 
 > 1. 除了 ES5 Function.bind() 方法返回的函数。绑定函数没有自己的原型属性，但如果它们作为构造函数调用，则它们使用基础函数的原型。
+
 > 2. 例如，见《Design Patterns (Addison-Wesley Professional)》作者 Erich Gamma 等，或者《Effective Java (Addison-Wesley Professional)》作者 Joshua Bloch。

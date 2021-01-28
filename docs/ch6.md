@@ -365,7 +365,7 @@ delete book["main title"];   // Now it doesn't have "main title", either.
 ```
 The delete operator only deletes own properties, not inherited ones. (To delete an inherited property, you must delete it from the prototype object in which it is defined. Doing this affects every object that inherits from that prototype.)
 
-> delete 运算符只删除自由属性，不删除继承属性。（想要删除一个继承属性，必须从定义这个属性的原型对象上删除它。这会影响所有继承这个原型的对象。）
+> delete 运算符只删除自有属性，不删除继承属性。（想要删除一个继承属性，必须从定义这个属性的原型对象上删除它。这会影响所有继承这个原型的对象。）
 
 A delete expression evaluates to true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property). delete also evaluates to true when used (meaninglessly) with an expression that is not a property access expression:
 
