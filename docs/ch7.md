@@ -1,65 +1,97 @@
 # 第 7 章 数组
 
-This chapter documents arrays, a fundamental datatype in JavaScript and in most other programming languages. An array is an ordered collection of values. Each value is called an element, and each element has a numeric position in the array, known as its index. JavaScript arrays are untyped: an array element may be of any type, and different elements of the same array may be of different types. Array elements may even be objects or other arrays, which allows you to create complex data structures, such as arrays of objects and arrays of arrays. JavaScript arrays are zero-based and use 32-bit indexes: the index of the first element is 0, and the highest possible index is 4294967294 (232−2), for a maximum array size of 4,294,967,295 elements. JavaScript arrays are dynamic: they grow or shrink as needed, and there is no need to declare a fixed size for the array when you create it or to reallocate it when the size changes. JavaScript arrays may be sparse: the elements need not have contiguous indexes, and there may be gaps. Every JavaScript array has a length property. For nonsparse arrays, this property specifies the number of elements in the array. For sparse arrays, length is larger than the highest index of any element.
-
-> 这一章记录了数组，它是JavaScript和大多数其他编程语言的基本数据类型。数组是值的有序集合。每个值称为元素，每个元素在数组中有一个数字位置，称为其索引。JavaScript数组是无类型的:数组元素可以是任何类型，同一数组的不同元素可以是不同类型。数组元素甚至可以是对象或其他数组，这允许您创建复杂的数据结构，如对象的数组和数组的数组。JavaScript数组是从零开始的，使用32位索引:第一个元素的索引为0，对于数组大小最大为4,294,967,295个元素，可能的最大索引为4294967294(232−2)。JavaScript数组是动态的:它们会根据需要增大或缩小，在创建数组时不需要为数组声明一个固定的大小，在数组大小变化时也不需要重新分配数组。JavaScript数组可能是稀疏的:元素不需要有连续的索引，并且可能存在间隙。每个JavaScript数组都有一个长度属性。对于非稀疏数组，此属性指定数组中的元素数量。对于稀疏数组，长度大于任何元素的最高索引。
+This chapter documents arrays, a fundamental datatype in JavaScript and in most other programming languages. An array is an ordered collection of values. Each value is called an element, and each element has a numeric position in the array, known as its index. JavaScript arrays are untyped: an array element may be of any type, and different elements of the same array may be of different types. Array elements may even be objects or other arrays, which allows you to create complex data structures, such as arrays of objects and arrays of arrays. JavaScript arrays are zero-based and use 32-bit indexes: the index of the first element is 0, and the highest possible index is 4294967294 (2<sup>32</sup>−2), for a maximum array size of 4,294,967,295 elements. JavaScript arrays are dynamic: they grow or shrink as needed, and there is no need to declare a fixed size for the array when you create it or to reallocate it when the size changes. JavaScript arrays may be sparse: the elements need not have contiguous indexes, and there may be gaps. Every JavaScript array has a length property. For nonsparse arrays, this property specifies the number of elements in the array. For sparse arrays, length is larger than the highest index of any element.
+ 
+> 本章记录了数组、JavaScript 和大多数其他编程语言的基本数据类型。数组是值的有序集合。每个值叫做一个元素，而每个元素在数组中有一个位置，以数字表示，称为索引。JavaScript 数组是无类型的：数组元素可以是任意类型，并且同一个数组中的不同元素也可能有不同的类型。数组的元素甚至也可能是对象或其他数组，这允许创建复杂的数据结构，如对象的数组和数组的数组。JavaScript 数组的索引是基于零的 32 位数值：第一个元素的索引为 0，最大可能的索引为 4,294,967,294（2<sup>32</sup>-2），数组最大能容纳 4,294,967,295 个元素。JavaScript 数组是动态的：根据需要它们会增长或缩减，并且在创建数组时无须声明一个固定的大小或者在数组大小变化时无须重新分配空间。JavaScript 数组可能是稀疏的：数组元素的索引不一定要连续的，它们之间可以有空缺。每个 JavaScript 数组都有一个 length 属性。针对非稀疏数组，该属性就是数组元素的个数。针对稀疏数组，length 大于任何元素的最高索引。
 
 JavaScript arrays are a specialized form of JavaScript object, and array indexes are really little more than property names that happen to be integers. We’ll talk more about the specializations of arrays elsewhere in this chapter. Implementations typically optimize arrays so that access to numerically indexed array elements is generally significantly faster than access to regular object properties.
 
-> JavaScript数组是JavaScript对象的一种特殊形式，数组索引实际上只不过是恰好是整数的属性名。我们将在本章的其他地方讨论更多关于数组的专门化。实现通常对数组进行优化，以便访问以数字为索引的数组元素通常要比访问常规对象属性快得多。
+> JavaScript 数组是 JavaScript 对象的特殊形式，数组索引实际上和碰巧是整数的属性名差不多。我们将在本章的其他地方更多地讨论特殊化的数组。通常，数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要快很多。
 
 Arrays inherit properties from Array.prototype, which defines a rich set of array manipulation methods, covered in §7.8. Most of these methods are generic, which means that they work correctly not only for true arrays, but for any “array-like object.” We’ll discuss array-like objects in §7.9. Finally, JavaScript strings behave like arrays of characters, and we’ll discuss this in §7.10.
 
-> 数组继承数组的属性。prototype定义了一组丰富的数组操作方法，见§7.8。这些方法中的大多数都是通用的，这意味着它们不仅可以正确地工作于真数组，而且可以正确地工作于任何“类数组对象”。我们将在§7.9中讨论类数组对象。最后，JavaScript字符串的行为类似于字符数组，我们将在§7.10中对此进行讨论。
+> 数组继承自 Array.prototype 中的属性，它定义了一套丰富的数组操作方法，§7.8 涵盖这方面内容。大多数这些方法是通用的，这意味着它们不仅对真正的 数组有效，而且对“类数组对象”同样有效。§7.9 讨论类数组对象。最后，JavaScript 字符串的行为与字符数组类似，我们将在 §7.10 讨论。
 
 ES6 introduces a set of new array classes known collectively as “typed arrays.” Unlike regular JavaScript arrays, typed arrays have a fixed length and a fixed numeric element type. They offer high performance and byte-level access to binary data and are covered in §11.2.
 
-> ES6引入了一组新的数组类，这些类统称为“类型化数组”。与常规的JavaScript数组不同，类型数组有固定的长度和固定的数值元素类型。它们提供高性能和对二进制数据的字节级访问，在§11.2中有介绍。
+> ES6 引入了一组新的数组类，这些类统称为“类型化数组”。与常规的 JavaScript 数组不同，类型数组有固定的长度和固定的数值元素类型。它们提供高性能和对二进制数据的字节级访问，在 §11.2 中有介绍。
 
 ## 7.1 Creating Arrays
 
 There are several ways to create arrays. The subsections that follow explain how to create arrays with:
 
+> 有很多种创建数组的方法。以下小节将说明如何使用以下方式创建数组：
+
 Array literals
+
+> 数组字面量
 
 The ... spread operator on an iterable object
 
+> 可迭代数组 ... 展开运算符
+
 The Array() constructor
+
+> Array() 构造函数
 
 The Array.of() and Array.from() factory methods
 
+> Array.of() 和 Array.from() 工厂方法
+
 ### 7.1.1 Array Literals
 By far the simplest way to create an array is with an array literal, which is simply a comma-separated list of array elements within square brackets. For example:
+
+> 到目前为止使用数组字面量是创建数组最简单的方法，在方括号中将数组元素用逗号隔开即可。例如：
+
 ```js
 let empty = [];                 // An array with no elements
 let primes = [2, 3, 5, 7, 11];  // An array with 5 numeric elements
 let misc = [ 1.1, true, "a", ]; // 3 elements of various types + trailing comma
 ```
 The values in an array literal need not be constants; they may be arbitrary expressions:
+
+> 数组字面量中的值不一定要是常量；它们可以是任意的表达式：
+
 ```js
 let base = 1024;
 let table = [base, base+1, base+2, base+3];
 ```
 Array literals can contain object literals or other array literals:
+
+> 数组字面量可以包含对象字面量或其他数组字面量：
+
 ```js
 let b = [[1, {x: 1, y: 2}], [2, {x: 3, y: 4}]];
 ```
 If an array literal contains multiple commas in a row, with no value between, the array is sparse (see §7.3). Array elements for which values are omitted do not exist but appear to be undefined if you query them:
+
+> 如果数组字面量在一行中包含多个逗号，之间没有值，则数组是稀疏的（请参阅 §7.3）。省略值的数组元素不存在，但如果查询它们则返回 undefined：
+
 ```js
 let count = [1,,3]; // Elements at indexes 0 and 2. No element at index 1
 let undefs = [,,];  // An array with no elements but a length of 2
 ```
 Array literal syntax allows an optional trailing comma, so [,,] has a length of 2, not 3.
 
+> 数组字面量语法允许可选的尾部逗号，所以 [,,] 的长度是 2，不是3。
+
 ### 7.1.2 The Spread Operator
 In ES6 and later, you can use the “spread operator,” ..., to include the elements of one array within an array literal:
+
+> ES6 之后，可以使用展开操作符 ... 将一个数组中的元素包含在数组字面量中：
+
 ```js
 let a = [1, 2, 3];
 let b = [0, ...a, 4];  // b == [0, 1, 2, 3, 4]
 ```
 The three dots “spread” the array a so that its elements become elements within the array literal that is being created. It is as if the ...a was replaced by the elements of the array a, listed literally as part of the enclosing array literal. (Note that, although we call these three dots a spread operator, this is not a true operator because it can only be used in array literals and, as we’ll see later in the book, function invocations.)
 
+> 三个点展开数组 a，所以它的元素变成了数组字面量被创建在数组中。就像 ...a 被数组 a 的元素所替换，被列出作为未闭合的数组字面量的一部分。（注意，尽管我们称三点是展开运算符，但这并不是一个操作，因为它只能用于数组字面量和本书后面提到的函数调用。）
+
 The spread operator is a convenient way to create a (shallow) copy of an array:
+
+> 展开运算符可以方便的创建一个数组的拷贝（浅拷贝）：
+
 ```js
 let original = [1,2,3];
 let copy = [...original];
@@ -67,11 +99,17 @@ copy[0] = 0;  // Modifying the copy does not change the original
 original[0]   // => 1
 ```
 The spread operator works on any iterable object. (Iterable objects are what the for/of loop iterates over; we first saw them in §5.4.4, and we’ll see much more about them in Chapter 12.) Strings are iterable, so you can use a spread operator to turn any string into an array of single-character strings:
+
+> 展开运算符可以作用于任何可迭代对象。（可迭代对象是可以用 for/of 进行循环的对象；第一次在 §5.4.4 中提到，在第 12 章会看到更多关于它们的描述。）字符串是可迭代对象，所以可以使用展开操作符将字符串转换成单个字符的数组。
+
 ```js
 let digits = [..."0123456789ABCDEF"];
 digits // => ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
 ```
 Set objects (§11.1.1) are iterable, so an easy way to remove duplicate elements from an array is to convert the array to a set and then immediately convert the set back to an array using the spread operator:
+
+> Set 对象（§11.1.1）是可迭代对象，所以数组去重有一种简单的方法是用展开运算符将数组转换成 set 然后再转成数组：
+
 ```js
 let letters = [..."hello world"];
 [...new Set(letters)]  // => ["h","e","l","o"," ","w","r","d"]
@@ -79,28 +117,50 @@ let letters = [..."hello world"];
 ### 7.1.3 The Array() Constructor
 Another way to create an array is with the Array() constructor. You can invoke this constructor in three distinct ways:
 
+> 另一种创建数组的方法是使用 Array() 构造函数。可以用三种不同的方式调用这个构造函数：
+
 Call it with no arguments:
+
+> 调用时没有实参：
+
 ```js
 let a = new Array();
 ```
 This method creates an empty array with no elements and is equivalent to the array literal [].
 
+> 这个方法创建了一个没有元素的空数组，它等价于 [] 数组字面量。
+
 Call it with a single numeric argument, which specifies a length:
+
+> 调用时有一个数值实参，它指定了数组的长度：
+
 ```js
 let a = new Array(10);
 ```
 This technique creates an array with the specified length. This form of the Array() constructor can be used to preallocate an array when you know in advance how many elements will be required. Note that no values are stored in the array, and the array index properties “0”, “1”, and so on are not even defined for the array.
 
+> 该技术创建指定长度的数组。当预先知道所需元素个数时，这种形式的 Array() 构造函数可以用来预分配一个数组空间。注意，数组中没有存储值，甚至数组的索引属性“0”、“1”等还未定义。
+
 Explicitly specify two or more array elements or a single non-numeric element for the array:
+
+> 为数组显式指定两个或多个数组元素或者非数值元素：
+
 ```js
 let a = new Array(5, 4, 3, 2, 1, "testing, testing");
 ```
 In this form, the constructor arguments become the elements of the new array. Using an array literal is almost always simpler than this usage of the Array() constructor.
 
+> 以这种形式，构造函数的参数将会成为新数组的元素。使用数组字面量比这样使用 Array() 构造函数要简单多了。
+
 ### 7.1.4 Array.of()
 When the Array() constructor function is invoked with one numeric argument, it uses that argument as an array length. But when invoked with more than one numeric argument, it treats those arguments as elements for the array to be created. This means that the Array() constructor cannot be used to create an array with a single numeric element.
 
+> 当 Array() 构造函数调用时有一个数值型实参，它会将实参作为数组的长度。但当调用时不止一个数值型实参时，它会将那些实参作为数组的元素创建。这意味着 Array() 构造函数不能创建只有一个数值型元素的数组。
+
 In ES6, the Array.of() function addresses this problem: it is a factory method that creates and returns a new array, using its argument values (regardless of how many of them there are) as the array elements:
+
+> 在 ES6 中，Array.of() 函数修复了这个问题：它是一个将其实参值（无论有多少个实参）作为数组元素创建并返回一个新数组的工厂方法：
+
 ```js
 Array.of()        // => []; returns empty array with no arguments
 Array.of(10)      // => [10]; can create arrays with a single numeric argument
@@ -108,17 +168,28 @@ Array.of(1,2,3)   // => [1, 2, 3]
 ```
 ### 7.1.5 Array.from()
 Array.from is another array factory method introduced in ES6. It expects an iterable or array-like object as its first argument and returns a new array that contains the elements of that object. With an iterable argument, Array.from(iterable) works like the spread operator [...iterable] does. It is also a simple way to make a copy of an array:
+
+> Array.from 是 ES6 中另外一个数组工厂方法。它期望一个可迭代或类数组对象作为它的第一个实参，并返回一个包含对象中元素的新数组。使用一个可迭代实参，Array.from(iterable) 工作方式类似于展开运算符 [...iterable]。它也可以简单的拷贝一个数组：
+
 ```js
 let copy = Array.from(original);
 ```
 Array.from() is also important because it defines a way to make a true-array copy of an array-like object. Array-like objects are non-array objects that have a numeric length property and have values stored with properties whose names happen to be integers. When working with client-side JavaScript, the return values of some web browser methods are array-like, and it can be easier to work with them if you first convert them to true arrays:
+
+> Array.from() 也很重要，因为它定义了一个将类数组对象拷贝成数组的方法。类数组对象是一个不是数组的对象，它有一个数值型的 length 属性，并且它的值碰巧保存在属性名为整数的属性中。当使用客户端 JavaScript 时，一些浏览器方法的返回值是类数组的，并且当将其转化成真正的数组后会更容易操作它们：
+
 ```js
 let truearray = Array.from(arraylike);
 ```
 Array.from() also accepts an optional second argument. If you pass a function as the second argument, then as the new array is being built, each element from the source object will be passed to the function you specify, and the return value of the function will be stored in the array instead of the original value. (This is very much like the array map() method that will be introduced later in the chapter, but it is more efficient to perform the mapping while the array is being built than it is to build the array and then map it to another new array.)
 
+> Array.from() 第二个参数为可选实参。如果传递一个函数作为第二个实参，那么当新数组被创建，每一个元素都会被作为实参传入这个指定函数中，并且这个函数的每个返回值保存在数组中代替原来的值。（这很像后面会介绍的数组 map() 方法，但是，它会更加高效的执行映射，因其为没有创建数组，而是直接进行映射到另外一个数组。）
+
 ## 7.2 Reading and Writing Array Elements
 You access an element of an array using the [] operator. A reference to the array should appear to the left of the brackets. An arbitrary expression that has a non-negative integer value should be inside the brackets. You can use this syntax to both read and write the value of an element of an array. Thus, the following are all legal JavaScript statements:
+
+> 使用 [] 运算符来访问数组中的一个元素。数组的引用位于方括号的左边。方括号中是一个返回非负整数值的任意表达式。使用该语法既可以读又可以写数组的一个元素。因此，如下代码都是合法的 JavaScript 语句：
+
 ```js
 let a = ["world"];     // Start with a one-element array
 let value = a[0];      // Read element 0
@@ -128,25 +199,40 @@ a[i] = 3;              // Write element 2
 a[i + 1] = "hello";    // Write element 3
 a[a[i]] = a[0];        // Read elements 0 and 2, write element 3
 ```
-What is special about arrays is that when you use property names that are non-negative integers less than 232–1, the array automatically maintains the value of the length property for you. In the preceding, for example, we created an array a with a single element. We then assigned values at indexes 1, 2, and 3. The length property of the array changed as we did, so:
+What is special about arrays is that when you use property names that are non-negative integers less than 2<sup>32</sup>–1, the array automatically maintains the value of the length property for you. In the preceding, for example, we created an array a with a single element. We then assigned values at indexes 1, 2, and 3. The length property of the array changed as we did, so:
+
+> 数组特殊的是，当使用小于 2<sup>32</sup>–1 的非负整数属性名时，数组会自动维护 length 属性。例如，上文中我们创建了只有一个元素的数组 a。然后我们为其序列为 1、2 和 3 的元素进行赋值。数组 length 属性会自动改变：
+
 ```js
 a.length       // => 4
 ```
+
 Remember that arrays are a specialized kind of object. The square brackets used to access array elements work just like the square brackets used to access object properties. JavaScript converts the numeric array index you specify to a string—the index 1 becomes the string "1"—then uses that string as a property name. There is nothing special about the conversion of the index from a number to a string: you can do that with regular objects, too:
+
+> 请记住，数组是对象的特殊形式。使用方括号访问数组元素就像用方括号访问对象的属性一样。JavaScript 将指定的数字索引值转换成字符串（索引值 1 变成“1”）然后将其作为属性名来使用。关于索引值从数字转换为字符串没什么特别之处：对常规对象也可以这么做：
+
 ```js
 let o = {};    // Create a plain object
 o[1] = "one";  // Index it with an integer
 o["1"]         // => "one"; numeric and string property names are the same
 ```
-It is helpful to clearly distinguish an array index from an object property name. All indexes are property names, but only property names that are integers between 0 and 232–2 are indexes. All arrays are objects, and you can create properties of any name on them. If you use properties that are array indexes, however, arrays have the special behavior of updating their length property as needed.
+It is helpful to clearly distinguish an array index from an object property name. All indexes are property names, but only property names that are integers between 0 and 2<sup>32</sup>–2 are indexes. All arrays are objects, and you can create properties of any name on them. If you use properties that are array indexes, however, arrays have the special behavior of updating their length property as needed.
+
+> 清晰地区分数组的索引和对象的属性名是非常有用的。所有的索引都是属性名，但只有在0～2<sup>32</sup>-2之间的整数属性名才是索引。所有的数组都是对象，可以为其创建任意名字的属性。但如果使用的属性是数组的索引，数组的特殊行为就是将根据需要更新它们的length属性值。
 
 Note that you can index an array using numbers that are negative or that are not integers. When you do this, the number is converted to a string, and that string is used as the property name. Since the name is not a non-negative integer, it is treated as a regular object property, not an array index. Also, if you index an array with a string that happens to be a non-negative integer, it behaves as an array index, not an object property. The same is true if you use a floating-point number that is the same as an integer:
+
+> 注意，可以使用负数或非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样，如果凑巧使用了是非负整数的字符串，它就当做数组索引，而非对象属性。当使用的一个浮点数和一个整数相等时情况也是一样的：
+
 ```js
 a[-1.23] = true;  // This creates a property named "-1.23"
 a["1000"] = 0;    // This the 1001st element of the array
 a[1.000] = 1;     // Array index 1. Same as a[1] = 1;
 ```
 The fact that array indexes are simply a special type of object property name means that JavaScript arrays have no notion of an “out of bounds” error. When you try to query a nonexistent property of any object, you don’t get an error; you simply get undefined. This is just as true for arrays as it is for objects:
+
+> 事实上数组索引仅仅是对象属性名的一种特殊类型，这意味着 JavaScript 数组没有“越界”错误的概念。当试图查询任何对象中不存在的属性时，都不会报错，只会得到 undefined 值。类似于对象，对于对象同样存在这种情况。
+
 ```js
 let a = [true, false]; // This array has elements at indexes 0 and 1
 a[2]                   // => undefined; no element at this index.
@@ -154,6 +240,9 @@ a[-1]                  // => undefined; no property with this name.
 ```
 ## 7.3 Sparse Arrays
 A sparse array is one in which the elements do not have contiguous indexes starting at 0. Normally, the length property of an array specifies the number of elements in the array. If the array is sparse, the value of the length property is greater than the number of elements. Sparse arrays can be created with the Array() constructor or simply by assigning to an array index larger than the current array length.
+
+> 稀疏数组就是包含从 0 开始的不连续索引的数组。通常，数组的 length 属性值代表数组中元素的个数。如果数组是稀疏的，length 属性值大于元素的个数。可以用 Array() 构造函数或简单地指定数组的索引值大于当前的数组长度来创建稀疏数组。
+
 ```js
 let a = new Array(5); // No elements, but a.length is 5.
 a = [];               // Create an array with no elements and length = 0.
@@ -161,9 +250,16 @@ a[1000] = 0;          // Assignment adds one element but sets length to 1001.
 ```
 We’ll see later that you can also make an array sparse with the delete operator.
 
+> 后面会看到你也可以用 delete 运算符来生产稀疏数组。
+
 Arrays that are sufficiently sparse are typically implemented in a slower, more memory-efficient way than dense arrays are, and looking up elements in such an array will take about as much time as regular object property lookup.
 
+> 足够稀疏的数组通常在实现上比稠密的数组更慢、内存利用率更高，在这样的数组中查找元素的时间与常规对象属性的查找时间一样长。
+
 Note that when you omit a value in an array literal (using repeated commas as in [1,,3]), the resulting array is sparse, and the omitted elements simply do not exist:
+
+> 注意，当在数组字面量中省略值时（像 [1,,3] 中使用重复的逗号）返回的是稀疏数组，省略掉的值是不存在的：
+
 ```js
 let a1 = [,];           // This array has no elements and length 1
 let a2 = [undefined];   // This array has one undefined element
@@ -172,15 +268,25 @@ let a2 = [undefined];   // This array has one undefined element
 ```
 Understanding sparse arrays is an important part of understanding the true nature of JavaScript arrays. In practice, however, most JavaScript arrays you will work with will not be sparse. And, if you do have to work with a sparse array, your code will probably treat it just as it would treat a nonsparse array with undefined elements.
 
+> 了解稀疏数组是了解 JavaScript 数组的真实本质的一部分。尽管如此，实际上你所碰到的绝大多数 JavaScript 数组不是稀疏数组。并且，如果你确实碰到了稀疏数组，你的代码很可能像对待非稀疏数组一样来对待它们，只不过它们包含一些 undefined 元素。
+
 ## 7.4 Array Length
 Every array has a length property, and it is this property that makes arrays different from regular JavaScript objects. For arrays that are dense (i.e., not sparse), the length property specifies the number of elements in the array. Its value is one more than the highest index in the array:
+
+> 每个数组有一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密（也就是非稀疏）数组，length 属性值代表数组中元素的个数。其值比数组中最大的索引大 1：
+
 ```js
 [].length             // => 0: the array has no elements
 ["a","b","c"].length  // => 3: highest index is 2, length is 3
 ```
 When an array is sparse, the length property is greater than the number of elements, and all we can say about it is that length is guaranteed to be larger than the index of every element in the array. Or, put another way, an array (sparse or not) will never have an element whose index is greater than or equal to its length. In order to maintain this invariant, arrays have two special behaviors. The first we described above: if you assign a value to an array element whose index i is greater than or equal to the array’s current length, the value of the length property is set to i+1.
 
+> 当数组是稀疏的时，length 属性值大于元素的个数。而且关于此我们可以说数组长度保证大于它每个元素的索引值。或者，换一种说法，在数组中（无论稀疏与否）肯定找不到一个元素的索引值大于或等于它的长度。为了维持此规则不变化，数组有两个特殊的行为。第一个如同上面的描述：如果为一个数组元素赋值，它的索引 i 大于或等于现有数组的长度时，length 属性的值将设置为 i+1。
+
 The second special behavior that arrays implement in order to maintain the length invariant is that, if you set the length property to a non-negative integer n smaller than its current value, any array elements whose index is greater than or equal to n are deleted from the array:
+
+> 第二个特殊的行为就是设置 length 属性为一个小于当前长度的非负整数n时，当前数组中那些索引值大于或等于 n 的元素将从中删除：
+
 ```js
 a = [1,2,3,4,5];     // Start with a 5-element array.
 a.length = 3;        // a is now [1,2,3].
@@ -189,14 +295,22 @@ a.length = 5;        // Length is 5, but no elements, like new Array(5)
 ```
 You can also set the length property of an array to a value larger than its current value. Doing this does not actually add any new elements to the array; it simply creates a sparse area at the end of the array.
 
+> 还可以将数组的 length 属性值设置为大于其当前的长度。实际上这不会向数组中添加新的元素，它只是在数组尾部创建一个稀疏区域。
+
 ## 7.5 Adding and Deleting Array Elements
 We’ve already seen the simplest way to add elements to an array: just assign values to new indexes:
+
+> 我们已经见过添加数组元素最简单的方法：为新索引赋值：
+
 ```js
 let a = [];      // Start with an empty array.
 a[0] = "zero";   // And add elements to it.
 a[1] = "one";
 ```
 You can also use the push() method to add one or more values to the end of an array:
+
+> 也可以使用push()方法在数组末尾增加一个或多个元素：
+
 ```js
 let a = [];           // Start with an empty array
 a.push("zero");       // Add a value at the end.  a = ["zero"]
@@ -204,7 +318,12 @@ a.push("one", "two"); // Add two more values.  a = ["zero", "one", "two"]
 ```
 Pushing a value onto an array a is the same as assigning the value to a[a.length]. You can use the unshift() method (described in §7.8) to insert a value at the beginning of an array, shifting the existing array elements to higher indexes. The pop() method is the opposite of push(): it removes the last element of the array and returns it, reducing the length of an array by 1. Similarly, the shift() method removes and returns the first element of the array, reducing the length by 1 and shifting all elements down to an index one lower than their current index. See §7.8 for more on these methods.
 
+> 在数组尾部压入一个元素与给 a[a.length] 赋值是一样的。可以使用 unshift() 方法（§7.8 有描述）在数组的首部插入一个元素，并且将其他元素依次移到更高的索引处。pop() 方法与 push() 相反：它移除数组最后一个元素并返回这个元素，使数组 length 减 1。同样，shift() 方法移除并返回数组的第一个元素，使数组 length 减 1，并将其他元素依次移到低 1 的索引处。§7.8 有更多关于这些方法的描述。
+
 You can delete array elements with the delete operator, just as you can delete object properties:
+
+> 可以像删除对象属性一样使用 delete 运算符来删除数组元素：
+
 ```js
 let a = [1,2,3];
 delete a[2];   // a now has no element at index 2
@@ -213,12 +332,21 @@ a.length       // => 3: delete does not affect array length
 ```
 Deleting an array element is similar to (but subtly different than) assigning undefined to that element. Note that using delete on an array element does not alter the length property and does not shift elements with higher indexes down to fill in the gap that is left by the deleted property. If you delete an element from an array, the array becomes sparse.
 
+> 删除数组元素与为其赋 undefined 值是类似的（但有一些微妙的区别）。注意，对一个数组元素使用 delete 不会修改数组的 length 属性，也不会将元素从高索引处移下来填充已删除属性留下的空白。如果从数组中删除一个元素，它就变成稀疏数组。
+
 As we saw above, you can also remove elements from the end of an array simply by setting the length property to the new desired length.
+
+> 正如上面所看到的，也可以通过设置新的所需长度，即可从数组尾部删除元素。
 
 Finally, splice() is the general-purpose method for inserting, deleting, or replacing array elements. It alters the length property and shifts array elements to higher or lower indexes as needed. See §7.8 for details.
 
+> 最后，splice() 是一个通用的方法来插入、删除或替换数组元素。它会根据需要修改 length 属性并移动元素到更高或较低的索引处。详细内容见 §7.8。
+
 ## 7.6 Iterating Arrays
 As of ES6, the easiest way to loop through each of the elements of an array (or any iterable object) is with the for/of loop, which was covered in detail in §5.4.4:
+
+> 在 ES6 中，最容易遍历数组元素（或可迭代对象）的方法是 for/of 循环，在 §5.4.4 中详细介绍：
+
 ```js
 let letters = [..."Hello world"];  // An array of letters
 let string = "";
@@ -229,7 +357,12 @@ string  // => "Hello world"; we reassembled the original text
 ```
 The built-in array iterator that the for/of loop uses returns the elements of an array in ascending order. It has no special behavior for sparse arrays and simply returns undefined for any array elements that do not exist.
 
+> 内置数组迭代器 for/of 循环按照升序返回数组元素。对于稀疏数组它没有特殊的行为，数组中不存在的元素只是单纯的返回 undefined。
+
 If you want to use a for/of loop for an array and need to know the index of each array element, use the entries() method of the array, along with destructuring assignment, like this:
+
+> 如果使用 for/of 循环一个数组时还需要知道每个元素的索引，可以像这样将数组的 entries() 方法和解构语句一同使用：
+
 ```js
 let everyother = "";
 for(let [index, letter] of letters.entries()) {
@@ -238,6 +371,9 @@ for(let [index, letter] of letters.entries()) {
 everyother  // => "Hlowrd"
 ```
 Another good way to iterate arrays is with forEach(). This is not a new form of the for loop, but an array method that offers a functional approach to array iteration. You pass a function to the forEach() method of an array, and forEach() invokes your function once on each element of the array:
+
+> 另一种不错的遍历数组方法是用 forEach()。这不是 for 循环的新形式，而是提供数组遍历功能方法的数组方法。可以给数组的 forEach() 方法传递一个函数，forEach() 会对数组中每一个元素调用这个方法：
+
 ```js
 let uppercase = "";
 letters.forEach(letter => {  // Note arrow function syntax here
@@ -247,9 +383,16 @@ uppercase  // => "HELLO WORLD"
 ```
 As you would expect, forEach() iterates the array in order, and it actually passes the array index to your function as a second argument, which is occasionally useful. Unlike the for/of loop, the forEach() is aware of sparse arrays and does not invoke your function for elements that are not there.
 
+> 正如期望的，forEach() 按顺序对数组进行计算，实际上它将数组索引作为第二个实参传递到函数，这有时很有用。与 for/of 循环不同，forEach() 能意识到稀疏数组，并且不会为不存在的元素调用函数。
+
 §7.8.1 documents the forEach() method in more detail. That section also covers related methods such as map() and filter() that perform specialized kinds of array iteration.
 
+> §7.8.1 更详细地记录了 forEach() 方法。该部分还介绍了演示了特定类型的数组遍历方法，如 map() 和 filter()。
+
 You can also loop through the elements of an array with a good old-fashioned for loop (§5.4.3):
+
+> 也可以用一种很好的老旧方式遍历数组的元素（§5.4.3）：
+
 ```js
 let vowels = "";
 for(let i = 0; i < letters.length; i++) { // For each index in the array
@@ -261,6 +404,9 @@ for(let i = 0; i < letters.length; i++) { // For each index in the array
 vowels  // => "eoo"
 ```
 In nested loops, or other contexts where performance is critical, you may sometimes see this basic array iteration loop written so that the array length is only looked up once rather than on each iteration. Both of the following for loop forms are idiomatic, though not particularly common, and with modern JavaScript interpreters, it is not at all clear that they have any performance impact:
+
+> 在嵌套循环或其他性能至关重要的上下文中，有时可能会看到这样的数组遍历，以便数组长度仅被查一次，而不是在每次循环都去查询。以下两种形式都是符合习惯的 for 循环，虽然不是特别常用，而且对于现代 JavaScript 解释器，它们是否对性能有任何影响尚不清楚：
+
 ```js
 // Save the array length into a local variable
 for(let i = 0, len = letters.length; i < len; i++) {
@@ -273,6 +419,9 @@ for(let i = letters.length-1; i >= 0; i--) {
 }
 ```
 These examples assume that the array is dense and that all elements contain valid data. If this is not the case, you should test the array elements before using them. If you want to skip undefined and nonexistent elements, you might write:
+
+> 这些示例假定数组是稠密的，并且所有元素都包含有效的数据。如果不是这样，应该在使用数组元素之前测试它们。如果要跳过 undefined 和不存在的元素，可以编写：
+
 ```js
 for(let i = 0; i < a.length; i++) {
     if (a[i] === undefined) continue; // Skip undefined + nonexistent elements
@@ -281,6 +430,9 @@ for(let i = 0; i < a.length; i++) {
 ```
 ## 7.7 Multidimensional Arrays
 JavaScript does not support true multidimensional arrays, but you can approximate them with arrays of arrays. To access a value in an array of arrays, simply use the [] operator twice. For example, suppose the variable matrix is an array of arrays of numbers. Every element in matrix[x] is an array of numbers. To access a particular number within this array, you would write matrix[x][y]. Here is a concrete example that uses a two-dimensional array as a multiplication table:
+
+> JavaScript 不支持真正的多维数组，但可以用数组的数组来近似。访问数组的数组中的元素，只要简单地使用两次 [] 操作符即可。例如，假设变量 matrix 是一个数组的数组，它的基本元素是数值，那么 matrix[x] 的每个元素是包含一个数值数组，访问数组中特定数值的代码为 matrix[x][y]。这里有一个具体的例子，它使用二维数组作为一个九九乘法表：
+
 ```js
 // Create a multidimensional array
 let table = new Array(10);               // 10 rows of the table
