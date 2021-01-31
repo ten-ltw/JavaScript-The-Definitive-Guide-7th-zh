@@ -10,11 +10,11 @@ JavaScript arrays are a specialized form of JavaScript object, and array indexes
 
 Arrays inherit properties from Array.prototype, which defines a rich set of array manipulation methods, covered in §7.8. Most of these methods are generic, which means that they work correctly not only for true arrays, but for any “array-like object.” We’ll discuss array-like objects in §7.9. Finally, JavaScript strings behave like arrays of characters, and we’ll discuss this in §7.10.
 
-> 数组继承自 Array.prototype 中的属性，它定义了一套丰富的数组操作方法，§7.8 涵盖这方面内容。大多数这些方法是通用的，这意味着它们不仅对真正的 数组有效，而且对“类数组对象”同样有效。§7.9 讨论类数组对象。最后，JavaScript 字符串的行为与字符数组类似，我们将在 §7.10 讨论。
+> 数组继承自 Array.prototype 中的属性，它定义了一套丰富的数组操作方法，§7.8 涵盖这方面内容。大多数这些方法是通用的，这意味着它们不仅对真正的数组有效，而且对“类数组对象”同样有效。§7.9 讨论类数组对象。最后，JavaScript 字符串的行为与字符数组类似，我们将在 §7.10 讨论。
 
 ES6 introduces a set of new array classes known collectively as “typed arrays.” Unlike regular JavaScript arrays, typed arrays have a fixed length and a fixed numeric element type. They offer high performance and byte-level access to binary data and are covered in §11.2.
 
-> ES6 引入了一组新的数组类，这些类统称为“类型化数组”。与常规的 JavaScript 数组不同，类型数组有固定的长度和固定的数值元素类型。它们提供高性能和对二进制数据的字节级访问，在 §11.2 中有介绍。
+> ES6 引入了一组新的数组类，这些类统称为“类型化数组”。与常规的 JavaScript 数组不同，类型化数组有固定的长度和固定的数值元素类型。它们提供高性能和对二进制数据的字节级访问，在 §11.2 中有介绍。
 
 ## 7.1 Creating Arrays
 
@@ -78,7 +78,7 @@ Array literal syntax allows an optional trailing comma, so [,,] has a length of 
 ### 7.1.2 The Spread Operator
 In ES6 and later, you can use the “spread operator,” ..., to include the elements of one array within an array literal:
 
-> ES6 之后，可以使用展开操作符 ... 将一个数组中的元素包含在数组字面量中：
+> ES6 之后，可以使用展开操作符 ... 将一个数组中的元素展开在数组字面量中：
 
 ```js
 let a = [1, 2, 3];
@@ -86,7 +86,7 @@ let b = [0, ...a, 4];  // b == [0, 1, 2, 3, 4]
 ```
 The three dots “spread” the array a so that its elements become elements within the array literal that is being created. It is as if the ...a was replaced by the elements of the array a, listed literally as part of the enclosing array literal. (Note that, although we call these three dots a spread operator, this is not a true operator because it can only be used in array literals and, as we’ll see later in the book, function invocations.)
 
-> 三个点展开数组 a，所以它的元素变成了数组字面量被创建在数组中。就像 ...a 被数组 a 的元素所替换，被列出作为未闭合的数组字面量的一部分。（注意，尽管我们称三点是展开运算符，但这并不是一个操作，因为它只能用于数组字面量和本书后面提到的函数调用。）
+> 三个点展开数组 a，所以它的元素变成了数组字面量，并被创建在数组中。就像 ...a 被数组 a 的元素所替换，被列出作为未闭合的数组字面量的一部分。（注意，尽管我们称三点是展开运算符，但这并不是一个操作，因为它只能用于数组字面量和本书后面提到的函数调用。）
 
 The spread operator is a convenient way to create a (shallow) copy of an array:
 
@@ -218,7 +218,7 @@ o["1"]         // => "one"; numeric and string property names are the same
 ```
 It is helpful to clearly distinguish an array index from an object property name. All indexes are property names, but only property names that are integers between 0 and 2<sup>32</sup>–2 are indexes. All arrays are objects, and you can create properties of any name on them. If you use properties that are array indexes, however, arrays have the special behavior of updating their length property as needed.
 
-> 清晰地区分数组的索引和对象的属性名是非常有用的。所有的索引都是属性名，但只有在0～2<sup>32</sup>-2之间的整数属性名才是索引。所有的数组都是对象，可以为其创建任意名字的属性。但如果使用的属性是数组的索引，数组的特殊行为就是将根据需要更新它们的length属性值。
+> 清晰地区分数组的索引和对象的属性名是非常有用的。所有的索引都是属性名，但只有在 0～2<sup>32</sup>-2 之间的整数属性名才是索引。所有的数组都是对象，可以为其创建任意名字的属性。但如果使用的属性是数组的索引，数组的特殊行为就是将根据需要更新它们的 length 属性值。
 
 Note that you can index an array using numbers that are negative or that are not integers. When you do this, the number is converted to a string, and that string is used as the property name. Since the name is not a non-negative integer, it is treated as a regular object property, not an array index. Also, if you index an array with a string that happens to be a non-negative integer, it behaves as an array index, not an object property. The same is true if you use a floating-point number that is the same as an integer:
 
@@ -387,11 +387,11 @@ As you would expect, forEach() iterates the array in order, and it actually pass
 
 §7.8.1 documents the forEach() method in more detail. That section also covers related methods such as map() and filter() that perform specialized kinds of array iteration.
 
-> §7.8.1 更详细地记录了 forEach() 方法。该部分还介绍了演示了特定类型的数组遍历方法，如 map() 和 filter()。
+> §7.8.1 更详细地记录了 forEach() 方法。该部分还介绍演示了特定类型的数组遍历方法，如 map() 和 filter()。
 
 You can also loop through the elements of an array with a good old-fashioned for loop (§5.4.3):
 
-> 也可以用一种很好的老旧方式遍历数组的元素（§5.4.3）：
+> 也可以用一种非常老旧方式遍历数组的元素（§5.4.3）：
 
 ```js
 let vowels = "";
