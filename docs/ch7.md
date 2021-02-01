@@ -338,7 +338,7 @@ As we saw above, you can also remove elements from the end of an array simply by
 
 > 正如上面所看到的，也可以通过设置新的所需长度，即可从数组尾部删除元素。
 
-Finally, splice() is the general-purpose method for inserting, deleting, or replacing array elements. It alters the length property and shifts array elements to higher or lower indexes as needed. See §7.8 for details.
+Finally, splice() is the general-purpose method for inserting, deleting, or replaci ng array elements. It alters the length property and shifts array elements to higher or lower indexes as needed. See §7.8 for details.
 
 > 最后，splice() 是一个通用的方法来插入、删除或替换数组元素。它会根据需要修改 length 属性并移动元素到更高或较低的索引处。详细内容见 §7.8。
 
@@ -486,7 +486,7 @@ The methods described in this section iterate over arrays by passing array eleme
 
 Before we explain the methods in detail, however, it is worth making some generalizations about them. First, all of these methods accept a function as their first argument and invoke that function once for each element (or some elements) of the array. If the array is sparse, the function you pass is not invoked for nonexistent elements. In most cases, the function you supply is invoked with three arguments: the value of the array element, the index of the array element, and the array itself. Often, you only need the first of these argument values and can ignore the second and third values.
 
-> 然而，在详细解释这些方法之前，值得对它们进行一些概括。首先，所有这些方法都接受函数作为其第一个实参，并调用数组的每个元素（或某些元素）作为实参调用该函数。如果数组是稀疏的，则不会为不存在的元素调用传递的函数。在大多数情况下，提供的函数被调用时有三个实参：数组元素的值、数组元素的索引和数组本身。通常，只需要这些实参值中的第一个，并且可以忽略第二个和第三个值。
+> 然而，在详细解释这些方法之前，值得对它们进行一些概括。首先，所有这些方法都接受函数作为其第一个实参，并使用调用数组的每个元素（或某些元素）作为实参调用该函数。如果数组是稀疏的，则不会为不存在的元素调用传递的函数。在大多数情况下，提供的函数被调用时有三个实参：数组元素的值、数组元素的索引和数组本身。通常，只需要这些实参值中的第一个，并且可以忽略第二个和第三个值。
 
 Most of the iterator methods described in the following subsections accept an optional second argument. If specified, the function is invoked as if it is a method of this second argument. That is, the second argument you pass becomes the value of the this keyword inside of the function you pass as the first argument. The return value of the function you pass is usually important, but different methods handle the return value in different ways. None of the methods described here modify the array on which they are invoked (though the function you pass can modify the array, of course).
 
@@ -529,7 +529,7 @@ The function you pass to map() is invoked in the same way as a function passed t
 FILTER()
 The filter() method returns an array containing a subset of the elements of the array on which it is invoked. The function you pass to it should be predicate: a function that returns true or false. The predicate is invoked just as for forEach() and map(). If the return value is true, or a value that converts to true, then the element passed to the predicate is a member of the subset and is added to the array that will become the return value. Examples:
 
-> filter() 方法返回一个数组，其中包含调用该数组的数组元素的子集。传递给它的函数应该是断言：返回真或假的函数。断言函数的调用就像 forEach() 和map() 调用一样。如果返回值为 true，或者能转换为 true 的值，则传递给断言的元素是子集的成员，并将添加到将成为返回值的数组中。例子：
+> filter() 方法返回一个数组，其中包含调用该数组的数组元素的子集。传递给它的函数应该是断言：返回真或假的函数。断言函数的调用就像 forEach() 和 map() 调用一样。如果返回值为 true，或者能转换为 true 的值，则传递给断言的元素是子集的成员，并将添加到将成为返回值的数组中。例子：
 
 ```js
 let a = [5, 4, 3, 2, 1];
@@ -578,7 +578,7 @@ a.every(x => x % 2 === 0) // => false: not all values are even.
 ```
 The some() method is like the mathematical “there exists” quantifier ∃: it returns true if there exists at least one element in the array for which the predicate returns true and returns false if and only if the predicate returns false for all elements of the array:
 
-> some() 方法与数学存在限定符 ∃ 相同：如果数组中存在至少有一个元素调用断言返回 true 的返回 true，仅在断言全部返回 false 时返回 false：
+> some() 方法与数学存在限定符 ∃ 相同：如果数组中存在至少有一个元素调用断言函数返回 true 的返回 true，仅在断言全部返回 false 时返回 false：
 
 ```js
 let a = [1,2,3,4,5];
@@ -587,7 +587,7 @@ a.some(isNaN)         // => false; a has no non-numbers.
 ```
 Note that both every() and some() stop iterating array elements as soon as they know what value to return. some() returns true the first time your predicate returns true and only iterates through the entire array if your predicate always returns false. every() is the opposite: it returns false the first time your predicate returns false and only iterates all elements if your predicate always returns true. Note also that, by mathematical convention, every() returns true and some returns false when invoked on an empty array.
 
-> 请注意，every() 和 some() 只要它们知道要返回的值，都停止对数组元素的遍历。some() 在断言函数第一次返回 true 时返回 true，并且只有在每个元素调用断言函数都返回 false 时，才会遍历整个数组 。every() 正好相反：它返回 false 时，您的谓词返回 false，并且仅在谓词始终返回 true 时，才会回注所有元素。另请注意，根据数学约定，every（） 返回 true，有些返回 false，当在空数组上调用时，某些返回 false。
+> 请注意，every() 和 some() 只要它们知道要返回的值，都停止对数组元素的遍历。some() 在断言函数第一次返回 true 时返回 true，并且只有在每个元素调用断言函数都返回 false 时，才会遍历整个数组 。every() 正好相反：它返回 false 时，您的谓词返回 false，并且仅在谓词始终返回 true 时，才会回注所有元素。另请注意，根据数学约定，every() 返回 true，有些返回 false，当在空数组上调用时，某些返回 false。
 
 REDUCE() AND REDUCERIGHT()
 The reduce() and reduceRight() methods combine the elements of an array, using the function you specify, to produce a single value. This is a common operation in functional programming and also goes by the names “inject” and “fold.” Examples help illustrate how it works:
@@ -618,7 +618,7 @@ Calling reduce() on an empty array with no initial value argument causes a TypeE
 
 reduceRight() works just like reduce(), except that it processes the array from highest index to lowest (right-to-left), rather than from lowest to highest. You might want to do this if the reduction operation has right-to-left associativity, for example:
 
-> reduceRight() 的工作原理和 reduce() 一样，不同的是它按照数组索引从高到低（从右到左）处理数组，而不是从低到高。如果化简操作的优先顺序是从右到左，你可能想使用它，例如：
+> reduceRight() 的工作原理和 reduce() 一样，不同的是它按照数组索引从高到低（从右到左）处理数组，而不是从低到高。如果 reduction 操作的优先顺序是从右到左，你可能想使用它，例如：
 
 ```js
 // Compute 2^(3^4).  Exponentiation has right-to-left precedence
@@ -722,7 +722,7 @@ q.shift()              // q == []; returns 3
 ```
 There is one feature of unshift() that is worth calling out because you may find it surprising. When passing multiple arguments to unshift(), they are inserted all at once, which means that they end up in the array in a different order than they would be if you inserted them one at a time:
 
-> unshift() 有一个特性是值得一提的，你可能会觉得它令人惊讶。将多个实参传入 unshift() 时，它们将一次全部插入，这意味着它们最终在数组中的舒顺序与一次插入一个实参的顺序时不同的：
+> unshift() 有一个特性是值得一提的，你可能会觉得它令人惊讶。将多个实参传入 unshift() 时，它们将一次全部插入，这意味着它们最终在数组中的顺序与一次插入一个实参的顺序时不同的：
 
 ```js
 let a = [];            // a == []
