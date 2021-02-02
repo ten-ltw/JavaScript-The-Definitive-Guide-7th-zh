@@ -734,8 +734,13 @@ a.unshift(1,2)         // a == [1, 2]
 ### 7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()
 Arrays define a number of methods that work on contiguous regions, or subarrays or “slices” of an array. The following sections describe methods for extracting, replacing, filling, and copying slices.
 
+> 数组定义了许多在连续区域，子数组或数组的“片段”上工作的方法。 以下各节描述了提取，替换，填充和复制片段的方法。
+
 SLICE()
 The slice() method returns a slice, or subarray, of the specified array. Its two arguments specify the start and end of the slice to be returned. The returned array contains the element specified by the first argument and all subsequent elements up to, but not including, the element specified by the second argument. If only one argument is specified, the returned array contains all elements from the start position to the end of the array. If either argument is negative, it specifies an array element relative to the length of the array. An argument of –1, for example, specifies the last element in the array, and an argument of –2 specifies the element before that one. Note that slice() does not modify the array on which it is invoked. Here are some examples:
+
+> slice() 方法返回指定数组的一个片段或子数组。它的两个实参分别指定了片段的开始和结束的位置。返回的数组包含第一个实参指定的位置和所有到但不含第二个实参指定的位置之间的所有数组元素。如果只指定一个实参，返回的数组将包含从开始位置到数组结尾的所有元素。如实参中出现负数，它表示相对于数组 length 的位置。例如，实参 -1 指定了最后一个元素，而 -2 指定了它前面的元素。注意，slice() 不会修改调用的数组。下面有一些示例：
+
 ```js
 let a = [1,2,3,4,5];
 a.slice(0,3);    // Returns [1,2,3]
@@ -746,7 +751,12 @@ a.slice(-3,-2);  // Returns [3]
 SPLICE()
 splice() is a general-purpose method for inserting or removing elements from an array. Unlike slice() and concat(), splice() modifies the array on which it is invoked. Note that splice() and slice() have very similar names but perform substantially different operations.
 
+> splice() 方法是在数组中插入或删除元素的通用方法。不同于 slice() 和 concat()，splice() 会修改调用的数组。注意，splice() 和 slice() 拥有非常相似的名字， 但它们的功能却有本质的区别。
+
 splice() can delete elements from an array, insert new elements into an array, or perform both operations at the same time. Elements of the array that come after the insertion or deletion point have their indexes increased or decreased as necessary so that they remain contiguous with the rest of the array. The first argument to splice() specifies the array position at which the insertion and/or deletion is to begin. The second argument specifies the number of elements that should be deleted from (spliced out of) the array. (Note that this is another difference between these two methods. The second argument to slice() is an end position. The second argument to splice() is a length.) If this second argument is omitted, all array elements from the start element to the end of the array are removed. splice() returns an array of the deleted elements, or an empty array if no elements were deleted. For example:
+
+> splice() 能够从数组中删除元素、插入元素到数组中或者同时完成这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其他部分仍然保持连续的。splice() 的第一个实参指定了插入和（或）删除的起始位置。第二个实参指定了应该从数组中删除的元素的个数。（注意这里是这两个方法的另外一个不同。slice() 的第二个实参是结束的位置。splice() 的第二个实参是长度。）如果省略第二个实参，从起始点开始到数组结尾的所有元素都将被删除。splice() 返回一个由删除元素组成的数组，或者如果没有删除元素就返回一个空数组。例如：
+
 ```js
 let a = [1,2,3,4,5,6,7,8];
 a.splice(4)    // => [5,6,7,8]; a is now [1,2,3,4]
@@ -754,6 +764,9 @@ a.splice(1,2)  // => [2,3]; a is now [1,4]
 a.splice(1,1)  // => [4]; a is now [1]
 ```
 The first two arguments to splice() specify which array elements are to be deleted. These arguments may be followed by any number of additional arguments that specify elements to be inserted into the array, starting at the position specified by the first argument. For example:
+
+> splice() 的前两个实参指定了需要删除的数组元素。紧随其后的任意个数的实参指定了需要插入到数组中的元素，从第一个实参指定的位置开始插入。例如：
+
 ```js
 let a = [1,2,3,4,5];
 a.splice(2,0,"a","b")  // => []; a is now [1,2,"a","b",3,4,5]
@@ -761,8 +774,13 @@ a.splice(2,2,[1,2],3)  // => ["a","b"]; a is now [1,2,[1,2],3,3,4,5]
 ```
 Note that, unlike concat(), splice() inserts arrays themselves, not the elements of those arrays.
 
+> 注意，不同于 concat()，splice() 插入数组本身，不是数组的元素。
+
 FILL()
 The fill() method sets the elements of an array, or a slice of an array, to a specified value. It mutates the array it is called on, and also returns the modified array:
+
+> fill() 方法将数组或数组片段的元素填充为指定值。它将对调用它的数组进行突变，并返回修改后的数组：
+
 ```js
 let a = new Array(5);   // Start with no elements and length 5
 a.fill(0)               // => [0,0,0,0,0]; fill the array with zeros
@@ -771,21 +789,33 @@ a.fill(8, 2, -1)        // => [0,9,8,8,9]; fill with 8 at indexes 2, 3
 ```
 The first argument to fill() is the value to set array elements to. The optional second argument specifies the starting index. If omitted, filling starts at index 0. The optional third argument specifies the ending index—array elements up to, but not including, this index will be filled. If this argument is omitted, then the array is filled from the start index to the end. You can specify indexes relative to the end of the array by passing negative numbers, just as you can for slice().
 
+> fill() 的第一个实参是将数组元素填充的值。可选的第二个实参指定起始索引。如果省略，则填充将从索引 0 开始。可选的第三个实参指定结束索引，将填充到（但不包括）该索引的数组元素。 如果省略此实参，则从起始索引到末尾填充数组。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样。
+
 COPYWITHIN()
 copyWithin() copies a slice of an array to a new position within the array. It modifies the array in place and returns the modified array, but it will not change the length of the array. The first argument specifies the destination index to which the first element will be copied. The second argument specifies the index of the first element to be copied. If this second argument is omitted, 0 is used. The third argument specifies the end of the slice of elements to be copied. If omitted, the length of the array is used. Elements from the start index up to, but not including, the end index will be copied. You can specify indexes relative to the end of the array by passing negative numbers, just as you can for slice():
+
+> copyWithin() 将数组的一个片段复制到数组中的新位置。它在适当的位置修改数组并返回修改后的数组，但不会更改数组的长度。第一个实参指定将第一个元素复制到的目标索引。第二个实参指定被复制的第一个元素的索引。如果省略此第二个实参，则使用 0。第三个实参指定被复制的元素片段的结尾。如果省略，则使用数组的长度。从开始索引到结束索引（但不包括结束索引）的元素将被复制。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样：
+
 ```js
 let a = [1,2,3,4,5];
 a.copyWithin(1)       // => [1,1,2,3,4]: copy array elements up one
-a.copyWithin(2, 3, 5) // => [1,1,3,4,4]: copy last 2 elements to index 2
+a.copyWithin(2, 3, 5) // => [1,2,3,4,4]: copy last 2 elements to index 2
 a.copyWithin(0, -2)   // => [4,4,3,4,4]: negative offsets work, too
 ```
 copyWithin() is intended as a high-performance method that is particularly useful with typed arrays (see §11.2). It is modeled after the memmove() function from the C standard library. Note that the copy will work correctly even if there is overlap between the source and destination regions.
 
+> copyWithin() 旨在作为一种高性能方法，对类型化数组特别有用（请参见 §11.2）。它模仿的 C 标准库中 memmove() 函数。 请注意，即使源区域和目标区域之间存在重叠，该拷贝也可以正常工作。
+
 ### 7.8.6 Array Searching and Sorting Methods
 Arrays implement indexOf(), lastIndexOf(), and includes() methods that are similar to the same-named methods of strings. There are also sort() and reverse() methods for reordering the elements of an array. These methods are described in the subsections that follow.
 
+> 数组实现 indexOf()、lastIndexOf() 和 include() 方法，这些方法类似于名称相同的字符串方法。还有 sort() 和 reverse() 方法，用于对数组元素进行重新排序。这些方法在下面的小节中介绍。
+
 INDEXOF() AND LASTINDEXOF()
 indexOf() and lastIndexOf() search an array for an element with a specified value and return the index of the first such element found, or -1 if none is found. indexOf() searches the array from beginning to end, and lastIndexOf() searches from end to beginning:
+
+> indexOf() 和 lastIndexOf() 在数组中搜索具有指定值的元素，并返回找到的第一个元素的索引，如果未找到，则返回 -1。indexOf() 从头到尾搜索数组，lastIndexOf() 从尾到头搜索：
+
 ```js
 let a = [0,1,2,1,0];
 a.indexOf(1)       // => 1: a[1] is 1
@@ -794,9 +824,16 @@ a.indexOf(3)       // => -1: no element has value 3
 ```
 indexOf() and lastIndexOf() compare their argument to the array elements using the equivalent of the === operator. If your array contains objects instead of primitive values, these methods check to see if two references both refer to exactly the same object. If you want to actually look at the content of an object, try using the find() method with your own custom predicate function instead.
 
+> indexOf() 和 lastIndexOf() 使用 === 运算符将其实参与数组元素进行比较。如果数组包含对象而不是原始值，则这些方法将检查两个引用是否都指向完全相同的对象。如果要实际查看对象的内容，尝试将 find() 方法代替自定义的断言函数。
+
 indexOf() and lastIndexOf() take an optional second argument that specifies the array index at which to begin the search. If this argument is omitted, indexOf() starts at the beginning and lastIndexOf() starts at the end. Negative values are allowed for the second argument and are treated as an offset from the end of the array, as they are for the slice() method: a value of –1, for example, specifies the last element of the array.
 
+> indexOf() 和 lastIndexOf() 采用可选的第二个实参，该实参指定开始搜索的数组索引。如果省略此参数，则 indexOf() 从开头开始，lastIndexOf() 从结尾开始。第二个参数允许使用负值，并将其视为距数组末端的偏移量，就像 slice() 方法一样：例如，值 –1 指定数组的最后一个元素。
+
 The following function searches an array for a specified value and returns an array of all matching indexes. This demonstrates how the second argument to indexOf() can be used to find matches beyond the first.
+
+> 以下函数在数组中搜索指定的值，并返回所有匹配索引的数组。这演示了如何使用 indexOf() 的第二个参数来查找第一个参数之外的匹配项。
+
 ```js
 // Find all occurrences of a value x in an array a and return an array
 // of matching indexes
@@ -815,10 +852,17 @@ function findall(a, x) {
 ```
 Note that strings have indexOf() and lastIndexOf() methods that work like these array methods, except that a negative second argument is treated as zero.
 
+> 请注意，字符串具有 indexOf() 和 lastIndexOf() 方法，它们与这些数组方法一样工作，不同之处在于第二个实参是负数时被视为零。
+
 INCLUDES()
 The ES2016 includes() method takes a single argument and returns true if the array contains that value or false otherwise. It does not tell you the index of the value, only whether it exists. The includes() method is effectively a set membership test for arrays. Note, however, that arrays are not an efficient representation for sets, and if you are working with more than a few elements, you should use a real Set object (§11.1.1).
 
+> ES2016 的 includes() 方法采用单个实参，如果数组包含该值返回 true 否则 false。它不会告诉你值的索引，只告诉你该值是否存在。includes() 方法实际上是数组集的成员身份测试。但是请注意，数组不是 Set 的高效表示形式，如果使用多个元素，则应使用真正的 Set 对象（§11.1.1）。
+
 The includes() method is slightly different than the indexOf() method in one important way. indexOf() tests equality using the same algorithm that the === operator does, and that equality algorithm considers the not-a-number value to be different from every other value, including itself. includes() uses a slightly different version of equality that does consider NaN to be equal to itself. This means that indexOf() will not detect the NaN value in an array, but includes() will:
+
+> includes() 方法在一个重要方面与 indexOf() 方法略有不同。indexOf() 与 === 运算符使用相同的算法测试相等性，并且这个相等算法认为非数字值与所有其他值（包括自身）不同。includes() 使用略有不同的相等算法，它认为 NaN 等于自身。这意味着 indexOf() 不会检测数组中的 NaN 值，但 includes() 可以：
+
 ```js
 let a = [1,true,3,NaN];
 a.includes(true)            // => true
@@ -828,13 +872,21 @@ a.indexOf(NaN)              // => -1; indexOf can't find NaN
 ```
 SORT()
 sort() sorts the elements of an array in place and returns the sorted array. When sort() is called with no arguments, it sorts the array elements in alphabetical order (temporarily converting them to strings to perform the comparison, if necessary):
+
+> sort() 对数组的元素直接进行排序，并返回排序后的数组。当调用 sort() 时，它会按字母顺序对数组元素进行排序（如有必要，暂时将它们转换为字符串以执行比较）：
+
 ```js
 let a = ["banana", "cherry", "apple"];
 a.sort(); // a == ["apple", "banana", "cherry"]
 ```
 If an array contains undefined elements, they are sorted to the end of the array.
 
+> 如果数组中包含 undefined 元素，它们会被放在数组的结尾。
+
 To sort an array into some order other than alphabetical, you must pass a comparison function as an argument to sort(). This function decides which of its two arguments should appear first in the sorted array. If the first argument should appear before the second, the comparison function should return a number less than zero. If the first argument should appear after the second in the sorted array, the function should return a number greater than zero. And if the two values are equivalent (i.e., if their order is irrelevant), the comparison function should return 0. So, for example, to sort array elements into numerical rather than alphabetical order, you might do this:
+
+> 若要将数组按字母顺序以外的顺序排序，必须将比较函数作为实参传递给 sort()。该函数决定了它的两个实参在排好序的数组中的先后顺序。假设第一个实参应该在前，比较函数应该返回一个小于 0 的数值。反之，假设第一个参数应该在后，函数应该返回一个大于 0 的数值。并且，假设两个值相等（也就是说，它们的顺序无关紧要），函数应该返回 0。例如，用数值大小而非字母表顺序进行数组排序，代码如下：
+
 ```js
 let a = [33, 4, 1111, 222];
 a.sort();               // a == [1111, 222, 33, 4]; alphabetical order
@@ -844,6 +896,9 @@ a.sort(function(a,b) {  // Pass a comparator function
 a.sort((a,b) => b-a);   // a == [1111, 222, 33, 4]; reverse numerical order
 ```
 As another example of sorting array items, you might perform a case-insensitive alphabetical sort on an array of strings by passing a comparison function that converts both of its arguments to lowercase (with the toLowerCase() method) before comparing them:
+
+> 另外一个数组元素排序的例子，也许需要对一个字符串数组执行不区分大小写的字母表排序，比较函数首先将实参都转化为小写字符串（使用 toLowerCase() 方法），再开始比较：
+
 ```js
 let a = ["ant", "Bug", "cat", "Dog"];
 a.sort();    // a == ["Bug","Dog","ant","cat"]; case-sensitive sort
@@ -857,6 +912,9 @@ a.sort(function(s,t) {
 ```
 REVERSE()
 The reverse() method reverses the order of the elements of an array and returns the reversed array. It does this in place; in other words, it doesn’t create a new array with the elements rearranged but instead rearranges them in the already existing array:
+
+> reverse() 方法反转数组中元素的顺序并返回反转后的数组。它直接在数组中操作，换一种说法，它不创建一个新的数组，它不创建一个新的带有排序后的元素的数组，而是直接在已存在的数组中进行排序。
+
 ```js
 let a = [1,2,3];
 a.reverse();   // a == [3,2,1]
@@ -864,7 +922,12 @@ a.reverse();   // a == [3,2,1]
 ### 7.8.7 Array to String Conversions
 The Array class defines three methods that can convert arrays to strings, which is generally something you might do when creating log and error messages. (If you want to save the contents of an array in textual form for later reuse, serialize the array with JSON.stringify() [§6.8] instead of using the methods described here.)
 
+> Array 类定义了三个方法来将数组转化为字符串，通常在创建日志和错误信息时会用到。（如果要以文本形式保存数组的内容供以后重用，请使用 JSON.stringify()（§6.8）序列化数组，而不是使用此处描述的方法。）
+
 The join() method converts all the elements of an array to strings and concatenates them, returning the resulting string. You can specify an optional string that separates the elements in the resulting string. If no separator string is specified, a comma is used:
+
+> join() 方法将数组的所有元素转换为字符串并连接它们，返回生成的字符串。可以指定一个可选字符串来分隔生成的字符串中的元素。如果未指定分隔符字符串，则使用逗号：
+
 ```js
 let a = [1, 2, 3];
 a.join()               // => "1,2,3"
@@ -875,7 +938,12 @@ b.join("-")            // => "---------": a string of 9 hyphens
 ```
 The join() method is the inverse of the String.split() method, which creates an array by breaking a string into pieces.
 
+> join() 方法是 String.split() 方法的反向方法，该方法通过将字符串拆分为多个片段来创建数组。
+
 Arrays, like all JavaScript objects, have a toString() method. For an array, this method works just like the join() method with no arguments:
+
+> 数组与所有 JavaScript 对象一样，具有 toString() 方法。对于数组，此方法的工作方式与没有参数的 join() 方法相同：
+
 ```js
 [1,2,3].toString()          // => "1,2,3"
 ["a", "b", "c"].toString()  // => "a,b,c"
@@ -883,12 +951,21 @@ Arrays, like all JavaScript objects, have a toString() method. For an array, thi
 ```
 Note that the output does not include square brackets or any other sort of delimiter around the array value.
 
+> 请注意，输出不包括方括号或数组值周围的任何其他分隔符。
+
 toLocaleString() is the localized version of toString(). It converts each array element to a string by calling the toLocaleString() method of the element, and then it concatenates the resulting strings using a locale-specific (and implementation-defined) separator string.
+
+> toLocaleString() 是 toString() 的本地化版本。它通过调用元素的 toLocaleString() 方法将每个数组元素转换为字符串，然后使用特定于区域设置（和实现定义）分隔符字符串连接生成的字符串。
 
 ### 7.8.8 Static Array Functions
 In addition to the array methods we’ve already documented, the Array class also defines three static functions that you can invoke through the Array constructor rather than on arrays. Array.of() and Array.from() are factory methods for creating new arrays. They were documented in §7.1.4 and §7.1.5.
 
+> 除了我们已经记录的数组方法之外，Array 类还定义了三个静态函数，可以通过 Array 构造函数而不是数组调用。Array.of() 和 Array.from() 是用于创建新数组的工厂方法。它们记录在 §7.1.4 和 §7.1.5 中。
+
 The one other static array function is Array.isArray(), which is useful for determining whether an unknown value is an array or not:
+
+> 另外一个静态数组方法是 Array.isArray()，用来判断一个未知值是否是数组：
+
 ```js
 Array.isArray([])     // => true
 Array.isArray({})     // => false
@@ -896,19 +973,36 @@ Array.isArray({})     // => false
 ## 7.9 Array-Like Objects
 As we’ve seen, JavaScript arrays have some special features that other objects do not have:
 
+> 我们已经看到，JavaScript 数组的有一些特性是其他对象所没有的：
+
 The length property is automatically updated as new elements are added to the list.
+
+> 当有新的元素添加到列表中时，自动更新 length 属性。
 
 Setting length to a smaller value truncates the array.
 
+> 设置 length 为一个较小值将截断数组。
+
 Arrays inherit useful methods from Array.prototype.
+
+> 从 Array.prototype 中继承一些有用的方法。
 
 Array.isArray() returns true for arrays.
 
+> Array.isArray() 为数组返回 true。
+
 These are the features that make JavaScript arrays distinct from regular objects. But they are not the essential features that define an array. It is often perfectly reasonable to treat any object with a numeric length property and corresponding non-negative integer properties as a kind of array.
+
+> 这些特性让 JavaScript 数组和常规的对象有明显的区别。但是它们不是定义数组的本质特性。一种常常完全合理的看法是把拥有一个数值 length 属性和对应非负整数属性的对象看一种类型的数组。
 
 These “array-like” objects actually do occasionally appear in practice, and although you cannot directly invoke array methods on them or expect special behavior from the length property, you can still iterate through them with the same code you’d use for a true array. It turns out that many array algorithms work just as well with array-like objects as they do with real arrays. This is especially true if your algorithms treat the array as read-only or if they at least leave the array length unchanged.
 
+> 实践中这些“类数组”对象实际上偶尔出现，虽然不能通过它们直接调用数组方法或者期望 length 属性有什么特殊的行为，但是仍然可以用针对真正数组遍历代码来遍历它们。结论就是很多数组算法针对类数组对象同样奏效，就像针对真正的数组一样。尤其是这种情况，算法把数组看成只读的或者如果保持数组长度不变。
+
 The following code takes a regular object, adds properties to make it an array-like object, and then iterates through the “elements” of the resulting pseudo-array:
+
+> 以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的“元素”：
+
 ```js
 let a = {};  // Start with a regular empty object
 
@@ -927,6 +1021,9 @@ for(let j = 0; j < a.length; j++) {
 }
 ```
 In client-side JavaScript, a number of methods for working with HTML documents (such as document.querySelectorAll(), for example) return array-like objects. Here’s a function you might use to test for objects that work like arrays:
+
+> 在客户端 JavaScript 中，很多作用于 HTML documents 的方法（例如 document.querySelectorAll()）返回类数组对象。下面这个函数可能会用于测试对象是否可以用作类数组：
+
 ```js
 // Determine if o is an array-like object.
 // Strings and functions have numeric length properties, but are
@@ -948,7 +1045,12 @@ function isArrayLike(o) {
 ```
 We’ll see in a later section that strings behave like arrays. Nevertheless, tests like this one for array-like objects typically return false for strings—they are usually best handled as strings, not as arrays.
 
+> 我们会在下一节看到字符串的行为像数组一样。尽管如此，对于数组这种测试（对字符串通常返回 false ）它们通常最好作为字符串处理，而不是作为数组处理。
+
 Most JavaScript array methods are purposely defined to be generic so that they work correctly when applied to array-like objects in addition to true arrays. Since array-like objects do not inherit from Array.prototype, you cannot invoke array methods on them directly. You can invoke them indirectly using the Function.call method, however (see §8.7.4 for details):
+
+> 大多数 JavaScript 数组方法都特意定义为泛型，以便它们在应用于除数组之外的类数组可以正常工作。由于类数组对象不会从 Array.prototype 继承，因此不能直接在它们上调用数组方法。但是，可以使用 Function.call 方法间接调用它们（详情请参阅 §8.7.4）：
+
 ```js
 let a = {"0": "a", "1": "b", "2": "c", length: 3}; // An array-like object
 Array.prototype.join.call(a, "+")                  // => "a+b+c"
@@ -958,8 +1060,13 @@ Array.from(a)                      // => ["a","b","c"]: easier array copy
 ```
 The second-to-last line of this code invokes the Array slice() method on an array-like object in order to copy the elements of that object into a true array object. This is an idiomatic trick that exists in much legacy code, but is now much easier to do with Array.from().
 
+> 此代码倒数第二行调用数组类对象上的 Array slice() 方法，以便将该对象的元素复制到真正的数组对象中。这是一个惯用的技巧，存在于许多旧代码中，但现在使用 Array.from() 要容易得多。
+
 ## 7.10 Strings as Arrays
 JavaScript strings behave like read-only arrays of UTF-16 Unicode characters. Instead of accessing individual characters with the charAt() method, you can use square brackets:
+
+> JavaScript 字符串的行为类似于 UTF-16 Unicode 字符的只读数组。可以使用方括号替代 charAt() 方法访问单个字符：
+
 ```js
 let s = "test";
 s.charAt(0)    // => "t"
@@ -967,19 +1074,36 @@ s[1]           // => "e"
 ```
 The typeof operator still returns “string” for strings, of course, and the Array.isArray() method returns false if you pass it a string.
 
+> 当然，字符串使用 typeof 运算符仍然返回 "string"，如果将字符串传递给 Array.isArray() 方法，则返回 false。
+
 The primary benefit of indexable strings is simply that we can replace calls to charAt() with square brackets, which are more concise and readable, and potentially more efficient. The fact that strings behave like arrays also means, however, that we can apply generic array methods to them. For example:
+
+> 可索引字符串的主要好处是，我们可以用方括号替换对 charAt() 的调用，方括号更简洁、更可读，而且可能更高效。但是，字符串的行为类似于数组，也意味着我们可以对它们应用泛型数组方法。例如：
+
 ```js
 Array.prototype.join.call("JavaScript", " ")  // => "J a v a S c r i p t"
 ```
 Keep in mind that strings are immutable values, so when they are treated as arrays, they are read-only arrays. Array methods like push(), sort(), reverse(), and splice() modify an array in place and do not work on strings. Attempting to modify a string using an array method does not, however, cause an error: it simply fails silently.
 
+> 请记住，字符串是不可变值，因此当字符串被视为数组时，它们是只读数组。数组方法 push()、sort()、reverse() 和 splice() 直接修改数组，它们不能处理字符串。但是，尝试使用数组方法修改字符串不会引发异常：它只是静默失败。
+
 ## 7.11 Summary
 This chapter has covered JavaScript arrays in depth, including esoteric details about sparse arrays and array-like objects. The main points to take from this chapter are:
 
+> 本章深入介绍了 JavaScript 数组，包括有关稀疏数组和类数组对象的深奥细节。本章要点包括：
+
 Array literals are written as comma-separated lists of values within square brackets.
+
+> 数组字面量编写：方括号内逗号分隔值列表。
 
 Individual array elements are accessed by specifying the desired array index within square brackets.
 
+> 通过在方括号内指定所需的数组索引来访问单个数组元素。
+
 The for/of loop and ... spread operator introduced in ES6 are particularly useful ways to iterate arrays.
 
+> for/of 循环和 ES6 中引入的 ... 展开运算符是遍历数组的特别有用的方法。
+
 The Array class defines a rich set of methods for manipulating arrays, and you should be sure to familiarize yourself with the Array API.
+
+> Array 类定义了一组用于操作数组的丰富方法，应该确保熟悉 Array API。
