@@ -739,7 +739,7 @@ Arrays define a number of methods that work on contiguous regions, or subarrays 
 SLICE()
 The slice() method returns a slice, or subarray, of the specified array. Its two arguments specify the start and end of the slice to be returned. The returned array contains the element specified by the first argument and all subsequent elements up to, but not including, the element specified by the second argument. If only one argument is specified, the returned array contains all elements from the start position to the end of the array. If either argument is negative, it specifies an array element relative to the length of the array. An argument of –1, for example, specifies the last element in the array, and an argument of –2 specifies the element before that one. Note that slice() does not modify the array on which it is invoked. Here are some examples:
 
-> slice() 方法返回指定数组的一个片段或子数组。它的两个实参分别指定了片段的开始和结束的位置。返回的数组包含第一个实参指定的位置和所有到但不含第二个实参指定的位置之间的所有数组元素。如果只指定一个实参，返回的数组将包含从开始位置到数组结尾的所有元素。如实参中出现负数，它表示相对于数组 length 的位置。例如，实参 -1 指定了最后一个元素，而 -2 指定了它前面的元素。注意，slice() 不会修改调用的数组。下面有一些示例：
+> slice() 方法返回指定数组的一个片段或子数组。它的两个实参分别指定了片段的开始和结束的位置。返回的数组包含第一个实参指定的位置到（但不包含）第二个实参指定的位置之间的所有数组元素。如果只指定一个实参，返回的数组将包含从开始位置到数组结尾的所有元素。如实参中出现负数，它表示相对于数组 length 的位置。例如，实参 -1 指定了最后一个元素，而 -2 指定了它前面的元素。注意，slice() 不会修改调用的数组。下面有一些示例：
 
 ```js
 let a = [1,2,3,4,5];
@@ -981,7 +981,7 @@ The length property is automatically updated as new elements are added to the li
 
 Setting length to a smaller value truncates the array.
 
-> 设置 length 为一个较小值将截断数组。
+> length 设置为一个较小值将截断数组。
 
 Arrays inherit useful methods from Array.prototype.
 
@@ -989,15 +989,15 @@ Arrays inherit useful methods from Array.prototype.
 
 Array.isArray() returns true for arrays.
 
-> Array.isArray() 为数组返回 true。
+> 数组传入 Array.isArray() 方法返回 true。
 
 These are the features that make JavaScript arrays distinct from regular objects. But they are not the essential features that define an array. It is often perfectly reasonable to treat any object with a numeric length property and corresponding non-negative integer properties as a kind of array.
 
-> 这些特性让 JavaScript 数组和常规的对象有明显的区别。但是它们不是定义数组的本质特性。一种常常完全合理的看法是把拥有一个数值 length 属性和对应非负整数属性的对象看一种类型的数组。
+> 这些特性让 JavaScript 数组和常规的对象有明显的区别。但是它们不是定义数组的本质特性。一种常常完全合理的看法是把拥有一个数值型 length 属性和对应非负整数属性的对象看作数组的同类。
 
 These “array-like” objects actually do occasionally appear in practice, and although you cannot directly invoke array methods on them or expect special behavior from the length property, you can still iterate through them with the same code you’d use for a true array. It turns out that many array algorithms work just as well with array-like objects as they do with real arrays. This is especially true if your algorithms treat the array as read-only or if they at least leave the array length unchanged.
 
-> 实践中这些“类数组”对象实际上偶尔出现，虽然不能通过它们直接调用数组方法或者期望 length 属性有什么特殊的行为，但是仍然可以用针对真正数组遍历代码来遍历它们。结论就是很多数组算法针对类数组对象同样奏效，就像针对真正的数组一样。尤其是这种情况，算法把数组看成只读的或者如果保持数组长度不变。
+> 实际上这些“类数组”对象在实践中偶尔出现，虽然不能通过它们直接调用数组方法或者期望 length 属性有什么特殊的行为，但是仍然可以用针对真正数组遍历代码来遍历它们。结论就是很多数组算法针对类数组对象同样奏效，就像针对真正的数组一样。尤其是这种情况，算法把数组看成只读的或者如果保持数组长度不变。
 
 The following code takes a regular object, adds properties to make it an array-like object, and then iterates through the “elements” of the resulting pseudo-array:
 
