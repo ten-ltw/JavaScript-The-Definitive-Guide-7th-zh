@@ -90,7 +90,65 @@
   <div class="markdown-inside">
     <h1>第 9 章 类</h1>
     <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
-    <p>JavaScript objects were covered in Chapter 6. That chapter treated each object as a unique set of properties, different from every other object. It is often useful, however, to define a class of objects that share certain properties. Members, or instances, of the class have their own properties to hold or define their state, but they also have methods that define their behavior. These methods are defined by the class and shared by all instances. Imagine a class named Complex that represents and performs arithmetic on complex numbers, for example. A Complex instance would have properties to hold the real and imaginary parts (the state) of the complex number. And the Complex class would define methods to perform addition and multiplication (the behavior) of those numbers.</p>
+    <ul>
+<li>
+<a href="#toc_0">9.1 Classes and Prototypes</a>
+</li>
+<li>
+<a href="#toc_1">9.2 Classes and Constructors</a>
+<ul>
+<li>
+<a href="#toc_2">9.2.1 Constructors, Class Identity, and instanceof</a>
+</li>
+<li>
+<a href="#toc_3">9.2.2 The constructor Property</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_4">9.3 Classes with the class Keyword</a>
+<ul>
+<li>
+<a href="#toc_5">9.3.1 Static Methods</a>
+</li>
+<li>
+<a href="#toc_6">9.3.2 Getters, Setters, and other Method Forms</a>
+</li>
+<li>
+<a href="#toc_7">9.3.3 Public, Private, and Static Fields</a>
+</li>
+<li>
+<a href="#toc_8">9.3.4 Example: A Complex Number Class</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_9">9.4 Adding Methods to Existing Classes</a>
+</li>
+<li>
+<a href="#toc_10">9.5 Subclasses</a>
+<ul>
+<li>
+<a href="#toc_11">9.5.1 Subclasses and Prototypes</a>
+</li>
+<li>
+<a href="#toc_12">9.5.2 Subclasses with extends and super</a>
+</li>
+<li>
+<a href="#toc_13">9.5.3 Delegation Instead of Inheritance</a>
+</li>
+<li>
+<a href="#toc_14">9.5.4 Class Hierarchies and Abstract Classes</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_15">9.6 Summary</a>
+</li>
+</ul>
+
+
+<p>JavaScript objects were covered in Chapter 6. That chapter treated each object as a unique set of properties, different from every other object. It is often useful, however, to define a class of objects that share certain properties. Members, or instances, of the class have their own properties to hold or define their state, but they also have methods that define their behavior. These methods are defined by the class and shared by all instances. Imagine a class named Complex that represents and performs arithmetic on complex numbers, for example. A Complex instance would have properties to hold the real and imaginary parts (the state) of the complex number. And the Complex class would define methods to perform addition and multiplication (the behavior) of those numbers.</p>
 
 <blockquote>
 <p>第 6 章详细介绍了 JavaScript 对象，每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种“共享”的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个名为 Complex 的类用来表示复数，同时还定义了一些复数运算。一个 Complex 实例应当包含复数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）。</p>
