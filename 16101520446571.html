@@ -90,7 +90,103 @@
   <div class="markdown-inside">
     <h1>第 3 章 类型、值和变量</h1>
     <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
-    <p>Computer programs work by manipulating values, such as the number 3.14 or the text “Hello World.” The kinds of values that can be represented and manipulated in a programming language are known as types, and one of the most fundamental characteristics of a programming language is the set of types it supports. When a program needs to retain a value for future use, it assigns the value to (or “stores” the value in) a variable. Variables have names, and they allow use of those names in our programs to refer to values. The way that variables work is another fundamental characteristic of any programming language. This chapter explains types, values, and variables in JavaScript. It begins with an overview and some definitions.</p>
+    <ul>
+<li>
+<a href="#toc_0">3.1 Overview and Definitions</a>
+</li>
+<li>
+<a href="#toc_1">3.2 Number</a>
+<ul>
+<li>
+<a href="#toc_2">3.2.1 Integer Literals</a>
+</li>
+<li>
+<a href="#toc_3">3.2.2 Floating-Point Literals</a>
+</li>
+<li>
+<a href="#toc_4">3.2.3 Arithmetic in JavaScript</a>
+</li>
+<li>
+<a href="#toc_5">3.2.4 Binary Floating-Point and Rounding Errors</a>
+</li>
+<li>
+<a href="#toc_6">3.2.5 Arbitrary Precision Integers with BigInt</a>
+</li>
+<li>
+<a href="#toc_7">3.2.6 Dates and Times</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_8">3.3 Text</a>
+<ul>
+<li>
+<a href="#toc_9">3.3.1 String Literals</a>
+</li>
+<li>
+<a href="#toc_10">3.3.2 Escape Sequences in String Literals</a>
+</li>
+<li>
+<a href="#toc_11">3.3.3 Working with Strings</a>
+</li>
+<li>
+<a href="#toc_12">3.3.4 Template Literals</a>
+</li>
+<li>
+<a href="#toc_13">3.3.5 Pattern Matching</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_14">3.4 Boolean Values</a>
+</li>
+<li>
+<a href="#toc_15">3.5 null and undefined</a>
+</li>
+<li>
+<a href="#toc_16">3.6 Symbols</a>
+</li>
+<li>
+<a href="#toc_17">3.7 The Global Object</a>
+</li>
+<li>
+<a href="#toc_18">3.8 Immutable Primitive Values and Mutable Object References</a>
+</li>
+<li>
+<a href="#toc_19">3.9 Type Conversions</a>
+<ul>
+<li>
+<a href="#toc_20">3.9.1 Conversions and Equality</a>
+</li>
+<li>
+<a href="#toc_21">3.9.2 Explicit Conversions</a>
+</li>
+<li>
+<a href="#toc_22">3.9.3 Object to Primitive Conversions</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_23">3.10 Variable Declaration and Assignment</a>
+<ul>
+<li>
+<a href="#toc_24">3.10.1 Declarations with let and const</a>
+</li>
+<li>
+<a href="#toc_25">3.10.2 Variable Declarations with var</a>
+</li>
+<li>
+<a href="#toc_26">3.10.3 Destructuring Assignment</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_27">3.11 Summary</a>
+</li>
+</ul>
+
+
+<p>Computer programs work by manipulating values, such as the number 3.14 or the text “Hello World.” The kinds of values that can be represented and manipulated in a programming language are known as types, and one of the most fundamental characteristics of a programming language is the set of types it supports. When a program needs to retain a value for future use, it assigns the value to (or “stores” the value in) a variable. Variables have names, and they allow use of those names in our programs to refer to values. The way that variables work is another fundamental characteristic of any programming language. This chapter explains types, values, and variables in JavaScript. It begins with an overview and some definitions.</p>
 
 <blockquote>
 <p>计算机程序通过处理数值来工作，比如数字3.14或文本“Hello World”。在一种编程语言中可以表示和操作的值的种类称为类型，而编程语言最基本的特征之一就是它所支持的类型集。当程序需要保留一个值以供将来使用时，它将该值赋给(或将该值“存储”在)一个变量。变量有名称，它们允许在程序中使用这些名称来引用值。变量工作的方式是任何编程语言的另一个基本特征。本章解释了JavaScript中的类型、值和变量。它以概述和一些定义开始。</p>
