@@ -190,7 +190,7 @@ As we’ve seen, the prototype object is fundamental to the identity of a class:
 
 Even though constructors are not as fundamental as prototypes, the constructor serves as the public face of a class. Most obviously, the name of the constructor function is usually adopted as the name of the class. We say, for example, that the Range() constructor creates Range objects. More fundamentally, however, constructors are used as the righthand operand of the instanceof operator when testing objects for membership in a class. If we have an object r and want to know if it is a Range object, we can write:
 
-> 尽管构造函数不像原型那样重要，但是构造函数充当 class 的大众脸。最明显的时，构造函数的名称通常用作类的名称。例如，我们说 Range() 构造函数创建 Range 对象。然而，更重要的是测试类中对象的成员关系，构造函数在右边被用作 instanceof 运算符的操作数。如果有一个对象 r，并且想知道它是不是一个 Range 对象，可以这样写：
+> 尽管构造函数不像原型那样重要，但是构造函数充当 class 的大众脸。最明显的是，构造函数的名称通常用作类的名称。例如，我们说 Range() 构造函数创建 Range 对象。然而，更重要的是测试类中对象的成员关系，构造函数在右边被用作 instanceof 运算符的操作数。如果有一个对象 r，并且想知道它是不是一个 Range 对象，可以这样写：
 
 ```js
 r instanceof Range   // => true: r inherits from Range.prototype
@@ -309,7 +309,7 @@ r.toString()              // => "(1...3)"
 ```
 It is important to understand that the classes defined in Examples 9-2 and 9-3 work in exactly the same way. The introduction of the class keyword to the language does not alter the fundamental nature of JavaScript’s prototype-based classes. And although Example 9-3 uses the class keyword, the resulting Range object is a constructor function, just like the version defined in Example 9-2. The new class syntax is clean and convenient but is best thought of as “syntactic sugar” for the more fundamental class definition mechanism shown in Example 9-2.
 
-> 重要的是要了解，在示例 9-2 和 9-3 中定义的类的工作方式完全相同。将类关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作示例 9-2 所示的基本类定义机制的语法糖。
+> 重要的是要了解，在示例 9-2 和 9-3 中定义的类的工作方式完全相同。将 class 关键字引入语言并不会改变 JavaScript 基于原型的类的基本性质。尽管示例 9-3 使用 class 关键字，但生成的 Range 对象是一个构造函数，就像示例 9-2 中定义的版本一样。新的 class 语法更清洁方便，但是最好将其看作示例 9-2 所示的基本类定义机制的语法糖。
 
 Note the following things about the class syntax in Example 9-3:
 
@@ -370,7 +370,7 @@ As with function definition expressions, class definition expressions can includ
 
 Although function expressions are quite common (particularly with the arrow function shorthand), in JavaScript programming, class definition expressions are not something that you are likely to use much unless you find yourself writing a function that takes a class as its argument and returns a subclass.
 
-> 尽管函数表达式很常见（尤其是使用箭头函数），但 JavaScript 编程中，类定义表达式并不是可能使用得太多的东西，除非正在编写一个以类为实参并返回子类的函数。
+> 尽管函数表达式很常见（尤其是使用箭头函数），但 JavaScript 编程中，类定义表达式可能并不是经常使用，除非正在编写一个以类为实参并返回子类的函数。
 
 We’ll conclude this introduction to the class keyword by mentioning a couple of important things you should know that are not apparent from class syntax:
 
@@ -435,7 +435,7 @@ In general, all of the shorthand method definition syntaxes allowed in object li
 ### 9.3.3 Public, Private, and Static Fields
 In the discussion here of classes defined with the class keyword, we have only described the definition of methods within the class body. The ES6 standard only allows the creation of methods (including getters, setters, and generators) and static methods; it does not include syntax for defining fields. If you want to define a field (which is just an object-oriented synonym for “property”) on a class instance, you must do that in the constructor function or in one of the methods. And if you want to define a static field for a class, you must do that outside the class body, after the class has been defined. Example 9-4 includes examples of both kinds of fields.
 
-> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是面向对象中"属性"的同义词），则必须在构造函数函数或其中一个方法中这样做。如果要为类定义静态字段，则必须在类正文之外（在类定义后）进行该字段。示例 9-4 包括这各种字段的示例。
+> 在此处对使用 class 关键字定义的类的讨论中，我们只描述了类正文中方法的定义。ES6 标准只允许创建方法（包括 getter、setter 和生成器）和静态方法；它不包括用于定义字段的语法。如果要在类实例上定义字段（这只是面向对象中"属性"的同义词），则必须在构造函数函数或其中一个方法中这样做。必须在类正文之外类定义后，才能为类定义静态字段。示例 9-4 包括这各种字段的示例。
 
 Standardization is underway, however, for extended class syntax that allows the definition of instance and static fields, in both public and private forms. The code shown in the rest of this section is not yet standard JavaScript as of early 2020 but is already supported in Chrome and partially supported (public instance fields only) in Firefox. The syntax for public instance fields is in common use by JavaScript programmers using the React framework and the Babel transpiler.
 
@@ -828,7 +828,7 @@ Finally, before we leave the TypedMap example behind, it is worth noting that th
 ### 9.5.3 Delegation Instead of Inheritance
 The extends keyword makes it easy to create subclasses. But that does not mean that you should create lots of subclasses. If you want to write a class that shares the behavior of some other class, you can try to inherit that behavior by creating a subclass. But it is often easier and more flexible to get that desired behavior into your class by having your class create an instance of the other class and simply delegating to that instance as needed. You create a new class not by subclassing, but instead by wrapping or “composing” other classes. This delegation approach is often called “composition”, and it is an oft-quoted maxim of object-oriented programming that one should “favor composition over inheritance.”2
 
-> extends 关键字便于创建子类。但这并不意味着应该创建大量的子类。如果要编写某些其他类共享的行为的类，可以尝试通过创建子类来继承该行为。但是，通常将期望的行为编写在类中比用类创建其他类的实例并根据需要委派给该实例更简单也更灵活。创建新类不将其作为子类，而是通过包装或"组合"其他类。这种委托方法通常称为"组合"，它是一种面向对象编程经常被引用的座右铭"倾向于组合而不是继承"。^2
+> extends 关键字便于创建子类。但这并不意味着应该创建大量的子类。如果要编写某些其他类共享的行为的类，可以尝试通过创建子类来继承该行为。但是，通常将期望的行为编写在类中比用类创建其他类的实例并根据需要委托给该实例更简单也更灵活。创建新类不将其作为子类，而是通过包装或"组合"其他类。这种委托方法通常称为"组合"，它是一种面向对象编程经常被引用的座右铭"倾向于组合而不是继承"。^2
 
 Suppose, for example, we wanted a Histogram class that behaves something like JavaScript’s Set class, except that instead of just keeping track of whether a value has been added to set or not, it instead maintains a count of the number of times the value has been added. Because the API for this Histogram class is similar to Set, we might consider subclassing Set and adding a count() method. On the other hand, once we start thinking about how we might implement this count() method, we might realize that the Histogram class is more like a Map than a Set because it needs to maintain a mapping between values and the number of times they have been added. So instead of subclassing Set, we can create a class that defines a Set-like API but implements those methods by delegating to an internal Map object. Example 9-7 shows how we could do this.
 
