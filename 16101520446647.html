@@ -139,78 +139,81 @@
 <a href="#toc_14">FOREACH()</a>
 </li>
 <li>
-<a href="#toc_15">FILTER()</a>
+<a href="#toc_15">MAP()</a>
 </li>
 <li>
-<a href="#toc_16">FIND() AND FINDINDEX()</a>
+<a href="#toc_16">FILTER()</a>
 </li>
 <li>
-<a href="#toc_17">EVERY() AND SOME()</a>
+<a href="#toc_17">FIND() AND FINDINDEX()</a>
 </li>
 <li>
-<a href="#toc_18">REDUCE() AND REDUCERIGHT()</a>
+<a href="#toc_18">EVERY() AND SOME()</a>
+</li>
+<li>
+<a href="#toc_19">REDUCE() AND REDUCERIGHT()</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_19">7.8.2 Flattening arrays with flat() and flatMap()</a>
+<a href="#toc_20">7.8.2 Flattening arrays with flat() and flatMap()</a>
 </li>
 <li>
-<a href="#toc_20">7.8.3 Adding arrays with concat()</a>
+<a href="#toc_21">7.8.3 Adding arrays with concat()</a>
 </li>
 <li>
-<a href="#toc_21">7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()</a>
+<a href="#toc_22">7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()</a>
 </li>
 <li>
-<a href="#toc_22">7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()</a>
+<a href="#toc_23">7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()</a>
 <ul>
 <li>
-<a href="#toc_23">SLICE()</a>
+<a href="#toc_24">SLICE()</a>
 </li>
 <li>
-<a href="#toc_24">SPLICE()</a>
+<a href="#toc_25">SPLICE()</a>
 </li>
 <li>
-<a href="#toc_25">FILL()</a>
+<a href="#toc_26">FILL()</a>
 </li>
 <li>
-<a href="#toc_26">COPYWITHIN()</a>
+<a href="#toc_27">COPYWITHIN()</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_27">7.8.6 Array Searching and Sorting Methods</a>
+<a href="#toc_28">7.8.6 Array Searching and Sorting Methods</a>
 <ul>
 <li>
-<a href="#toc_28">INDEXOF() AND LASTINDEXOF()</a>
+<a href="#toc_29">INDEXOF() AND LASTINDEXOF()</a>
 </li>
 <li>
-<a href="#toc_29">INCLUDES()</a>
+<a href="#toc_30">INCLUDES()</a>
 </li>
 <li>
-<a href="#toc_30">SORT()</a>
+<a href="#toc_31">SORT()</a>
 </li>
 <li>
-<a href="#toc_31">REVERSE()</a>
+<a href="#toc_32">REVERSE()</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_32">7.8.7 Array to String Conversions</a>
+<a href="#toc_33">7.8.7 Array to String Conversions</a>
 </li>
 <li>
-<a href="#toc_33">7.8.8 Static Array Functions</a>
+<a href="#toc_34">7.8.8 Static Array Functions</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_34">7.9 Array-Like Objects</a>
+<a href="#toc_35">7.9 Array-Like Objects</a>
 </li>
 <li>
-<a href="#toc_35">7.10 Strings as Arrays</a>
+<a href="#toc_36">7.10 Strings as Arrays</a>
 </li>
 <li>
-<a href="#toc_36">7.11 Summary</a>
+<a href="#toc_37">7.11 Summary</a>
 </li>
 </ul>
 
@@ -893,8 +896,9 @@ data.forEach(function(v, i, a) { a[i] = v + 1; }); // data == [2,3,4,5,6]
 <p>请注意，forEach() 不提供在所有元素传递给函数之前终止迭代的方法。也就是说，没有等效于常规 for 循环的 break 语句可以使用。</p>
 </blockquote>
 
-<p>MAP()<br/>
-The map() method passes each element of the array on which it is invoked to the function you specify and returns an array containing the values returned by your function. For example:</p>
+<h4 id="toc_15">MAP()</h4>
+
+<p>The map() method passes each element of the array on which it is invoked to the function you specify and returns an array containing the values returned by your function. For example:</p>
 
 <blockquote>
 <p>map() 方法将调用数组的每个元素传递到指定的函数，并返回一个包含函数返回的值的数组。例如：</p>
@@ -910,7 +914,7 @@ a.map(x =&gt; x*x)   // =&gt; [1, 4, 9]: the function takes input x and returns 
 <p>传递到 map() 的函数的调用方式与传递给 forEach() 的函数相同。但是，对于 map() 方法，传递的函数应返回一个值。请注意，map() 返回一个新数组：它不会修改调用它的数组。如果该数组是稀疏的，则不会为缺失的元素调用函数，但返回的数组将稀疏，其确实元素与原始数组的位置相同：它将具有相同的长度和相同的缺失元素。</p>
 </blockquote>
 
-<h4 id="toc_15">FILTER()</h4>
+<h4 id="toc_16">FILTER()</h4>
 
 <p>The filter() method returns an array containing a subset of the elements of the array on which it is invoked. The function you pass to it should be predicate: a function that returns true or false. The predicate is invoked just as for forEach() and map(). If the return value is true, or a value that converts to true, then the element passed to the predicate is a member of the subset and is added to the array that will become the return value. Examples:</p>
 
@@ -941,7 +945,7 @@ a.filter((x,i) =&gt; i%2 === 0) // =&gt; [5, 3, 1]; every other value
 <pre><code class="language-javascript">a = a.filter(x =&gt; x !== undefined &amp;&amp; x !== null);
 </code></pre>
 
-<h4 id="toc_16">FIND() AND FINDINDEX()</h4>
+<h4 id="toc_17">FIND() AND FINDINDEX()</h4>
 
 <p>The find() and findIndex() methods are like filter() in that they iterate through your array looking for elements for which your predicate function returns a truthy value. Unlike filter(), however, these two methods stop iterating the first time the predicate finds an element. When that happens, find() returns the matching element, and findIndex() returns the index of the matching element. If no matching element is found, find() returns undefined and findIndex() returns -1:</p>
 
@@ -956,7 +960,7 @@ a.find(x =&gt; x % 5 === 0)   // =&gt; 5: this is a multiple of 5
 a.find(x =&gt; x % 7 === 0)   // =&gt; undefined: no multiples of 7 in the array
 </code></pre>
 
-<h4 id="toc_17">EVERY() AND SOME()</h4>
+<h4 id="toc_18">EVERY() AND SOME()</h4>
 
 <p>The every() and some() methods are array predicates: they apply a predicate function you specify to the elements of the array, then return true or false.</p>
 
@@ -992,7 +996,7 @@ a.some(isNaN)         // =&gt; false; a has no non-numbers.
 <p>请注意，every() 和 some() 只要它们知道要返回的值，都停止对数组元素的遍历。some() 在断言函数第一次返回 true 时返回 true，并且只有在每个元素调用断言函数都返回 false 时，才会遍历整个数组 。every() 正好相反：它返回 false 时，您的谓词返回 false，并且仅在谓词始终返回 true 时，才会回注所有元素。另请注意，根据数学约定，every() 返回 true，有些返回 false，当在空数组上调用时，某些返回 false。</p>
 </blockquote>
 
-<h4 id="toc_18">REDUCE() AND REDUCERIGHT()</h4>
+<h4 id="toc_19">REDUCE() AND REDUCERIGHT()</h4>
 
 <p>The reduce() and reduceRight() methods combine the elements of an array, using the function you specify, to produce a single value. This is a common operation in functional programming and also goes by the names “inject” and “fold.” Examples help illustrate how it works:</p>
 
@@ -1053,7 +1057,7 @@ a.reduceRight((acc,val) =&gt; Math.pow(val,acc)) // =&gt; 2.4178516392292583e+24
 <p>为了简单起见，到目前位置所展示的例子都是数值的，但数学计算不是 reduce() 和 reduceRight() 的唯一意图。任何想要将两个相同类型的值（例如两个对象）合并到一个值的函数都可以用化简函数。另一方面，使用数组化简的算法可能很快变得复杂且难以理解，可能会发现，如果使用常规循环构造来处理数组则更容易读、写和推理。</p>
 </blockquote>
 
-<h3 id="toc_19">7.8.2 Flattening arrays with flat() and flatMap()</h3>
+<h3 id="toc_20">7.8.2 Flattening arrays with flat() and flatMap()</h3>
 
 <p>In ES2019, the flat() method creates and returns a new array that contains the same elements as the array it is called on, except that any elements that are themselves arrays are “flattened” into the returned array. For example:</p>
 
@@ -1099,7 +1103,7 @@ words // =&gt; [&quot;hello&quot;, &quot;world&quot;, &quot;the&quot;, &quot;def
 [-2, -1, 1, 2].flatMap(x =&gt; x &lt; 0 ? [] : Math.sqrt(x)) // =&gt; [1, 2**0.5]
 </code></pre>
 
-<h3 id="toc_20">7.8.3 Adding arrays with concat()</h3>
+<h3 id="toc_21">7.8.3 Adding arrays with concat()</h3>
 
 <p>The concat() method creates and returns a new array that contains the elements of the original array on which concat() was invoked, followed by each of the arguments to concat(). If any of these arguments is itself an array, then it is the array elements that are concatenated, not the array itself. Note, however, that concat() does not recursively flatten arrays of arrays. concat() does not modify the array on which it is invoked:</p>
 
@@ -1120,7 +1124,7 @@ a                       // =&gt; [1,2,3]; the original array is unmodified
 <p>请注意，concat() 创建调用数组的新副本。在许多情况下，这是正确的做法，但它是一个昂贵的操作。如果您发现自己编写代码像 <code>a = a.concat(x)</code>，那么您应该考虑使用 push() 或 splice() 修改数组，而不是创建新的数组。</p>
 </blockquote>
 
-<h3 id="toc_21">7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()</h3>
+<h3 id="toc_22">7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()</h3>
 
 <p>The push() and pop() methods allow you to work with arrays as if they were stacks. The push() method appends one or more new elements to the end of an array and returns the new length of the array. Unlike concat(), push() does not flatten array arguments. The pop() method does the reverse: it deletes the last element of an array, decrements the array length, and returns the value that it removed. Note that both methods modify the array in place. The combination of push() and pop() allows you to use a JavaScript array to implement a first-in, last-out stack. For example:</p>
 
@@ -1174,7 +1178,7 @@ a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
 </code></pre>
 
-<h3 id="toc_22">7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()</h3>
+<h3 id="toc_23">7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()</h3>
 
 <p>Arrays define a number of methods that work on contiguous regions, or subarrays or “slices” of an array. The following sections describe methods for extracting, replacing, filling, and copying slices.</p>
 
@@ -1182,7 +1186,7 @@ a.unshift(1,2)         // a == [1, 2]
 <p>数组定义了许多在连续区域，子数组或数组的“片段”上工作的方法。 以下各节描述了提取，替换，填充和复制片段的方法。</p>
 </blockquote>
 
-<h4 id="toc_23">SLICE()</h4>
+<h4 id="toc_24">SLICE()</h4>
 
 <p>The slice() method returns a slice, or subarray, of the specified array. Its two arguments specify the start and end of the slice to be returned. The returned array contains the element specified by the first argument and all subsequent elements up to, but not including, the element specified by the second argument. If only one argument is specified, the returned array contains all elements from the start position to the end of the array. If either argument is negative, it specifies an array element relative to the length of the array. An argument of –1, for example, specifies the last element in the array, and an argument of –2 specifies the element before that one. Note that slice() does not modify the array on which it is invoked. Here are some examples:</p>
 
@@ -1197,7 +1201,7 @@ a.slice(1,-1);   // Returns [2,3,4]
 a.slice(-3,-2);  // Returns [3]
 </code></pre>
 
-<h4 id="toc_24">SPLICE()</h4>
+<h4 id="toc_25">SPLICE()</h4>
 
 <p>splice() is a general-purpose method for inserting or removing elements from an array. Unlike slice() and concat(), splice() modifies the array on which it is invoked. Note that splice() and slice() have very similar names but perform substantially different operations.</p>
 
@@ -1234,7 +1238,7 @@ a.splice(2,2,[1,2],3)  // =&gt; [&quot;a&quot;,&quot;b&quot;]; a is now [1,2,[1,
 <p>注意，不同于 concat()，splice() 插入数组本身，不是数组的元素。</p>
 </blockquote>
 
-<h4 id="toc_25">FILL()</h4>
+<h4 id="toc_26">FILL()</h4>
 
 <p>The fill() method sets the elements of an array, or a slice of an array, to a specified value. It mutates the array it is called on, and also returns the modified array:</p>
 
@@ -1254,7 +1258,7 @@ a.fill(8, 2, -1)        // =&gt; [0,9,8,8,9]; fill with 8 at indexes 2, 3
 <p>fill() 的第一个实参是将数组元素填充的值。可选的第二个实参指定起始索引。如果省略，则填充将从索引 0 开始。可选的第三个实参指定结束索引，将填充到（但不包括）该索引的数组元素。 如果省略此实参，则从起始索引到末尾填充数组。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样。</p>
 </blockquote>
 
-<h4 id="toc_26">COPYWITHIN()</h4>
+<h4 id="toc_27">COPYWITHIN()</h4>
 
 <p>copyWithin() copies a slice of an array to a new position within the array. It modifies the array in place and returns the modified array, but it will not change the length of the array. The first argument specifies the destination index to which the first element will be copied. The second argument specifies the index of the first element to be copied. If this second argument is omitted, 0 is used. The third argument specifies the end of the slice of elements to be copied. If omitted, the length of the array is used. Elements from the start index up to, but not including, the end index will be copied. You can specify indexes relative to the end of the array by passing negative numbers, just as you can for slice():</p>
 
@@ -1274,7 +1278,7 @@ a.copyWithin(0, -2)   // =&gt; [4,4,3,4,4]: negative offsets work, too
 <p>copyWithin() 旨在作为一种高性能方法，对类型化数组特别有用（请参见 §11.2）。它模仿的 C 标准库中 memmove() 函数。 请注意，即使源区域和目标区域之间存在重叠，该拷贝也可以正常工作。</p>
 </blockquote>
 
-<h3 id="toc_27">7.8.6 Array Searching and Sorting Methods</h3>
+<h3 id="toc_28">7.8.6 Array Searching and Sorting Methods</h3>
 
 <p>Arrays implement indexOf(), lastIndexOf(), and includes() methods that are similar to the same-named methods of strings. There are also sort() and reverse() methods for reordering the elements of an array. These methods are described in the subsections that follow.</p>
 
@@ -1282,7 +1286,7 @@ a.copyWithin(0, -2)   // =&gt; [4,4,3,4,4]: negative offsets work, too
 <p>数组实现 indexOf()、lastIndexOf() 和 include() 方法，这些方法类似于名称相同的字符串方法。还有 sort() 和 reverse() 方法，用于对数组元素进行重新排序。这些方法在下面的小节中介绍。</p>
 </blockquote>
 
-<h4 id="toc_28">INDEXOF() AND LASTINDEXOF()</h4>
+<h4 id="toc_29">INDEXOF() AND LASTINDEXOF()</h4>
 
 <p>indexOf() and lastIndexOf() search an array for an element with a specified value and return the index of the first such element found, or -1 if none is found. indexOf() searches the array from beginning to end, and lastIndexOf() searches from end to beginning:</p>
 
@@ -1336,7 +1340,7 @@ function findall(a, x) {
 <p>请注意，字符串具有 indexOf() 和 lastIndexOf() 方法，它们与这些数组方法一样工作，不同之处在于第二个实参是负数时被视为零。</p>
 </blockquote>
 
-<h4 id="toc_29">INCLUDES()</h4>
+<h4 id="toc_30">INCLUDES()</h4>
 
 <p>The ES2016 includes() method takes a single argument and returns true if the array contains that value or false otherwise. It does not tell you the index of the value, only whether it exists. The includes() method is effectively a set membership test for arrays. Note, however, that arrays are not an efficient representation for sets, and if you are working with more than a few elements, you should use a real Set object (§11.1.1).</p>
 
@@ -1357,7 +1361,7 @@ a.includes(NaN)             // =&gt; true
 a.indexOf(NaN)              // =&gt; -1; indexOf can&#39;t find NaN
 </code></pre>
 
-<h4 id="toc_30">SORT()</h4>
+<h4 id="toc_31">SORT()</h4>
 
 <p>sort() sorts the elements of an array in place and returns the sorted array. When sort() is called with no arguments, it sorts the array elements in alphabetical order (temporarily converting them to strings to perform the comparison, if necessary):</p>
 
@@ -1406,7 +1410,7 @@ a.sort(function(s,t) {
 });   // a == [&quot;ant&quot;,&quot;Bug&quot;,&quot;cat&quot;,&quot;Dog&quot;]; case-insensitive sort
 </code></pre>
 
-<h4 id="toc_31">REVERSE()</h4>
+<h4 id="toc_32">REVERSE()</h4>
 
 <p>The reverse() method reverses the order of the elements of an array and returns the reversed array. It does this in place; in other words, it doesn’t create a new array with the elements rearranged but instead rearranges them in the already existing array:</p>
 
@@ -1418,7 +1422,7 @@ a.sort(function(s,t) {
 a.reverse();   // a == [3,2,1]
 </code></pre>
 
-<h3 id="toc_32">7.8.7 Array to String Conversions</h3>
+<h3 id="toc_33">7.8.7 Array to String Conversions</h3>
 
 <p>The Array class defines three methods that can convert arrays to strings, which is generally something you might do when creating log and error messages. (If you want to save the contents of an array in textual form for later reuse, serialize the array with JSON.stringify() [§6.8] instead of using the methods described here.)</p>
 
@@ -1469,7 +1473,7 @@ b.join(&quot;-&quot;)            // =&gt; &quot;---------&quot;: a string of 9 h
 <p>toLocaleString() 是 toString() 的本地化版本。它通过调用元素的 toLocaleString() 方法将每个数组元素转换为字符串，然后使用特定于区域设置（和实现定义）分隔符字符串连接生成的字符串。</p>
 </blockquote>
 
-<h3 id="toc_33">7.8.8 Static Array Functions</h3>
+<h3 id="toc_34">7.8.8 Static Array Functions</h3>
 
 <p>In addition to the array methods we’ve already documented, the Array class also defines three static functions that you can invoke through the Array constructor rather than on arrays. Array.of() and Array.from() are factory methods for creating new arrays. They were documented in §7.1.4 and §7.1.5.</p>
 
@@ -1487,7 +1491,7 @@ b.join(&quot;-&quot;)            // =&gt; &quot;---------&quot;: a string of 9 h
 Array.isArray({})     // =&gt; false
 </code></pre>
 
-<h2 id="toc_34">7.9 Array-Like Objects</h2>
+<h2 id="toc_35">7.9 Array-Like Objects</h2>
 
 <p>As we’ve seen, JavaScript arrays have some special features that other objects do not have:</p>
 
@@ -1604,7 +1608,7 @@ Array.from(a)                      // =&gt; [&quot;a&quot;,&quot;b&quot;,&quot;c
 <p>此代码倒数第二行调用数组类对象上的 Array slice() 方法，以便将该对象的元素复制到真正的数组对象中。这是一个惯用的技巧，存在于许多旧代码中，但现在使用 Array.from() 要容易得多。</p>
 </blockquote>
 
-<h2 id="toc_35">7.10 Strings as Arrays</h2>
+<h2 id="toc_36">7.10 Strings as Arrays</h2>
 
 <p>JavaScript strings behave like read-only arrays of UTF-16 Unicode characters. Instead of accessing individual characters with the charAt() method, you can use square brackets:</p>
 
@@ -1638,7 +1642,7 @@ s[1]           // =&gt; &quot;e&quot;
 <p>请记住，字符串是不可变值，因此当字符串被视为数组时，它们是只读数组。数组方法 push()、sort()、reverse() 和 splice() 直接修改数组，它们不能处理字符串。但是，尝试使用数组方法修改字符串不会引发异常：它只是静默失败。</p>
 </blockquote>
 
-<h2 id="toc_36">7.11 Summary</h2>
+<h2 id="toc_37">7.11 Summary</h2>
 
 <p>This chapter has covered JavaScript arrays in depth, including esoteric details about sparse arrays and array-like objects. The main points to take from this chapter are:</p>
 
