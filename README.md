@@ -26,6 +26,9 @@
 - [第 16 章 服务器端 JavaScript](docs/ch16.md)
 - [第 17 章 JavaScript 工具和扩展](docs/ch17.md)
 
+模块、标准库选择性阅读
+Node 相关先放一放
+
 ## License
 
 [MIT](./LICENSE)
