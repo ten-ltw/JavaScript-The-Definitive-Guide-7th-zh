@@ -496,7 +496,7 @@ Each of these functions is invoked with a function as its first argument, and it
 
 > 这节的每个函数都调用它的第一个函数实参，并且通常将该函数内联定义为方法调用表达式的一部分，而不是使用在其他地方显示定义的函数。箭头函数语法（参见 §8.1.3）在这些方法中特别有效，我们将在下面的示例中使用它。
 
-FOREACH()
+#### FOREACH()
 The forEach() method iterates through an array, invoking a function you specify for each element. As we’ve described, you pass the function as the first argument to forEach(). forEach() then invokes your function with three arguments: the value of the array element, the index of the array element, and the array itself. If you only care about the value of the array element, you can write a function with only one parameter—the additional arguments will be ignored:
 
 > forEach() 方法遍历数组，调用为每个元素指定的函数。正如我们已经描述的那样，将函数作为第一个实参传递给 forEach()。forEach() 然后使用三个实参调用函数：数组元素的值、数组元素的索引和数组本身。如果只关心数组元素的值，则编写一个只有一个实参的函数（将忽略其他实参）：
@@ -513,7 +513,7 @@ Note that forEach() does not provide a way to terminate iteration before all ele
 
 > 请注意，forEach() 不提供在所有元素传递给函数之前终止迭代的方法。也就是说，没有等效于常规 for 循环的 break 语句可以使用。
 
-MAP()
+#### MAP()
 The map() method passes each element of the array on which it is invoked to the function you specify and returns an array containing the values returned by your function. For example:
 
 > map() 方法将调用数组的每个元素传递到指定的函数，并返回一个包含函数返回的值的数组。例如：
@@ -526,7 +526,7 @@ The function you pass to map() is invoked in the same way as a function passed t
 
 > 传递到 map() 的函数的调用方式与传递给 forEach() 的函数相同。但是，对于 map() 方法，传递的函数应返回一个值。请注意，map() 返回一个新数组：它不会修改调用它的数组。如果该数组是稀疏的，则不会为缺失的元素调用函数，但返回的数组将稀疏，其确实元素与原始数组的位置相同：它将具有相同的长度和相同的缺失元素。
 
-FILTER()
+#### FILTER()
 The filter() method returns an array containing a subset of the elements of the array on which it is invoked. The function you pass to it should be predicate: a function that returns true or false. The predicate is invoked just as for forEach() and map(). If the return value is true, or a value that converts to true, then the element passed to the predicate is a member of the subset and is added to the array that will become the return value. Examples:
 
 > filter() 方法返回一个数组，其中包含调用该数组的数组元素的子集。传递给它的函数应该是断言：返回真或假的函数。断言函数的调用就像 forEach() 和 map() 调用一样。如果返回值为 true，或者能转换为 true 的值，则传递给断言的元素是子集的成员，并将添加到将成为返回值的数组中。例子：
@@ -550,7 +550,7 @@ And to close gaps and remove undefined and null elements, you can use filter, li
 ```js
 a = a.filter(x => x !== undefined && x !== null);
 ```
-FIND() AND FINDINDEX()
+#### FIND() AND FINDINDEX()
 The find() and findIndex() methods are like filter() in that they iterate through your array looking for elements for which your predicate function returns a truthy value. Unlike filter(), however, these two methods stop iterating the first time the predicate finds an element. When that happens, find() returns the matching element, and findIndex() returns the index of the matching element. If no matching element is found, find() returns undefined and findIndex() returns -1:
 
 > find() 和 findIndex() 方法就像 filter()，因为它们在数组中迭代，查找断言函数返回真实值的元素。但是，与 filter()不同，这两种方法在断言首次查找元素到时停止遍历。发生这种情况时，find() 返回匹配元素，而 findIndex() 返回匹配元素的索引。如果未找到匹配元素，find() 返回 undefined，findIndex() 返回 -1：
@@ -562,7 +562,7 @@ a.findIndex(x => x < 0)    // => -1; no negative numbers in the array
 a.find(x => x % 5 === 0)   // => 5: this is a multiple of 5
 a.find(x => x % 7 === 0)   // => undefined: no multiples of 7 in the array
 ```
-EVERY() AND SOME()
+#### EVERY() AND SOME()
 The every() and some() methods are array predicates: they apply a predicate function you specify to the elements of the array, then return true or false.
 
 > every() 和 some() 方法是数组断言：它们将指定的断言函数应用于数组的元素，然后返回 true 或 false。
@@ -589,7 +589,7 @@ Note that both every() and some() stop iterating array elements as soon as they 
 
 > 请注意，every() 和 some() 只要它们知道要返回的值，都停止对数组元素的遍历。some() 在断言函数第一次返回 true 时返回 true，并且只有在每个元素调用断言函数都返回 false 时，才会遍历整个数组 。every() 正好相反：它返回 false 时，您的谓词返回 false，并且仅在谓词始终返回 true 时，才会回注所有元素。另请注意，根据数学约定，every() 返回 true，有些返回 false，当在空数组上调用时，某些返回 false。
 
-REDUCE() AND REDUCERIGHT()
+#### REDUCE() AND REDUCERIGHT()
 The reduce() and reduceRight() methods combine the elements of an array, using the function you specify, to produce a single value. This is a common operation in functional programming and also goes by the names “inject” and “fold.” Examples help illustrate how it works:
 
 > reduce() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值。这在函数式编程中是常见的操作，也可以称为“注入”和“折叠”。举例说明它是如何工作的：
@@ -736,7 +736,7 @@ Arrays define a number of methods that work on contiguous regions, or subarrays 
 
 > 数组定义了许多在连续区域，子数组或数组的“片段”上工作的方法。 以下各节描述了提取，替换，填充和复制片段的方法。
 
-SLICE()
+#### SLICE()
 The slice() method returns a slice, or subarray, of the specified array. Its two arguments specify the start and end of the slice to be returned. The returned array contains the element specified by the first argument and all subsequent elements up to, but not including, the element specified by the second argument. If only one argument is specified, the returned array contains all elements from the start position to the end of the array. If either argument is negative, it specifies an array element relative to the length of the array. An argument of –1, for example, specifies the last element in the array, and an argument of –2 specifies the element before that one. Note that slice() does not modify the array on which it is invoked. Here are some examples:
 
 > slice() 方法返回指定数组的一个片段或子数组。它的两个实参分别指定了片段的开始和结束的位置。返回的数组包含第一个实参指定的位置到（但不包含）第二个实参指定的位置之间的所有数组元素。如果只指定一个实参，返回的数组将包含从开始位置到数组结尾的所有元素。如实参中出现负数，它表示相对于数组 length 的位置。例如，实参 -1 指定了最后一个元素，而 -2 指定了它前面的元素。注意，slice() 不会修改调用的数组。下面有一些示例：
@@ -748,7 +748,7 @@ a.slice(3);      // Returns [4,5]
 a.slice(1,-1);   // Returns [2,3,4]
 a.slice(-3,-2);  // Returns [3]
 ```
-SPLICE()
+#### SPLICE()
 splice() is a general-purpose method for inserting or removing elements from an array. Unlike slice() and concat(), splice() modifies the array on which it is invoked. Note that splice() and slice() have very similar names but perform substantially different operations.
 
 > splice() 方法是在数组中插入或删除元素的通用方法。不同于 slice() 和 concat()，splice() 会修改调用的数组。注意，splice() 和 slice() 拥有非常相似的名字， 但它们的功能却有本质的区别。
@@ -776,7 +776,7 @@ Note that, unlike concat(), splice() inserts arrays themselves, not the elements
 
 > 注意，不同于 concat()，splice() 插入数组本身，不是数组的元素。
 
-FILL()
+#### FILL()
 The fill() method sets the elements of an array, or a slice of an array, to a specified value. It mutates the array it is called on, and also returns the modified array:
 
 > fill() 方法将数组或数组片段的元素填充为指定值。它将对调用它的数组进行突变，并返回修改后的数组：
@@ -791,7 +791,7 @@ The first argument to fill() is the value to set array elements to. The optional
 
 > fill() 的第一个实参是将数组元素填充的值。可选的第二个实参指定起始索引。如果省略，则填充将从索引 0 开始。可选的第三个实参指定结束索引，将填充到（但不包括）该索引的数组元素。 如果省略此实参，则从起始索引到末尾填充数组。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样。
 
-COPYWITHIN()
+#### COPYWITHIN()
 copyWithin() copies a slice of an array to a new position within the array. It modifies the array in place and returns the modified array, but it will not change the length of the array. The first argument specifies the destination index to which the first element will be copied. The second argument specifies the index of the first element to be copied. If this second argument is omitted, 0 is used. The third argument specifies the end of the slice of elements to be copied. If omitted, the length of the array is used. Elements from the start index up to, but not including, the end index will be copied. You can specify indexes relative to the end of the array by passing negative numbers, just as you can for slice():
 
 > copyWithin() 将数组的一个片段复制到数组中的新位置。它在适当的位置修改数组并返回修改后的数组，但不会更改数组的长度。第一个实参指定将第一个元素复制到的目标索引。第二个实参指定被复制的第一个元素的索引。如果省略此第二个实参，则使用 0。第三个实参指定被复制的元素片段的结尾。如果省略，则使用数组的长度。从开始索引到结束索引（但不包括结束索引）的元素将被复制。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样：
@@ -811,7 +811,7 @@ Arrays implement indexOf(), lastIndexOf(), and includes() methods that are simil
 
 > 数组实现 indexOf()、lastIndexOf() 和 include() 方法，这些方法类似于名称相同的字符串方法。还有 sort() 和 reverse() 方法，用于对数组元素进行重新排序。这些方法在下面的小节中介绍。
 
-INDEXOF() AND LASTINDEXOF()
+#### INDEXOF() AND LASTINDEXOF()
 indexOf() and lastIndexOf() search an array for an element with a specified value and return the index of the first such element found, or -1 if none is found. indexOf() searches the array from beginning to end, and lastIndexOf() searches from end to beginning:
 
 > indexOf() 和 lastIndexOf() 在数组中搜索具有指定值的元素，并返回找到的第一个元素的索引，如果未找到，则返回 -1。indexOf() 从头到尾搜索数组，lastIndexOf() 从尾到头搜索：
@@ -854,7 +854,7 @@ Note that strings have indexOf() and lastIndexOf() methods that work like these 
 
 > 请注意，字符串具有 indexOf() 和 lastIndexOf() 方法，它们与这些数组方法一样工作，不同之处在于第二个实参是负数时被视为零。
 
-INCLUDES()
+#### INCLUDES()
 The ES2016 includes() method takes a single argument and returns true if the array contains that value or false otherwise. It does not tell you the index of the value, only whether it exists. The includes() method is effectively a set membership test for arrays. Note, however, that arrays are not an efficient representation for sets, and if you are working with more than a few elements, you should use a real Set object (§11.1.1).
 
 > ES2016 的 includes() 方法采用单个实参，如果数组包含该值返回 true 否则 false。它不会告诉你值的索引，只告诉你该值是否存在。includes() 方法实际上是数组集的成员身份测试。但是请注意，数组不是 Set 的高效表示形式，如果使用多个元素，则应使用真正的 Set 对象（§11.1.1）。
@@ -870,7 +870,7 @@ a.includes(2)               // => false
 a.includes(NaN)             // => true
 a.indexOf(NaN)              // => -1; indexOf can't find NaN
 ```
-SORT()
+#### SORT()
 sort() sorts the elements of an array in place and returns the sorted array. When sort() is called with no arguments, it sorts the array elements in alphabetical order (temporarily converting them to strings to perform the comparison, if necessary):
 
 > sort() 对数组的元素直接进行排序，并返回排序后的数组。当调用 sort() 时，它会按字母顺序对数组元素进行排序（如有必要，暂时将它们转换为字符串以执行比较）：
@@ -910,7 +910,7 @@ a.sort(function(s,t) {
     return 0;
 });   // a == ["ant","Bug","cat","Dog"]; case-insensitive sort
 ```
-REVERSE()
+#### REVERSE()
 The reverse() method reverses the order of the elements of an array and returns the reversed array. It does this in place; in other words, it doesn’t create a new array with the elements rearranged but instead rearranges them in the already existing array:
 
 > reverse() 方法反转数组中元素的顺序并返回反转后的数组。它直接在数组中操作，换一种说法，它不创建一个新的数组，它不创建一个新的带有排序后的元素的数组，而是直接在已存在的数组中进行排序。
