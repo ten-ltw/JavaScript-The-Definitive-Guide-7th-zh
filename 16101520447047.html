@@ -197,7 +197,7 @@
 <p>The reason that the methods of one class are independent of the methods of other, unrelated classes is that the methods of each class are defined as properties of independent prototype objects. The reason that classes are modular is that objects are modular: defining a property in a JavaScript object is a lot like declaring a variable, but adding properties to objects does not affect the global namespace of a program, nor does it affect the properties of other objects. JavaScript defines quite a few mathematical functions and constants, but instead of defining them all globally, they are grouped as properties of a single global Math object. This same technique could have been used in Example 9-8. Instead of defining global classes with names like SingletonSet and BitSet, that example could have been written to define only a single global Sets object, with properties referencing the various classes. Users of this Sets library could then refer to the classes with names like Sets.Singleton and Sets.Bit.</p>
 
 <blockquote>
-<p>一个类的方法独立于其他不相关类的方法的原因是，每个类的方法都被定义为独立原型对象的属性。类是模块化的原因是对象是模块化的：在 JavaScript 对象中定义属性非常类似于声明变量，但是向对象添加属性不会影响程序的全局命名空间，也不会影响其他对象的属性。JavaScript 定义了很多数学函数和常量，但它们不是全局定义的，而是分组为 Math 全局对象的单个属性。同样的技术也可以用在示例 9-8 中。不使用 SingletonSet 和 BitSet 这样的名称定义全局类，这个示例可以编写为只有一个 Sets 全局对象，Sets 的属性引用各种类。然后，用户可以使用这个 Sets.Singleton 库通过 Sets.Singleton 和 Sets.Bit 的名称来获取类的引用。</p>
+<p>一个类的方法独立于其他不相关类的方法的原因是，每个类的方法都被定义为独立原型对象的属性。类是模块化的原因是对象是模块化的：在 JavaScript 对象中定义属性非常类似于声明变量，但是向对象添加属性不会影响程序的全局命名空间，也不会影响其他对象的属性。JavaScript 定义了很多数学函数和常量，但它们不是全局定义的，而是分组为 Math 全局对象的单个属性。同样的技术也可以用在示例 9-8 中。不使用 SingletonSet 和 BitSet 这样的名称定义全局类，这个示例可以编写为只有一个 Sets 全局对象，Sets 的属性引用各种类。然后，用户可以使用这个 Sets 库通过 Sets.Singleton 和 Sets.Bit 的名称来获取类的引用。</p>
 </blockquote>
 
 <p>Using classes and objects for modularity is a common and useful technique in JavaScript programming, but it doesn’t go far enough. In particular, it doesn’t offer us any way to hide internal implementation details inside the module. Consider Example 9-8 again. If we were writing that example as a module, maybe we would have wanted to keep the various abstract classes internal to the module, only making the concrete subclasses available to users of the module. Similarly, in the BitSet class, the _valid() and _has() methods are internal utilities that should not really be exposed to users of the class. And BitSet.bits and BitSet.masks are implementation details that would be better off hidden.</p>
@@ -267,7 +267,7 @@ stats.stddev([1, 3, 5, 7, 9]) // =&gt; Math.sqrt(10)
 <p>Note that it is a fairly mechanical process to transform a file of JavaScript code into this kind of module by inserting some text at the beginning and end of the file. All that is needed is some convention for the file of JavaScript code to indicate which values are to be exported and which are not.</p>
 
 <blockquote>
-<p>请注意，通过在文件的开头和结尾插入一些文本来将 JavaScript 代码文件转换为这种模块是相当机械的过程。所需要做的只是为JavaScript代码文件提供一些约定，以指示要导出的值和不导出的值。</p>
+<p>请注意，通过在文件的开头和结尾插入一些文本来将 JavaScript 代码文件转换为这种模块是相当机械的过程。所需要做的只是为 JavaScript 代码文件提供一些约定，以指示要导出的值和不导出的值。</p>
 </blockquote>
 
 <p>Imagine a tool that takes a set of files, wraps the content of each of those files within an immediately invoked function expression, keeps track of the return value of each function, and concatenates everything into one big file. The result might look something like this:</p>
@@ -415,7 +415,7 @@ let sd = stddev(data);
 <p>Modules with an Exports object and a require() function are built in to Node. But if you’re willing to process your code with a bundling tool like webpack, then it is also possible to use this style of modules for code that is intended to run in web browsers. Until recently, this was a very common thing to do, and you may see lots of web-based code that still does it.</p>
 
 <blockquote>
-<p>Node 中内置了带有 Exports 对象和 require() 函数的模块。 但是，如果要使用诸如 webpack 之类的捆绑工具来处理代码，则也可以将这种样式的模块用于要在网络浏览器中运行的代码。 直到最近，这还是一种非常常用的做法，可能会看到很多基于 Web 的代码仍然这样做。</p>
+<p>Node 中内置了带有 Exports 对象和 require() 函数的模块。 但是，如果要使用诸如 webpack 之类的捆绑工具来处理代码，则也可以将这种样式的模块用于要在网络浏览器中运行的代码。直到最近，这还是一种非常常用的做法，可能会看到很多基于 Web 的代码仍然这样做。</p>
 </blockquote>
 
 <p>Now that JavaScript has its own standard module syntax, however, developers who use bundlers are more likely to use the official JavaScript modules with import and export statements.</p>
@@ -429,7 +429,7 @@ let sd = stddev(data);
 <p>ES6 adds import and export keywords to JavaScript and finally supports real modularity as a core language feature. ES6 modularity is conceptually the same as Node modularity: each file is its own module, and constants, variables, functions, and classes defined within a file are private to that module unless they are explicitly exported. Values that are exported from one module are available for use in modules that explicitly import them. ES6 modules differ from Node modules in the syntax used for exporting and importing and also in the way that modules are defined in web browsers. The sections that follow explain these things in detail.</p>
 
 <blockquote>
-<p>ES6 给 JavaScript 添加了 import 和 export 关键字，并且最终支持真正的模块化，将其作为核心语言特性。ES6 模块化概念上和 Node 的模块化相同：每个文件是它们自己的模块，定义在文件种的常量、变量、函数和类是模块私有成员，除非它们是显示被导出。</p>
+<p>ES6 给 JavaScript 添加了 import 和 export 关键字，并且最终支持真正的模块化，将其作为核心语言特性。ES6 模块化概念上和 Node 的模块化相同：每个文件是它们自己的模块，定义在文件中的常量、变量、函数和类是模块私有成员，除非它们是被显示导出。</p>
 </blockquote>
 
 <p>First, though, note that ES6 modules are also different from regular JavaScript “scripts” in some important ways. The most obvious difference is the modularity itself: in regular scripts, top-level declarations of variables, functions, and classes go into a single global context shared by all scripts. With modules, each file has its own private context and can use the import and export statements, which is the whole point, after all. But there are other differences between modules and scripts as well. Code inside an ES6 module (like code inside any ES6 class definition) is automatically in strict mode (see §5.6.3). This means that, when you start using ES6 modules, you’ll never have to write &quot;use strict&quot; again. And it means that code in modules cannot use the with statement or the arguments object or undeclared variables. ES6 modules are even slightly stricter than strict mode: in strict mode, in functions invoked as functions, this is undefined. In modules, this is undefined even in top-level code. (By contrast, scripts in web browsers and Node set this to the global object.)</p>
@@ -482,7 +482,7 @@ export class Circle {
 <p>This syntax looks like the export keyword followed by an object literal (using shorthand notation). But in this case, the curly braces do not actually define an object literal. This export syntax simply requires a comma-separated list of identifiers within curly braces.</p>
 
 <blockquote>
-<p>这种语法看起来像导出关键字，后跟对象字面量（使用速记符号）。但在这种情况下，花括号实际上并不定义对象字面量。此导出语法只需要在大括号中的标识符列表用逗号分隔。</p>
+<p>这种语法看起来像导出关键字，后跟对象字面量（使用速记符号）。但在这种情况下，花括号实际上并不是定义对象字面量。此导出语法只需要在大括号中的标识符列表用逗号分隔。</p>
 </blockquote>
 
 <p>It is common to write modules that export only one value (typically a function or class), and in this case, we usually use export default instead of export:</p>
@@ -674,7 +674,7 @@ import { render as renderUI } from &quot;./ui.js&quot;;
 <p>Throughout this chapter, we’ve discussed a hypothetical “./stats.js” module that exports mean() and stddev() functions. If we were writing such a module and we thought that many users of the module would want only one function or the other, then we might want to define mean() in a “./stats/mean.js” module and define stddev() in “./stats/stddev.js”. That way, programs only need to import exactly the functions they need and are not bloated by importing code they do not need.</p>
 
 <blockquote>
-<p>在本章中，我们讨论了一个假定的“./stats.js”模块，该模块导出了 mean() 和 stddev() 函数。如果我们正在编写这样一个模块，并且该模块的用户只想要一个函数或另一个函数，那么我们可能想在“ ./stats/mean.js”模块中定义 mean()，并定义在“ ./stats/stddev.js”模块中的 stddev()。这样，程序仅需要完全导入所需的功能，而不会因导入不需要的代码而肿。</p>
+<p>在本章中，我们讨论了一个假定的“./stats.js”模块，该模块导出了 mean() 和 stddev() 函数。如果我们正在编写这样一个模块，并且该模块的用户只想要一个函数或另一个函数，那么我们可能想在“./stats/mean.js”模块中定义 mean()，并定义在“./stats/stddev.js”模块中的 stddev()。这样，程序仅需要完全导入所需的功能，而不会因导入不需要的代码而肿。</p>
 </blockquote>
 
 <p>Even if we had defined these statistical functions in individual modules, however, we might expect that there would be plenty of programs that want both functions and would appreciate a convenient “./stats.js” module from which they could import both on one line.</p>
