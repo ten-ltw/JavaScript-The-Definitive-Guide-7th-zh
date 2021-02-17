@@ -90,7 +90,53 @@
   <div class="markdown-inside">
     <h1>第 12 章 迭代器和生成器</h1>
     <time class="article-date" datetime="2021-01-09T08:27:24+08:00">发布于2021/01/09</time>
-    <p>Iterable objects and their associated iterators are a feature of ES6 that we’ve seen several times throughout this book. Arrays (including TypedArrays) are iterable, as are strings and Set and Map objects. This means that the contents of these data structures can be iterated—looped over—with the for/of loop, as we saw in §5.4.4:</p>
+    <ul>
+<li>
+<a href="#toc_0">12.1 How Iterators Work</a>
+</li>
+<li>
+<a href="#toc_1">12.2 Implementing Iterable Objects</a>
+<ul>
+<li>
+<a href="#toc_2">12.2.1 “Closing” an Iterator: The Return Method</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_3">12.3 Generators</a>
+<ul>
+<li>
+<a href="#toc_4">12.3.1 Generator Examples</a>
+</li>
+<li>
+<a href="#toc_5">12.3.2 yield* and Recursive Generators</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_6">12.4 Advanced Generator Features</a>
+<ul>
+<li>
+<a href="#toc_7">12.4.1 The Return Value of a Generator Function</a>
+</li>
+<li>
+<a href="#toc_8">12.4.2 The Value of a yield Expression</a>
+</li>
+<li>
+<a href="#toc_9">12.4.3 The return() and throw() Methods of a Generator</a>
+</li>
+<li>
+<a href="#toc_10">12.4.4 A Final Note About Generators</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_11">12.5 Summary</a>
+</li>
+</ul>
+
+
+<p>Iterable objects and their associated iterators are a feature of ES6 that we’ve seen several times throughout this book. Arrays (including TypedArrays) are iterable, as are strings and Set and Map objects. This means that the contents of these data structures can be iterated—looped over—with the for/of loop, as we saw in §5.4.4:</p>
 
 <blockquote>
 <p>可迭代对象及其关联的迭代器是 ES6 的一个特性，在本书中我们已经多次看到。数组（包括 typedarray）是可迭代的，字符串、Set 和 Map 对象也是如此。这意味着这些数据结构的内容可以被 for/of 循环遍历，就像我们在 §5.4.4 中看到的那样：</p>
