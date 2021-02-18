@@ -193,22 +193,17 @@
 </li>
 <li>
 <a href="#toc_28">13.4.2 Asynchronous Iterators</a>
-<ul>
+</li>
 <li>
-<a href="#toc_29">NOTE</a>
+<a href="#toc_29">13.4.3 Asynchronous Generators</a>
+</li>
+<li>
+<a href="#toc_30">13.4.4 Implementing Asynchronous Iterators</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_30">13.4.3 Asynchronous Generators</a>
-</li>
-<li>
-<a href="#toc_31">13.4.4 Implementing Asynchronous Iterators</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_32">13.5 Summary</a>
+<a href="#toc_31">13.5 Summary</a>
 </li>
 </ul>
 
@@ -1466,11 +1461,23 @@ let value2 = await getJSON(url2);
 
 <p>We began this chapter with a discussion of callback- and event-based asynchrony, and when we introduced Promises, we noted that they were useful for single-shot asynchronous computations but were not suitable for use with sources of repetitive asynchronous events, such as setInterval(), the “click” event in a web browser, or the “data” event on a Node stream. Because single Promises do not work for sequences of asynchronous events, we also cannot use regular async functions and the await statements for these things.</p>
 
+<blockquote>
+<p>在本章的开头我们讨论了基于回调和基于事件的异步，当我们介绍 Promise 时，我们注意到它们对于单次异步计算很有用，但不适用于重复性异步事件的代码，例如 setInterval()，网络浏览器中的“click”事件或 Node 流上的“data”事件。因为单个 Promise 不适用于异步事件序列，所以我们也不能对这些事物使用常规的异步函数和 await 语句。</p>
+</blockquote>
+
 <p>ES2018 provides a solution, however. Asynchronous iterators are like the iterators described in Chapter 12, but they are Promise-based and are meant to be used with a new form of the for/of loop: for/await.</p>
+
+<blockquote>
+<p>但是 ES2018 提供了一个解决方案。异步迭代器类似于第 12 章中描述的迭代器，但是它们基于 Promise，并且打算与 for/of 循环一起使用的新形式：for/await。</p>
+</blockquote>
 
 <h3 id="toc_27">13.4.1 The for/await Loop</h3>
 
 <p>Node 12 makes its readable streams asynchronously iterable. This means you can read successive chunks of data from a stream with a for/await loop like this one:</p>
+
+<blockquote>
+<p>Node 12 使其可读流可以异步迭代。这意味着可以使用如下所示的 for/await 循环从流中读取连续的数据块：</p>
+</blockquote>
 
 <pre><code class="language-javascript">const fs = require(&quot;fs&quot;);
 
@@ -1484,44 +1491,91 @@ async function parseFile(filename) {
 
 <p>Like a regular await expression, the for/await loop is Promise-based. Roughly speaking, the asynchronous iterator produces a Promise and the for/await loop waits for that Promise to fulfill, assigns the fulfillment value to the loop variable, and runs the body of the loop. And then it starts over, getting another Promise from the iterator and waiting for that new Promise to fulfill.</p>
 
+<blockquote>
+<p>像普通的 await 表达式一样，for/await 循环是基于 promise 的。粗略地说，异步迭代器产生一个 Promise，for/await 循环等待该 Promise 兑现，将兑现值分配给循环变量，然后运行循环的主体。然后重新开始，从迭代器中获得另一个 Promise，然后等待该新 Promise 兑现。</p>
+</blockquote>
+
 <p>Suppose you have an array of URLs:</p>
 
-<pre><code class="language-javascript">const urls = [url1, url2, url3];
-You can call fetch() on each URL to get an array of Promises:
+<blockquote>
+<p>假设有一个 URL 数组：</p>
+</blockquote>
 
-const promises = urls.map(url =&gt; fetch(url));
+<pre><code class="language-javascript">const urls = [url1, url2, url3];
+</code></pre>
+
+<p>You can call fetch() on each URL to get an array of Promises:</p>
+
+<blockquote>
+<p>可以在每个 URL 上调用 fetch() 以获取一个 promise 数组：</p>
+</blockquote>
+
+<pre><code class="language-javascript">const promises = urls.map(url =&gt; fetch(url));
 </code></pre>
 
 <p>We saw earlier in the chapter that we could now use Promise.all() to wait for all the Promises in the array to be fulfilled. But suppose we want the results of the first fetch as soon as they become available and don’t want to wait for all the URLs to be fetched. (Of course, the first fetch might take longer than any of the others, so this is not necessarily faster than using Promise.all().) Arrays are iterable, so we can iterate through the array of promises with a regular for/of loop:</p>
+
+<blockquote>
+<p>我们在本章的前面已经看到，我们现在可以使用 Promise.all() 等待数组中的所有 promise 都已兌現。但是，假设我们希望第一个提取的结果尽快可用，并且不想等待所有 URL 都被获取。（当然，第一次获取可能比其他任何获取都要花费更长的时间，因此不一定比使用 Promise.all() 更快。）数组是可迭代的，因此我们可以使用常规的 for/of 对数组进行遍历：</p>
+</blockquote>
 
 <pre><code class="language-javascript">for(const promise of promises) {
     response = await promise;
     handle(response);
 }
-This example code uses a regular for/of loop with a regular iterator. But because this iterator returns Promises, we can also use the new for/await for slightly simpler code:
+</code></pre>
 
-for await (const response of promises) {
+<p>This example code uses a regular for/of loop with a regular iterator. But because this iterator returns Promises, we can also use the new for/await for slightly simpler code:</p>
+
+<blockquote>
+<p>此示例代码使用 for/of 循环遍历常规迭代器。但是因为此迭代器返回 Promise，所以我们还可以将新的 for/await 稍微简化下代码：</p>
+</blockquote>
+
+<pre><code class="language-javascript">for await (const response of promises) {
     handle(response);
 }
 </code></pre>
 
 <p>In this case, the for/await loop just builds the await call into the loop and makes our code slightly more compact, but the two examples do exactly the same thing. Importantly, both examples will only work if they are within functions declared async; a for/await loop is no different than a regular await expression in that way.</p>
 
+<blockquote>
+<p>在这种情况下，for/await 循环仅将 await 调用构建到循环中，并使我们的代码稍微紧凑一些，但是两个示例的作用完全相同。重要的是，这两个示例只有在声明为异步的函数中时才起作用。for/await 循环与常规 await 表达式没有什么不同。</p>
+</blockquote>
+
 <p>It is important to realize, however, that we’re using for/await with a regular iterator in this example. Things are more interesting with fully asynchronous iterators.</p>
+
+<blockquote>
+<p>但是，重要的是要意识到，在此示例中，我们正在使用 for/wait 作用于常规迭代器的。作用于完全异步的迭代器使事情变得更加有趣。</p>
+</blockquote>
 
 <h3 id="toc_28">13.4.2 Asynchronous Iterators</h3>
 
 <p>Let’s review some terminology from Chapter 12. An iterable object is one that can be used with a for/of loop. It defines a method with the symbolic name Symbol.iterator. This method returns an iterator object. The iterator object has a next() method, which can be called repeatedly to obtain the values of the iterable object. The next() method of the iterator object returns iteration result objects. The iteration result object has a value property and/or a done property.</p>
 
+<blockquote>
+<p>让我们回顾一下第 12 章中的一些术语。可迭代对象是可以与 for/of 循环一起使用的对象。它定义了一个名称为 Symbol.iterator 的方法。此方法返回一个迭代器对象。迭代器对象具有 next() 方法，可以重复调用该方法以获得可迭代对象的值。迭代器对象的 next() 方法返回迭代结果对象。迭代结果对象具有 value 属性和或或 done 属性。</p>
+</blockquote>
+
 <p>Asynchronous iterators are quite similar to regular iterators, but there are two important differences. First, an asynchronously iterable object implements a method with the symbolic name Symbol.asyncIterator instead of Symbol.iterator. (As we saw earlier, for/await is compatible with regular iterable objects but it prefers asynchronously iterable objects, and tries the Symbol.asyncIterator method before it tries the Symbol.iterator method.) Second, the next() method of an asynchronous iterator returns a Promise that resolves to an iterator result object instead of returning an iterator result object directly.</p>
 
-<h4 id="toc_29">NOTE</h4>
+<blockquote>
+<p>异步迭代器与常规迭代器非常相似，但是有两个重要的区别。 首先，一个异步可迭代对象以符号名称 Symbol.asyncIterator 而不是 Symbol.iterator 实现一个方法。（如前所述，for/await 与常规可迭代对象兼容，但是它更喜欢异步可迭代对象，并在尝试 Symbol.iterator 方法之前先尝试使用 Symbol.asyncIterator 方法。）其次，异步迭代器的 next() 方法返回解析为迭代器结果对象的 Promise，而不是直接返回迭代器结果对象。</p>
+</blockquote>
 
-<p>In the previous section, when we used for/await on a regular, synchronously iterable array of Promises, we were working with synchronous iterator result objects in which the value property was a Promise object but the done property was synchronous. True asynchronous iterators return Promises for iteration result objects, and both the value and the done properties are asynchronous. The difference is a subtle one: with asynchronous iterators, the choice about when iteration ends can be made asynchronously.</p>
+<p><strong>NOTE</strong><br/>
+In the previous section, when we used for/await on a regular, synchronously iterable array of Promises, we were working with synchronous iterator result objects in which the value property was a Promise object but the done property was synchronous. True asynchronous iterators return Promises for iteration result objects, and both the value and the done properties are asynchronous. The difference is a subtle one: with asynchronous iterators, the choice about when iteration ends can be made asynchronously.</p>
 
-<h3 id="toc_30">13.4.3 Asynchronous Generators</h3>
+<blockquote>
+<p>在上一节中，当我们在常规的、同步可迭代的 Promise 数组上使用 for/await 时，我们正在使用同步迭代器结果对象，其中 value 属性是 Promise 对象，但 done 属性是同步的。真正的异步迭代器为迭代结果对象返回 Promise，并且 value 和 done 属性都是异步的。这是一个微妙的区别：使用异步迭代器，可以异步选择何时结束迭代。</p>
+</blockquote>
+
+<h3 id="toc_29">13.4.3 Asynchronous Generators</h3>
 
 <p>As we saw in Chapter 12, the easiest way to implement an iterator is often to use a generator. The same is true for asynchronous iterators, which we can implement with generator functions that we declare async. An async generator has the features of async functions and the features of generators: you can use await as you would in a regular async function, and you can use yield as you would in a regular generator. But values that you yield are automatically wrapped in Promises. Even the syntax for async generators is a combination: async function and function * combine into async function *. Here is an example that shows how you might use an async generator and a for/await loop to repetitively run code at fixed intervals using loop syntax instead of a setInterval() callback function:</p>
+
+<blockquote>
+<p>正如我们在第 12 章中看到的那样，实现迭代器的最简单方法通常是使用生成器。异步迭代器也是如此，我们可以使用声明为异步的生成器函数来实现。异步生成器具有异步特性和生成器特性：可以像在常规异步函数中一样使用 await，并且可以像在常规生成器中一样使用 yield。但是，产生的值会自动包装在 Promise 中。甚至异步生成器的语法也是一个组合：异步函数和 function* 组合为 async function*。这是一个示例，描述如何使用异步生成器和 for/await 循环代替 setInterval() 回调函数以固定的间隔重复运行代码：</p>
+</blockquote>
 
 <pre><code class="language-javascript">// A Promise-based wrapper around setTimeout() that we can use await with.
 // Returns a Promise that fulfills in the specified number of milliseconds
@@ -1546,9 +1600,13 @@ async function test() {                       // Async so we can use for/await
 }
 </code></pre>
 
-<h3 id="toc_31">13.4.4 Implementing Asynchronous Iterators</h3>
+<h3 id="toc_30">13.4.4 Implementing Asynchronous Iterators</h3>
 
 <p>Instead of using async generators to implement asynchronous iterators, it is also possible to implement them directly by defining an object with a Symbol.asyncIterator() method that returns an object with a next() method that returns a Promise that resolves to an iterator result object. In the following code, we re-implement the clock() function from the preceding example so that it is not a generator and instead just returns an asynchronously iterable object. Notice that the next() method in this example does not explicitly return a Promise; instead, we just declare next() to be async:</p>
+
+<blockquote>
+<p>除了使用异步生成器来实现异步迭代器外，还可以通过使用 Symbol.asyncIterator() 方法定义一个对象来直接实现它们，而 Symbol.asyncIterator() 方法将返回一个对象，而 next() 方法将返回一个决议为迭代器结果对象的 Promise。在下面的代码中，我们重新实现了上一个示例中的 clock() 函数，因此它不是生成器，而仅是返回一个异步可迭代的对象。请注意，此示例中的 next() 方法未明确返回 Promise；相反，我们只声明 next() 是异步的：</p>
+</blockquote>
 
 <pre><code class="language-javascript">function clock(interval, max=Infinity) {
     // A Promise-ified version of setTimeout that we can use await with.
@@ -1580,11 +1638,27 @@ async function test() {                       // Async so we can use for/await
 
 <p>This iterator-based version of the clock() function fixes a flaw in the generator-based version. Note that, in this newer code, we target the absolute time at which each iteration should begin and subtract the current time from that in order to compute the interval that we pass to setTimeout(). If we use clock() with a for/await loop, this version will run loop iterations more precisely at the specified interval because it accounts for the time required to actually run the body of the loop. But this fix isn’t just about timing accuracy. The for/await loop always waits for the Promise returned by one iteration to be fulfilled before it begins the next iteration. But if you use an asynchronous iterator without a for/await loop, there is nothing to prevent you from calling the next() method whenever you want. With the generator-based version of clock(), if you call the next() method three times sequentially, you’ll get three Promises that will all fulfill at almost exactly the same time, which is probably not what you want. The iterator-based version we’ve implemented here does not have that problem.</p>
 
-<p>The benefit of asynchronous iterators is that they allow us to represent streams of asynchronous events or data. The clock() function discussed previously was fairly simple to write because the source of the asynchrony was the setTimeout() calls we were making ourselves. But when we are trying to work with other asynchronous sources, such as the triggering of event handlers, it becomes substantially harder to implement asynchronous iterators—we typically have a single event handler function that responds to events, but each call to the iterator’s next() method must return a distinct Promise object, and multiple calls to next() may occur before the first Promise resolves. This means that any asynchronous iterator method must be able to maintain an internal queue of Promises that it resolves in order as asynchronous events are occurring. If we encapsulate this Promise-queueing behavior into an AsyncQueue class, then it becomes much easier to write asynchronous iterators based on AsyncQueue.3</p>
+<blockquote>
+<p>这个基于迭代器版本的 clock() 函数修复了基于生成器版本中的一个缺陷。请注意，在此代码中，我们在每次迭代开始时设置了绝对目标时间，并将其与当前时间的差值作为间隔传递给 setTimeout()。如果我们将 clock() 与 for/await 循环一起使用，则此版本将在指定的时间间隔内更精确地运行循环迭代，因为它考虑了实际运行循环主体所需的时间。但是，此修补程序不仅涉及定时精度。for/await 循环始终在开始下一次迭代之前等待一次迭代返回的 Promise 被兑现。但是，如果使用不带 for/await 循环的异步迭代器，则没有什么可以阻止在需要时调用 next() 方法。使用基于生成器的 clock() 版本，如果依次调用 next() 方法三遍，将获得三个 Promise，这些 Promise 几乎都在同一时间完成，这可能不是想要的结果。我们在这里实现的基于迭代器的版本没有这个问题。</p>
+</blockquote>
+
+<p>The benefit of asynchronous iterators is that they allow us to represent streams of asynchronous events or data. The clock() function discussed previously was fairly simple to write because the source of the asynchrony was the setTimeout() calls we were making ourselves. But when we are trying to work with other asynchronous sources, such as the triggering of event handlers, it becomes substantially harder to implement asynchronous iterators—we typically have a single event handler function that responds to events, but each call to the iterator’s next() method must return a distinct Promise object, and multiple calls to next() may occur before the first Promise resolves. This means that any asynchronous iterator method must be able to maintain an internal queue of Promises that it resolves in order as asynchronous events are occurring. If we encapsulate this Promise-queueing behavior into an AsyncQueue class, then it becomes much easier to write asynchronous iterators based on AsyncQueue. <sup id="fnref3"><a href="#fn3" rel="footnote">3</a></sup></p>
+
+<blockquote>
+<p>异步迭代器的好处在于，它们允许我们表示异步事件或数据流。前面讨论的 clock() 函数编写起来非常简单，因为异步源是我们自己进行的 setTimeout() 调用。但是，当我们尝试与其他异步源一起使用时，例如事件处理程序的触发，实现异步迭代器的难度将大大提高————我们通常只有一个事件处理程序函数来响应事件，但是每次调用迭代器的 next() 方法一定返回一个不同的 Promise 对象，并且在第一个 Promise 决议之前，可能会多次调用 next()。这意味着，任何异步迭代器方法都必须能够维护一个内部的 Promise 队列，该队列将在响应异步事件时按顺序进行决议。如果我们将此 Promise 有序列的行为封装到 AsyncQueue 类中，那么基于 AsyncQueue 编写异步迭代器将变得更加容易。 [<sup>3]</sup></p>
+</blockquote>
 
 <p>The AsyncQueue class that follows has enqueue() and dequeue() methods as you’d expect for a queue class. The dequeue() method returns a Promise rather than an actual value, however, which means that it is OK to call dequeue() before enqueue() has ever been called. The AsyncQueue class is also an asynchronous iterator, and is intended to be used with a for/await loop whose body runs once each time a new value is asynchronously enqueued. (AsyncQueue has a close() method. Once called, no more values can be enqueued. When a closed queue is empty, the for/await loop will stop looping.)</p>
 
+<blockquote>
+<p>正如期望的那样，后面的 AsyncQueue 类具有 enqueue() 和 dequeue() 方法。但是，dequeue() 方法返回 Promise 而不是实际值，这意味着可以在调用 enqueue() 之前调用 dequeue()。AsyncQueue 类也是一个异步迭代器，旨在与 for/await 循环一起使用，该循环的主体在每次将新值异步排队时都运行一次。（AsyncQueue 有一个 close() 方法。一旦被调用，就不能将更多的值加入队列。当关闭的队列为空时，for/await 循环将停止遍历。）</p>
+</blockquote>
+
 <p>Note that the implementation of AsyncQueue does not use async or await and instead works directly with Promises. The code is somewhat complicated, and you can use it to test your understanding of the material we’ve covered in this long chapter. Even if you don’t fully understand the AsyncQueue implementation, do take a look at the shorter example that follows it: it implements a simple but very interesting asynchronous iterator on top of AsyncQueue.</p>
+
+<blockquote>
+<p>请注意，AsyncQueue 的实现不使用异步或等待，而是直接与 Promise 一起使用。该代码有些复杂，可以使用它来测试对本长篇文章所涉及内容的理解。即使您不完全了解 AsyncQueue 的实现，也请看一下它后面的简短示例：它在 AsyncQueue 之上实现了一个简单但非常有趣的异步迭代器。</p>
+</blockquote>
 
 <pre><code class="language-javascript">/**
  * An asynchronously iterable queue class. Add values with enqueue()
@@ -1668,6 +1742,10 @@ AsyncQueue.EOS = Symbol(&quot;end-of-stream&quot;);
 
 <p>Because this AsyncQueue class defines the asynchronous iteration basics, we can create our own, more interesting asynchronous iterators simply by asynchronously queueing values. Here’s an example that uses AsyncQueue to produce a stream of web browser events that can be handled with a for/await loop:</p>
 
+<blockquote>
+<p>因为 AsyncQueue 类定义了异步迭代基础，所以我们可以简单地通过异步排队值来创建更有趣的自定义异步迭代器。这是一个使用 AsyncQueue 生成可通过 for/await 循环处理的 web 浏览器事件流的示例：</p>
+</blockquote>
+
 <pre><code class="language-javascript">// Push events of the specified type on the specified document element
 // onto an AsyncQueue object, and return the queue for use as an event stream
 function eventStream(elt, type) {
@@ -1684,25 +1762,56 @@ async function handleKeys() {
 }
 </code></pre>
 
-<h2 id="toc_32">13.5 Summary</h2>
+<h2 id="toc_31">13.5 Summary</h2>
 
 <p>In this chapter, you have learned:</p>
 
+<blockquote>
+<p>在本章中，您学习了：</p>
+</blockquote>
+
 <ul>
 <li>Most real-world JavaScript programming is asynchronous.</li>
-<li>Traditionally, asynchrony has been handled with events and callback functions. This can get complicated, however, because you can end up with multiple levels of callbacks nested inside other callbacks, and because it is difficult to do robust error handling.</li>
-<li>Promises provide a new way of structuring callback functions. If used correctly (and unfortunately, Promises are easy to use incorrectly), they can convert asynchronous code that would have been nested into linear chains of then() calls where one asynchronous step of a computation follows another. Also, Promises allow you to centralize your error-handling code into a single catch() call at the end of a chain of then() calls.</li>
-<li>The async and await keywords allow us to write asynchronous code that is Promise-based under the hood but that looks like synchronous code. This makes the code easier to understand and reason about. If a function is declared async, it will implicitly return a Promise. Inside an async function, you can await a Promise (or a function that returns a Promise) as if the Promise value was synchronously computed.</li>
-<li><p>Objects that are asynchronously iterable can be used with a for/await loop. You can create asynchronously iterable objects by implementing a <a href="">Symbol.asyncIterator</a> method or by invoking an async function * generator function. Asynchronous iterators provide an alternative to “data” events on streams in Node and can be used to represent a stream of user input events in client-side JavaScript.</p></li>
 </ul>
 
-<ol>
-<li>I learned about this approach to asynchronous iteration from the blog of Dr. Axel Rauschmayer, <a href="https://2ality.com">https://2ality.com</a>.</li>
-</ol>
+<blockquote>
+<p>大多数真实的 JavaScript 程序都是异步的。</p>
+</blockquote>
+
+<ul>
+<li>Traditionally, asynchrony has been handled with events and callback functions. This can get complicated, however, because you can end up with multiple levels of callbacks nested inside other callbacks, and because it is difficult to do robust error handling.</li>
+</ul>
 
 <blockquote>
+<p>传统上，异步是通过事件和回调函数来处理的。但是，这可能会变得复杂，因为最终可能会嵌套在其他回调中嵌套的多个级别的回调，并且因为很难进行可靠的异常处理。</p>
+</blockquote>
+
+<ul>
+<li>Promises provide a new way of structuring callback functions. If used correctly (and unfortunately, Promises are easy to use incorrectly), they can convert asynchronous code that would have been nested into linear chains of then() calls where one asynchronous step of a computation follows another. Also, Promises allow you to centralize your error-handling code into a single catch() call at the end of a chain of then() calls.</li>
+</ul>
+
+<blockquote>
+<p>Promise 提供了构造回调函数的新方法。如果正确使用（不幸的是，Promise 易于错误使用），它们可以将异步代码转换为嵌套在调用 then() 的线性链中的代码，一个计算的异步步骤跟随在其他之后。而且，Promise 允许将异常处理代码集中到一个 then() 调用链末尾的单个 catch() 调用中。</p>
+</blockquote>
+
+<ul>
+<li>The async and await keywords allow us to write asynchronous code that is Promise-based under the hood but that looks like synchronous code. This makes the code easier to understand and reason about. If a function is declared async, it will implicitly return a Promise. Inside an async function, you can await a Promise (or a function that returns a Promise) as if the Promise value was synchronously computed.</li>
+</ul>
+
+<blockquote>
+<p>async 和 await 关键字允许我们编写异步代码，该代码基于 Promise，但看起来像同步代码。这使代码更易于理解和推理。如果一个函数被声明为 async，它将隐式返回一个 Promise。在异步函数内部，可以 await Promise（或返回 Promise 的函数），就像 Promise 值是同步计算的一样。</p>
+</blockquote>
+
+<ul>
+<li>Objects that are asynchronously iterable can be used with a for/await loop. You can create asynchronously iterable objects by implementing a <a href="">Symbol.asyncIterator</a> method or by invoking an async function * generator function. Asynchronous iterators provide an alternative to “data” events on streams in Node and can be used to represent a stream of user input events in client-side JavaScript.</li>
+</ul>
+
+<blockquote>
+<p>异步可迭代的对象可以与 for/await 循环一起使用。可以通过实现 [Symbol.asyncIterator]() 方法或调用 async function* 生成器函数来创建异步可迭代对象。异步迭代器为 Node 中流的“data”事件提供了一种替代方法，可用于表示客户端 JavaScript 中的用户输入事件的流。</p>
+
 <p>[<sup>1]:</sup> XMLHttpRequest 类与 XML 无关。在现代的客户端 JavaScript 中，它已被 fetch() API 取代，该 API 已在 §15.11.1 中进行了介绍。此处显示的代码示例是本书中最后一个基于 XMLHttpRequest 的示例。 <br/>
-[<sup>2]:</sup> 通常，可以在浏览器的开发人员控制台的顶层使用 await。还有一个悬而未决的建议，允许在将来的 JavaScript 版本中进行顶级 await。 </p>
+[<sup>2]:</sup> 通常，可以在浏览器的开发人员控制台的顶层使用 await。还有一个悬而未决的建议，允许在将来的 JavaScript 版本中进行顶级 await。 <br/>
+[<sup>3]:</sup> 我从 Dr. Axel Rauschmayer 的博客<a href="">https://2ality.com</a>中了解了这种异步迭代方法。</p>
 </blockquote>
 
 <div class="footnotes">
@@ -1715,6 +1824,10 @@ async function handleKeys() {
 
 <li id="fn2">
 <p>You can typically use await at the top level in a browser’s developer console. And there is a pending proposal to allow top-level await in a future version of JavaScript.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a></p>
+</li>
+
+<li id="fn3">
+<p>I learned about this approach to asynchronous iteration from the blog of Dr. Axel Rauschmayer, <a href="">https://2ality.com</a>.&nbsp;<a href="#fnref3" rev="footnote">&#8617;</a></p>
 </li>
 
 </ol>
