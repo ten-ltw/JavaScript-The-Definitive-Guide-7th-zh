@@ -2,59 +2,90 @@
 
 Chapter 4 described expressions as JavaScript phrases. By that analogy, statements are JavaScript sentences or commands. Just as English sentences are terminated and separated from one another with periods, JavaScript statements are terminated with semicolons (§2.6). Expressions are evaluated to produce a value, but statements are executed to make something happen.
 
-> 第 4 章将表达式描述为JavaScript短语。根据这个类比，语句就是JavaScript句子或命令。就像英语句子以句点结尾并彼此分开一样，JavaScript语句以分号结尾(§2.6)。表达式被计算以产生一个值，但是语句被执行以使某些事情发生。
+> 第 4 章将表达式描述为 JavaScript 短语。根据这个比喻，语句就是 JavaScript 句子或命令。就像英语句子以句点结尾并彼此分开一样，JavaScript 语句以分号结尾（§2.6）。表达式计算来产生一个值，但是语句被执行则使某些事情发生。
 
 One way to “make something happen” is to evaluate an expression that has side effects. Expressions with side effects, such as assignments and function invocations, can stand alone as statements, and when used this way are known as expression statements. A similar category of statements are the declaration statements that declare new variables and define new functions.
 
-> “使某事发生”的一种方法是对有副作用的表达式求值。带有副作用(如赋值和函数调用)的表达式可以单独作为语句使用，以这种方式使用时称为表达式语句。类似的声明语句是声明新变量和定义新函数的声明语句。
+> “使某事发生”的一种方法是对有副作用的表达式求值。带有副作用（如赋值和函数调用）的表达式可以单独作为语句使用，以这种方式使用时称为表达式语句。类似的语句是声明语句，它声明新的变量和定义的新函数。
 
 JavaScript programs are nothing more than a sequence of statements to execute. By default, the JavaScript interpreter executes these statements one after another in the order they are written. Another way to “make something happen” is to alter this default order of execution, and JavaScript has a number of statements or control structures that do just this:
 
-> JavaScript程序只不过是一系列要执行的语句。默认情况下，JavaScript解释器按照语句的编写顺序依次执行这些语句。另一种“让事情发生”的方法是改变默认的执行顺序，JavaScript有很多语句或控制结构就是这样做的:
+> JavaScript 程序只不过是一系列顺序执行的语句。默认情况下，JavaScript 解释器按照语句的编写顺序依次执行这些语句。另一种“让事情发生”的方法是改变默认的执行顺序，JavaScript 有很多语句或控制结构就是这样做的:
 
 Conditionals
+> 条件
 Statements like if and switch that make the JavaScript interpreter execute or skip other statements depending on the value of an expression
+> 类似 if 和 switch 语句，让 JavaScript 解释器根据一个表达式的值计算或跳过一些语句
 
 Loops
+> 循环
 Statements like while and for that execute other statements repetitively
+> 类似 while 和 for 语句，重复执行一些语句
 
 Jumps
+> 跳转
 Statements like break, return, and throw that cause the interpreter to jump to another part of the program
+> 类似 break、return 和 throw 语句，引发解释器跳转到程序的另一部分
 
 The sections that follow describe the various statements in JavaScript and explain their syntax. Table 5-1, at the end of the chapter, summarizes the syntax. A JavaScript program is simply a sequence of statements, separated from one another with semicolons, so once you are familiar with the statements of JavaScript, you can begin writing JavaScript programs.
+
+> 接下来的小结讲解各种各样的 JavaScript 语句并解释它们的语法。本章最后表 5-1 总结了语法。JavaScript 程序是简单的顺序语句，被分号分隔，所以一旦熟悉了 JavaScript 语句，就可以开始编写 JavaScript 程序了。
 
 ## 5.1 Expression Statements
 
 The simplest kinds of statements in JavaScript are expressions that have side effects. This sort of statement was shown in Chapter 4. Assignment statements are one major category of expression statements. For example:
+
+> JavaScript 中最简单的语句是表达式，它们有副作用。下面这个简短的语句在第 4 章出现过。赋值语句是表达式语句分类中主要的语句之一。例如：
+
 ```js
 greeting = "Hello " + name;
 i *= 3;
 ```
 The increment and decrement operators, ++ and --, are related to assignment statements. These have the side effect of changing a variable value, just as if an assignment had been performed:
+
+> 递增和递减运算符 ++ 和 -- 与赋值语句有关。这些具有更改变量值的副作用，就像执行了赋值一样：
+
 ```js
 counter++;
 ```
 The delete operator has the important side effect of deleting an object property. Thus, it is almost always used as a statement, rather than as part of a larger expression:
+
+> delete 运算符具有删除对象属性的重要副作用。因此，它几乎总是用作语句，而不是用作较大表达式的一部分：
+
 ```js
 delete o.x;
 ```
 Function calls are another major category of expression statements. For example:
+
+> 函数调用是表达式语句的另一个主要类别。例如：
+
 ```js
 console.log(debugMessage);
 displaySpinner(); // A hypothetical function to display a spinner in a web app.
 ```
 These function calls are expressions, but they have side effects that affect the host environment or program state, and they are used here as statements. If a function does not have any side effects, there is no sense in calling it, unless it is part of a larger expression or an assignment statement. For example, you wouldn’t just compute a cosine and discard the result:
+
+> 这些函数调用是表达式，但是它们具有影响主机环境或程序状态的副作用，在这里用作语句。如果函数没有任何副作用，则除非有任何较大的表达式或赋值语句的一部分，否则调用该函数没有任何意义。例如，您不会仅计算余弦并丢弃结果：
+
 ```js
 Math.cos(x);
 ```
 But you might well compute the value and assign it to a variable for future use:
+
+> 但是可能会计算出该值并将其分配给变量以供将来使用：
+
 ```js
 cx = Math.cos(x);
 ```
 Note that each line of code in each of these examples is terminated with a semicolon.
 
+> 请注意，这些示例中的每行代码均以分号结尾。
+
 ## 5.2 Compound and Empty Statements
 Just as the comma operator (§4.13.7) combines multiple expressions into a single expression, a statement block combines multiple statements into a single compound statement. A statement block is simply a sequence of statements enclosed within curly braces. Thus, the following lines act as a single statement and can be used anywhere that JavaScript expects a single statement:
+
+> 正如逗号运算符（§4.13.7）将多个表达式组合成一个表达式一样，一个语句块将多个语句组合成一个复合语句。语句块只是括在花括号内的一系列语句。因此，以下几行充当单个语句，并且可以在 JavaScript 需要单个语句的任何地方使用：
+
 ```js
 {
     x = Math.PI;
@@ -64,40 +95,68 @@ Just as the comma operator (§4.13.7) combines multiple expressions into a singl
 ```
 There are a few things to note about this statement block. First, it does not end with a semicolon. The primitive statements within the block end in semicolons, but the block itself does not. Second, the lines inside the block are indented relative to the curly braces that enclose them. This is optional, but it makes the code easier to read and understand.
 
+> 关于此语句块需要注意一些事项。首先，它不以分号结尾。块中的原始语句以分号结尾，但是块本身没有。其次，相对于包围它们的花括号将块内的行缩进。这是可选的，但是它使代码更易于阅读和理解。
+
 Just as expressions often contain subexpressions, many JavaScript statements contain substatements. Formally, JavaScript syntax usually allows a single substatement. For example, the while loop syntax includes a single statement that serves as the body of the loop. Using a statement block, you can place any number of statements within this single allowed substatement.
 
+> 正如表达式通常包含子表达式一样，许多 JavaScript 语句也包含子语句。正式地，JavaScript 语法通常允许单个子语句。例如，while 循环语法包括一个用作循环主体的语句。使用语句块，可以在此单个允许的子语句中放置任意数量的语句。
+
 A compound statement allows you to use multiple statements where JavaScript syntax expects a single statement. The empty statement is the opposite: it allows you to include no statements where one is expected. The empty statement looks like this:
+
+> 复合语句允许在 JavaScript 语法要求使用单个语句的情况下使用多个语句。空语句则相反：它允许在期望的位置不包含任何语句。空语句如下所示：
+
 ```js
 ;
 ```
 The JavaScript interpreter takes no action when it executes an empty statement. The empty statement is occasionally useful when you want to create a loop that has an empty body. Consider the following for loop (for loops will be covered in §5.4.3):
+
+> JavaScript解释器执行空语句时不执行任何操作。当要创建一个包含空主体的循环时，空语句有时会很有用。考虑以下 for 循环（for 循环将在 §5.4.3 中介绍）：
+
 ```js
 // Initialize an array a
 for(let i = 0; i < a.length; a[i++] = 0) ;
 ```
 In this loop, all the work is done by the expression `a[i++] = 0`, and no loop body is necessary. JavaScript syntax requires a statement as a loop body, however, so an empty statement—just a bare semicolon—is used.
 
+> 在此循环中，所有工作均由表达式 `a[i++] = 0` 完成，并且不需要循环体。JavaScript 语法需要一个语句作为循环体，因此使用一个空语句（仅一个裸分号）。
+
 Note that the accidental inclusion of a semicolon after the right parenthesis of a for loop, while loop, or if statement can cause frustrating bugs that are difficult to detect. For example, the following code probably does not do what the author intended:
+
+> 请注意，在 for 循环，while 循环或 if 语句的右括号后面意外地包含分号，可能导致令人沮丧的错误，难以检测。例如，以下代码可能不符合作者的意图：
+
 ```js
 if ((a === 0) || (b === 0));  // Oops! This line does nothing...
     o = null;                 // and this line is always executed.
 ```
 When you intentionally use the empty statement, it is a good idea to comment your code in a way that makes it clear that you are doing it on purpose. For example:
+
+> 当有意使用空语句时，以下注释代码是一种清楚表明是故意这样做的方式的好主意。 例如：
+
 ```js
 for(let i = 0; i < a.length; a[i++] = 0) /* empty */ ;
 ```
 ## 5.3 Conditionals
 Conditional statements execute or skip other statements depending on the value of a specified expression. These statements are the decision points of your code, and they are also sometimes known as “branches.” If you imagine a JavaScript interpreter following a path through your code, the conditional statements are the places where the code branches into two or more paths and the interpreter must choose which path to follow.
 
+> 条件语句根据指定表达式的值执行或跳过其他语句。这些语句是代码的决策点，有时也称为“分支”。如果想象 JavaScript 解释器遵循代码路径，则条件语句是代码分支到两个或更多路径的位置，并且解释器必须选择要遵循的路径。
+
 The following subsections explain JavaScript’s basic conditional, the if/else statement, and also cover switch, a more complicated, multiway branch statement.
+
+> 以下小节介绍了 JavaScript 的基本条件，if / else 语句，还介绍了 switch，更复杂的多路分支语句。
 
 ### 5.3.1 if
 The if statement is the fundamental control statement that allows JavaScript to make decisions, or, more precisely, to execute statements conditionally. This statement has two forms. The first is:
+
+> if 语句是基本的控制语句，它允许 JavaScript 进行决策，或更准确地说，可以有条件地执行语句。该语句有两种形式。 第一个是：
+
 ```js
 if (expression)
     statement
 ```
 In this form, expression is evaluated. If the resulting value is truthy, statement is executed. If expression is falsy, statement is not executed. (See §3.4 for a definition of truthy and falsy values.) For example:
+
+> 以这种形式，表达式被评估。如果结果值为真，则执行语句。如果 expression 是假，则不执行语句。（有关真实值和假值的定义，请参见 §3.4。）例如：
+
 ```js
 if (username == null)       // If username is null or undefined,
     username = "John Doe";  // define it
@@ -108,7 +167,12 @@ if (!username) username = "John Doe";
 ```
 Note that the parentheses around the expression are a required part of the syntax for the if statement.
 
+> 请注意，表达式周围的括号是 if 语句语法的必需部分。
+
 JavaScript syntax requires a single statement after the if keyword and parenthesized expression, but you can use a statement block to combine multiple statements into one. So the if statement might also look like this:
+
+> JavaScript 语法在 if 关键字和带括号的表达式之后需要一个语句，但是可以使用语句块将多个语句组合为一个。因此，if 语句也可能如下所示：
+
 ```js
 if (!address) {
     address = "";
@@ -116,6 +180,9 @@ if (!address) {
 }
 ```
 The second form of the if statement introduces an else clause that is executed when expression is false. Its syntax is:
+
+> if 语句的第二种形式引入了 else 子句，当 expression 为 false 时将执行该子句。 它的语法是：
+
 ```js
 if (expression)
     statement1
@@ -123,6 +190,9 @@ else
     statement2
 ```
 This form of the statement executes statement1 if expression is truthy and executes statement2 if expression is falsy. For example:
+
+> 如果 expression 为真，则此语句形式执行 statement1；如果 expression 为 false，则执行 statement2。 例如：
+
 ```js
 if (n === 1)
     console.log("You have 1 new message.");
@@ -130,6 +200,9 @@ else
     console.log(`You have ${n} new messages.`);
 ```
 When you have nested if statements with else clauses, some caution is required to ensure that the else clause goes with the appropriate if statement. Consider the following lines:
+
+> 当将带有 if 子句的 if 语句嵌套时，需要格外小心，以确保 else 子句与适当的 if 语句一起使用。考虑以下几行：
+
 ```js
 i = j = 1;
 k = 2;
@@ -140,6 +213,9 @@ else
     console.log("i doesn't equal j");    // WRONG!!
 ```
 In this example, the inner if statement forms the single statement allowed by the syntax of the outer if statement. Unfortunately, it is not clear (except from the hint given by the indentation) which if the else goes with. And in this example, the indentation is wrong, because a JavaScript interpreter actually interprets the previous example as:
+
+> 在此示例中，内部 if 语句形成外部 if 语句的语法允许的单个语句。不幸的是，不清楚（除非缩进提示）else 接连在哪个 if 后。 在此示例中，缩进是错误的，因为 JavaScript 解释器实际上将前面的示例解释为：
+
 ```js
 if (i === j) {
     if (j === k)
@@ -149,6 +225,9 @@ if (i === j) {
 }
 ```
 The rule in JavaScript (as in most programming languages) is that by default an else clause is part of the nearest if statement. To make this example less ambiguous and easier to read, understand, maintain, and debug, you should use curly braces:
+
+> JavaScript 中的规则（与大多数编程语言一样）在默认情况下，else 子句是最接近的 if 语句的一部分。为了使此示例不太含糊且易于阅读、理解、维护和调试，应使用花括号： 
+
 ```js
 if (i === j) {
     if (j === k) {
@@ -160,8 +239,13 @@ if (i === j) {
 ```
 Many programmers make a habit of enclosing the bodies of if and else statements (as well as other compound statements, such as while loops) within curly braces, even when the body consists of only a single statement. Doing so consistently can prevent the sort of problem just shown, and I advise you to adopt this practice. In this printed book, I place a premium on keeping example code vertically compact, and I do not always follow my own advice on this matter.
 
+> 许多程序员习惯将 if 和 else 语句（以及其他复合语句，例如 while 循环）的主体括在花括号内，即使主体仅由一个语句组成也是如此。始终如一地这样做可以防止出现刚才显示的问题，我建议采用这种做法。在这本书中，我非常重视保持示例代码在垂直方向上的紧凑性，并且在此问题上，我并不总是遵循自己的建议。
+
 ### 5.3.2 else if
 The if/else statement evaluates an expression and executes one of two pieces of code, depending on the outcome. But what about when you need to execute one of many pieces of code? One way to do this is with an else if statement. else if is not really a JavaScript statement, but simply a frequently used programming idiom that results when repeated if/else statements are used:
+
+> if/else 语句根据结果评估表达式并执行两段代码之一。但是，当需要执行许多代码之一时，该怎么办呢？一种方法是使用 else if 语句。else if 并不是真正的 JavaScript 语句，而只是一个经常使用的编程习惯用法，当使用重复的 if/else 语句时会产生该习惯用法：
+
 ```js
 if (n === 1) {
     // Execute code block #1
@@ -174,6 +258,9 @@ if (n === 1) {
 }
 ```
 There is nothing special about this code. It is just a series of if statements, where each following if is part of the else clause of the previous statement. Using the else if idiom is preferable to, and more legible than, writing these statements out in their syntactically equivalent, fully nested form:
+
+> 此代码没有什么特别的。 它只是一系列的 if 语句，其后的每个 if 都是前一条语句的 else 子句的一部分。 使用 else if 惯用语比以语法上等效的完全嵌套形式写出这些语句更好，更易读：
+
 ```js
 if (n === 1) {
     // Execute code block #1
@@ -195,7 +282,12 @@ else {
 ### 5.3.3 switch
 An if statement causes a branch in the flow of a program’s execution, and you can use the else if idiom to perform a multiway branch. This is not the best solution, however, when all of the branches depend on the value of the same expression. In this case, it is wasteful to repeatedly evaluate that expression in multiple if statements.
 
+> if 语句会导致程序执行流程中的分支，可以使用 else if 惯用法来执行多路分支。但是，当所有分支都依赖于同一表达式的值时，这不是最佳解决方案。在这种情况下，在多个 if 语句中重复评估该表达式是浪费性能的。
+
 The switch statement handles exactly this situation. The switch keyword is followed by an expression in parentheses and a block of code in curly braces:
+
+> switch 语句完全可以处理这种情况。switch 关键字后跟一个括号中的表达式和一个花括号中的代码块：
+
 ```js
 switch(expression) {
     statements
@@ -203,7 +295,12 @@ switch(expression) {
 ```
 However, the full syntax of a switch statement is more complex than this. Various locations in the block of code are labeled with the case keyword followed by an expression and a colon. When a switch executes, it computes the value of expression and then looks for a case label whose expression evaluates to the same value (where sameness is determined by the === operator). If it finds one, it starts executing the block of code at the statement labeled by the case. If it does not find a case with a matching value, it looks for a statement labeled default:. If there is no default: label, the switch statement skips the block of code altogether.
 
+> 但是，switch 语句的完整语法比这更复杂。代码块中的各个位置都用 case 关键字标记，后跟一个表达式和一个冒号。switch 执行时，它将计算表达式的值，然后查找其表达式计算为相同值（其中相同性由 === 运算符确定）的case标签。如果找到一个，它将开始在由 case 标记的语句处执行代码块。如果找不到与值匹配的个案，则查找标记为 default: 的语句。 如果没有 default: 标签，则 switch 语句将完全跳过该代码块。
+
 switch is a confusing statement to explain; its operation becomes much clearer with an example. The following switch statement is equivalent to the repeated if/else statements shown in the previous section:
+
+> switch 是一个令人困惑的陈述，难以解释；举个例子，它的操作变得更加清晰。以下 switch 语句等效于上一节中重复 if/else 语句：
+
 ```js
 switch(n) {
 case 1:                        // Start here if n === 1
@@ -222,7 +319,12 @@ default:                       // If all else fails...
 ```
 Note the break keyword used at the end of each case in this code. The break statement, described later in this chapter, causes the interpreter to jump to the end (or “break out”) of the switch statement and continue with the statement that follows it. The case clauses in a switch statement specify only the starting point of the desired code; they do not specify any ending point. In the absence of break statements, a switch statement begins executing its block of code at the case label that matches the value of its expression and continues executing statements until it reaches the end of the block. On rare occasions, it is useful to write code like this that “falls through” from one case label to the next, but 99% of the time you should be careful to end every case with a break statement. (When using switch inside a function, however, you may use a return statement instead of a break statement. Both serve to terminate the switch statement and prevent execution from falling through to the next case.)
 
+> 请注意此代码中每种情况结尾处使用的 break 关键字。在本章后面介绍的 break 语句使解释器跳到 switch 语句的末尾（或“中断”），并继续其后的语句。 switch 语句中的 case 子句仅指定所需代码的起点；他们没有指定任何终点。在没有 break 语句的情况下，switch 语句在与其表达式值匹配的 case 标签处开始执行其代码块，并继续执行语句，直到到达该块的末尾为止。在极少数情况下，编写这样的代码（从一个案例标签到另一个案例）“贯穿”是很有用的，但是在 99％ 的使用中，应小心以 break 语句结束每个案例。（但是，在函数内部使用 switch 时，可以使用 return 语句而不是 break 语句。两者都可用于终止 switch 语句并防止执行陷入下一种情况。）
+
 Here is a more realistic example of the switch statement; it converts a value to a string in a way that depends on the type of the value:
+
+> 这是 switch 语句的一个更实际的示例；它将值转换为字符串的方式取决于值的类型：
+
 ```js
 function convert(x) {
     switch(typeof x) {
@@ -237,11 +339,19 @@ function convert(x) {
 ```
 Note that in the two previous examples, the case keywords are followed by number and string literals, respectively. This is how the switch statement is most often used in practice, but note that the ECMAScript standard allows each case to be followed by an arbitrary expression.
 
+> 请注意，在前面的两个示例中，case 关键字后面分别跟有数字和字符串文字。这是实践中最经常使用 switch 语句的方式，但是请注意，ECMAScript 标准允许每种情况后面都可以有一个任意表达式。
+
 The switch statement first evaluates the expression that follows the switch keyword and then evaluates the case expressions, in the order in which they appear, until it finds a value that matches.1 The matching case is determined using the === identity operator, not the == equality operator, so the expressions must match without any type conversion.
+
+> switch 语句首先评估 switch 关键字后面的表达式，然后按它们出现的顺序评估 case 表达式，直到找到匹配的值。[^1] 匹配的 case 是使用 === 恒等运算符确定的，而不是 == 相等运算符，因此表达式必须匹配，且不进行任何类型转换。
 
 Because not all of the case expressions are evaluated each time the switch statement is executed, you should avoid using case expressions that contain side effects such as function calls or assignments. The safest course is simply to limit your case expressions to constant expressions.
 
+> 由于并非每次执行 switch 语句时都会评估所有的 case 表达式，因此应避免使用包含副作用的 case 表达式，例如函数调用或赋值。最安全的方法只是将 case 表达式限制为常量表达式。
+
 As explained earlier, if none of the case expressions match the switch expression, the switch statement begins executing its body at the statement labeled default:. If there is no default: label, the switch statement skips its body altogether. Note that in the examples shown, the default: label appears at the end of the switch body, following all the case labels. This is a logical and common place for it, but it can actually appear anywhere within the body of the statement.
+
+> 如前所述，如果所有 case 表达式都不与 switch 表达式匹配，则 switch 语句将在标有 default: 的语句处开始执行其主体。如果没有 default: 标签，则 switch语句将完全跳过其主体。请注意，在所示示例中，default: 标签出现在 switch 主体的末尾，紧随所有案例标签之后。这是一个逻辑上通用的地方，但实际上它可以出现在语句主体内的任何位置。
 
 ## 5.4 Loops
 To understand conditional statements, we imagined the JavaScript interpreter following a branching path through your source code. The looping statements are those that bend that path back upon itself to repeat portions of your code. JavaScript has five looping statements: while, do/while, for, for/of (and its for/await variant), and for/in. The following subsections explain each in turn. One common use for loops is to iterate over the elements of an array. §7.6 discusses this kind of loop in detail and covers special looping methods defined by the Array class.
@@ -944,7 +1054,7 @@ yield
 
 Provide a value to be iterated; only used in generator functions
 
---- 
+---
 
 1. The fact that the case expressions are evaluated at runtime makes the JavaScript switch statement much different from (and less efficient than) the switch statement of C, C++, and Java. In those languages, the case expressions must be compile-time constants of the same type, and switch statements can often compile down to highly efficient jump tables.
 2. When we consider the continue statement in §5.5.3, we’ll see that this while loop is not an exact equivalent of the for loop.
