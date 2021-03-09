@@ -356,15 +356,25 @@ As explained earlier, if none of the case expressions match the switch expressio
 ## 5.4 Loops
 To understand conditional statements, we imagined the JavaScript interpreter following a branching path through your source code. The looping statements are those that bend that path back upon itself to repeat portions of your code. JavaScript has five looping statements: while, do/while, for, for/of (and its for/await variant), and for/in. The following subsections explain each in turn. One common use for loops is to iterate over the elements of an array. §7.6 discusses this kind of loop in detail and covers special looping methods defined by the Array class.
 
+> 为了理解条件语句，我们假设 JavaScript 解释器遵循源代码中的分支路径。循环语句是那些使该路径重新弯曲以重复代码部分的语句。JavaScript 有五个循环语句：while、do/while、for、for/of（及其 for/await 变体）和 for/in。以下小节依次解释。循环的一种常见用法是遍历数组的元素。§7.6 详细讨论了这种循环，并涵盖了 Array 类定义的特殊循环方法。
+
 ### 5.4.1 while
 Just as the if statement is JavaScript’s basic conditional, the while statement is JavaScript’s basic loop. It has the following syntax:
+
+> 正如 if 语句是 JavaScript 的基本条件一样，while 语句也是 JavaScript 的基本循环。它具有以下语法：
+
 ```js
 while (expression)
     statement
 ```
 To execute a while statement, the interpreter first evaluates expression. If the value of the expression is falsy, then the interpreter skips over the statement that serves as the loop body and moves on to the next statement in the program. If, on the other hand, the expression is truthy, the interpreter executes the statement and repeats, jumping back to the top of the loop and evaluating expression again. Another way to say this is that the interpreter executes statement repeatedly while the expression is truthy. Note that you can create an infinite loop with the syntax while(true).
 
+> 要执行 while 语句，解释器首先对表达式求值。如果表达式的值是假值，则解释器将跳过用作循环主体的语句，然后继续执行程序中的下一条语句。另一方面，如果表达式是真值，则解释器将执行该语句并重复，跳回到循环的顶部并再次评估表达式。另一种说法是，解释器在表达式为真时重复执行语句。请注意，可以使用 while(true) 语法创建无限循环。
+
 Usually, you do not want JavaScript to perform exactly the same operation over and over again. In almost every loop, one or more variables change with each iteration of the loop. Since the variables change, the actions performed by executing statement may differ each time through the loop. Furthermore, if the changing variable or variables are involved in expression, the value of the expression may be different each time through the loop. This is important; otherwise, an expression that starts off truthy would never change, and the loop would never end! Here is an example of a while loop that prints the numbers from 0 to 9:
+
+> 通常，不希望 JavaScript 一次又一次地执行完全相同的操作。在几乎每个循环中，一个或多个变量随循环的每次迭代而变化。由于变量会发生变化，因此每次循环执行时，执行语句所执行的动作可能会有所不同。此外，如果表达式中包含一个或多个变化的变量，则每次循环时表达式的值可能会有所不同。这个很重要；否则，以 true 开始的表达式将永远不会改变，循环永远不会结束！这是一个while循环的示例，该循环打印从 0 到 9 的数字：
+
 ```js
 let count = 0;
 while(count < 10) {
@@ -374,14 +384,22 @@ while(count < 10) {
 ```
 As you can see, the variable count starts off at 0 and is incremented each time the body of the loop runs. Once the loop has executed 10 times, the expression becomes false (i.e., the variable count is no longer less than 10), the while statement finishes, and the interpreter can move on to the next statement in the program. Many loops have a counter variable like count. The variable names i, j, and k are commonly used as loop counters, though you should use more descriptive names if it makes your code easier to understand.
 
+> 如你所见，变量计数从 0 开始，并在每次循环主体运行时递增。循环执行 10 次后，表达式变为 false（即变量计数不小于 10），while 语句结束，解释器可以继续执行程序中的下一个语句。许多循环都有一个计数器变量，例如 count。变量名 i、j 和 k 通常用作循环计数器，但是如果可以使代码更易于理解，则应使用更具描述性的名称。
+
 ### 5.4.2 do/while
 The do/while loop is like a while loop, except that the loop expression is tested at the bottom of the loop rather than at the top. This means that the body of the loop is always executed at least once. The syntax is:
+
+> do/while 循环类似于 while 循环，除了循环表达式是在循环的底部而不是顶部进行测试的。这意味着循环的主体始终至少执行一次。语法为：
+
 ```js
 do
     statement
 while (expression);
 ```
 The do/while loop is less commonly used than its while cousin—in practice, it is somewhat uncommon to be certain that you want a loop to execute at least once. Here’s an example of a do/while loop:
+
+> do/while 循环不如 while 常用——在实践中，确定要至少执行一次循环在某种程度上并不常见。这是 do/while 循环的示例：
+
 ```js
 function printArray(a) {
     let len = a.length, i = 0;
@@ -396,15 +414,25 @@ function printArray(a) {
 ```
 There are a couple of syntactic differences between the do/while loop and the ordinary while loop. First, the do loop requires both the do keyword (to mark the beginning of the loop) and the while keyword (to mark the end and introduce the loop condition). Also, the do loop must always be terminated with a semicolon. The while loop doesn’t need a semicolon if the loop body is enclosed in curly braces.
 
+> do/while 循环和普通的 while 循环之间在语法上有一些区别。首先，do 循环需要同时使用do关键字（以标记循环的开始）和while关键字（以标记结束并引入循环条件）。 另外，do 循环必须始终以分号终止。如果循环主体用花括号括起来，则 while 循环不需要分号。
+
 ### 5.4.3 for
 The for statement provides a looping construct that is often more convenient than the while statement. The for statement simplifies loops that follow a common pattern. Most loops have a counter variable of some kind. This variable is initialized before the loop starts and is tested before each iteration of the loop. Finally, the counter variable is incremented or otherwise updated at the end of the loop body, just before the variable is tested again. In this kind of loop, the initialization, the test, and the update are the three crucial manipulations of a loop variable. The for statement encodes each of these three manipulations as an expression and makes those expressions an explicit part of the loop syntax:
+
+> for 语句提供了一个循环构造，通常比 while 语句更方便。 for 语句简化了遵循通用模式的循环。大多数循环都有某种计数器变量。在循环开始之前初始化此变量，并在每次循环迭代之前对其进行测试。最后，在再次测试变量之前，计数器变量在循环主体的末尾增加或更新。在这种循环中，初始化、测试和更新是循环变量的三个关键操作。for 语句将这三个操作中的每一个都编码为一个表达式，并使这些表达式成为循环语法的显式部分：
+
 ```js
 for(initialize ; test ; increment)
     statement
 ```
 initialize, test, and increment are three expressions (separated by semicolons) that are responsible for initializing, testing, and incrementing the loop variable. Putting them all in the first line of the loop makes it easy to understand what a for loop is doing and prevents mistakes such as forgetting to initialize or increment the loop variable.
 
+> 初始化、测试和递增三个表达式（用分号分隔）。将它们全部放入循环的第一行可轻松了解 for 循环的作用，并防止诸如忘记初始化或增加循环变量之类的错误。
+
 The simplest way to explain how a for loop works is to show the equivalent while loop:2
+
+> 解释 for 循环如何工作的最简单方法是显示等效的while循环：[^2]
+
 ```js
 initialize;
 while(test) {
@@ -414,13 +442,21 @@ while(test) {
 ```
 In other words, the initialize expression is evaluated once, before the loop begins. To be useful, this expression must have side effects (usually an assignment). JavaScript also allows initialize to be a variable declaration statement so that you can declare and initialize a loop counter at the same time. The test expression is evaluated before each iteration and controls whether the body of the loop is executed. If test evaluates to a truthy value, the statement that is the body of the loop is executed. Finally, the increment expression is evaluated. Again, this must be an expression with side effects in order to be useful. Generally, it is either an assignment expression, or it uses the ++ or -- operators.
 
+> 换句话说，在循环开始之前，对初始化表达式进行一次求值。该表达式必须具有副作用（通常是赋值）。JavaScript 还允许将初始化用作变量声明语句，以便可以同时声明和初始化循环计数器。测试表达式在每次迭代之前进行评估，并控制是否执行循环主体。如果测试评估为真值，则执行作为循环主体的语句。最后，计算增量表达式。同样，该表达式必须是具有副作用的表达式才有效。通常，它可以是赋值表达式，也可以使用 ++ 或 -- 运算符。
+
 We can print the numbers from 0 to 9 with a for loop like the following. Contrast it with the equivalent while loop shown in the previous section:
+
+> 我们可以使用如下所示的 for 循环打印 0 到 9 之间的数字。 将其与上一节中显示的等效 while 循环进行对比：
+
 ```js
 for(let count = 0; count < 10; count++) {
     console.log(count);
 }
 ```
 Loops can become a lot more complex than this simple example, of course, and sometimes multiple variables change with each iteration of the loop. This situation is the only place that the comma operator is commonly used in JavaScript; it provides a way to combine multiple initialization and increment expressions into a single expression suitable for use in a for loop:
+
+> 当然，循环比这个简单的例子要复杂得多，有时循环的每次迭代都会改变多个变量。这种情况是在 JavaScript 中唯一使用逗号运算符的地方。它提供了一种将多个初始化和增量表达式组合成适合在 for 循环中使用的单个表达式的方法：
+
 ```js
 let i, j, sum = 0;
 for(i = 0, j = 10 ; i < 10 ; i++, j--) {
@@ -428,6 +464,9 @@ for(i = 0, j = 10 ; i < 10 ; i++, j--) {
 }
 ```
 In all our loop examples so far, the loop variable has been numeric. This is quite common but is not necessary. The following code uses a for loop to traverse a linked list data structure and return the last object in the list (i.e., the first object that does not have a next property):
+
+> 到目前为止，在我们所有的循环示例中，循环变量都是数字。这是很常见的，但不是必需的。以下代码使用 for 循环遍历链接列表数据结构并返回列表中的最后一个对象（即第一个不具有 next 属性的对象）：
+
 ```js
 function tail(o) {                          // Return the tail of linked list o
     for(; o.next; o = o.next) /* empty */ ; // Traverse while o.next is truthy
@@ -436,12 +475,21 @@ function tail(o) {                          // Return the tail of linked list o
 ```
 Note that this code has no initialize expression. Any of the three expressions may be omitted from a for loop, but the two semicolons are required. If you omit the test expression, the loop repeats forever, and for(;;) is another way of writing an infinite loop, like while(true).
 
+> 请注意，此代码没有初始化表达式。for 循环可以省略三个表达式中的任何一个，但是需要两个分号。如果省略测试表达式，则循环将永远重复，而 for（;;）是编写无限循环的另一种方式，例如 while(true)。
+
 ### 5.4.4 for/of
 ES6 defines a new loop statement: for/of. This new kind of loop uses the for keyword but is a completely different kind of loop than the regular for loop. (It is also completely different than the older for/in loop that we’ll describe in §5.4.5.)
 
+> ES6 定义了一个新的循环语句：for/of。这种新的循环使用 for 关键字，但是与常规的 for 循环完全不同。（它也与我们在 §5.4.5 中描述的较早的 for/in 循环完全不同。）
+
 The for/of loop works with iterable objects. We’ll explain exactly what it means for an object to be iterable in Chapter 12, but for this chapter, it is enough to know that arrays, strings, sets, and maps are iterable: they represent a sequence or set of elements that you can loop or iterate through using a for/of loop.
 
+> for/of 循环适用于可迭代对象。我们将在第 12 章中确切解释对象可迭代的含义，但是对于本章而言，知道数组、字符串、set 和 map 是可迭代的足以：它们代表了所需要可以使用 for/of 循环的序列或元素集合。
+
 Here, for example, is how we can use for/of to loop through the elements of an array of numbers and compute their sum:
+
+> 例如，这里是我们如何使用 for/of 遍历数字数组的元素并计算它们的总和的方法：
+
 ```js
 let data = [1, 2, 3, 4, 5, 6, 7, 8, 9], sum = 0;
 for(let element of data) {
@@ -451,12 +499,22 @@ sum       // => 45
 ```
 Superficially, the syntax looks like a regular for loop: the for keyword is followed by parentheses that contain details about what the loop should do. In this case, the parentheses contain a variable declaration (or, for variables that have already been declared, simply the name of the variable) followed by the of keyword and an expression that evaluates to an iterable object, like the data array in this case. As with all loops, the body of a for/of loop follows the parentheses, typically within curly braces.
 
+> 从表面上看，语法看起来像是常规的 for 循环：for 关键字后面是括号，其中包含有关循环应执行的操作的详细信息。在这种情况下，括号中包含一个变量声明（或者对于已经声明的变量，仅是变量的名称），后跟 of 关键字和一个表达式，该表达式的结果为可迭代对象，例如本例中的数据数组。与所有循环一样，for/of 循环的主体跟随括号后，通常在花括号内。
+
 In the code just shown, the loop body runs once for each element of the data array. Before each execution of the loop body, the next element of the array is assigned to the element variable. Array elements are iterated in order from first to last.
+
+> 在刚刚显示的代码中，循环主体为数据数组的每个元素运行一次。在每次执行循环主体之前，将数组的下一个元素分配给 element 变量。数组元素从第一个到最后一个顺序进行迭代。
 
 Arrays are iterated “live”—changes made during the iteration may affect the outcome of the iteration. If we modify the preceding code by adding the line data.push(sum); inside the loop body, then we create an infinite loop because the iteration can never reach the last element of the array.
 
-FOR/OF WITH OBJECTS
+> 数组是“实时”迭代的，在迭代过程中进行的更改可能会影响迭代的结果。如果我们通过添加行 `data.push(sum);` 在循环体内修改前面的代码，我们则创建一个无限循环，因为迭代永远无法到达数组的最后一个元素。
+
+#### FOR/OF WITH OBJECTS
+
 Objects are not (by default) iterable. Attempting to use for/of on a regular object throws a TypeError at runtime:
+
+> 对象是不可迭代的（默认情况下）。尝试在常规对象上使用 for/of 会在运行时引发 TypeError：
+
 ```js
 let o = { x: 1, y: 2, z: 3 };
 for(let element of o) { // Throws TypeError because o is not iterable
@@ -464,6 +522,9 @@ for(let element of o) { // Throws TypeError because o is not iterable
 }
 ```
 If you want to iterate through the properties of an object, you can use the for/in loop (introduced in §5.4.5), or use for/of with the Object.keys() method:
+
+> 如果要遍历对象的属性，则可以使用 for/in 循环（在 §5.4.5 中介绍），或通过 Object.keys() 方法使用 for/of：
+
 ```js
 let o = { x: 1, y: 2, z: 3 };
 let keys = "";
@@ -473,6 +534,9 @@ for(let k of Object.keys(o)) {
 keys  // => "xyz"
 ```
 This works because Object.keys() returns an array of property names for an object, and arrays are iterable with for/of. Note also that this iteration of the keys of an object is not live as the array example above was—changes to the object o made in the loop body will have no effect on the iteration. If you don’t care about the keys of an object, you can also iterate through their corresponding values like this:
+
+> 之所以可行，是因为 Object.keys() 返回一个对象的属性名称数组，并且该数组可以使用 for/of 进行迭代。还要注意，对象的键的这种迭代不像上面的数组示例那样有效——在循环主体中对对象 o 所做的更改将对该迭代没有影响。 如果您不关心对象的键，也可以像下面这样遍历它们的对应值：
+
 ```js
 let sum = 0;
 for(let v of Object.values(o)) {
@@ -481,6 +545,9 @@ for(let v of Object.values(o)) {
 sum // => 6
 ```
 And if you are interested in both the keys and the values of an object’s properties, you can use for/of with Object.entries() and destructuring assignment:
+
+> 而且，如果对对象属性的键和值都感兴趣，则可以将 Object.entries() 与 for/of 一起使用，并销毁赋值：
+
 ```js
 let pairs = "";
 for(let [k, v] of Object.entries(o)) {
@@ -490,8 +557,14 @@ pairs  // => "x1y2z3"
 ```
 Object.entries() returns an array of arrays, where each inner array represents a key/value pair for one property of the object. We use destructuring assignment in this code example to unpack those inner arrays into two individual variables.
 
-FOR/OF WITH STRINGS
+> Object.entries() 返回一个数组的数组，其中每个内部数组代表对象一个属性的键 / 值对。在此代码示例中，我们使用解构将这些内部数组拆成两个单独的变量。
+
+#### FOR/OF WITH STRINGS
+
 Strings are iterable character-by-character in ES6:
+
+> 在 ES6 中，字符串是一个一个字符可迭代对象：
+
 ```js
 let frequency = {};
 for(let letter of "mississippi") {
@@ -505,8 +578,14 @@ frequency   // => {m: 1, i: 4, s: 4, p: 2}
 ```
 Note that strings are iterated by Unicode codepoint, not by UTF-16 character. The string “I ❤ ” has a .length of 5 (because the two emoji characters each require two UTF-16 characters to represent). But if you iterate that string with for/of, the loop body will run three times, once for each of the three code points “I”, “❤”, and “.”
 
-FOR/OF WITH SET AND MAP
+> 请注意，字符串是通过 Unicode 麻点而不是 UTF-16 字符进行迭代的。字符串“ I❤”的长度为 5（因为两个表情符号字符每个都需要两个 UTF-16 字符来表示）。但是，如果使用 for/of 迭代该字符串，则循环主体将运行三次，对于三个麻点“ I”，“❤”和“.”中的每一个都运行一次。
+
+#### FOR/OF WITH SET AND MAP
+
 The built-in ES6 Set and Map classes are iterable. When you iterate a Set with for/of, the loop body runs once for each element of the set. You could use code like this to print the unique words in a string of text:
+
+> ES6 内置的 Set 和 Map 类是可迭代的。当使用 for/of 迭代 Set 时，循环主体对 set 的每个元素运行一次。可以使用如下代码在文本字符串中打印出唯一的单词：
+
 ```js
 let text = "Na na na na na na na na Batman!";
 let wordSet = new Set(text.split(" "));
@@ -517,6 +596,9 @@ for(let word of wordSet) {
 unique // => ["Na", "na", "Batman!"]
 ```
 Maps are an interesting case because the iterator for a Map object does not iterate the Map keys, or the Map values, but key/value pairs. Each time through the iteration, the iterator returns an array whose first element is a key and whose second element is the corresponding value. Given a Map m, you could iterate and destructure its key/value pairs like this:
+
+> Map 是一种有趣的情况，因为 Map 对象的迭代器不会迭代 Map 键或 Map 值，而是键 / 值对。每次迭代时，迭代器都会返回一个数组，该数组的第一个元素是键，而第二个元素是对应的值。给定一个 Map m，可以像这样迭代和解构其键 / 值对：
+
 ```js
 let m = new Map([[1, "one"]]);
 for(let [key, value] of m) {
@@ -524,10 +606,16 @@ for(let [key, value] of m) {
     value  // => "one"
 }
 ```
-ASYNCHRONOUS ITERATION WITH FOR/AWAIT
+#### ASYNCHRONOUS ITERATION WITH FOR/AWAIT
+
 ES2018 introduces a new kind of iterator, known as an asynchronous iterator, and a variant on the for/of loop, known as the for/await loop that works with asynchronous iterators.
 
+> ES2018 引入了一种新型的迭代器，称为异步迭代器，以及 for/of 循环的一种变体，即与异步迭代器一起使用的 for/await 循环。
+
 You’ll need to read Chapters 12 and 13 in order to understand the for/await loop, but here is how it looks in code:
+
+> 需要阅读第 12 章和第 13 章，才能了解 for/await 循环，这里展示一下它的代码：
+
 ```js
 // Read chunks from an asynchronously iterable stream and print them out
 async function printStream(stream) {
@@ -539,14 +627,24 @@ async function printStream(stream) {
 ### 5.4.5 for/in
 A for/in loop looks a lot like a for/of loop, with the of keyword changed to in. While a for/of loop requires an iterable object after the of, a for/in loop works with any object after the in. The for/of loop is new in ES6, but for/in has been part of JavaScript since the very beginning (which is why it has the more natural sounding syntax).
 
+> for/in 循环看起来很像 for/of 循环，将 of 关键字更改为 in。for/of 循环在 of 之后需要可迭代的对象，而 for/in 循环则在 in 之后可用于任何对象。for/of 循环是 ES6 中的新功能，但是 for/in 从一开始就已经是 JavaScript 的一部分（这就是为什么它具有更自然的发音语法）。
+
 The for/in statement loops through the property names of a specified object. The syntax looks like this:
+
+> for/in 语句循环遍历指定对象的属性名称。语法如下所示：
+
 ```js
 for (variable in object)
     statement
 ```
 variable typically names a variable, but it may be a variable declaration or anything suitable as the left-hand side of an assignment expression. object is an expression that evaluates to an object. As usual, statement is the statement or statement block that serves as the body of the loop.
 
+> 变量通常命名为变量，但它可以是变量声明或任何适合作为赋值表达式左侧的内容。object 是一个计算结果为对象的表达式。像往常一样，statement 是用作循环正文的语句或语句块。
+
 And you might use a for/in loop like this:
+
+> 可能会使用如下所示的 for/in 循环：
+
 ```js
 for(let p in o) {      // Assign property names of o to variable p
     console.log(o[p]); // Print the value of each property
@@ -554,23 +652,39 @@ for(let p in o) {      // Assign property names of o to variable p
 ```
 To execute a for/in statement, the JavaScript interpreter first evaluates the object expression. If it evaluates to null or undefined, the interpreter skips the loop and moves on to the next statement. The interpreter now executes the body of the loop once for each enumerable property of the object. Before each iteration, however, the interpreter evaluates the variable expression and assigns the name of the property (a string value) to it.
 
+> 为了执行 for/in 语句，JavaScript 解释器首先评估对象表达式。如果评估结果为 null 或未定义，则解释器将跳过循环并继续执行下一条语句。现在，解释器对对象的每个可枚举属性执行一次循环主体。但是，在每次迭代之前，解释器都会对变量表达式求值，并为其分配属性名称（字符串值）。
+
 Note that the variable in the for/in loop may be an arbitrary expression, as long as it evaluates to something suitable for the left side of an assignment. This expression is evaluated each time through the loop, which means that it may evaluate differently each time. For example, you can use code like the following to copy the names of all object properties into an array:
+
+> 请注意，for/in 循环中的变量可以是任意表达式，只要它的计算结果适合于赋值的左侧即可。每次通过循环都会对该表达式进行求值，这意味着它每次都可能会进行不同的求值。例如，可以使用以下代码将所有对象属性的名称复制到数组中：
+
 ```js
 let o = { x: 1, y: 2, z: 3 };
 let a = [], i = 0;
 for(a[i++] in o) /* empty */;
 ```
 JavaScript arrays are simply a specialized kind of object, and array indexes are object properties that can be enumerated with a for/in loop. For example, following the previous code with this line enumerates the array indexes 0, 1, and 2:
+
+> JavaScript 数组只是一种特殊的对象，而数组索引是可以用 for/in 循环枚举的对象属性。例如，在前面的代码之后加上此行，将枚举数组索引 0、1 和 2：
+
 ```js
 for(let i in a) console.log(i);
 ```
 I find that a common source of bugs in my own code is the accidental use of for/in with arrays when I meant to use for/of. When working with arrays, you almost always want to use for/of instead of for/in.
 
+> 我发现我自己的代码中常见的错误源是当我打算使用 for/of 时偶然将 for/in 与数组结合使用。使用数组时，几乎总是要使用 for/of 而不是 for/in。
+
 The for/in loop does not actually enumerate all properties of an object. It does not enumerate properties whose names are symbols. And of the properties whose names are strings, it only loops over the enumerable properties (see §14.1). The various built-in methods defined by core JavaScript are not enumerable. All objects have a toString() method, for example, but the for/in loop does not enumerate this toString property. In addition to built-in methods, many other properties of the built-in objects are non-enumerable. All properties and methods defined by your code are enumerable, by default. (You can make them non-enumerable using techniques explained in §14.1.)
+
+> for/in 循环实际上并未枚举对象的所有属性。它不枚举名称为符号的属性。在名称为字符串的属性中，它仅循环可枚举的属性（请参见第14.1节）。核心 JavaScript 定义的各种内置方法是无法枚举的。例如，所有对象都具有 toString() 方法，但是 for/in 循环不会枚举此 toString 属性。除了内置方法之外，内置对象的许多其他属性也是不可枚举的。 默认情况下，代码定义的所有属性和方法都是可枚举的。（可以使用 §14.1 中介绍的技术使它们不可枚举。）
 
 Enumerable inherited properties (see §6.3.2) are also enumerated by the for/in loop. This means that if you use for/in loops and also use code that defines properties that are inherited by all objects, then your loop may not behave in the way you expect. For this reason, many programmers prefer to use a for/of loop with Object.keys() instead of a for/in loop.
 
+> for/in 循环还枚举了可枚举的继承属性（参见 §6.3.2）。这意味着，如果使用 for/in 循环，并且还使用定义所有对象都继承的属性的代码，则的循环可能无法按照您期望的方式运行。因此，许多程序员更喜欢对 Object.keys() 使用 for/of 循环，而不是 for/in 循环。
+
 If the body of a for/in loop deletes a property that has not yet been enumerated, that property will not be enumerated. If the body of the loop defines new properties on the object, those properties may or may not be enumerated. See §6.6.1 for more information on the order in which for/in enumerates the properties of an object.
+
+> 如果 for/in 循环的主体删除了尚未枚举的属性，则不会枚举该属性。如果循环的主体在对象上定义了新属性，则这些属性可能会也可能不会被枚举。有关 for/in 枚举对象属性的顺序的更多信息，请参见 §6.6.1。
 
 ## 5.5 Jumps
 Another category of JavaScript statements are jump statements. As the name implies, these cause the JavaScript interpreter to jump to a new location in the source code. The break statement makes the interpreter jump to the end of a loop or other statement. continue makes the interpreter skip the rest of the body of a loop and jump back to the top of a loop to begin a new iteration. JavaScript allows statements to be named, or labeled, and break and continue can identify the target loop or other statement label.
