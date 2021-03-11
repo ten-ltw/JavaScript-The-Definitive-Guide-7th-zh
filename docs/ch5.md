@@ -689,15 +689,29 @@ If the body of a for/in loop deletes a property that has not yet been enumerated
 ## 5.5 Jumps
 Another category of JavaScript statements are jump statements. As the name implies, these cause the JavaScript interpreter to jump to a new location in the source code. The break statement makes the interpreter jump to the end of a loop or other statement. continue makes the interpreter skip the rest of the body of a loop and jump back to the top of a loop to begin a new iteration. JavaScript allows statements to be named, or labeled, and break and continue can identify the target loop or other statement label.
 
+> JavaScript 语句的另一类是跳转语句。顾名思义，这些会导致 JavaScript 解释器跳至源代码中的新位置。break 语句使解释器跳到循环或其他语句的末尾。continue 使解释器跳过循环主体的其余部分，然后跳回到循环的顶部以开始新的迭代。JavaScript 允许对语句进行命名或标记，并且 break 和 continue 可以标识目标循环或其他语句标签。
+
 The return statement makes the interpreter jump from a function invocation back to the code that invoked it and also supplies the value for the invocation. The throw statement is a kind of interim return from a generator function. The throw statement raises, or throws, an exception and is designed to work with the try/catch/finally statement, which establishes a block of exception-handling code. This is a complicated kind of jump statement: when an exception is thrown, the interpreter jumps to the nearest enclosing exception handler, which may be in the same function or up the call stack in an invoking function.
 
+> return 语句使解释器从函数调用跳回到调用它的代码，并提供该调用的值。throw 语句是生成器函数的一种临时返回。throw 语句引发或抛出异常，并设计为与 try/catch/finally 语句一起使用，该语句建立一个异常处理代码块。这是一种复杂的跳转语句：抛出异常时，解释器将跳转到最近的封闭异常处理程序，该处理程序可以在同一函数中，也可以在调用函数中的调用堆栈中向上移动。
+
 Details about each of these jump statements are in the sections that follow.
+
+> 有关这些跳转语句的详细信息，请参见以下各节。
 
 ### 5.5.1 Labeled Statements
 Any statement may be labeled by preceding it with an identifier and a colon:
 
+> 任何语句都可以在其前面加上标识符和冒号来标记：
+
 identifier: statement
+
+> 标识符: 语句
+
 By labeling a statement, you give it a name that you can use to refer to it elsewhere in your program. You can label any statement, although it is only useful to label statements that have bodies, such as loops and conditionals. By giving a loop a name, you can use break and continue statements inside the body of the loop to exit the loop or to jump directly to the top of the loop to begin the next iteration. break and continue are the only JavaScript statements that use statement labels; they are covered in the following subsections. Here is an example of a labeled while loop and a continue statement that uses the label.
+
+> 通过给语句加标签，可以为它指定一个名称，可以使用该名称在程序的其他位置引用它。可以标记任何语句，尽管只有于标记具有主体（例如循环和条件）的语句才有用。通过给循环命名，可以在循环体内使用 break 和 continue 语句退出循环或直接跳转到循环顶部以开始下一个迭代。break 和 continue 是唯一使用语句标签的 JavaScript 语句；它们在以下小节中介绍。这是一个带有标签的 while 循环和一个使用该标签的 continue 语句的示例。
+
 ```js
 mainloop: while(token !== null) {
     // Code omitted...
@@ -707,28 +721,48 @@ mainloop: while(token !== null) {
 ```
 The identifier you use to label a statement can be any legal JavaScript identifier that is not a reserved word. The namespace for labels is different than the namespace for variables and functions, so you can use the same identifier as a statement label and as a variable or function name. Statement labels are defined only within the statement to which they apply (and within its substatements, of course). A statement may not have the same label as a statement that contains it, but two statements may have the same label as long as neither one is nested within the other. Labeled statements may themselves be labeled. Effectively, this means that any statement may have multiple labels.
 
+> 用于标记语句的标识符可以是非保留字的任何合法 JavaScript 标识符。标签的命名空间与变量和函数的命名空间不同，因此可以将相同的标识符用作语句标签以及变量或函数名称。语句标签仅在它们适用的语句内定义（当然，在其子语句中也定义）。一条语句可能没有与包含该语句的语句相同的标签，但是两个语句都可以具有相同的标签，只要两个语句都不嵌套在另一个语句中即可。带标签的语句本身可以被标记。实际上，这意味着任何语句都可以具有多个标签。
+
 ### 5.5.2 break
 The break statement, used alone, causes the innermost enclosing loop or switch statement to exit immediately. Its syntax is simple:
+
+> 单独使用 break 语句会使最里面的循环或 switch 语句立即退出。它的语法很简单：
+
 ```js
 break;
 ```
 Because it causes a loop or switch to exit, this form of the break statement is legal only if it appears inside one of these statements.
 
+> 因为它导致循环或开关退出，所以这种形式的break语句仅当出现在这些语句之一内时才是合法的。
+
 You’ve already seen examples of the break statement within a switch statement. In loops, it is typically used to exit prematurely when, for whatever reason, there is no longer any need to complete the loop. When a loop has complex termination conditions, it is often easier to implement some of these conditions with break statements rather than trying to express them all in a single loop expression. The following code searches the elements of an array for a particular value. The loop terminates in the normal way when it reaches the end of the array; it terminates with a break statement if it finds what it is looking for in the array:
+
+> 您已经在 switch 语句中看到了 break 语句的示例。在循环中，通常由于某种原因而不再需要完成循环时，它会过早退出。当循环具有复杂的终止条件时，通常使用 break 语句更容易实现其中一些条件，而不是尝试在单个循环表达式中全部表达它们。以下代码在数组的元素中搜索特定值。当循环到达数组末尾时，循环以通常的方式终止。如果在数组中找到要查找的内容，则以 break 语句终止：
+
 ```js
 for(let i = 0; i < a.length; i++) {
     if (a[i] === target) break;
 }
 ```
 JavaScript also allows the break keyword to be followed by a statement label (just the identifier, with no colon):
+
+> JavaScript 还允许 break 关键字后跟一个语句标签（只是标识符，没有冒号）：
+
 ```
 break labelname;
 ```
 When break is used with a label, it jumps to the end of, or terminates, the enclosing statement that has the specified label. It is a syntax error to use break in this form if there is no enclosing statement with the specified label. With this form of the break statement, the named statement need not be a loop or switch: break can “break out of” any enclosing statement. This statement can even be a statement block grouped within curly braces for the sole purpose of naming the block with a label.
 
-A newline is not allowed between the break keyword and the labelname. This is a result of JavaScript’s automatic insertion of omitted semicolons: if you put a line terminator between the break keyword and the label that follows, JavaScript assumes you meant to use the simple, unlabeled form of the statement and treats the line terminator as a semicolon. (See §2.6.)
+> 当 break 与标签一起使用时，它跳转到具有指定标签的封闭语句的末尾或终止。如果没有带有指定标签的封闭语句，则使用这种形式的 break 是语法错误。 使用 break 语句的这种形式，命名的语句不必是循环或 switch：break 可以“跳出”任何封闭的语句。该语句甚至可以是用大括号括起来的语句块，其唯一目的是用标签命名该块。
+
+A newline is not allowed between the break keyword and the label name. This is a result of JavaScript’s automatic insertion of omitted semicolons: if you put a line terminator between the break keyword and the label that follows, JavaScript assumes you meant to use the simple, unlabeled form of the statement and treats the line terminator as a semicolon. (See §2.6.)
+
+> 在 break 关键字和标签名之间不允许使用换行符。 这是 JavaScript 自动插入省略的分号的结果：如果在 break 关键字和后面的标签之间放置了行终止符，则 JavaScript 会假定您打算使用语句的简单、无标签形式并将行终止符视为分号 。（请参见 §2.6）
 
 You need the labeled form of the break statement when you want to break out of a statement that is not the nearest enclosing loop or a switch. The following code demonstrates:
+
+> 当想脱离不是最近的封闭循环或 switch 的语句时，需要使用 break 语句的标签形式。以下代码演示：
+
 ```js
 let matrix = getData();  // Get a 2D array of numbers from somewhere
 // Now sum all the numbers in the matrix.
@@ -752,48 +786,92 @@ computeSum: if (matrix) {
 ```
 Finally, note that a break statement, with or without a label, can not transfer control across function boundaries. You cannot label a function definition statement, for example, and then use that label inside the function.
 
+> 最后，请注意，带有或不带有标签的 break 语句无法跨函数边界转移控制权。例如，不能标记函数定义语句，然后在函数内部使用该标记。
+
 ### 5.5.3 continue
 The continue statement is similar to the break statement. Instead of exiting a loop, however, continue restarts a loop at the next iteration. The continue statement’s syntax is just as simple as the break statement’s:
 
+> continue 语句类似于 break 语句。但是，continue 不是退出循环，而是在重新开始循环的下一次迭代。continue 语句的语法与 break 语句的语法一样简单：
+
+```js
 continue;
+```
+
 The continue statement can also be used with a label:
 
+> continue 语句也可以与标签一起使用：
+
+```js
 continue labelname;
+```
+
 The continue statement, in both its labeled and unlabeled forms, can be used only within the body of a loop. Using it anywhere else causes a syntax error.
+
+> 标记和未标记形式的 continue 语句只能在循环体内使用。在其他任何地方使用它都会导致语法错误。
 
 When the continue statement is executed, the current iteration of the enclosing loop is terminated, and the next iteration begins. This means different things for different types of loops:
 
+> 当执行 continue 语句时，封闭循环的当前迭代将终止，并且下一个迭代开始。对于不同类型的循环，这意味着不同的事情：
+
 In a while loop, the specified expression at the beginning of the loop is tested again, and if it’s true, the loop body is executed starting from the top.
+
+> 在 while 循环中，将再次测试循环开始处的指定表达式，如果该表达式为 true，则循环主体将从顶部开始执行。
 
 In a do/while loop, execution skips to the bottom of the loop, where the loop condition is tested again before restarting the loop at the top.
 
+> 在 do/while 循环中，执行跳到循环的底部，在重新测试顶部的循环之前，先对循环条件进行测试。
+
 In a for loop, the increment expression is evaluated, and the test expression is tested again to determine if another iteration should be done.
+
+> 在 for 循环中，对增量表达式进行求值，然后再次对测试表达式进行测试，以确定是否应执行另一次迭代。
 
 In a for/of or for/in loop, the loop starts over with the next iterated value or next property name being assigned to the specified variable.
 
+> 在 for/of 或 for/in 循环中，循环从下一个迭代值或下一个属性名称分配给指定变量开始。
+
 Note the difference in behavior of the continue statement in the while and for loops: a while loop returns directly to its condition, but a for loop first evaluates its increment expression and then returns to its condition. Earlier, we considered the behavior of the for loop in terms of an “equivalent” while loop. Because the continue statement behaves differently for these two loops, however, it is not actually possible to perfectly simulate a for loop with a while loop alone.
 
+> 注意 while 和 for 循环中 continue 语句的行为差异：while 循环直接返回其条件，但是 for 循环首先计算其增量表达式，然后返回其条件。之前，我们以“等效” while 循环的形式考虑了 for 循环的行为。但是，由于 continue 语句在这两个循环中的行为不同，因此实际上不可能仅使用 while 循环来完美地模拟 for 循环。
+
 The following example shows an unlabeled continue statement being used to skip the rest of the current iteration of a loop when an error occurs:
+
+> 以下示例显示了一个未标记的 continue 语句，该语句在发生错误时用于跳过循环的当前迭代的其余部分：
+
 ```js
 for(let i = 0; i < data.length; i++) {
     if (!data[i]) continue;  // Can't proceed with undefined data
     total += data[i];
 }
 ```
-Like the break statement, the continue statement can be used in its labeled form within nested loops when the loop to be restarted is not the immediately enclosing loop. Also, as with the break statement, line breaks are not allowed between the continue statement and its labelname.
+Like the break statement, the continue statement can be used in its labeled form within nested loops when the loop to be restarted is not the immediately enclosing loop. Also, as with the break statement, line breaks are not allowed between the continue statement and its label name.
+
+> 像 break 语句一样，当要重新启动的循环不是立即封闭的循环时，可以在嵌套循环内以标记形式使用 continue 语句。同样，与 break 语句一样，在 continue 语句及其标签名之间不允许换行。
 
 ### 5.5.4 return
 Recall that function invocations are expressions and that all expressions have values. A return statement within a function specifies the value of invocations of that function. Here’s the syntax of the return statement:
 
+> 回想一下，函数调用是表达式，并且所有表达式都具有值。函数内的 return 语句指定该函数的调用值。这是 return 语句的语法：
+
+```js
 return expression;
+```
+
 A return statement may appear only within the body of a function. It is a syntax error for it to appear anywhere else. When the return statement is executed, the function that contains it returns the value of expression to its caller. For example:
+
+> return 语句可能仅出现在函数体内。它出现在其他任何地方都是语法错误。当执行 return 语句时，包含它的函数会将 expression 的值返回给其调用者。例如：
+
 ```js
 function square(x) { return x*x; } // A function that has a return statement
 square(2)                          // => 4
 ```
 With no return statement, a function invocation simply executes each of the statements in the function body in turn until it reaches the end of the function and then returns to its caller. In this case, the invocation expression evaluates to undefined. The return statement often appears as the last statement in a function, but it need not be last: a function returns to its caller when a return statement is executed, even if there are other statements remaining in the function body.
 
+> 在没有 return 语句的情况下，函数调用只是依次依次执行函数体中的每个语句，直到到达函数末尾，然后返回到其调用者。在这种情况下，调用表达式的计算结果为 undefined。return 语句通常显示为函数中的最后一条语句，但不一定要最后一条：执行 return 语句时，函数返回到其调用者，即使函数体内还有其他语句。
+
 The return statement can also be used without an expression to make the function return undefined to its caller. For example:
+
+> 还可以在没有表达式的情况下使用 return 语句，以使函数返回未定义给调用者。例如：
+
 ```js
 function displayObject(o) {
     // Return immediately if the argument is null or undefined.
@@ -803,8 +881,13 @@ function displayObject(o) {
 ```
 Because of JavaScript’s automatic semicolon insertion (§2.6), you cannot include a line break between the return keyword and the expression that follows it.
 
+> 由于 JavaScript 自动插入了分号（§2.6），因此不能在 return 关键字和其后的表达式之间包含换行符。
+
 ### 5.5.5 yield
 The yield statement is much like the return statement but is used only in ES6 generator functions (see §12.3) to produce the next value in the generated sequence of values without actually returning:
+
+> yield 语句与 return 语句非常相似，但仅在 ES6 生成器函数（请参阅 §12.3）中使用，以在所生成的值序列中生成下一个值，而无需实际返回：
+
 ```js
 // A generator function that yields a range of integers
 function* range(from, to) {
@@ -815,13 +898,25 @@ function* range(from, to) {
 ```
 In order to understand yield, you must understand iterators and generators, which will not be covered until Chapter 12. yield is included here for completeness, however. (Technically, though, yield is an operator rather than a statement, as explained in §12.4.2.)
 
+> 为了了解 yield，必须了解迭代器和生成器，但是为了完整起见，直到第 12 章都不会涉及。（但是，从技术上讲，yield 是运算符，而不是语句，如 §12.4.2 节中所述。）
+
 ### 5.5.6 throw
 An exception is a signal that indicates that some sort of exceptional condition or error has occurred. To throw an exception is to signal such an error or exceptional condition. To catch an exception is to handle it—to take whatever actions are necessary or appropriate to recover from the exception. In JavaScript, exceptions are thrown whenever a runtime error occurs and whenever the program explicitly throws one using the throw statement. Exceptions are caught with the try/catch/finally statement, which is described in the next section.
 
+> 异常是表示已发生某种异常情况或错误的信号。引发异常是表示这种错误或异常情况。捕获异常就是对它进行处理——采取必要措施或适当措施以从异常中恢复。在 JavaScript 中，只要发生运行时错误，并且只要程序使用 throw 语句显式抛出一个异常，就会引发异常。使用 try/catch/finally 语句捕获异常，这将在下一部分中进行描述。
+
 The throw statement has the following syntax:
 
+> throw语句具有以下语法：
+
+```js
 throw expression;
+```
+
 expression may evaluate to a value of any type. You might throw a number that represents an error code or a string that contains a human-readable error message. The Error class and its subclasses are used when the JavaScript interpreter itself throws an error, and you can use them as well. An Error object has a name property that specifies the type of error and a message property that holds the string passed to the constructor function. Here is an example function that throws an Error object when invoked with an invalid argument:
+
+> 表达式可以计算为任何类型的值。可能会抛出代表错误代码的数字或包含人类可读错误消息的字符串。当 JavaScript 解释器本身抛出错误时，将使用 Error 类及其子类，并且您也可以使用它们。Error 对象具有用于指定错误类型的 name 属性和用于保存传递给构造函数的字符串的 message 属性。这是一个示例函数，当使用无效参数调用该函数时，将引发 Error 对象：
+
 ```js
 function factorial(x) {
     // If the input argument is invalid, throw an exception!
@@ -835,10 +930,17 @@ factorial(4)   // => 24
 ```
 When an exception is thrown, the JavaScript interpreter immediately stops normal program execution and jumps to the nearest exception handler. Exception handlers are written using the catch clause of the try/catch/finally statement, which is described in the next section. If the block of code in which the exception was thrown does not have an associated catch clause, the interpreter checks the next-highest enclosing block of code to see if it has an exception handler associated with it. This continues until a handler is found. If an exception is thrown in a function that does not contain a try/catch/finally statement to handle it, the exception propagates up to the code that invoked the function. In this way, exceptions propagate up through the lexical structure of JavaScript methods and up the call stack. If no exception handler is ever found, the exception is treated as an error and is reported to the user.
 
+> 引发异常时，JavaScript 解释器立即停止正常程序执行并跳转到最近的异常处理程序。异常处理程序使用 try/catch/finally 语句的 catch 子句编写，这将在下一部分中进行描述。如果在其中引发了异常的代码块中没有关联的 catch 子句，则解释器将检查下一个最顶层的代码块，以查看其是否具有与之关联的异常处理程序。这一直持续到找到处理程序为止。如果在不包含 try/catch/finally 语句来处理它的函数中引发异常，则该异常会传播到调用该函数的代码。这样，异常会通过 JavaScript 方法的词法结构向上传播，并向上扩展到调用堆栈。如果未找到异常处理程序，则将该异常视为错误并报告给用户。
+
 ### 5.5.7 try/catch/finally
 The try/catch/finally statement is JavaScript’s exception handling mechanism. The try clause of this statement simply defines the block of code whose exceptions are to be handled. The try block is followed by a catch clause, which is a block of statements that are invoked when an exception occurs anywhere within the try block. The catch clause is followed by a finally block containing cleanup code that is guaranteed to be executed, regardless of what happens in the try block. Both the catch and finally blocks are optional, but a try block must be accompanied by at least one of these blocks. The try, catch, and finally blocks all begin and end with curly braces. These braces are a required part of the syntax and cannot be omitted, even if a clause contains only a single statement.
 
+> try/catch/finally 语句是 JavaScript 的异常处理机制。该语句的 try 子句仅定义要处理其异常的代码块。在 try 块之后是 catch 子句，catch 子句是在 try 块内任何地方发生异常时调用的语句块。catch 子句后面是一个 finally 块，其中包含保证可以执行的清除代码，无论 try 块中发生了什么。catch 和 finally 块都是可选的，但是 try 块必须至少与这些块之一相伴。尝试，捕获和最终阻止都以花括号开头和结尾。这些花括号是语法的必需部分，即使子句仅包含一个语句，也不能忽略这些花括号。
+
 The following code illustrates the syntax and purpose of the try/catch/finally statement:
+
+> 以下代码说明了 try/catch/finally 语句的语法和用途：
+
 ```js
 try {
     // Normally, this code runs from the top of the block to the bottom
@@ -865,7 +967,12 @@ finally {
 ```
 Note that the catch keyword is generally followed by an identifier in parentheses. This identifier is like a function parameter. When an exception is caught, the value associated with the exception (an Error object, for example) is assigned to this parameter. The identifier associated with a catch clause has block scope—it is only defined within the catch block.
 
+> 请注意，catch 关键字通常在括号后跟一个标识符。该标识符就像一个函数参数。捕获到异常后，与该异常关联的值（例如 Error 对象）将分配给该参数。与 catch 子句关联的标识符具有块作用域——仅在catch块内有定义。
+
 Here is a realistic example of the try/catch statement. It uses the factorial() method defined in the previous section and the client-side JavaScript methods prompt() and alert() for input and output:
+
+> 这是 try/catch 语句的实际示例。它使用上一节中定义的 factorial() 方法以及客户端 JavaScript 方法 hint() 和 alert() 进行输入和输出：
+
 ```js
 try {
     // Ask the user to enter a number
@@ -881,13 +988,24 @@ catch(ex) {     // If the user's input was not valid, we end up here
 ```
 This example is a try/catch statement with no finally clause. Although finally is not used as often as catch, it can be useful. However, its behavior requires additional explanation. The finally clause is guaranteed to be executed if any portion of the try block is executed, regardless of how the code in the try block completes. It is generally used to clean up after the code in the try clause.
 
+> 这个例子是一个 try/catch 语句，没有 finally 子句。虽然 finally 不像 catch 那样经常使用，但它很有用。可是，其行为需要额外说明。如果 try 块的任何部分被执行，则必定执行 finally 子句，无论 try 块中的代码如何完成。通常用于在 try 子句中的代码之后进行清理。
+
 In the normal case, the JavaScript interpreter reaches the end of the try block and then proceeds to the finally block, which performs any necessary cleanup. If the interpreter left the try block because of a return, continue, or break statement, the finally block is executed before the interpreter jumps to its new destination.
+
+> 在正常情况下，JavaScript 解释器到达 try 块的末尾，然后进行到 finally 块，该块执行任何必要的清除。如果解释器由于返回，继续或中断语句而离开 try 块，则在解释器跳转到其新目的地之前执行 finally 块。
 
 If an exception occurs in the try block and there is an associated catch block to handle the exception, the interpreter first executes the catch block and then the finally block. If there is no local catch block to handle the exception, the interpreter first executes the finally block and then jumps to the nearest containing catch clause.
 
+> 如果 try 块中发生异常，并且有一个关联的 catch 块来处理该异常，则解释器将首先执行 catch 块，然后执行 finally 块。如果没有本地 catch 块来处理该异常，则解释器将首先执行 finally 块，然后跳转到最近的包含 catch 子句。
+
 If a finally block itself causes a jump with a return, continue, break, or throw statement, or by calling a method that throws an exception, the interpreter abandons whatever jump was pending and performs the new jump. For example, if a finally clause throws an exception, that exception replaces any exception that was in the process of being thrown. If a finally clause issues a return statement, the method returns normally, even if an exception has been thrown and has not yet been handled.
 
+> 如果 finally 块本身通过 return、continue、break 或 throw 语句导致跳转，或者通过调用引发异常的方法来调用，则解释器将放弃所有挂起的任何程序并执行新的跳转。例如，如果 finally 子句引发异常，则该异常将替换正在引发过程中的所有异常。如果 finally 子句发出 return 语句，则即使已引发异常且尚未处理异常，该方法也会正常返回。
+
 try and finally can be used together without a catch clause. In this case, the finally block is simply cleanup code that is guaranteed to be executed, regardless of what happens in the try block. Recall that we can’t completely simulate a for loop with a while loop because the continue statement behaves differently for the two loops. If we add a try/finally statement, we can write a while loop that works like a for loop and that handles continue statements correctly:
+
+> try 和 finally 可以一起使用，而无需使用 catch 子句。在这种情况下，无论 try 块发生什么情况，finally 块都是保证可以执行的清除代码。回想一下，我们无法完全通过 while 循环来模拟 for 循环，因为 continue 语句在两个循环中的行为有所不同。如果添加 try/finally 语句，则可以编写一个 while 循环，该循环类似于 for 循环，并且可以正确处理 continue 语句：
+
 ```js
 // Simulate for(initialize ; test ;increment ) body;
 initialize ;
@@ -898,8 +1016,13 @@ while( test ) {
 ```
 Note, however, that a body that contains a break statement behaves slightly differently (causing an extra increment before exiting) in the while loop than it does in the for loop, so even with the finally clause, it is not possible to completely simulate the for loop with while.
 
+> 但是请注意，包含 break 语句的主体在 while 循环中的行为与 for 循环中的行为略有不同（在退出前会导致额外的增量计算），因此即使使用 finally 子句，也无法完全用 while 模拟 for 循环。
+
 BARE CATCH CLAUSES
 Occasionally you may find yourself using a catch clause solely to detect and stop the propagation of an exception, even though you do not care about the type or the value of the exception. In ES2019 and later, you can omit the parentheses and the identifier and use the catch keyword bare in this case. Here is an example:
+
+> 有时，即使不关心异常的类型或值，您可能会发现自己仅使用 catch 子句来检测并停止异常的传播。在 ES2019 及更高版本中，可以省略括号和标识符，并在这种情况下裸露使用 catch 关键字。 这是一个例子：
+
 ```js
 // Like JSON.parse(), but return undefined instead of throwing an error
 function parseJSON(s) {
@@ -914,21 +1037,36 @@ function parseJSON(s) {
 ## 5.6 Miscellaneous Statements
 This section describes the remaining three JavaScript statements—with, debugger, and "use strict".
 
+> 本节描述了其余三个 JavaScript 语句——with、debugger 和“ use strict”。
+
 ### 5.6.1 with
 The with statement runs a block of code as if the properties of a specified object were variables in scope for that code. It has the following syntax:
+
+> with 语句运行代码块，就像指定对象的属性是该代码范围内的变量一样。它具有以下语法：
+
 ```js
 with (object)
     statement
 ```
 This statement creates a temporary scope with the properties of object as variables and then executes statement within that scope.
 
+> 该语句使用对象的属性作为变量创建一个临时作用域，然后在该作用域内执行语句。
+
 The with statement is forbidden in strict mode (see §5.6.3) and should be considered deprecated in non-strict mode: avoid using it whenever possible. JavaScript code that uses with is difficult to optimize and is likely to run significantly more slowly than the equivalent code written without the with statement.
 
+> 在严格模式下禁止 with 语句（请参见 §5.6.3），并且在非严格模式下应将其视为已弃用：请尽可能避免使用它。与 with 一起使用的 JavaScript 代码难以优化，并且与没有 with 语句编写的等效代码相比，运行速度可能慢得多。
+
 The common use of the with statement is to make it easier to work with deeply nested object hierarchies. In client-side JavaScript, for example, you may have to type expressions like this one to access elements of an HTML form:
+
+> with 语句的常用用法是使使用深度嵌套的对象层次结构更清晰。例如，在客户端 JavaScript 中，可能必须键入此类表达式才能访问 HTML 表单的元素：
+
 ```js
 document.forms[0].address.value
 ```
 If you need to write expressions like this a number of times, you can use the with statement to treat the properties of the form object like variables:
+
+> 如果需要多次编写这样的表达式，则可以使用 with 语句将表单对象的属性像变量一样对待：
+
 ```js
 with(document.forms[0]) {
     // Access form elements directly here. For example:
@@ -938,6 +1076,9 @@ with(document.forms[0]) {
 }
 ```
 This reduces the amount of typing you have to do: you no longer need to prefix each form property name with document.forms[0]. It is just as simple, of course, to avoid the with statement and write the preceding code like this:
+
+> 这减少了必须进行的键入操作的数量：不再需要为每个表单属性名称加上 document.forms[0] 前缀。当然，避免 with 语句并像这样编写前面的代码也很简单：
+
 ```js
 let f = document.forms[0];
 f.name.value = "";
@@ -945,6 +1086,8 @@ f.address.value = "";
 f.email.value = "";
 ```
 Note that if you use const or let or var to declare a variable or constant within the body of a with statement, it creates an ordinary variable and does not define a new property within the specified object.
+
+> 请注意，如果使用 const 或 let 或 var 在 with 语句的主体内声明变量或常量，则它将创建普通变量，并且不会在指定对象内定义新属性。
 
 ### 5.6.2 debugger
 The debugger statement normally does nothing. If, however, a debugger program is available and is running, then an implementation may (but is not required to) perform some kind of debugging action. In practice, this statement acts like a breakpoint: execution of JavaScript code stops, and you can use the debugger to print variables’ values, examine the call stack, and so on. Suppose, for example, that you are getting an exception in your function f() because it is being called with an undefined argument, and you can’t figure out where this call is coming from. To help you in debugging this problem, you might alter f() so that it begins like this:
