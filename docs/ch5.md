@@ -1091,6 +1091,9 @@ Note that if you use const or let or var to declare a variable or constant withi
 
 ### 5.6.2 debugger
 The debugger statement normally does nothing. If, however, a debugger program is available and is running, then an implementation may (but is not required to) perform some kind of debugging action. In practice, this statement acts like a breakpoint: execution of JavaScript code stops, and you can use the debugger to print variables’ values, examine the call stack, and so on. Suppose, for example, that you are getting an exception in your function f() because it is being called with an undefined argument, and you can’t figure out where this call is coming from. To help you in debugging this problem, you might alter f() so that it begins like this:
+
+> debugger 语句通常不执行任何操作。但是，如果 debugger 程序可用并且正在运行，则这个实现可以（但不是必需）执行某种调试操作。实际上，该语句就像一个断点：停止执行 JavaScript 代码，并且可以使用调试器打印变量的值，检查调用堆栈等。例如，假设您在函数 f() 中遇到一个异常，因为该异常正在使用未定义的参数进行调用，而您无法弄清楚该调用的来源。为了帮助调试此问题，可以更改 f() 使其开始，如下所示：
+
 ```js
 function f(o) {
   if (o === undefined) debugger;  // Temporary line for debugging purposes
@@ -1099,14 +1102,24 @@ function f(o) {
 ```
 Now, when f() is called with no argument, execution will stop, and you can use the debugger to inspect the call stack and find out where this incorrect call is coming from.
 
+> 现在，当不带任何参数调用 f() 时，执行将停止，并且可以使用调试器检查调用堆栈，并找出此错误调用的出处。
+
 Note that it is not enough to have a debugger available: the debugger statement won’t start the debugger for you. If you’re using a web browser and have the developer tools console open, however, this statement will cause a breakpoint.
+
+> 请注意，仅有 debugger 是不够的：debugger 语句不会为启动调试器。但是，如果您使用的是网络浏览器并打开了开发者工具控制台，则此语句将导致一个断点。
 
 ### 5.6.3 “use strict”
 "use strict" is a directive introduced in ES5. Directives are not statements (but are close enough that "use strict" is documented here). There are two important differences between the "use strict" directive and regular statements:
 
+> “use strict”是ES5中引入的指令。指令不是语句（但足够接近，因此此处记录了“use strict”）。“use strict”指令和常规语句之间有两个重要区别：
+
 It does not include any language keywords: the directive is just an expression statement that consists of a special string literal (in single or double quotes).
 
+> 它不包含任何语言关键字：指令只是由特殊字符串文字（单引号或双引号）组成的表达式语句。
+
 It can appear only at the start of a script or at the start of a function body, before any real statements have appeared.
+
+> 它只能出现在脚本的开始处或函数体的开始处，然后才出现任何实际的语句。
 
 The purpose of a "use strict" directive is to indicate that the code that follows (in the script or function) is strict code. The top-level (nonfunction) code of a script is strict code if the script has a "use strict" directive. A function body is strict code if it is defined within strict code or if it has a "use strict" directive. Code passed to the eval() method is strict code if eval() is called from strict code or if the string of code includes a "use strict" directive. In addition to code explicitly declared to be strict, any code in a class body (Chapter 9) or in an ES6 module (§10.3) is automatically strict code. This means that if all of your JavaScript code is written as modules, then it is all automatically strict, and you will never need to use an explicit "use strict" directive.
 
