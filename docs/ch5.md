@@ -1123,17 +1123,31 @@ It can appear only at the start of a script or at the start of a function body, 
 
 The purpose of a "use strict" directive is to indicate that the code that follows (in the script or function) is strict code. The top-level (nonfunction) code of a script is strict code if the script has a "use strict" directive. A function body is strict code if it is defined within strict code or if it has a "use strict" directive. Code passed to the eval() method is strict code if eval() is called from strict code or if the string of code includes a "use strict" directive. In addition to code explicitly declared to be strict, any code in a class body (Chapter 9) or in an ES6 module (§10.3) is automatically strict code. This means that if all of your JavaScript code is written as modules, then it is all automatically strict, and you will never need to use an explicit "use strict" directive.
 
+> “use strict”指令的目的是指示（在脚本或函数中）后面的代码是严格代码。如果脚本具有“use strict”指令，则该脚本的顶级（非函数）代码为严格代码。如果函数体是在严格代码中定义的，或者具有“use strict”指令，则它是严格代码。如果从严格代码中调用 eval() 或代码字符串包含“use strict”指令，则传递给 eval() 方法的代码为严格代码。除了明确声明为严格的代码之外，类主体（第9章）或 ES6 模块（10.3）中的任何代码都是自动严格的代码。这意味着，如果所有的JavaScript代码都是作为模块编写的，那么它们都是自动严格的，并且将不需要使用显式的“use strict”指令。 
+
 Strict code is executed in strict mode. Strict mode is a restricted subset of the language that fixes important language deficiencies and provides stronger error checking and increased security. Because strict mode is not the default, old JavaScript code that still uses the deficient legacy features of the language will continue to run correctly. The differences between strict mode and non-strict mode are the following (the first three are particularly important):
+
+> 严格代码在严格模式下执行。严格模式是该语言的受限子集，可修复重要的语言缺陷并提供更强的错误检查和更高的安全性。由于严格模式不是默认模式，因此旧 JavaScript 代码使用不足传统特性将继续正确运行。严格模式和非严格模式之间的区别如下（前三个特别重要）：
 
 The with statement is not allowed in strict mode.
 
+> 在严格模式下，不允许使用 with 语句。
+
 In strict mode, all variables must be declared: a ReferenceError is thrown if you assign a value to an identifier that is not a declared variable, function, function parameter, catch clause parameter, or property of the global object. (In non-strict mode, this implicitly declares a global variable by adding a new property to the global object.)
+
+> 在严格模式下，必须声明所有变量：如果将值分配给未声明的变量、函数、函数参数、catch 子句参数或全局对象的属性的标识符，则会引发 ReferenceError。（在非严格模式下，通过向全局对象添加新属性来隐式声明全局变量。）
 
 In strict mode, functions invoked as functions (rather than as methods) have a this value of undefined. (In non-strict mode, functions invoked as functions are always passed the global object as their this value.) Also, in strict mode, when a function is invoked with call() or apply() (§8.7.4), the this value is exactly the value passed as the first argument to call() or apply(). (In non-strict mode, null and undefined values are replaced with the global object and nonobject values are converted to objects.)
 
+> 在严格模式下，作为函数（而不是方法）调用的函数的 this 值是 undefined。（在非严格模式下，作为函数调用的函数总是将全局对象作为其 this 值。）此外，在严格模式下，当使用 call() 或 apply() 调用函数时（§8.7.4），this 值作为第一个参数传递给 call() 或 apply() 的值。（在非严格模式下，将 null 和 undefined 值替换为全局对象，并将 nonobject 值转换为对象。）
+
 In strict mode, assignments to nonwritable properties and attempts to create new properties on non-extensible objects throw a TypeError. (In non-strict mode, these attempts fail silently.)
 
+> 在严格模式下，对不可写属性的分配以及在不可扩展对象上尝试创建新属性的尝试将引发 TypeError。（在非严格模式下，这些尝试将以静默方式失败。）
+
 In strict mode, code passed to eval() cannot declare variables or define functions in the caller’s scope as it can in non-strict mode. Instead, variable and function definitions live in a new scope created for the eval(). This scope is discarded when the eval() returns.
+
+> 在严格模式下，传递给 eval() 的代码无法像在非严格模式下那样在调用者的作用域中声明变量或定义函数。相反，变量和函数定义位于为 eval() 创建的新作用域中。当 eval() 返回时，将放弃此 this 用域。
 
 In strict mode, the Arguments object (§8.3.3) in a function holds a static copy of the values passed to the function. In non-strict mode, the Arguments object has “magical” behavior in which elements of the array and named function parameters both refer to the same value.
 
@@ -1154,11 +1168,19 @@ In strict mode, the ability to examine the call stack is restricted. arguments.c
 ## 5.7 Declarations
 The keywords const, let, var, function, class, import, and export are not technically statements, but they look a lot like statements, and this book refers informally to them as statements, so they deserve a mention in this chapter.
 
+> 从技术上讲，关键字 const、let、var、function、class、import 和 export 并不是语句，但它们看起来很像语句，并且本书将它们非正式地称为语句，因此在本章中应予提及。
+
 These keywords are more accurately described as declarations rather than statements. We said at the start of this chapter that statements “make something happen.” Declarations serve to define new values and give them names that we can use to refer to those values. They don’t make much happen themselves, but by providing names for values they, in an important sense, define the meaning of the other statements in your program.
+
+> 这些关键字被更准确地描述为声明而不是语句。我们在本章开始时说过，语句“使某事发生”。声明用于定义新值，并为它们提供可用来引用这些值的名称。它们本身并不会带来太大的变化，但是通过提供值的名称，它们在重要的意义上定义了程序中其他语句的含义。
 
 When a program runs, it is the program’s expressions that are being evaluated and the program’s statements that are being executed. The declarations in a program don’t “run” in the same way: instead, they define the structure of the program itself. Loosely, you can think of declarations as the parts of the program that are processed before the code starts running.
 
+> 程序运行时，将对程序的表达式进行评估，并执行程序的语句。程序中的声明不是以相同的方式“运行”：相反，它们定义了程序本身的结构。不确切地说，可以将声明视为代码开始运行之前已处理的部分程序。
+
 JavaScript declarations are used to define constants, variables, functions, and classes and for importing and exporting values between modules. The next subsections give examples of all of these declarations. They are all covered in much more detail elsewhere in this book.
+
+> JavaScript 声明用于定义常量、变量、函数和类，以及在模块之间导入和导出值。接下来的小节将给出所有这些声明的示例。在本书的其他地方，将对它们进行更详细的介绍。
 
 ### 5.7.1 const, let, and var
 The const, let, and var declarations are covered in §3.10. In ES6 and later, const declares constants, and let declares variables. Prior to ES6, the var keyword was the only way to declare variables and there was no way to declare constants. Variables declared with var are scoped to the containing function rather than the containing block. This can be a source of bugs, and in modern JavaScript there is really no reason to use var instead of let.
