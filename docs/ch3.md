@@ -144,7 +144,7 @@ let fraction = 0.123_456_789;  // Works in the fractional part, too.
 
 At the time of this writing in early 2020, underscores in numeric literals are not yet formally standardized as part of JavaScript. But they are in the advanced stages of the standardization process and are implemented by all major browsers and by Node.
 
-> 在 2020 年初撰写本文时，数字字面值中的下划线还没有作为 JavaScript 的一部分正式标准化。但是它们处于标准化过程的高级阶段，所有主要浏览器和节点都实现了它们。
+> 在 2020 年初撰写本文时，数字字面值中的下划线还没有作为 JavaScript 的一部分正式标准化。但是它们处于标准化过程的高级阶段，所有主流浏览器和 Node 都实现了它们。
 
 ### 3.2.3 Arithmetic in JavaScript
 
