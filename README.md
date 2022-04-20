@@ -2,7 +2,7 @@
 
 《JavaScript 权威指南第七版》中文翻译
 
-在线阅读：[http://js.okten.cn/](http://js.okten.cn/)
+在线阅读：[https://js.okten.cn/](https://js.okten.cn/)
 
 <img src="./docs/cover.jpg" width=24% />
 
