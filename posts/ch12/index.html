@@ -1,0 +1,675 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title>第 12 章 迭代器和生成器 - 《JavaScript 权威指南第七版》中英对照</title><meta name=Description content="This is my blog"><meta property="og:title" content="第 12 章 迭代器和生成器">
+<meta property="og:description" content="Iterable objects and their associated iterators are a feature of ES6 that we’ve seen several times throughout this book. Arrays (including TypedArrays) are iterable, as are strings and Set and Map objects. This means that the contents of these data structures can be iterated—looped over—wit">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.okten.cn/posts/ch12/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-11-02T22:18:31+08:00">
+<meta property="article:modified_time" content="2020-11-02T22:18:31+08:00"><meta property="og:site_name" content="My cool site">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="第 12 章 迭代器和生成器">
+<meta name=twitter:description content="Iterable objects and their associated iterators are a feature of ES6 that we’ve seen several times throughout this book. Arrays (including TypedArrays) are iterable, as are strings and Set and Map objects. This means that the contents of these data structures can be iterated—looped over—wit">
+<meta name=application-name content="《JavaScript 权威指南第七版》中英对照">
+<meta name=apple-mobile-web-app-title content="《JavaScript 权威指南第七版》中英对照"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.okten.cn/posts/ch12/><link rel=prev href=https://blog.okten.cn/posts/ch13/><link rel=next href=https://blog.okten.cn/posts/ch11/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"第 12 章 迭代器和生成器","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.okten.cn\/posts\/ch12\/"},"genre":"posts","wordcount":10010,"url":"https:\/\/blog.okten.cn\/posts\/ch12\/","datePublished":"2020-11-02T22:18:31+08:00","dateModified":"2020-11-02T22:18:31+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Ten Li"},"description":""}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005185440822195" crossorigin=anonymous></script>
+</head>
+<body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="《JavaScript 权威指南第七版》中英对照">《JavaScript 权威指南第七版》中英对照</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fas fa-thin fa-archive"></i> 所有章节 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="《JavaScript 权威指南第七版》中英对照">《JavaScript 权威指南第七版》中英对照</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title><i class="fas fa-thin fa-archive"></i>所有章节</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a></div>
+</div>
+</header><div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div><main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第 12 章 迭代器和生成器</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=https://blog.okten.cn/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ten Li</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2020-11-02>2020-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;10010 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;20 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static data-kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#121-how-iterators-work>12.1 How Iterators Work</a></li>
+<li><a href=#122-implementing-iterable-objects>12.2 Implementing Iterable Objects</a>
+<ul>
+<li><a href=#1221-closing-an-iterator-the-return-method>12.2.1 “Closing” an Iterator: The Return Method</a></li>
+</ul>
+</li>
+<li><a href=#123-generators>12.3 Generators</a>
+<ul>
+<li><a href=#1231-generator-examples>12.3.1 Generator Examples</a></li>
+<li><a href=#1232-yield-and-recursive-generators>12.3.2 yield* and Recursive Generators</a></li>
+</ul>
+</li>
+<li><a href=#124-advanced-generator-features>12.4 Advanced Generator Features</a>
+<ul>
+<li><a href=#1241-the-return-value-of-a-generator-function>12.4.1 The Return Value of a Generator Function</a></li>
+<li><a href=#1242-the-value-of-a-yield-expression>12.4.2 The Value of a yield Expression</a></li>
+<li><a href=#1243-the-return-and-throw-methods-of-a-generator>12.4.3 The return() and throw() Methods of a Generator</a></li>
+<li><a href=#1244-a-final-note-about-generators>12.4.4 A Final Note About Generators</a></li>
+</ul>
+</li>
+<li><a href=#125-summary>12.5 Summary</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>Iterable objects and their associated iterators are a feature of ES6 that we’ve seen several times throughout this book. Arrays (including TypedArrays) are iterable, as are strings and Set and Map objects. This means that the contents of these data structures can be iterated—looped over—with the for/of loop, as we saw in §5.4.4:</p>
+<blockquote>
+<p>可迭代对象及其关联的迭代器是 ES6 的一个特性，在本书中我们已经多次看到。数组（包括 typedarray）是可迭代的，字符串、Set 和 Map 对象也是如此。这意味着这些数据结构的内容可以被 for/of 循环遍历，就像我们在 §5.4.4 中看到的那样：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>sum</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=k>of</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>])</span> <span class=p>{</span> <span class=c1>// Loop once for each of these values
+</span><span class=c1></span>    <span class=nx>sum</span> <span class=o>+=</span> <span class=nx>i</span><span class=p>;</span>
+<span class=p>}</span>
+<span class=nx>sum</span>   <span class=c1>// =&gt; 6
+</span></code></pre></div><p>Iterators can also be used with the &mldr; operator to expand or “spread” an iterable object into an array initializer or function invocation, as we saw in §7.1.2:</p>
+<blockquote>
+<p>迭代器还可以用 &mldr; 运算符将可迭代对象展开或“扩展”到数组初始化或函数调用中，如 §7.1.2 所示：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>chars</span> <span class=o>=</span> <span class=p>[...</span><span class=s2>&#34;abcd&#34;</span><span class=p>];</span> <span class=c1>// chars == [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;, &#34;d&#34;]
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>data</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>];</span>
+<span class=nb>Math</span><span class=p>.</span><span class=nx>max</span><span class=p>(...</span><span class=nx>data</span><span class=p>)</span>        <span class=c1>// =&gt; 5
+</span></code></pre></div><p>Iterators can be used with destructuring assignment:</p>
+<blockquote>
+<p>迭代器可以与析构赋值一起使用：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>purpleHaze</span> <span class=o>=</span> <span class=nx>Uint8Array</span><span class=p>.</span><span class=k>of</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>255</span><span class=p>,</span> <span class=mi>128</span><span class=p>);</span>
+<span class=kd>let</span> <span class=p>[</span><span class=nx>r</span><span class=p>,</span> <span class=nx>g</span><span class=p>,</span> <span class=nx>b</span><span class=p>,</span> <span class=nx>a</span><span class=p>]</span> <span class=o>=</span> <span class=nx>purpleHaze</span><span class=p>;</span> <span class=c1>// a == 128
+</span></code></pre></div><p>When you iterate a Map object, the returned values are [key, value] pairs, which work well with destructuring assignment in a for/of loop:</p>
+<blockquote>
+<p>当你迭代一个 Map 对象时，返回的值是 [key, value] 对，这在 for/of 循环的解构赋值中很好用：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>m</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Map</span><span class=p>([[</span><span class=s2>&#34;one&#34;</span><span class=p>,</span> <span class=mi>1</span><span class=p>],</span> <span class=p>[</span><span class=s2>&#34;two&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=p>]]);</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=p>[</span><span class=nx>k</span><span class=p>,</span><span class=nx>v</span><span class=p>]</span> <span class=k>of</span> <span class=nx>m</span><span class=p>)</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>k</span><span class=p>,</span> <span class=nx>v</span><span class=p>);</span> <span class=c1>// Logs &#39;one 1&#39; and &#39;two 2&#39;
+</span></code></pre></div><p>If you want to iterate just the keys or just the values rather than the pairs, you can use the keys() and values() methods:</p>
+<blockquote>
+<p>如果只迭代键或只迭代值而不是一对，可以使用 keys() 和 values() 方法:</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=p>[...</span><span class=nx>m</span><span class=p>]</span>            <span class=c1>// =&gt; [[&#34;one&#34;, 1], [&#34;two&#34;, 2]]: default iteration
+</span><span class=c1></span><span class=p>[...</span><span class=nx>m</span><span class=p>.</span><span class=nx>entries</span><span class=p>()]</span>  <span class=c1>// =&gt; [[&#34;one&#34;, 1], [&#34;two&#34;, 2]]: entries() method is the same
+</span><span class=c1></span><span class=p>[...</span><span class=nx>m</span><span class=p>.</span><span class=nx>keys</span><span class=p>()]</span>     <span class=c1>// =&gt; [&#34;one&#34;, &#34;two&#34;]: keys() method iterates just map keys
+</span><span class=c1></span><span class=p>[...</span><span class=nx>m</span><span class=p>.</span><span class=nx>values</span><span class=p>()]</span>   <span class=c1>// =&gt; [1, 2]: values() method iterates just map values
+</span></code></pre></div><p>Finally, a number of built-in functions and constructors that are commonly used with Array objects are actually written (in ES6 and later) to accept arbitrary iterators instead. The Set() constructor is one such API:</p>
+<blockquote>
+<p>最后，通常用于数组对象的许多内置函数和构造函数实际上被编写（在ES6及以后版本中）为接受任意实参的迭代器。Set() 构造函数就是这样一种API：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Strings are iterable, so the two sets are the same:
+</span><span class=c1></span><span class=k>new</span> <span class=nx>Set</span><span class=p>(</span><span class=s2>&#34;abc&#34;</span><span class=p>)</span> <span class=c1>// =&gt; new Set([&#34;a&#34;, &#34;b&#34;, &#34;c&#34;])
+</span></code></pre></div><p>This chapter explains how iterators work and demonstrates how to create your own data structures that are iterable. After explaining basic iterators, this chapter covers generators, a powerful new feature of ES6 that is primarily used as a particularly easy way to create iterators.</p>
+<blockquote>
+<p>本章说明了迭代器是如何工作的，并演示了如何创建自己的可迭代的数据结构。在说明了基本的迭代器之后，本章将介绍生成器，这是 ES6 的一个强大的新特性，它是一种特别简单的方法创建迭代器。</p>
+</blockquote>
+<h2 id=121-how-iterators-work>12.1 How Iterators Work</h2>
+<p>The for/of loop and spread operator work seamlessly with iterable objects, but it is worth understanding what is actually happening to make the iteration work. There are three separate types that you need to understand to understand iteration in JavaScript. First, there are the iterable objects: these are types like Array, Set, and Map that can be iterated. Second, there is the iterator object itself, which performs the iteration. And third, there is the iteration result object that holds the result of each step of the iteration.</p>
+<blockquote>
+<p>for/of 循环和展开运算符可与可迭代对象无缝配合，但是值得了解使迭代工作的实际情况。需要了解三种独立的类型才能理解 JavaScript 中的迭代。首先，可迭代的对象：可以迭代的是诸如 Array，Set 和 Map 之类的类型。其次，迭代器对象本身，它执行迭代。第三，一个迭代结果对象，该对象保存迭代的每个步骤的结果。</p>
+</blockquote>
+<p>An iterable object is any object with a special iterator method that returns an iterator object. An iterator is any object with a next() method that returns an iteration result object. And an iteration result object is an object with properties named value and done. To iterate an iterable object, you first call its iterator method to get an iterator object. Then, you call the next() method of the iterator object repeatedly until the returned value has its done property set to true. The tricky thing about this is that the iterator method of an iterable object does not have a conventional name but uses the Symbol Symbol.iterator as its name. So a simple for/of loop over an iterable object iterable could also be written the hard way, like this:</p>
+<blockquote>
+<p>任何对象具有特殊迭代器方法，并且该方法返回迭代器对象，那么该对象为可迭代对象。迭代器对象具有 next() 方法，该方法返回迭代结果对象。迭代结果对象是具有名为 value 和 done 的属性的对象。要迭代一个可迭代的对象，首先要调用其迭代器方法以获取一个迭代器对象。然后，重复调用迭代器对象的 next() 方法，直到返回的值的 done 属性设置为 true。棘手的事情是，可迭代对象的迭代器方法没有常规名称，而是使用 Symbol Symbol.iterator 作为其名称。因此，也可以用很复杂的方式编写可迭代对象的简单 for/of 循环，如下所示：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>iterable</span> <span class=o>=</span> <span class=p>[</span><span class=mi>99</span><span class=p>];</span>
+<span class=kd>let</span> <span class=nx>iterator</span> <span class=o>=</span> <span class=nx>iterable</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]();</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>iterator</span><span class=p>.</span><span class=nx>next</span><span class=p>();</span> <span class=o>!</span><span class=nx>result</span><span class=p>.</span><span class=nx>done</span><span class=p>;</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>iterator</span><span class=p>.</span><span class=nx>next</span><span class=p>())</span> <span class=p>{</span>
+    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>result</span><span class=p>.</span><span class=nx>value</span><span class=p>)</span>  <span class=c1>// result.value == 99
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><p>The iterator object of the built-in iterable datatypes is itself iterable. (That is, it has a method named Symbol.iterator that just returns itself.) This is occasionally useful in code like the following when you want to iterate though a “partially used” iterator:</p>
+<blockquote>
+<p>内置可迭代数据类型的迭代器对象本身是可迭代的。（也就是说，它具有一个名为 Symbol.iterator 的方法，该方法会自行返回。）当要通过“部分使用”的迭代器进行迭代时，以下代码中有时会很有用：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>list</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=kd>let</span> <span class=nx>iter</span> <span class=o>=</span> <span class=nx>list</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]();</span>
+<span class=kd>let</span> <span class=nx>head</span> <span class=o>=</span> <span class=nx>iter</span><span class=p>.</span><span class=nx>next</span><span class=p>().</span><span class=nx>value</span><span class=p>;</span>  <span class=c1>// head == 1
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>tail</span> <span class=o>=</span> <span class=p>[...</span><span class=nx>iter</span><span class=p>];</span>          <span class=c1>// tail == [2,3,4,5]
+</span></code></pre></div><h2 id=122-implementing-iterable-objects>12.2 Implementing Iterable Objects</h2>
+<p>Iterable objects are so useful in ES6 that you should consider making your own datatypes iterable whenever they represent something that can be iterated. The Range classes shown in Examples 9-2 and 9-3 in Chapter 9 were iterable. Those classes used generator functions to make themselves iterable. We’ll document generators later in this chapter, but first, we will implement the Range class one more time, making it iterable without relying on a generator.</p>
+<blockquote>
+<p>可迭代对象在 ES6 中非常有用，应该考虑使自己的数据类型在可以表示迭代的任何时候都可迭代。第 9 章示例 9-2 和 9-3 中显示的 Range 类是可迭代的。这些类使用生成器函数使其可迭代。我们将在本章稍后介绍生成器，但首先，我们将再次实现 Range 类，使其无需依赖生成器即可迭代。</p>
+</blockquote>
+<p>In order to make a class iterable, you must implement a method whose name is the Symbol Symbol.iterator. That method must return an iterator object that has a next() method. And the next() method must return an iteration result object that has a value property and/or a boolean done property. Example 12-1 implements an iterable Range class and demonstrates how to create iterable, iterator, and iteration result objects.</p>
+<blockquote>
+<p>为了使类可迭代，必须实现一个名称为 Symbol Symbol.iterator 的方法。该方法必须返回一个具有 next() 方法的迭代器对象。并且 next() 方法必须返回具有 value 属性和或或布尔型 done 属性的迭代结果对象。示例 12-1 实现了一个可迭代的 Range 类，并演示了如何创建可迭代的、迭代器和迭代结果对象。</p>
+</blockquote>
+<p>Example 12-1. An iterable numeric Range class</p>
+<blockquote>
+<p>示例 12-1 一个可迭代数值范围类</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=cm>/*
+</span><span class=cm> * A Range object represents a range of numbers {x: from &lt;= x &lt;= to}
+</span><span class=cm> * Range defines a has() method for testing whether a given number is a member
+</span><span class=cm> * of the range. Range is iterable and iterates all integers within the range.
+</span><span class=cm> */</span>
+<span class=kr>class</span> <span class=nx>Range</span> <span class=p>{</span>
+    <span class=nx>constructor</span> <span class=p>(</span><span class=nx>from</span><span class=p>,</span> <span class=nx>to</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>this</span><span class=p>.</span><span class=nx>from</span> <span class=o>=</span> <span class=nx>from</span><span class=p>;</span>
+        <span class=k>this</span><span class=p>.</span><span class=nx>to</span> <span class=o>=</span> <span class=nx>to</span><span class=p>;</span>
+    <span class=p>}</span>
+
+    <span class=c1>// Make a Range act like a Set of numbers
+</span><span class=c1></span>    <span class=nx>has</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=k>typeof</span> <span class=nx>x</span> <span class=o>===</span> <span class=s2>&#34;number&#34;</span> <span class=o>&amp;&amp;</span> <span class=k>this</span><span class=p>.</span><span class=nx>from</span> <span class=o>&lt;=</span> <span class=nx>x</span> <span class=o>&amp;&amp;</span> <span class=nx>x</span> <span class=o>&lt;=</span> <span class=k>this</span><span class=p>.</span><span class=nx>to</span><span class=p>;</span> <span class=p>}</span>
+
+    <span class=c1>// Return string representation of the range using set notation
+</span><span class=c1></span>    <span class=nx>toString</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=sb>`{ x | </span><span class=si>${</span><span class=k>this</span><span class=p>.</span><span class=nx>from</span><span class=si>}</span><span class=sb> ≤ x ≤ </span><span class=si>${</span><span class=k>this</span><span class=p>.</span><span class=nx>to</span><span class=si>}</span><span class=sb> }`</span><span class=p>;</span> <span class=p>}</span>
+
+    <span class=c1>// Make a Range iterable by returning an iterator object.
+</span><span class=c1></span>    <span class=c1>// Note that the name of this method is a special symbol, not a string.
+</span><span class=c1></span>    <span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span> <span class=p>{</span>
+        <span class=c1>// Each iterator instance must iterate the range independently of
+</span><span class=c1></span>        <span class=c1>// others. So we need a state variable to track our location in the
+</span><span class=c1></span>        <span class=c1>// iteration. We start at the first integer &gt;= from.
+</span><span class=c1></span>        <span class=kd>let</span> <span class=nx>next</span> <span class=o>=</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>ceil</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>from</span><span class=p>);</span>  <span class=c1>// This is the next value we return
+</span><span class=c1></span>        <span class=kd>let</span> <span class=nx>last</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>to</span><span class=p>;</span>               <span class=c1>// We won&#39;t return anything &gt; this
+</span><span class=c1></span>        <span class=k>return</span> <span class=p>{</span>                          <span class=c1>// This is the iterator object
+</span><span class=c1></span>            <span class=c1>// This next() method is what makes this an iterator object.
+</span><span class=c1></span>            <span class=c1>// It must return an iterator result object.
+</span><span class=c1></span>            <span class=nx>next</span><span class=p>()</span> <span class=p>{</span>
+                <span class=k>return</span> <span class=p>(</span><span class=nx>next</span> <span class=o>&lt;=</span> <span class=nx>last</span><span class=p>)</span>   <span class=c1>// If we haven&#39;t returned last value yet
+</span><span class=c1></span>                    <span class=o>?</span> <span class=p>{</span> <span class=nx>value</span><span class=o>:</span> <span class=nx>next</span><span class=o>++</span> <span class=p>}</span> <span class=c1>// return next value and increment it
+</span><span class=c1></span>                    <span class=o>:</span> <span class=p>{</span> <span class=nx>done</span><span class=o>:</span> <span class=kc>true</span> <span class=p>};</span>   <span class=c1>// otherwise indicate that we&#39;re done.
+</span><span class=c1></span>            <span class=p>},</span>
+
+            <span class=c1>// As a convenience, we make the iterator itself iterable.
+</span><span class=c1></span>            <span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span> <span class=p>{</span> <span class=k>return</span> <span class=k>this</span><span class=p>;</span> <span class=p>}</span>
+        <span class=p>};</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>x</span> <span class=k>of</span> <span class=k>new</span> <span class=nx>Range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>10</span><span class=p>))</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>x</span><span class=p>);</span> <span class=c1>// Logs numbers 1 to 10
+</span><span class=c1></span><span class=p>[...</span><span class=k>new</span> <span class=nx>Range</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>)]</span>                          <span class=c1>// =&gt; [-2, -1, 0, 1, 2]
+</span></code></pre></div><p>In addition to making your classes iterable, it can be quite useful to define functions that return iterable values. Consider these iterable-based alternatives to the map() and filter() methods of JavaScript arrays:</p>
+<blockquote>
+<p>除了使类可迭代外，定义返回可迭代值的函数也非常有用。考虑 JavaScript 数组的 map() 和 filter() 方法的这些基于迭代的替代方法：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Return an iterable object that iterates the result of applying f()
+</span><span class=c1>// to each value from the source iterable
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>map</span><span class=p>(</span><span class=nx>iterable</span><span class=p>,</span> <span class=nx>f</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>iterator</span> <span class=o>=</span> <span class=nx>iterable</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]();</span>
+    <span class=k>return</span> <span class=p>{</span>     <span class=c1>// This object is both iterator and iterable
+</span><span class=c1></span>        <span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span> <span class=p>{</span> <span class=k>return</span> <span class=k>this</span><span class=p>;</span> <span class=p>},</span>
+        <span class=nx>next</span><span class=p>()</span> <span class=p>{</span>
+            <span class=kd>let</span> <span class=nx>v</span> <span class=o>=</span> <span class=nx>iterator</span><span class=p>.</span><span class=nx>next</span><span class=p>();</span>
+            <span class=k>if</span> <span class=p>(</span><span class=nx>v</span><span class=p>.</span><span class=nx>done</span><span class=p>)</span> <span class=p>{</span>
+                <span class=k>return</span> <span class=nx>v</span><span class=p>;</span>
+            <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+                <span class=k>return</span> <span class=p>{</span> <span class=nx>value</span><span class=o>:</span> <span class=nx>f</span><span class=p>(</span><span class=nx>v</span><span class=p>.</span><span class=nx>value</span><span class=p>)</span> <span class=p>};</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+    <span class=p>};</span>
+<span class=p>}</span>
+
+<span class=c1>// Map a range of integers to their squares and convert to an array
+</span><span class=c1></span><span class=p>[...</span><span class=nx>map</span><span class=p>(</span><span class=k>new</span> <span class=nx>Range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>),</span> <span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=o>*</span><span class=nx>x</span><span class=p>)]</span>  <span class=c1>// =&gt; [1, 4, 9, 16]
+</span><span class=c1></span>
+<span class=c1>// Return an iterable object that filters the specified iterable,
+</span><span class=c1>// iterating only those elements for which the predicate returns true
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>filter</span><span class=p>(</span><span class=nx>iterable</span><span class=p>,</span> <span class=nx>predicate</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>iterator</span> <span class=o>=</span> <span class=nx>iterable</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]();</span>
+    <span class=k>return</span> <span class=p>{</span> <span class=c1>// This object is both iterator and iterable
+</span><span class=c1></span>        <span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span> <span class=p>{</span> <span class=k>return</span> <span class=k>this</span><span class=p>;</span> <span class=p>},</span>
+        <span class=nx>next</span><span class=p>()</span> <span class=p>{</span>
+            <span class=k>for</span><span class=p>(;;)</span> <span class=p>{</span>
+                <span class=kd>let</span> <span class=nx>v</span> <span class=o>=</span> <span class=nx>iterator</span><span class=p>.</span><span class=nx>next</span><span class=p>();</span>
+                <span class=k>if</span> <span class=p>(</span><span class=nx>v</span><span class=p>.</span><span class=nx>done</span> <span class=o>||</span> <span class=nx>predicate</span><span class=p>(</span><span class=nx>v</span><span class=p>.</span><span class=nx>value</span><span class=p>))</span> <span class=p>{</span>
+                    <span class=k>return</span> <span class=nx>v</span><span class=p>;</span>
+                <span class=p>}</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+    <span class=p>};</span>
+<span class=p>}</span>
+
+<span class=c1>// Filter a range so we&#39;re left with only even numbers
+</span><span class=c1></span><span class=p>[...</span><span class=nx>filter</span><span class=p>(</span><span class=k>new</span> <span class=nx>Range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>10</span><span class=p>),</span> <span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)]</span>  <span class=c1>// =&gt; [2,4,6,8,10]
+</span></code></pre></div><p>One key feature of iterable objects and iterators is that they are inherently lazy: when computation is required to compute the next value, that computation can be deferred until the value is actually needed. Suppose, for example, that you have a very long string of text that you want to tokenize into space-separated words. You could simply use the split() method of your string, but if you do this, then the entire string has to be processed before you can use even the first word. And you end up allocating lots of memory for the returned array and all of the strings within it. Here is a function that allows you to lazily iterate the words of a string without keeping them all in memory at once (in ES2020, this function would be much easier to implement using the iterator-returning matchAll() method described in §11.3.2):</p>
+<blockquote>
+<p>可迭代对象和迭代器的一个关键特性是它们固有的惰性：当需要计算才能计算下一个值时，可以将计算推迟到实际需要该值时进行。例如，假设有一个很长的文本字符串，想将其标记为以空格分隔的单词。可以简单地使用字符串的 split() 方法，但是如果这样做，则必须先处理整个字符串，才能使用第一个单词。最后，将为返回的数组及其中的所有字符串分配大量内存。这是一个允许懒惰地迭代字符串的祖母而无需一次将所有单词都保留在内存中的函数（在 ES2020 中，使用 §11.3.2 中描述的迭代器返回 matchAll() 方法可以更轻松地实现此函数。）：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span> <span class=nx>words</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>var</span> <span class=nx>r</span> <span class=o>=</span> <span class=sr>/\s+|$/g</span><span class=p>;</span>                     <span class=c1>// Match one or more spaces or end
+</span><span class=c1></span>    <span class=nx>r</span><span class=p>.</span><span class=nx>lastIndex</span> <span class=o>=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/[^ ]/</span><span class=p>).</span><span class=nx>index</span><span class=p>;</span>  <span class=c1>// Start matching at first nonspace
+</span><span class=c1></span>    <span class=k>return</span> <span class=p>{</span>                              <span class=c1>// Return an iterable iterator object
+</span><span class=c1></span>        <span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span> <span class=p>{</span>             <span class=c1>// This makes us iterable
+</span><span class=c1></span>            <span class=k>return</span> <span class=k>this</span><span class=p>;</span>
+        <span class=p>},</span>
+        <span class=nx>next</span><span class=p>()</span> <span class=p>{</span>                          <span class=c1>// This makes us an iterator
+</span><span class=c1></span>            <span class=kd>let</span> <span class=nx>start</span> <span class=o>=</span> <span class=nx>r</span><span class=p>.</span><span class=nx>lastIndex</span><span class=p>;</span>      <span class=c1>// Resume where the last match ended
+</span><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=nx>start</span> <span class=o>&lt;</span> <span class=nx>s</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=p>{</span>       <span class=c1>// If we&#39;re not done
+</span><span class=c1></span>                <span class=kd>let</span> <span class=nx>match</span> <span class=o>=</span> <span class=nx>r</span><span class=p>.</span><span class=nx>exec</span><span class=p>(</span><span class=nx>s</span><span class=p>);</span>    <span class=c1>// Match the next word boundary
+</span><span class=c1></span>                <span class=k>if</span> <span class=p>(</span><span class=nx>match</span><span class=p>)</span> <span class=p>{</span>              <span class=c1>// If we found one, return the word
+</span><span class=c1></span>                    <span class=k>return</span> <span class=p>{</span> <span class=nx>value</span><span class=o>:</span> <span class=nx>s</span><span class=p>.</span><span class=nx>substring</span><span class=p>(</span><span class=nx>start</span><span class=p>,</span> <span class=nx>match</span><span class=p>.</span><span class=nx>index</span><span class=p>)</span> <span class=p>};</span>
+                <span class=p>}</span>
+            <span class=p>}</span>
+            <span class=k>return</span> <span class=p>{</span> <span class=nx>done</span><span class=o>:</span> <span class=kc>true</span> <span class=p>};</span>        <span class=c1>// Otherwise, say that we&#39;re done
+</span><span class=c1></span>        <span class=p>}</span>
+    <span class=p>};</span>
+<span class=p>}</span>
+
+<span class=p>[...</span><span class=nx>words</span><span class=p>(</span><span class=s2>&#34; abc def  ghi! &#34;</span><span class=p>)]</span> <span class=c1>// =&gt; [&#34;abc&#34;, &#34;def&#34;, &#34;ghi!&#34;]
+</span></code></pre></div><h3 id=1221-closing-an-iterator-the-return-method>12.2.1 “Closing” an Iterator: The Return Method</h3>
+<p>Imagine a (server-side) JavaScript variant of the words() iterator that, instead of taking a source string as its argument, takes the name of a file, opens the file, reads lines from it, and iterates the words from those lines. In most operating systems, programs that open files to read from them need to remember to close those files when they are done reading, so this hypothetical iterator would be sure to close the file after the next() method returns the last word in it.</p>
+<blockquote>
+<p>想象一下 words() 迭代器的（服务器端）JavaScript 变体，它不用源字符串作为实参，而是使用文件名，打开文件，从文件中读取行，然后从这些行中迭代单词。在大多数操作系统中，打开文件以从其中读取文件的程序需要记住在完成读取后关闭这些文件，因此，这个假设的迭代器将确保在 next() 方法返回文件中的最后一个字之后关闭文件。</p>
+</blockquote>
+<p>But iterators don’t always run all the way to the end: a for/of loop might be terminated with a break or return or by an exception. Similarly, when an iterator is used with destructuring assignment, the next() method is only called enough times to obtain values for each of the specified variables. The iterator may have many more values it could return, but they will never be requested.</p>
+<blockquote>
+<p>但是迭代器并不总是一直运行到最后：for/of 循环可能会因中断或返回或异常而终止。同样，当迭代器用于解构赋值时，仅调用 next() 方法足够多次，以获取每个指定变量的值。迭代器可能有更多可能返回的值，但是它们永远不会被请求。</p>
+</blockquote>
+<p>If our hypothetical words-in-a-file iterator never runs all the way to the end, it still needs to close the file it opened. For this reason, iterator objects may implement a return() method to go along with the next() method. If iteration stops before next() has returned an iteration result with the done property set to true (most commonly because you left a for/of loop early via a break statement), then the interpreter will check to see if the iterator object has a return() method. If this method exists, the interpreter will invoke it with no arguments, giving the iterator the chance to close files, release memory, and otherwise clean up after itself. The return() method must return an iterator result object. The properties of the object are ignored, but it is an error to return a non-object value.</p>
+<blockquote>
+<p>如果我们假设的文件中单词迭代器从未一直运行到最后，它仍然需要关闭它打开的文件。因此，迭代器对象可以实现 return() 方法与 next() 方法一起使用。如果迭代在 next() 返回完了属性设置为 true 的迭代结果之前停止（通常是因为通过 break 语句提前离开了 for/of 循环），则解释器将检查迭代器对象是否具有 return() 方法。如果存在此方法，则解释器将不带任何参数调用它，从而使迭代器有机会关闭文件，释放内存以及自行清理。return() 方法必须返回迭代器结果对象。对象的属性被忽略，但是返回非对象值是错误的。</p>
+</blockquote>
+<p>The for/of loop and the spread operator are really useful features of JavaScript, so when you are creating APIs, it is a good idea to use them when possible. But having to work with an iterable object, its iterator object, and the iterator’s result objects makes the process somewhat complicated. Fortunately, generators can dramatically simplify the creation of custom iterators, as we’ll see in the rest of this chapter.</p>
+<blockquote>
+<p>for/of 循环和展开运算符是 JavaScript 真正实用功能，因此在创建 API 时，最好在尽可能的使用它们。但是必须使用一个可迭代的对象，其迭代器对象以及迭代器的结果对象，这会使过程变得有些复杂。幸运的是，生成器可以极大地简化自定义迭代器的创建，这将在本章的其余部分中看到。</p>
+</blockquote>
+<h2 id=123-generators>12.3 Generators</h2>
+<p>A generator is a kind of iterator defined with powerful new ES6 syntax; it’s particularly useful when the values to be iterated are not the elements of a data structure, but the result of a computation.</p>
+<blockquote>
+<p>生成器是一种使用强大的新 ES6 语法定义的迭代器；当要迭代的值不是数据结构的元素而是计算结果时，此功能特别有用。</p>
+</blockquote>
+<p>To create a generator, you must first define a generator function. A generator function is syntactically like a regular JavaScript function but is defined with the keyword function* rather than function. (Technically, this is not a new keyword, just a * after the keyword function and before the function name.) When you invoke a generator function, it does not actually execute the function body, but instead returns a generator object. This generator object is an iterator. Calling its next() method causes the body of the generator function to run from the start (or whatever its current position is) until it reaches a yield statement. yield is new in ES6 and is something like a return statement. The value of the yield statement becomes the value returned by the next() call on the iterator. An example makes this clearer:</p>
+<blockquote>
+<p>要创建生成器，必须首先定义一个生成器函数。生成器函数在语法上类似于常规 JavaScript 函数，但使用关键字 function* 而不是 function 定义。（从技术上讲，这不是新关键字，只是关键字 function 之后和函数名称之前的 *。）调用生成器函数时，它实际上并不执行函数主体，而是返回生成器对象。该生成器对象是一个迭代器。调用其 next() 方法会使生成器函数的主体从头开始运行（或无论其当前位置是什么），直到到达 yield 语句为止。yield 是 ES6 新特性，类似于 return 语句。yield 语句的值成为迭代器上 next() 调用返回的值。一个示例使这更加清楚：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// A generator function that yields the set of one digit (base-10) primes.
+</span><span class=c1></span><span class=kd>function</span><span class=o>*</span> <span class=nx>oneDigitPrimes</span><span class=p>()</span> <span class=p>{</span> <span class=c1>// Invoking this function does not run the code
+</span><span class=c1></span>    <span class=k>yield</span> <span class=mi>2</span><span class=p>;</span>                 <span class=c1>// but just returns a generator object. Calling
+</span><span class=c1></span>    <span class=k>yield</span> <span class=mi>3</span><span class=p>;</span>                 <span class=c1>// the next() method of that generator runs
+</span><span class=c1></span>    <span class=k>yield</span> <span class=mi>5</span><span class=p>;</span>                 <span class=c1>// the code until a yield statement provides
+</span><span class=c1></span>    <span class=k>yield</span> <span class=mi>7</span><span class=p>;</span>                 <span class=c1>// the return value for the next() method.
+</span><span class=c1></span><span class=p>}</span>
+
+<span class=c1>// When we invoke the generator function, we get a generator
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>primes</span> <span class=o>=</span> <span class=nx>oneDigitPrimes</span><span class=p>();</span>
+
+<span class=c1>// A generator is an iterator object that iterates the yielded values
+</span><span class=c1></span><span class=nx>primes</span><span class=p>.</span><span class=nx>next</span><span class=p>().</span><span class=nx>value</span>          <span class=c1>// =&gt; 2
+</span><span class=c1></span><span class=nx>primes</span><span class=p>.</span><span class=nx>next</span><span class=p>().</span><span class=nx>value</span>          <span class=c1>// =&gt; 3
+</span><span class=c1></span><span class=nx>primes</span><span class=p>.</span><span class=nx>next</span><span class=p>().</span><span class=nx>value</span>          <span class=c1>// =&gt; 5
+</span><span class=c1></span><span class=nx>primes</span><span class=p>.</span><span class=nx>next</span><span class=p>().</span><span class=nx>value</span>          <span class=c1>// =&gt; 7
+</span><span class=c1></span><span class=nx>primes</span><span class=p>.</span><span class=nx>next</span><span class=p>().</span><span class=nx>done</span>           <span class=c1>// =&gt; true
+</span><span class=c1></span>
+<span class=c1>// Generators have a Symbol.iterator method to make them iterable
+</span><span class=c1></span><span class=nx>primes</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span>    <span class=c1>// =&gt; primes
+</span><span class=c1></span>
+<span class=c1>// We can use generators like other iterable types
+</span><span class=c1></span><span class=p>[...</span><span class=nx>oneDigitPrimes</span><span class=p>()]</span>        <span class=c1>// =&gt; [2,3,5,7]
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>sum</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>prime</span> <span class=k>of</span> <span class=nx>oneDigitPrimes</span><span class=p>())</span> <span class=nx>sum</span> <span class=o>+=</span> <span class=nx>prime</span><span class=p>;</span>
+<span class=nx>sum</span>                          <span class=c1>// =&gt; 17
+</span></code></pre></div><p>In this example, we used a function* statement to define a generator. Like regular functions, however, we can also define generators in expression form. Once again, we just put an asterisk after the function keyword:</p>
+<blockquote>
+<p>在此示例中，我们使用 function* 语句定义了生成器。但是，像常规函数一样，我们也可以在 from 表达式中定义生成器。再一次，我们只在 function 关键字之后加上一个星号：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>seq</span> <span class=o>=</span> <span class=kd>function</span><span class=o>*</span><span class=p>(</span><span class=nx>from</span><span class=p>,</span><span class=nx>to</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=nx>from</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;=</span> <span class=nx>to</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=k>yield</span> <span class=nx>i</span><span class=p>;</span>
+<span class=p>};</span>
+<span class=p>[...</span><span class=nx>seq</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=mi>5</span><span class=p>)]</span>  <span class=c1>// =&gt; [3, 4, 5]
+</span></code></pre></div><p>In classes and object literals, we can use shorthand notation to omit the function keyword entirely when we define methods. To define a generator in this context, we simply use an asterisk before the method name where the function keyword would have been, had we used it:</p>
+<blockquote>
+<p>在类和对象文字中，我们在定义方法时可以使用速记标记来完全省略 function 关键字。要在这种情况下定义生成器，我们只需在方法名称之前使用星号即可：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>o</span> <span class=o>=</span> <span class=p>{</span>
+    <span class=nx>x</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>y</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>z</span><span class=o>:</span> <span class=mi>3</span><span class=p>,</span>
+    <span class=c1>// A generator that yields each of the keys of this object
+</span><span class=c1></span>    <span class=o>*</span><span class=nx>g</span><span class=p>()</span> <span class=p>{</span>
+        <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>key</span> <span class=k>of</span> <span class=nb>Object</span><span class=p>.</span><span class=nx>keys</span><span class=p>(</span><span class=k>this</span><span class=p>))</span> <span class=p>{</span>
+            <span class=k>yield</span> <span class=nx>key</span><span class=p>;</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>};</span>
+<span class=p>[...</span><span class=nx>o</span><span class=p>.</span><span class=nx>g</span><span class=p>()]</span> <span class=c1>// =&gt; [&#34;x&#34;, &#34;y&#34;, &#34;z&#34;, &#34;g&#34;]
+</span></code></pre></div><p>Note that there is no way to write a generator function using arrow function syntax.</p>
+<blockquote>
+<p>请注意，无法使用箭头函数语法编写生成器函数。</p>
+</blockquote>
+<p>Generators often make it particularly easy to define iterable classes. We can replace the <code>[Symbol.iterator]()</code> method show in Example 12-1 with a much shorter <code>*[Symbol.iterator]()</code> generator function that looks like this:</p>
+<blockquote>
+<p>生成器通常使定义可迭代类特别容易。我们可以用更短的 <code>*[Symbol.iterator];()</code> 生成器函数代替示例 12-1 中的 <code>[Symbol.iterator]()</code> 方法，如下所示：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=o>*</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]()</span> <span class=p>{</span>
+    <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>x</span> <span class=o>=</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>ceil</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>from</span><span class=p>);</span> <span class=nx>x</span> <span class=o>&lt;=</span> <span class=k>this</span><span class=p>.</span><span class=nx>to</span><span class=p>;</span> <span class=nx>x</span><span class=o>++</span><span class=p>)</span> <span class=k>yield</span> <span class=nx>x</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></div><p>See Example 9-3 in Chapter 9 to see this generator-based iterator function in context.</p>
+<blockquote>
+<p>请参阅第 9 章中的示例 9-3，可以看到在上下文中看到此基于生成器的迭代器函数。</p>
+</blockquote>
+<h3 id=1231-generator-examples>12.3.1 Generator Examples</h3>
+<p>Generators are more interesting if they actually generate the values they yield by doing some kind of computation. Here, for example, is a generator function that yields Fibonacci numbers:</p>
+<blockquote>
+<p>如果生成器实际上通过执行某种计算来生成它们产生的值，则它们会更有趣。例如，这里是生成斐波那契数的生成器函数：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span><span class=o>*</span> <span class=nx>fibonacciSequence</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>x</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>y</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+    <span class=k>for</span><span class=p>(;;)</span> <span class=p>{</span>
+        <span class=k>yield</span> <span class=nx>y</span><span class=p>;</span>
+        <span class=p>[</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=nx>y</span><span class=p>,</span> <span class=nx>x</span><span class=o>+</span><span class=nx>y</span><span class=p>];</span>  <span class=c1>// Note: destructuring assignment
+</span><span class=c1></span>    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><p>Note that the fibonacciSequence() generator function here has an infinite loop and yields values forever without returning. If this generator is used with the &mldr; spread operator, it will loop until memory is exhausted and the program crashes. With care, it is possible to use it in a for/of loop, however:</p>
+<blockquote>
+<p>请注意，此处的 fibonacciSequence() 生成器函数具有无限循环，并且永久产生值而不会返回。如果将此生成器与 &mldr; 展开运算符一起使用，它将循环播放直到内存耗尽且程序崩溃。小心地在 for/of 循环中使用它：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Return the nth Fibonacci number
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>fibonacci</span><span class=p>(</span><span class=nx>n</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>f</span> <span class=k>of</span> <span class=nx>fibonacciSequence</span><span class=p>())</span> <span class=p>{</span>
+        <span class=k>if</span> <span class=p>(</span><span class=nx>n</span><span class=o>--</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>)</span> <span class=k>return</span> <span class=nx>f</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+<span class=nx>fibonacci</span><span class=p>(</span><span class=mi>20</span><span class=p>)</span>   <span class=c1>// =&gt; 10946
+</span></code></pre></div><p>This kind of infinite generator becomes more useful with a take() generator like this:</p>
+<blockquote>
+<p>这种无限生成器在使用 take() 生成器时变得更加有用，如下所示：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Yield the first n elements of the specified iterable object
+</span><span class=c1></span><span class=kd>function</span><span class=o>*</span> <span class=nx>take</span><span class=p>(</span><span class=nx>n</span><span class=p>,</span> <span class=nx>iterable</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>it</span> <span class=o>=</span> <span class=nx>iterable</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]();</span> <span class=c1>// Get iterator for iterable object
+</span><span class=c1></span>    <span class=k>while</span><span class=p>(</span><span class=nx>n</span><span class=o>--</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>           <span class=c1>// Loop n times:
+</span><span class=c1></span>        <span class=kd>let</span> <span class=nx>next</span> <span class=o>=</span> <span class=nx>it</span><span class=p>.</span><span class=nx>next</span><span class=p>();</span>  <span class=c1>// Get the next item from the iterator.
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>next</span><span class=p>.</span><span class=nx>done</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span> <span class=c1>// If there are no more values, return early
+</span><span class=c1></span>        <span class=k>else</span> <span class=k>yield</span> <span class=nx>next</span><span class=p>.</span><span class=nx>value</span><span class=p>;</span> <span class=c1>// otherwise, yield the value
+</span><span class=c1></span>    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=c1>// An array of the first 5 Fibonacci numbers
+</span><span class=c1></span><span class=p>[...</span><span class=nx>take</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=nx>fibonacciSequence</span><span class=p>())]</span>  <span class=c1>// =&gt; [1, 1, 2, 3, 5]
+</span></code></pre></div><p>Here is another useful generator function that interleaves the elements of multiple iterable objects:</p>
+<blockquote>
+<p>这是另一个有用的生成器函数，它交错多个可迭代对象的元素：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Given an array of iterables, yield their elements in interleaved order.
+</span><span class=c1></span><span class=kd>function</span><span class=o>*</span> <span class=nx>zip</span><span class=p>(...</span><span class=nx>iterables</span><span class=p>)</span> <span class=p>{</span>
+    <span class=c1>// Get an iterator for each iterable
+</span><span class=c1></span>    <span class=kd>let</span> <span class=nx>iterators</span> <span class=o>=</span> <span class=nx>iterables</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>i</span> <span class=p>=&gt;</span> <span class=nx>i</span><span class=p>[</span><span class=nx>Symbol</span><span class=p>.</span><span class=nx>iterator</span><span class=p>]());</span>
+    <span class=kd>let</span> <span class=nx>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+    <span class=k>while</span><span class=p>(</span><span class=nx>iterators</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>       <span class=c1>// While there are still some iterators
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>index</span> <span class=o>&gt;=</span> <span class=nx>iterators</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=p>{</span>    <span class=c1>// If we reached the last iterator
+</span><span class=c1></span>            <span class=nx>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>                      <span class=c1>// go back to the first one.
+</span><span class=c1></span>        <span class=p>}</span>
+        <span class=kd>let</span> <span class=nx>item</span> <span class=o>=</span> <span class=nx>iterators</span><span class=p>[</span><span class=nx>index</span><span class=p>].</span><span class=nx>next</span><span class=p>();</span> <span class=c1>// Get next item from next iterator.
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>item</span><span class=p>.</span><span class=nx>done</span><span class=p>)</span> <span class=p>{</span>                    <span class=c1>// If that iterator is done
+</span><span class=c1></span>            <span class=nx>iterators</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=nx>index</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>     <span class=c1>// then remove it from the array.
+</span><span class=c1></span>        <span class=p>}</span>
+        <span class=k>else</span> <span class=p>{</span>                              <span class=c1>// Otherwise,
+</span><span class=c1></span>            <span class=k>yield</span> <span class=nx>item</span><span class=p>.</span><span class=nx>value</span><span class=p>;</span>               <span class=c1>// yield the iterated value
+</span><span class=c1></span>            <span class=nx>index</span><span class=o>++</span><span class=p>;</span>                        <span class=c1>// and move on to the next iterator.
+</span><span class=c1></span>        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=c1>// Interleave three iterable objects
+</span><span class=c1></span><span class=p>[...</span><span class=nx>zip</span><span class=p>(</span><span class=nx>oneDigitPrimes</span><span class=p>(),</span><span class=s2>&#34;ab&#34;</span><span class=p>,[</span><span class=mi>0</span><span class=p>])]</span>     <span class=c1>// =&gt; [2,&#34;a&#34;,0,3,&#34;b&#34;,5,7]
+</span></code></pre></div><h3 id=1232-yield-and-recursive-generators>12.3.2 yield* and Recursive Generators</h3>
+<p>In addition to the zip() generator defined in the preceding example, it might be useful to have a similar generator function that yields the elements of multiple iterable objects sequentially rather than interleaving them. We could write that generator like this:</p>
+<blockquote>
+<p>除了前面示例中定义的 zip() 生成器之外，具有类似的生成器功能可能会很有用，该功能可以按顺序生成多个可迭代对象的元素，而不是交织它们。我们可以这样编写生成器：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span><span class=o>*</span> <span class=nx>sequence</span><span class=p>(...</span><span class=nx>iterables</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>iterable</span> <span class=k>of</span> <span class=nx>iterables</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>item</span> <span class=k>of</span> <span class=nx>iterable</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>yield</span> <span class=nx>item</span><span class=p>;</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=p>[...</span><span class=nx>sequence</span><span class=p>(</span><span class=s2>&#34;abc&#34;</span><span class=p>,</span><span class=nx>oneDigitPrimes</span><span class=p>())]</span>  <span class=c1>// =&gt; [&#34;a&#34;,&#34;b&#34;,&#34;c&#34;,2,3,5,7]
+</span></code></pre></div><p>This process of yielding the elements of some other iterable object is common enough in generator functions that ES6 has special syntax for it. The yield* keyword is like yield except that, rather than yielding a single value, it iterates an iterable object and yields each of the resulting values. The sequence() generator function that we’ve used can be simplified with yield* like this:</p>
+<blockquote>
+<p>这种生成其他可迭代对象的元素的过程在生成器函数中已经足够普遍，以至于为它 ES6 具有特殊的语法。yield* 关键字类似于 yield，除了它不产生单个值，而是迭代一个可迭代的对象并产生每个结果值。我们使用的 sequence() 生成器函数可以通过 yield* 进行简化，如下所示：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span><span class=o>*</span> <span class=nx>sequence</span><span class=p>(...</span><span class=nx>iterables</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>iterable</span> <span class=k>of</span> <span class=nx>iterables</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>yield</span><span class=o>*</span> <span class=nx>iterable</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=p>[...</span><span class=nx>sequence</span><span class=p>(</span><span class=s2>&#34;abc&#34;</span><span class=p>,</span><span class=nx>oneDigitPrimes</span><span class=p>())]</span>  <span class=c1>// =&gt; [&#34;a&#34;,&#34;b&#34;,&#34;c&#34;,2,3,5,7]
+</span></code></pre></div><p>The array forEach() method is often an elegant way to loop over the elements of an array, so you might be tempted to write the sequence() function like this:</p>
+<blockquote>
+<p>数组 forEach() 方法通常是一种循环遍历数组元素的好方法，因此可能会很想像这样编写 sequence() 函数：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span><span class=o>*</span> <span class=nx>sequence</span><span class=p>(...</span><span class=nx>iterables</span><span class=p>)</span> <span class=p>{</span>
+    <span class=nx>iterables</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>iterable</span> <span class=p>=&gt;</span> <span class=k>yield</span><span class=o>*</span> <span class=nx>iterable</span> <span class=p>);</span>  <span class=c1>// Error
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><p>This does not work, however. yield and yield* can only be used within generator functions, but the nested arrow function in this code is a regular function, not a function* generator function, so yield is not allowed.</p>
+<blockquote>
+<p>但是，这不起作用。yield 和 yield* 只能在生成器函数中使用，但是此代码中的嵌套箭头函数是常规函数，而不是 function* 生成器函数，因此不允许 yield。</p>
+</blockquote>
+<p>yield* can be used with any kind of iterable object, including iterables implemented with generators. This means that yield* allows us to define recursive generators, and you might use this feature to allow simple non-recursive iteration over a recursively defined tree structure, for example.</p>
+<blockquote>
+<p>yield* 可用于任何种类的可迭代对象，包括使用生成器实现的可迭代对象。这意味着 yield* 允许我们定义递归生成器，例如，可以使用此功能在递归定义的树结构上进行简单的非递归迭代。</p>
+</blockquote>
+<h2 id=124-advanced-generator-features>12.4 Advanced Generator Features</h2>
+<p>The most common use of generator functions is to create iterators, but the fundamental feature of generators is that they allow us to pause a computation, yield intermediate results, and then resume the computation later. This means that generators have features beyond those of iterators, and we explore those features in the following sections.</p>
+<blockquote>
+<p>生成器函数最常见的用途是创建迭代器，但是生成器的基本特性是它们允许我们暂停计算，产生中间结果，然后在以后恢复计算。这意味着生成器具有的功能超出了迭代器的功能，我们将在以下各节中探讨这些功能。</p>
+</blockquote>
+<h3 id=1241-the-return-value-of-a-generator-function>12.4.1 The Return Value of a Generator Function</h3>
+<p>The generator functions we’ve seen so far have not had return statements, or if they have, they have been used to cause an early return, not to return a value. Like any function, though, a generator function can return a value. In order to understand what happens in this case, recall how iteration works. The return value of the next() function is an object that has a value property and/or a done property. With typical iterators and generators, if the value property is defined, then the done property is undefined or is false. And if done is true, then value is undefined. But in the case of a generator that returns a value, the final call to next returns an object that has both value and done defined. The value property holds the return value of the generator function, and the done property is true, indicating that there are no more values to iterate. This final value is ignored by the for/of loop and by the spread operator, but it is available to code that manually iterates with explicit calls to next():</p>
+<blockquote>
+<p>到目前为止，我们看到的生成器函数还没有 return 语句，或者，如果有的话，它们只是被用来引起较早的返回，而不是产生返回值。但是，像任何函数一样，生成器函数可以返回一个值。为了了解在这种情况下会发生什么，请回忆一下迭代是如何工作的。next() 函数的返回值是一个具有 value 属性和或或 done 属性的对象。对于典型的迭代器和生成器，如果定义了 value 属性，则 done 属性是 undefined 或为 false。如果 done 为 true，那么值就是 undefined。但是，如果生成器返回一个值，则对 next 的最终调用将返回一个同时具有 value ​​和 done 定义的对象。 value 属性保存生成器函数的返回值，并且 done 属性为 true，表示没有更多的值可以迭代。最终值将被 for/of 循环和展开运算符忽略，但可用通过对 next() 的显式调用手动进行迭代：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span> <span class=o>*</span><span class=nx>oneAndDone</span><span class=p>()</span> <span class=p>{</span>
+    <span class=k>yield</span> <span class=mi>1</span><span class=p>;</span>
+    <span class=k>return</span> <span class=s2>&#34;done&#34;</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=c1>// The return value does not appear in normal iteration.
+</span><span class=c1></span><span class=p>[...</span><span class=nx>oneAndDone</span><span class=p>()]</span>   <span class=c1>// =&gt; [1]
+</span><span class=c1></span>
+<span class=c1>// But it is available if you explicitly call next()
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>generator</span> <span class=o>=</span> <span class=nx>oneAndDone</span><span class=p>();</span>
+<span class=nx>generator</span><span class=p>.</span><span class=nx>next</span><span class=p>()</span>           <span class=c1>// =&gt; { value: 1, done: false}
+</span><span class=c1></span><span class=nx>generator</span><span class=p>.</span><span class=nx>next</span><span class=p>()</span>           <span class=c1>// =&gt; { value: &#34;done&#34;, done: true }
+</span><span class=c1>// If the generator is already done, the return value is not returned again
+</span><span class=c1></span><span class=nx>generator</span><span class=p>.</span><span class=nx>next</span><span class=p>()</span>           <span class=c1>// =&gt; { value: undefined, done: true }
+</span></code></pre></div><h3 id=1242-the-value-of-a-yield-expression>12.4.2 The Value of a yield Expression</h3>
+<p>In the preceding discussion, we’ve treated yield as a statement that takes a value but has no value of its own. In fact, however, yield is an expression, and it can have a value.</p>
+<blockquote>
+<p>在前面的讨论中，我们将 yield 视为带有值但没有自身值的语句。但是，实际上，yield 是一个表达式，可以有一个值。</p>
+</blockquote>
+<p>When the next() method of a generator is invoked, the generator function runs until it reaches a yield expression. The expression that follows the yield keyword is evaluated, and that value becomes the return value of the next() invocation. At this point, the generator function stops executing right in the middle of evaluating the yield expression. The next time the next() method of the generator is called, the argument passed to next() becomes the value of the yield expression that was paused. So the generator returns values to its caller with yield, and the caller passes values in to the generator with next(). The generator and caller are two separate streams of execution passing values (and control) back and forth. The following code illustrates:</p>
+<blockquote>
+<p>调用生成器的 next() 方法时，生成器函数将运行直至到达 yield 表达式。将评估 yield 关键字之后的表达式，该值将成为 next() 调用的返回值。此时，生成器函数在评估 yield 表达式的中间立即停止执行。下次调用生成器的 next() 方法时，传递给 next() 的参数成为已暂停的 yield 表达式的值。因此，生成器将把 yield 的值返回给它的调用者，然后调用者通过 next() 将值传递给生成器。生成器和调用者是两个独立的执行流，来回传递值（和控制）。以下代码说明：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span><span class=o>*</span> <span class=nx>smallNumbers</span><span class=p>()</span> <span class=p>{</span>
+    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;next() invoked the first time; argument discarded&#34;</span><span class=p>);</span>
+    <span class=kd>let</span> <span class=nx>y1</span> <span class=o>=</span> <span class=k>yield</span> <span class=mi>1</span><span class=p>;</span>    <span class=c1>// y1 == &#34;b&#34;
+</span><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;next() invoked a second time with argument&#34;</span><span class=p>,</span> <span class=nx>y1</span><span class=p>);</span>
+    <span class=kd>let</span> <span class=nx>y2</span> <span class=o>=</span> <span class=k>yield</span> <span class=mi>2</span><span class=p>;</span>    <span class=c1>// y2 == &#34;c&#34;
+</span><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;next() invoked a third time with argument&#34;</span><span class=p>,</span> <span class=nx>y2</span><span class=p>);</span>
+    <span class=kd>let</span> <span class=nx>y3</span> <span class=o>=</span> <span class=k>yield</span> <span class=mi>3</span><span class=p>;</span>    <span class=c1>// y3 == &#34;d&#34;
+</span><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;next() invoked a fourth time with argument&#34;</span><span class=p>,</span> <span class=nx>y3</span><span class=p>);</span>
+    <span class=k>return</span> <span class=mi>4</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kd>let</span> <span class=nx>g</span> <span class=o>=</span> <span class=nx>smallNumbers</span><span class=p>();</span>
+<span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;generator created; no code runs yet&#34;</span><span class=p>);</span>
+<span class=kd>let</span> <span class=nx>n1</span> <span class=o>=</span> <span class=nx>g</span><span class=p>.</span><span class=nx>next</span><span class=p>(</span><span class=s2>&#34;a&#34;</span><span class=p>);</span>   <span class=c1>// n1.value == 1
+</span><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;generator yielded&#34;</span><span class=p>,</span> <span class=nx>n1</span><span class=p>.</span><span class=nx>value</span><span class=p>);</span>
+<span class=kd>let</span> <span class=nx>n2</span> <span class=o>=</span> <span class=nx>g</span><span class=p>.</span><span class=nx>next</span><span class=p>(</span><span class=s2>&#34;b&#34;</span><span class=p>);</span>   <span class=c1>// n2.value == 2
+</span><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;generator yielded&#34;</span><span class=p>,</span> <span class=nx>n2</span><span class=p>.</span><span class=nx>value</span><span class=p>);</span>
+<span class=kd>let</span> <span class=nx>n3</span> <span class=o>=</span> <span class=nx>g</span><span class=p>.</span><span class=nx>next</span><span class=p>(</span><span class=s2>&#34;c&#34;</span><span class=p>);</span>   <span class=c1>// n3.value == 3
+</span><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;generator yielded&#34;</span><span class=p>,</span> <span class=nx>n3</span><span class=p>.</span><span class=nx>value</span><span class=p>);</span>
+<span class=kd>let</span> <span class=nx>n4</span> <span class=o>=</span> <span class=nx>g</span><span class=p>.</span><span class=nx>next</span><span class=p>(</span><span class=s2>&#34;d&#34;</span><span class=p>);</span>   <span class=c1>// n4 == { value: 4, done: true }
+</span><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;generator returned&#34;</span><span class=p>,</span> <span class=nx>n4</span><span class=p>.</span><span class=nx>value</span><span class=p>);</span>
+</code></pre></div><p>When this code runs, it produces the following output that demonstrates the back-and-forth between the two blocks of code:</p>
+<blockquote>
+<p>此代码运行时，将产生以下输出，演示两个代码块之间的来回交互：</p>
+</blockquote>
+<pre tabindex=0><code>generator created; no code runs yet
+next() invoked the first time; argument discarded
+generator yielded 1
+next() invoked a second time with argument b
+generator yielded 2
+next() invoked a third time with argument c
+generator yielded 3
+next() invoked a fourth time with argument d
+generator returned 4
+</code></pre><p>Note the asymmetry in this code. The first invocation of next() starts the generator, but the value passed to that invocation is not accessible to the generator.</p>
+<blockquote>
+<p>注意此代码中的不对称性。next() 的首次调用将启动生成器，但是生成器无法访问传递给该调用的值。</p>
+</blockquote>
+<h3 id=1243-the-return-and-throw-methods-of-a-generator>12.4.3 The return() and throw() Methods of a Generator</h3>
+<p>We’ve seen that you can receive values yielded by or returned by a generator function. And you can pass values to a running generator by passing those values when you call the next() method of the generator.</p>
+<blockquote>
+<p>我们已经看到可以接收生成器函数产生或返回的值。可以在调用生成器的 next() 方法时将值传递给正在运行的生成器。</p>
+</blockquote>
+<p>In addition to providing input to a generator with next(), you can also alter the flow of control inside the generator by calling its return() and throw() methods. As the names suggest, calling these methods on a generator causes it to return a value or throw an exception as if the next statement in the generator was a return or throw.</p>
+<blockquote>
+<p>除了使用 next() 向生成器提供输入之外，还可以通过调用生成器的 return() 和 throw() 方法来更改生成器内部的控制流。顾名思义，在生成器上调用这些方法会导致其返回值或引发异常，就像生成器中的下一条语句是 return 或 throw 一样。</p>
+</blockquote>
+<p>Recall from earlier in the chapter that, if an iterator defines a return() method and iteration stops early, then the interpreter automatically calls the return() method to give the iterator a chance to close files or do other cleanup. In the case of generators, you can’t define a custom return() method to handle cleanup, but you can structure the generator code to use a try/finally statement that ensures the necessary cleanup is done (in the finally block) when the generator returns. By forcing the generator to return, the generator’s built-in return() method ensures that the cleanup code is run when the generator will no longer be used.</p>
+<blockquote>
+<p>从本章前面的内容回想起，如果迭代器定义了 return() 方法且迭代提早停止，则解释器将自动调用 return() 方法，以使迭代器有机会关闭文件或进行其他清理。对于生成器，不能定义自定义的 return() 方法来处理清理，但是可以构造生成器代码以使用 try/finally 语句，以确保生成器返回时执行清理操作（在 finally 块中）。通过强制生成器返回，生成器的内置 return() 方法可确保在不再使用生成器时运行清除代码。</p>
+</blockquote>
+<p>Just as the next() method of a generator allows us to pass arbitrary values into a running generator, the throw() method of a generator gives us a way to send arbitrary signals (in the form of exceptions) into a generator. Calling the throw() method always causes an exception inside the generator. But if the generator function is written with appropriate exception-handling code, the exception need not be fatal but can instead be a means of altering the behavior of the generator. Imagine, for example, a counter generator that yields an ever-increasing sequence of integers. This could be written so that an exception sent with throw() would reset the counter to zero.</p>
+<blockquote>
+<p>正如生成器的 next() 方法允许我们将任意值传递给正在运行的生成器一样，生成器的 throw() 方法为我们提供了一种将任意信号（以异常形式）发送到生成器的方法。调用 throw() 方法总是会在生成器内部引起异常。但是，如果生成器函数有适当的异常处理代码编，则该异常是致命的，不过这可以用作更改生成器行为的一种手段。例如，想象一下产生一个不断增加的整数序列的计数器生成器。可以这样编写，使用 throw() 发送的异常将计数器重置为零。</p>
+</blockquote>
+<p>When a generator uses yield* to yield values from some other iterable object, then a call to the next() method of the generator causes a call to the next() method of the iterable object. The same is true of the return() and throw() methods. If a generator uses yield* on an iterable object that has these methods defined, then calling return() or throw() on the generator causes the iterator’s return() or throw() method to be called in turn. All iterators must have a next() method. Iterators that need to clean up after incomplete iteration should define a return() method. And any iterator may define a throw() method, though I don’t know of any practical reason to do so.</p>
+<blockquote>
+<p>当生成器使用 yield* 从其他可迭代对象生成值时，对生成器的 next() 方法的调用会导致对可迭代对象的 next() 方法的调用。return() 和 throw() 方法也是如此。 如果生成器在定义了这些方法的可迭代对象上使用 yield*，则在生成器上调用 return() 或 throw() 会导致依次调用迭代器的 return() 或 throw() 方法。所有迭代器都必须具有 next() 方法。需要在不完整的迭代后进行清理的迭代器应定义一个 return() 方法。而且，任何迭代器都可以定义 throw() 方法，尽管我不知道有任何实际原因。</p>
+</blockquote>
+<h3 id=1244-a-final-note-about-generators>12.4.4 A Final Note About Generators</h3>
+<p>Generators are a very powerful generalized control structure. They give us the ability to pause a computation with yield and restart it again at some arbitrary later time with an arbitrary input value. It is possible to use generators to create a kind of cooperative threading system within single-threaded JavaScript code. And it is possible to use generators to mask asynchronous parts of your program so that your code appears sequential and synchronous, even though some of your function calls are actually asynchronous and depend on events from the network.</p>
+<blockquote>
+<p>生成器是一个非常强大的通用控制结构。它们使我们能够使用 yield 暂停计算，并在以后任意任意时间使用任意输入值重新开始计算。可以使用生成器在单线程 JavaScript 代码中创建一种协作线程系统。而且，即使某些函数调用实际上是异步的并且依赖于网络事件，也可以使用生成器来掩盖程序的异步部分，从而使代码显得顺序和同步。</p>
+</blockquote>
+<p>Trying to do these things with generators leads to code that is mind-bendingly hard to understand or to explain. It has been done, however, and the only really practical use case has been for managing asynchronous code. JavaScript now has async and await keywords (see Chapter 13) for this very purpose, however, and there is no longer any reason to abuse generators in this way.</p>
+<blockquote>
+<p>尝试使用生成器执行这些操作会导致代码难以理解或解释。但是，它已经成为了过去时，唯一真正实用的用例是管理异步代码。为此，JavaScript 现在具有 async 和 await 关键字（请参阅第 13 章），并且不再有任何理由以这种方式滥用生成器。</p>
+</blockquote>
+<h2 id=125-summary>12.5 Summary</h2>
+<p>In this chapter, you have learned:</p>
+<blockquote>
+<p>在本章中，您学习了：</p>
+</blockquote>
+<p>The for/of loop and the &mldr; spread operator work with iterable objects.</p>
+<blockquote>
+<p>for/of 循环和 &mldr; 展开运算符可迭代对象。</p>
+</blockquote>
+<p>An object is iterable if it has a method with the symbolic name [Symbol.iterator] that returns an iterator object.</p>
+<blockquote>
+<p>如果对象具有符号名称为 [Symbol.iterator] 的方法，则该方法返回迭代器对象，该对象是可迭代的。</p>
+</blockquote>
+<p>An iterator object has a next() method that returns an iteration result object.</p>
+<blockquote>
+<p>迭代器对象具有 next() 方法，该方法返回迭代结果对象。</p>
+</blockquote>
+<p>An iteration result object has a value property that holds the next iterated value, if there is one. If the iteration has completed, then the result object must have a done property set to true.</p>
+<blockquote>
+<p>迭代结果对象具有一个 value 属性，该属性保存下一个迭代值（如果有）。如果迭代已完成，则结果对象必须将 done 属性设置为 true。</p>
+</blockquote>
+<p>You can implement your own iterable objects by defining a [Symbol.iterator]() method that returns an object with a next() method that returns iteration result objects. You can also implement functions that accept iterator arguments and return iterator values.</p>
+<blockquote>
+<p>可以通过定义返回对象的 [Symbol.iterator]() 方法和返回迭代结果对象的 next() 方法来实现自己的可迭代对象。还可以实现接受迭代器参数并返回迭代器值的函数。</p>
+</blockquote>
+<p>Generator functions (functions defined with function* instead of function) are another way to define iterators.</p>
+<blockquote>
+<p>生成器函数（用 function* 代替 function 定义的函数）是定义迭代器的另一种方法。</p>
+</blockquote>
+<p>When you invoke a generator function, the body of the function does not run right away; instead, the return value is an iterable iterator object. Each time the next() method of the iterator is called, another chunk of the generator function runs.</p>
+<blockquote>
+<p>当调用生成器函数时，该函数的主体不会立即运行。相反，返回值是一个可迭代的迭代器对象。每次调用迭代器的 next() 方法时，都会运行另一部分生成器函数。</p>
+</blockquote>
+<p>Generator functions can use the yield operator to specify the values that are returned by the iterator. Each call to next() causes the generator function to run up to the next yield expression. The value of that yield expression then becomes the value returned by the iterator. When there are no more yield expressions, then the generator function returns, and the iteration is complete.</p>
+<blockquote>
+<p>生成器函数可以使用 yield 运算符来指定迭代器返回的值。每次调用 next() 都会使生成器函数运行到下一个 yield 表达式。然后，该 yield 表达式的值将成为迭代器返回的值。当没有更多的 yield 表达式时，生成器函数将返回，并且迭代完成。</p>
+</blockquote>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2020-11-02</span>
+</div></div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.okten.cn/posts/ch12/ data-title="第 12 章 迭代器和生成器"><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.okten.cn/posts/ch12/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.okten.cn/posts/ch12/ data-title="第 12 章 迭代器和生成器"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://blog.okten.cn/posts/ch12/ data-title="第 12 章 迭代器和生成器"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.okten.cn/posts/ch12/ data-title="第 12 章 迭代器和生成器"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/ch13/ class=prev rel=prev title="第 13 章 异步 JavaScript"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>第 13 章 异步 JavaScript</a>
+<a href=/posts/ch11/ class=next rel=next title="第 11 章 JavaScript 标准库">第 11 章 JavaScript 标准库<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.okten.cn/ target=_blank>Ten Li</a></span>&nbsp;|&nbsp;<span class=license><a rel=‘license external nofollow noopener noreffer’ href=‘https://creativecommons.org/licenses/by-nc/4.0/’ target=‘_blank’>CC BY-NC 4.0</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw" aria-hidden=true></i>
+</a>
+</div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},search:{algoliaAppID:"I74G1T3YFH",algoliaIndex:"JS",algoliaSearchKey:"fe764ad74987483447860eedfa722ed2",highlightTag:"em",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-BK52F3N7KL',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-BK52F3N7KL" async></script></body>
+</html>

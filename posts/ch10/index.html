@@ -1,0 +1,628 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title>第 10 章 模块 - 《JavaScript 权威指南第七版》中英对照</title><meta name=Description content="This is my blog"><meta property="og:title" content="第 10 章 模块">
+<meta property="og:description" content="The goal of modular programming is to allow large programs to be assembled using modules of code from disparate authors and sources and for all of that code to run correctly even in the presence of code that the various module authors did not anticipate. As a practical matter, modularity is mostly about encapsulating or hiding private implementation details and keeping the global namespace tidy so that modules cannot accidentally">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.okten.cn/posts/ch10/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-11-02T22:18:33+08:00">
+<meta property="article:modified_time" content="2020-11-02T22:18:33+08:00"><meta property="og:site_name" content="My cool site">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="第 10 章 模块">
+<meta name=twitter:description content="The goal of modular programming is to allow large programs to be assembled using modules of code from disparate authors and sources and for all of that code to run correctly even in the presence of code that the various module authors did not anticipate. As a practical matter, modularity is mostly about encapsulating or hiding private implementation details and keeping the global namespace tidy so that modules cannot accidentally">
+<meta name=application-name content="《JavaScript 权威指南第七版》中英对照">
+<meta name=apple-mobile-web-app-title content="《JavaScript 权威指南第七版》中英对照"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.okten.cn/posts/ch10/><link rel=prev href=https://blog.okten.cn/posts/ch11/><link rel=next href=https://blog.okten.cn/posts/ch9/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"第 10 章 模块","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.okten.cn\/posts\/ch10\/"},"genre":"posts","wordcount":13557,"url":"https:\/\/blog.okten.cn\/posts\/ch10\/","datePublished":"2020-11-02T22:18:33+08:00","dateModified":"2020-11-02T22:18:33+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Ten Li"},"description":""}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005185440822195" crossorigin=anonymous></script>
+</head>
+<body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="《JavaScript 权威指南第七版》中英对照">《JavaScript 权威指南第七版》中英对照</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fas fa-thin fa-archive"></i> 所有章节 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="《JavaScript 权威指南第七版》中英对照">《JavaScript 权威指南第七版》中英对照</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title><i class="fas fa-thin fa-archive"></i>所有章节</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a></div>
+</div>
+</header><div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div><main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第 10 章 模块</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=https://blog.okten.cn/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ten Li</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2020-11-02>2020-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;13557 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;28 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static data-kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#101-modules-with-classes-objects-and-closures>10.1 Modules with Classes, Objects, and Closures</a>
+<ul>
+<li><a href=#1011-automating-closure-based-modularity>10.1.1 Automating Closure-Based Modularity</a></li>
+</ul>
+</li>
+<li><a href=#102-modules-in-node>10.2 Modules in Node</a>
+<ul>
+<li><a href=#1021-node-exports>10.2.1 Node Exports</a></li>
+<li><a href=#1022-node-imports>10.2.2 Node Imports</a></li>
+<li><a href=#1023-node-style-modules-on-the-web>10.2.3 Node-Style Modules on the Web</a></li>
+</ul>
+</li>
+<li><a href=#103-modules-in-es6>10.3 Modules in ES6</a>
+<ul>
+<li></li>
+<li><a href=#1031-es6-exports>10.3.1 ES6 Exports</a></li>
+<li><a href=#1032-es6-imports>10.3.2 ES6 Imports</a></li>
+<li><a href=#1033-imports-and-exports-with-renaming>10.3.3 Imports and Exports with Renaming</a></li>
+<li><a href=#1034-re-exports>10.3.4 Re-Exports</a></li>
+<li><a href=#1035-javascript-modules-on-the-web>10.3.5 JavaScript Modules on the Web</a></li>
+<li><a href=#1036-dynamic-imports-with-import>10.3.6 Dynamic Imports with import()</a></li>
+<li><a href=#1037-importmetaurl>10.3.7 import.meta.url</a></li>
+</ul>
+</li>
+<li><a href=#104-summary>10.4 Summary</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>The goal of modular programming is to allow large programs to be assembled using modules of code from disparate authors and sources and for all of that code to run correctly even in the presence of code that the various module authors did not anticipate. As a practical matter, modularity is mostly about encapsulating or hiding private implementation details and keeping the global namespace tidy so that modules cannot accidentally modify the variables, functions, and classes defined by other modules.</p>
+<blockquote>
+<p>模块化编程的目标是允许使用来自不同作者和源的代码模块来组装大型程序，并且即使出现了不同模块作者没有预料到的代码，所有这些代码也能正确运行。作为一个实际问题，模块化主要是关于封装或隐藏私有实现细节和保持全局名称空间整洁，以便模块不会意外地修改其他模块定义的变量、函数和类。</p>
+</blockquote>
+<p>Until recently, JavaScript had no built-in support for modules, and programmers working on large code bases did their best to use the weak modularity available through classes, objects, and closures. Closure-based modularity, with support from code-bundling tools, led to a practical form of modularity based on a require() function, which was adopted by Node. require()-based modules are a fundamental part of the Node programming environment but were never adopted as an official part of the JavaScript language. Instead, ES6 defines modules using import and export keywords. Although import and export have been part of the language for years, they were only implemented by web browsers and Node relatively recently. And, as a practical matter, JavaScript modularity still depends on code-bundling tools.</p>
+<blockquote>
+<p>直到最近，JavaScript 还没有对模块的内置支持，在大型代码库上工作的程序员尽力使用类、对象和闭包的弱模块性。基于闭包的模块化在代码捆绑工具的支持下，实际使用中形成了一种基于 require() 函数的模块化形式，Node 采用了这种形式。基于 require() 的模块是 Node 编程环境的基本部分，但从未被作为 JavaScript 语言的正式部分采用。相反，ES6 使用 import 和 import 关键字定义模块。虽然 import 和 export 已经成为语言的一部分很多年了，但是它们只是最近才被 web 浏览器和 Node 实现。而且，作为一个实际问题，JavaScript 模块化仍然依赖于代码捆绑工具。</p>
+</blockquote>
+<p>The sections that follow cover:</p>
+<blockquote>
+<p>以下各节包括:</p>
+</blockquote>
+<ul>
+<li>Do-it-yourself modules with classes, objects, and closures</li>
+<li>Node modules using require()</li>
+<li>ES6 modules using export, import, and import()</li>
+</ul>
+<hr>
+<blockquote>
+<ul>
+<li>使用类、对象和闭包自己做模块</li>
+<li>使用 require() 的 Node 模块</li>
+<li>使用 export、import 和 import() 的ES6模块</li>
+</ul>
+</blockquote>
+<h2 id=101-modules-with-classes-objects-and-closures>10.1 Modules with Classes, Objects, and Closures</h2>
+<p>Though it may be obvious, it is worth pointing out that one of the important features of classes is that they act as modules for their methods. Think back to Example 9-8. That example defined a number of different classes, all of which had a method named has(). But you would have no problem writing a program that used multiple set classes from that example: there is no danger that the implementation of has() from SingletonSet will overwrite the has() method of BitSet, for example.</p>
+<blockquote>
+<p>尽管这可能很明显，但值得指出的是，类的重要特性之一是它们充当其方法的模块。回想一下示例 9-8。该示例定义了许多不同的类，所有这些类都有一个名为 has() 的方法。但是，在编写使用该示例中的多个 set 类的程序时没有问题：例如，SingletonSet 的 has() 实现不会覆盖 BitSet 的 has() 方法。</p>
+</blockquote>
+<p>The reason that the methods of one class are independent of the methods of other, unrelated classes is that the methods of each class are defined as properties of independent prototype objects. The reason that classes are modular is that objects are modular: defining a property in a JavaScript object is a lot like declaring a variable, but adding properties to objects does not affect the global namespace of a program, nor does it affect the properties of other objects. JavaScript defines quite a few mathematical functions and constants, but instead of defining them all globally, they are grouped as properties of a single global Math object. This same technique could have been used in Example 9-8. Instead of defining global classes with names like SingletonSet and BitSet, that example could have been written to define only a single global Sets object, with properties referencing the various classes. Users of this Sets library could then refer to the classes with names like Sets.Singleton and Sets.Bit.</p>
+<blockquote>
+<p>一个类的方法独立于其他不相关类的方法的原因是，每个类的方法都被定义为独立原型对象的属性。类是模块化的原因是对象是模块化的：在 JavaScript 对象中定义属性非常类似于声明变量，但是向对象添加属性不会影响程序的全局命名空间，也不会影响其他对象的属性。JavaScript 定义了很多数学函数和常量，但它们不是全局定义的，而是分组为 Math 全局对象的单个属性。同样的技术也可以用在示例 9-8 中。不使用 SingletonSet 和 BitSet 这样的名称定义全局类，这个示例可以编写为只有一个 Sets 全局对象，Sets 的属性引用各种类。然后，用户可以使用这个 Sets 库通过 Sets.Singleton 和 Sets.Bit 的名称来获取类的引用。</p>
+</blockquote>
+<p>Using classes and objects for modularity is a common and useful technique in JavaScript programming, but it doesn’t go far enough. In particular, it doesn’t offer us any way to hide internal implementation details inside the module. Consider Example 9-8 again. If we were writing that example as a module, maybe we would have wanted to keep the various abstract classes internal to the module, only making the concrete subclasses available to users of the module. Similarly, in the BitSet class, the _valid() and _has() methods are internal utilities that should not really be exposed to users of the class. And BitSet.bits and BitSet.masks are implementation details that would be better off hidden.</p>
+<blockquote>
+<p>使用类和对象实现模块化是 JavaScript 编程中常见而有用的技术，但这还不够。特别是，它没有提供任何方法来隐藏模块内部的实现细节。再次考虑示例 9-8。如果我们将该示例作为一个模块来编写，也许我们会希望将各种抽象类保留在模块内部，只让具体的子类对模块的用户可用。同样，在 BitSet 类中，_valid() 和 _has() 方法是内部实用程序，不应该向类的用户公开它们。BitSet.bits 和 BitSet.masks 是实现细节，最好隐藏起来。</p>
+</blockquote>
+<p>As we saw in §8.6, local variables and nested functions declared within a function are private to that function. This means that we can use immediately invoked function expressions to achieve a kind of modularity by leaving the implementation details and utility functions hidden within the enclosing function but making the public API of the module the return value of the function. In the case of the BitSet class, we might structure the module like this:</p>
+<blockquote>
+<p>正如我们在 §8.6 中看到的，在函数中声明的局部变量和嵌套函数是该函数私有的。这意味着我们可以使用立即调用函数表达式来实现一种模块化，方法是将实现细节和实用函数隐藏在封装的函数中，而将模块的公共 API 作为函数的返回值。在 BitSet 类的情况下，我们可以像这样构造模块:</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>BitSet</span> <span class=o>=</span> <span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span> <span class=c1>// Set BitSet to the return value of this function
+</span><span class=c1></span>    <span class=c1>// Private implementation details here
+</span><span class=c1></span>    <span class=kd>function</span> <span class=nx>isValid</span><span class=p>(</span><span class=nx>set</span><span class=p>,</span> <span class=nx>n</span><span class=p>)</span> <span class=p>{</span> <span class=p>...</span> <span class=p>}</span>
+    <span class=kd>function</span> <span class=nx>has</span><span class=p>(</span><span class=nx>set</span><span class=p>,</span> <span class=kr>byte</span><span class=p>,</span> <span class=nx>bit</span><span class=p>)</span> <span class=p>{</span> <span class=p>...</span> <span class=p>}</span>
+    <span class=kr>const</span> <span class=nx>BITS</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Uint8Array</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>128</span><span class=p>]);</span>
+    <span class=kr>const</span> <span class=nx>MASKS</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Uint8Array</span><span class=p>([</span><span class=o>~</span><span class=mi>1</span><span class=p>,</span> <span class=o>~</span><span class=mi>2</span><span class=p>,</span> <span class=o>~</span><span class=mi>4</span><span class=p>,</span> <span class=o>~</span><span class=mi>8</span><span class=p>,</span> <span class=o>~</span><span class=mi>16</span><span class=p>,</span> <span class=o>~</span><span class=mi>32</span><span class=p>,</span> <span class=o>~</span><span class=mi>64</span><span class=p>,</span> <span class=o>~</span><span class=mi>128</span><span class=p>]);</span>
+
+    <span class=c1>// The public API of the module is just the BitSet class, which we define
+</span><span class=c1></span>    <span class=c1>// and return here. The class can use the private functions and constants
+</span><span class=c1></span>    <span class=c1>// defined above, but they will be hidden from users of the class
+</span><span class=c1></span>    <span class=k>return</span> <span class=kr>class</span> <span class=nx>BitSet</span> <span class=kr>extends</span> <span class=nx>AbstractWritableSet</span> <span class=p>{</span>
+        <span class=c1>// ... implementation omitted ...
+</span><span class=c1></span>    <span class=p>};</span>
+<span class=p>}());</span>
+</code></pre></div><p>This approach to modularity becomes a little more interesting when the module has more than one item in it. The following code, for example, defines a mini statistics module that exports mean() and stddev() functions while leaving the implementation details hidden:</p>
+<blockquote>
+<p>当模块中有多个条目时，这种模块化方法就变得更有趣了。例如，下面的代码定义了一个迷你统计模块，它导出 mean() 和 stddev() 函数，同时隐藏实现细节:</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// This is how we could define a stats module
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>stats</span> <span class=o>=</span> <span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+    <span class=c1>// Utility functions private to the module
+</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>sum</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>y</span><span class=p>;</span>
+    <span class=kr>const</span> <span class=nx>square</span> <span class=o>=</span> <span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>*</span> <span class=nx>x</span><span class=p>;</span>
+
+    <span class=c1>// A public function that will be exported
+</span><span class=c1></span>    <span class=kd>function</span> <span class=nx>mean</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>return</span> <span class=nx>data</span><span class=p>.</span><span class=nx>reduce</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=o>/</span><span class=nx>data</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+    <span class=p>}</span>
+
+    <span class=c1>// A public function that we will export
+</span><span class=c1></span>    <span class=kd>function</span> <span class=nx>stddev</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+        <span class=kd>let</span> <span class=nx>m</span> <span class=o>=</span> <span class=nx>mean</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+        <span class=k>return</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>sqrt</span><span class=p>(</span>
+            <span class=nx>data</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>-</span> <span class=nx>m</span><span class=p>).</span><span class=nx>map</span><span class=p>(</span><span class=nx>square</span><span class=p>).</span><span class=nx>reduce</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=o>/</span><span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>length</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+        <span class=p>);</span>
+    <span class=p>}</span>
+
+    <span class=c1>// We export the public function as properties of an object
+</span><span class=c1></span>    <span class=k>return</span> <span class=p>{</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>stddev</span> <span class=p>};</span>
+<span class=p>}());</span>
+
+<span class=c1>// And here is how we might use the module
+</span><span class=c1></span><span class=nx>stats</span><span class=p>.</span><span class=nx>mean</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>9</span><span class=p>])</span>   <span class=c1>// =&gt; 5
+</span><span class=c1></span><span class=nx>stats</span><span class=p>.</span><span class=nx>stddev</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>9</span><span class=p>])</span> <span class=c1>// =&gt; Math.sqrt(10)
+</span></code></pre></div><h3 id=1011-automating-closure-based-modularity>10.1.1 Automating Closure-Based Modularity</h3>
+<p>Note that it is a fairly mechanical process to transform a file of JavaScript code into this kind of module by inserting some text at the beginning and end of the file. All that is needed is some convention for the file of JavaScript code to indicate which values are to be exported and which are not.</p>
+<blockquote>
+<p>请注意，通过在文件的开头和结尾插入一些文本来将 JavaScript 代码文件转换为这种模块是相当机械的过程。所需要做的只是为 JavaScript 代码文件提供一些约定，以指示要导出的值和不导出的值。</p>
+</blockquote>
+<p>Imagine a tool that takes a set of files, wraps the content of each of those files within an immediately invoked function expression, keeps track of the return value of each function, and concatenates everything into one big file. The result might look something like this:</p>
+<blockquote>
+<p>想象一下一个工具，它需要一组文件，将每个文件的内容包装在立即调用的函数表达式中，跟踪每个函数的返回值，并将所有内容连接到一个大文件中。结果可能看起来像这样：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>modules</span> <span class=o>=</span> <span class=p>{};</span>
+<span class=kd>function</span> <span class=nx>require</span><span class=p>(</span><span class=nx>moduleName</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=nx>modules</span><span class=p>[</span><span class=nx>moduleName</span><span class=p>];</span> <span class=p>}</span>
+
+<span class=nx>modules</span><span class=p>[</span><span class=s2>&#34;sets.js&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>exports</span> <span class=o>=</span> <span class=p>{};</span>
+
+    <span class=c1>// The contents of the sets.js file go here:
+</span><span class=c1></span>    <span class=nx>exports</span><span class=p>.</span><span class=nx>BitSet</span> <span class=o>=</span> <span class=kr>class</span> <span class=nx>BitSet</span> <span class=p>{</span> <span class=p>...</span> <span class=p>};</span>
+
+    <span class=k>return</span> <span class=nx>exports</span><span class=p>;</span>
+<span class=p>}());</span>
+
+<span class=nx>modules</span><span class=p>[</span><span class=s2>&#34;stats.js&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kr>const</span> <span class=nx>exports</span> <span class=o>=</span> <span class=p>{};</span>
+
+    <span class=c1>// The contents of the stats.js file go here:
+</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>sum</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>y</span><span class=p>;</span>
+    <span class=kr>const</span> <span class=nx>square</span> <span class=o>=</span> <span class=nx>x</span> <span class=o>=</span> <span class=o>&gt;</span> <span class=nx>x</span> <span class=o>*</span> <span class=nx>x</span><span class=p>;</span>
+    <span class=nx>exports</span><span class=p>.</span><span class=nx>mean</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span> <span class=p>{</span> <span class=p>...</span> <span class=p>};</span>
+    <span class=nx>exports</span><span class=p>.</span><span class=nx>stddev</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span> <span class=p>{</span> <span class=p>...</span> <span class=p>};</span>
+
+    <span class=k>return</span> <span class=nx>exports</span><span class=p>;</span>
+<span class=p>}());</span>
+</code></pre></div><p>With modules bundled up into a single file like the one shown in the preceding example, you can imagine writing code like the following to make use of those modules:</p>
+<blockquote>
+<p>如上一个示例所示，将模块捆绑到单个文件中，可以想象编写如下代码来利用这些模块：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Get references to the modules (or the module content) that we need
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>stats</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;stats.js&#34;</span><span class=p>);</span>
+<span class=kr>const</span> <span class=nx>BitSet</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;sets.js&#34;</span><span class=p>).</span><span class=nx>BitSet</span><span class=p>;</span>
+
+<span class=c1>// Now write code using those modules
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>s</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>BitSet</span><span class=p>(</span><span class=mi>100</span><span class=p>);</span>
+<span class=nx>s</span><span class=p>.</span><span class=nx>insert</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span>
+<span class=nx>s</span><span class=p>.</span><span class=nx>insert</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>
+<span class=nx>s</span><span class=p>.</span><span class=nx>insert</span><span class=p>(</span><span class=mi>30</span><span class=p>);</span>
+<span class=kd>let</span> <span class=nx>average</span> <span class=o>=</span> <span class=nx>stats</span><span class=p>.</span><span class=nx>mean</span><span class=p>([...</span><span class=nx>s</span><span class=p>]);</span> <span class=c1>// average is 20
+</span></code></pre></div><p>This code is a rough sketch of how code-bundling tools (such as webpack and Parcel) for web browsers work, and it’s also a simple introduction to the require() function like the one used in Node programs.</p>
+<blockquote>
+<p>这段代码概述了用于网络浏览器的代码捆绑工具（例如 webpack 和 Parcel）的工作方式，并且是对 require() 函数（如 Node 程序中使用的函数）的简单介绍。</p>
+</blockquote>
+<h2 id=102-modules-in-node>10.2 Modules in Node</h2>
+<p>In Node programming, it is normal to split programs into as many files as seems natural. These files of JavaScript code are assumed to all live on a fast filesystem. Unlike web browsers, which have to read files of JavaScript over a relatively slow network connection, there is no need or benefit to bundling a Node program into a single JavaScript file.</p>
+<p>In Node, each file is an independent module with a private namespace. Constants, variables, functions, and classes defined in one file are private to that file unless the file exports them. And values exported by one module are only visible in another module if that module explicitly imports them.</p>
+<p>Node modules import other modules with the require() function and export their public API by setting properties of the Exports object or by replacing the module.exportsobject entirely.</p>
+<h3 id=1021-node-exports>10.2.1 Node Exports</h3>
+<p>Node defines a global exports object that is always defined. If you are writing a Node module that exports multiple values, you can simply assign them to the properties of this object:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>sum</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>y</span><span class=p>;</span>
+<span class=kr>const</span> <span class=nx>square</span> <span class=o>=</span> <span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>*</span> <span class=nx>x</span><span class=p>;</span>
+
+<span class=nx>exports</span><span class=p>.</span><span class=nx>mean</span> <span class=o>=</span> <span class=nx>data</span> <span class=p>=&gt;</span> <span class=nx>data</span><span class=p>.</span><span class=nx>reduce</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=o>/</span><span class=nx>data</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+<span class=nx>exports</span><span class=p>.</span><span class=nx>stddev</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>d</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>m</span> <span class=o>=</span> <span class=nx>exports</span><span class=p>.</span><span class=nx>mean</span><span class=p>(</span><span class=nx>d</span><span class=p>);</span>
+    <span class=k>return</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>sqrt</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>-</span> <span class=nx>m</span><span class=p>).</span><span class=nx>map</span><span class=p>(</span><span class=nx>square</span><span class=p>).</span><span class=nx>reduce</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=o>/</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nx>length</span><span class=o>-</span><span class=mi>1</span><span class=p>));</span>
+<span class=p>};</span>
+</code></pre></div><p>Often, however, you want to define a module that exports only a single function or class rather than an object full of functions or classes. To do this, you simply assign the single value you want to export to module.exports:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nx>module</span><span class=p>.</span><span class=nx>exports</span> <span class=o>=</span> <span class=kr>class</span> <span class=nx>BitSet</span> <span class=kr>extends</span> <span class=nx>AbstractWritableSet</span> <span class=p>{</span>
+    <span class=c1>// implementation omitted
+</span><span class=c1></span><span class=p>};</span>
+</code></pre></div><p>The default value of module.exports is the same object that exports refers to. In the previous stats module, we could have assigned the mean function to module.exports.mean instead of exports.mean. Another approach with modules like the stats module is to export a single object at the end of the module rather than exporting functions one by one as you go:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Define all the functions, public and private
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>sum</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>y</span><span class=p>;</span>
+<span class=kr>const</span> <span class=nx>square</span> <span class=o>=</span> <span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>*</span> <span class=nx>x</span><span class=p>;</span>
+<span class=kr>const</span> <span class=nx>mean</span> <span class=o>=</span> <span class=nx>data</span> <span class=p>=&gt;</span> <span class=nx>data</span><span class=p>.</span><span class=nx>reduce</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=o>/</span><span class=nx>data</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+<span class=kr>const</span> <span class=nx>stddev</span> <span class=o>=</span> <span class=nx>d</span> <span class=p>=&gt;</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>m</span> <span class=o>=</span> <span class=nx>mean</span><span class=p>(</span><span class=nx>d</span><span class=p>);</span>
+    <span class=k>return</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>sqrt</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>-</span> <span class=nx>m</span><span class=p>).</span><span class=nx>map</span><span class=p>(</span><span class=nx>square</span><span class=p>).</span><span class=nx>reduce</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=o>/</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nx>length</span><span class=o>-</span><span class=mi>1</span><span class=p>));</span>
+<span class=p>};</span>
+
+<span class=c1>// Now export only the public ones
+</span><span class=c1></span><span class=nx>module</span><span class=p>.</span><span class=nx>exports</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>stddev</span> <span class=p>};</span>
+</code></pre></div><h3 id=1022-node-imports>10.2.2 Node Imports</h3>
+<p>A Node module imports another module by calling the require() function. The argument to this function is the name of the module to be imported, and the return value is whatever value (typically a function, class, or object) that module exports.</p>
+<p>If you want to import a system module built in to Node or a module that you have installed on your system via a package manager, then you simply use the unqualified name of the module, without any “/” characters that would turn it into a filesystem path:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// These modules are built in to Node
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>fs</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;fs&#34;</span><span class=p>);</span>           <span class=c1>// The built-in filesystem module
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>http</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;http&#34;</span><span class=p>);</span>       <span class=c1>// The built-in HTTP module
+</span><span class=c1></span>
+<span class=c1>// The Express HTTP server framework is a third-party module.
+</span><span class=c1>// It is not part of Node but has been installed locally
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>express</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s2>&#34;express&#34;</span><span class=p>);</span>
+</code></pre></div><p>When you want to import a module of your own code, the module name should be the path to the file that contains that code, relative to the current module’s file. It is legal to use absolute paths that begin with a / character, but typically, when importing modules that are part of your own program, the module names will begin with ./ or sometimes ../ to indicate that they are relative to the current directory or the parent directory. For example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>const</span> <span class=nx>stats</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;./stats.js&#39;</span><span class=p>);</span>
+<span class=kr>const</span> <span class=nx>BitSet</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;./utils/bitset.js&#39;</span><span class=p>);</span>
+</code></pre></div><p>(You can also omit the .js suffix on the files you’re importing and Node will still find the files, but it is common to see these file extensions explicitly included.)</p>
+<p>When a module exports just a single function or class, all you have to do is require it. When a module exports an object with multiple properties, you have a choice: you can import the entire object, or just import the specific properties (using destructuring assignment) of the object that you plan to use. Compare these two approaches:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Import the entire stats object, with all of its functions
+</span><span class=c1></span><span class=kr>const</span> <span class=nx>stats</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;./stats.js&#39;</span><span class=p>);</span>
+
+<span class=c1>// We&#39;ve got more functions than we need, but they&#39;re neatly
+</span><span class=c1>// organized into a convenient &#34;stats&#34; namespace.
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>average</span> <span class=o>=</span> <span class=nx>stats</span><span class=p>.</span><span class=nx>mean</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+
+<span class=c1>// Alternatively, we can use idiomatic destructuring assignment to import
+</span><span class=c1>// exactly the functions we want directly into the local namespace:
+</span><span class=c1></span><span class=kr>const</span> <span class=p>{</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=o>=</span> <span class=nx>require</span><span class=p>(</span><span class=s1>&#39;./stats.js&#39;</span><span class=p>);</span>
+
+<span class=c1>// This is nice and succinct, though we lose a bit of context
+</span><span class=c1>// without the &#39;stats&#39; prefix as a namspace for the stddev() function.
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>sd</span> <span class=o>=</span> <span class=nx>stddev</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</code></pre></div><h3 id=1023-node-style-modules-on-the-web>10.2.3 Node-Style Modules on the Web</h3>
+<p>Modules with an Exports object and a require() function are built in to Node. But if you’re willing to process your code with a bundling tool like webpack, then it is also possible to use this style of modules for code that is intended to run in web browsers. Until recently, this was a very common thing to do, and you may see lots of web-based code that still does it.</p>
+<blockquote>
+<p>Node 中内置了带有 Exports 对象和 require() 函数的模块。 但是，如果要使用诸如 webpack 之类的捆绑工具来处理代码，则也可以将这种样式的模块用于要在网络浏览器中运行的代码。直到最近，这还是一种非常常用的做法，可能会看到很多基于 Web 的代码仍然这样做。</p>
+</blockquote>
+<p>Now that JavaScript has its own standard module syntax, however, developers who use bundlers are more likely to use the official JavaScript modules with import and export statements.</p>
+<blockquote>
+<p>现在，JavaScript 具有自己的标准模块语法，但是使用捆绑程序的开发人员更喜欢将正式的 JavaScript 模块与 import 和 export 语句一起使用。</p>
+</blockquote>
+<h2 id=103-modules-in-es6>10.3 Modules in ES6</h2>
+<p>ES6 adds import and export keywords to JavaScript and finally supports real modularity as a core language feature. ES6 modularity is conceptually the same as Node modularity: each file is its own module, and constants, variables, functions, and classes defined within a file are private to that module unless they are explicitly exported. Values that are exported from one module are available for use in modules that explicitly import them. ES6 modules differ from Node modules in the syntax used for exporting and importing and also in the way that modules are defined in web browsers. The sections that follow explain these things in detail.</p>
+<blockquote>
+<p>ES6 给 JavaScript 添加了 import 和 export 关键字，并且最终支持真正的模块化，将其作为核心语言特性。ES6 模块化概念上和 Node 的模块化相同：每个文件是它们自己的模块，定义在文件中的常量、变量、函数和类是模块私有成员，除非它们是被显示导出。</p>
+</blockquote>
+<p>First, though, note that ES6 modules are also different from regular JavaScript “scripts” in some important ways. The most obvious difference is the modularity itself: in regular scripts, top-level declarations of variables, functions, and classes go into a single global context shared by all scripts. With modules, each file has its own private context and can use the import and export statements, which is the whole point, after all. But there are other differences between modules and scripts as well. Code inside an ES6 module (like code inside any ES6 class definition) is automatically in strict mode (see §5.6.3). This means that, when you start using ES6 modules, you’ll never have to write &ldquo;use strict&rdquo; again. And it means that code in modules cannot use the with statement or the arguments object or undeclared variables. ES6 modules are even slightly stricter than strict mode: in strict mode, in functions invoked as functions, this is undefined. In modules, this is undefined even in top-level code. (By contrast, scripts in web browsers and Node set this to the global object.)</p>
+<blockquote>
+<p>首先，请注意，ES6 模块在某些重要方面也与常规 JavaScript “脚本”不同。最明显的区别是模块化本身：在常规脚本中，变量，函数和类的顶级声明在所有脚本共享的一个全局上下文中。模块每个文件都有其自己的专用上下文，并且可以使用 import 和 export 语句。但是模块和脚本之间也存在其他差异。ES6 模块内的代码（类似 ES6 类内定义的代码）将自动进入严格模式（请参见 §5.6.3）。这意味着，当使用 ES6 模块时，无需再写“use strict”。这意味着模块中的代码不能使用 with 语句或 arguments 对象或未声明的变量。ES6 模块甚至比严格模式稍微严格：在严格模式下，在作为函数调用的函数中，this 是 undefined。在模块中，this 在顶层代码中也是 undefined。（相比之下，Web 浏览器和 Node 中的脚本将 this 设置为全局对象。）</p>
+</blockquote>
+<h4 id=es6-modules-on-the-web-and-in-node>ES6 MODULES ON THE WEB AND IN NODE</h4>
+<p>ES6 modules have been in use on the web for years with the help of code bundlers like webpack, which combine independent modules of JavaScript code into large, non-modular bundles suitable for inclusion into web pages. At the time of this writing, however, ES6 modules are finally supported natively by all web browsers other than Internet Explorer. When used natively, ES6 modules are added into HTML pages with a special <code>&lt;script type="module"></code> tag, described later in this chapter.</p>
+<blockquote>
+<p>ES6模块在诸如 webpack 之类的代码打包器的帮助下已在 Web 上使用多年，该打包器将 JavaScript 代码的独立模块组合成适合于包含在网页中的大型非模块化捆绑包。但是，在撰写本文时，除 Internet Explorer 之外，所有 Web 浏览器都支持 ES6 模块。本地使用时，ES6 模块通过特殊的 <code>&lt;script type="module"></code> 标签添加到HTML页面中，本章稍后将进行介绍。</p>
+</blockquote>
+<p>And meanwhile, having pioneered JavaScript modularity, Node finds itself in the awkward position of having to support two not entirely compatible module systems. Node 13 supports ES6 modules, but for now, the vast majority of Node programs still use Node modules.</p>
+<blockquote>
+<p>同时，由于拥有 JavaScript 模块化的先驱，Node 处于必须支持两个不完全兼容的模块系统的尴尬境地。Node 13 支持 ES6 模块，但是到目前为止，绝大多数 Node 程序仍在使用 Node 模块。</p>
+</blockquote>
+<h3 id=1031-es6-exports>10.3.1 ES6 Exports</h3>
+<p>To export a constant, variable, function, or class from an ES6 module, simply add the keyword export before the declaration:</p>
+<blockquote>
+<p>要从 ES6 模块导出常量，变量，函数或类，只需在声明之前添加关键字 export：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=kr>const</span> <span class=nx>PI</span> <span class=o>=</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>PI</span><span class=p>;</span>
+
+<span class=kr>export</span> <span class=kd>function</span> <span class=nx>degreesToRadians</span><span class=p>(</span><span class=nx>d</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=nx>d</span> <span class=o>*</span> <span class=nx>PI</span> <span class=o>/</span> <span class=mi>180</span><span class=p>;</span> <span class=p>}</span>
+
+<span class=kr>export</span> <span class=kr>class</span> <span class=nx>Circle</span> <span class=p>{</span>
+    <span class=nx>constructor</span><span class=p>(</span><span class=nx>r</span><span class=p>)</span> <span class=p>{</span> <span class=k>this</span><span class=p>.</span><span class=nx>r</span> <span class=o>=</span> <span class=nx>r</span><span class=p>;</span> <span class=p>}</span>
+    <span class=nx>area</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=nx>PI</span> <span class=o>*</span> <span class=k>this</span><span class=p>.</span><span class=nx>r</span> <span class=o>*</span> <span class=k>this</span><span class=p>.</span><span class=nx>r</span><span class=p>;</span> <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><p>As an alternative to scattering export keywords throughout your module, you can define your constants, variables, functions, and classes as you normally would, with no export statement, and then (typically at the end of your module) write a single export statement that declares exactly what is exported in a single place. So instead of writing three individual exports in the preceding code, we could have equivalently written a single line at the end:</p>
+<blockquote>
+<p>作为在整个模块中散播 export 关键字的替代方法，可以像平常一样定义常量、变量、函数和类，无需导出语句，然后（通常在模块末尾）编写一个导出语句，在一个位置精确的声明要导出的所有内容。因此，我们可以在末尾写入一行代码，而不是在上述代码中编写三个单独的导出：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=p>{</span> <span class=nx>Circle</span><span class=p>,</span> <span class=nx>degreesToRadians</span><span class=p>,</span> <span class=nx>PI</span> <span class=p>};</span>
+</code></pre></div><p>This syntax looks like the export keyword followed by an object literal (using shorthand notation). But in this case, the curly braces do not actually define an object literal. This export syntax simply requires a comma-separated list of identifiers within curly braces.</p>
+<blockquote>
+<p>这种语法看起来像导出关键字，后跟对象字面量（使用速记符号）。但在这种情况下，花括号实际上并不是定义对象字面量。此导出语法只需要在大括号中的标识符列表用逗号分隔。</p>
+</blockquote>
+<p>It is common to write modules that export only one value (typically a function or class), and in this case, we usually use export default instead of export:</p>
+<blockquote>
+<p>编写只导出一个值（通常是一个函数或类）的模块是很常见的，在这种情况下，我们通常使用 export default 而不是 export：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=k>default</span> <span class=kr>class</span> <span class=nx>BitSet</span> <span class=p>{</span>
+    <span class=c1>// implementation omitted
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><p>Default exports are slightly easier to import than non-default exports, so when there is only one exported value, using export default makes things easier for the modules that use your exported value.</p>
+<blockquote>
+<p>默认导出比非默认导出更容易导入，因此，当只有一个导出值时，使用默认导出可以使模块的使用更容易。</p>
+</blockquote>
+<p>Regular exports with export can only be done on declarations that have a name. Default exports with export default can export any expression including anonymous function expressions and anonymous class expressions. This means that if you use export default, you can export object literals. So unlike the export syntax, if you see curly braces after export default, it really is an object literal that is being exported.</p>
+<blockquote>
+<p>带 export 的常规导出只能在具有名称的声明上进行。export default 默认导出可以导出任何表达式，包括匿名函数表达式和匿名类表达式。这意味着，如果使用默认导出，则可以导出对象字面量。因此，与导出语法不同，如果在默认导出后看到花括号，则它实际上是要导出的对象字面量。</p>
+</blockquote>
+<p>It is legal, but somewhat uncommon, for modules to have a set of regular exports and also a default export. If a module has a default export, it can only have one.</p>
+<blockquote>
+<p>同时有 export 和 export default 的模块是合法的，但是不常用。如果模块的默认导出最多仅有一个。</p>
+</blockquote>
+<p>Finally, note that the export keyword can only appear at the top level of your JavaScript code. You may not export a value from within a class, function, loop, or conditional. (This is an important feature of the ES6 module system and enables static analysis: a modules export will be the same on every run, and the symbols exported can be determined before the module is actually run.)</p>
+<blockquote>
+<p>最后，请注意 export 关键字只能出现在 JavaScript 代码的顶层。 不能从类，函数，循环或条件内导出值。（这是 ES6 模块系统的重要特性，并且可以进行静态分析：每次运行时模块导出都是相同的，并且可以在模块实际运行之前确定导出的符号。）</p>
+</blockquote>
+<h3 id=1032-es6-imports>10.3.2 ES6 Imports</h3>
+<p>You import values that have been exported by other modules with the import keyword. The simplest form of import is used for modules that define a default export:</p>
+<blockquote>
+<p>使用 import 关键字导入其他模块导出的值。最简单的导入形式是导入默认导出定义的模块：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=nx>BitSet</span> <span class=nx>from</span> <span class=s1>&#39;./bitset.js&#39;</span><span class=p>;</span>
+</code></pre></div><p>This is the import keyword, followed by an identifier, followed by the from keyword, followed by a string literal that names the module whose default export we are importing. The default export value of the specified module becomes the value of the specified identifier in the current module.</p>
+<blockquote>
+<p>import 关键字后面跟一个标识符，然后是 from 关键字，后接要导入的默认导出字符串字面量模块名称。模块指定的默认导出值将编程当前模块内指定的标识符的值。</p>
+</blockquote>
+<p>The identifier to which the imported value is assigned is a constant, as if it had been declared with the const keyword. Like exports, imports can only appear at the top level of a module and are not allowed within classes, functions, loops, or conditionals. By near-universal convention, the imports needed by a module are placed at the start of the module. Interestingly, however, this is not required: like function declarations, imports are “hoisted” to the top, and all imported values are available for any of the module’s code runs.</p>
+<blockquote>
+<p>赋导入值的标识符是一个常量，就像它使用了 const 关键字声明一样。和导出一样，只能在模块的顶层导入，不能在类、函数、循环或条件中导入。根据近似通用规约，需要在模块的开头进行模块导入。但有趣的是，这不是必须的：就像函数声明，导入“提前”到顶部，所有的导入值在整个模块代码中运行时可以使用。</p>
+</blockquote>
+<p>The module from which a value is imported is specified as a constant string literal in single quotes or double quotes. (You may not use a variable or other expression whose value is a string, and you may not use a string within backticks because template literals can interpolate variables and do not always have constant values.) In web browsers, this string is interpreted as a URL relative to the location of the module that is doing the importing. (In Node, or when using a bundling tool, the string is interpreted as a filename relative to the current module, but this makes little difference in practice.) A module specifier string must be an absolute path starting with “/”, or a relative path starting with “./” or “../”, or a complete URL a with protocol and hostname. The ES6 specification does not allow unqualified module specifier strings like “util.js” because it is ambiguous whether this is intended to name a module in the same directory as the current one or some kind of system module that is installed in some special location. (This restriction against “bare module specifiers” is not honored by code-bundling tools like webpack, which can easily be configured to find bare modules in a library directory that you specify.) A future version of the language may allow “bare module specifiers,” but for now, they are not allowed. If you want to import a module from the same directory as the current one, simply place “./” before the module name and import from “./util.js” instead of “util.js”.</p>
+<blockquote>
+<p>被导入的模块用单引号或双引号括上的字符串字面量常量指定。（不可以使用变量或其他值为字符串的表达式，也不可以使用带反引号的字符串，因为模板字面量可以插入变量，它不总是一个常量值。）在 Web 浏览器中，字符串像 URL 一样描述导入模块的相对位置。（在 Node中，或者使用代码捆绑工具时，字符串描述一个对于当前模块的相对文件名，这在事件中略有不同。）以“/”开始的模块指定字符串时绝对路径，“./”和“../”开头的是相对路径，或者是带有协议和主机名的完整 URL。ES6 明确规定不允许使用诸如“util.js”这样的不合规范的字符串，因为它是否是相对路径还是绝对路径上有歧义。（诸如 webpack 之类的代码捆绑工具不能满足对“裸模块说明符”的这种限制，可以将其轻松配置为在指定的库中查找裸模块。）未来版本 JavaScript 可能允许使用“裸模块说明符”，但目前不允许这样做。 如果要从与当前目录相同的目录中导入模块，只需在模块名称前放置“./”，然后从“./util.js”而不是“ util.js”导入。</p>
+</blockquote>
+<p>So far, we’ve only considered the case of importing a single value from a module that uses export default. To import values from a module that exports multiple values, we use a slightly different syntax:</p>
+<blockquote>
+<p>到目前为止，我们仅考虑了从使用默认导出的模块中导入单个值的情况。要从导出多个值的模块导入值，我们使用略有不同的语法：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=p>{</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>Recall that default exports do not need to have a name in the module that defines them. Instead, we provide a local name when we import those values. But non-default exports of a module do have names in the exporting module, and when we import those values, we refer to them by those names. The exporting module can export any number of named value. An import statement that references that module can import any subset of those values simply by listing their names within curly braces. The curly braces make this kind of import statement look something like a destructuring assignment, and destructuring assignment is actually a good analogy for what this style of import is doing. The identifiers within curly braces are all hoisted to the top of the importing module and behave like constants.</p>
+<blockquote>
+<p>回想一下，默认导出不需要在定义它们的模块中具有名称。而是在导入这些值时提供一个本地名称。但是，模块的非默认导出在导出模块中具有名称，并且当我们导入这些值时，我们通过这些名称来引用它们。导出模块可以导出任意数量的命名值。导入语句引用模块，可以简单地通过在花括号中列出它们的名称来导入这些名称对应的值的任何子集。花括号使这种导入语句看起来像是一个解构赋值，而解构赋值实际上是很好的案例来解释导入的这种风格。花括号中的标识符都被提前到导入模块的顶部，并且行为如同常量。</p>
+</blockquote>
+<p>Style guides sometimes recommend that you explicitly import every symbol that your module will use. When importing from a module that defines many exports, however, you can easily import everything with an import statement like this:</p>
+<blockquote>
+<p>有时，风格指南建议显示导入模块将使用的每个符号。但是，从定义许多导出的模块进行导入时，可以使用如下的 import 语句轻松导入所有内容：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=o>*</span> <span class=nx>as</span> <span class=nx>stats</span> <span class=nx>from</span> <span class=s2>&#34;./stats.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>An import statement like this creates an object and assigns it to a constant named stats. Each of the non-default exports of the module being imported becomes a property of this stats object. Non-default exports always have names, and those are used as property names within the object. Those properties are effectively constants: they cannot be overwritten or deleted. With the wildcard import shown in the previous example, the importing module would use the imported mean() and stddev() functions through the stats object, invoking them as stats.mean() and stats.stddev().</p>
+<blockquote>
+<p>像这样的导入语句创建一个对象并将其赋值给一个名为 stats 的常量。模块中每一个非默认导出被导入成 stats 对象的一个属性。非默认导出始终有名称，在对象中它们被用作属性名。那些属性实际上是常量：它们不能被重写或删除。通过前面例子中展示的通配符导入，导入的模块通过 stats 对象使用 mean() 和 stddev() 函数，用 stats.mean() 和 stats.stddev() 来调用它们。</p>
+</blockquote>
+<p>Modules typically define either one default export or multiple named exports. It is legal, but somewhat uncommon, for a module to use both export and export default. But when a module does that, you can import both the default value and the named values with an import statement like this:</p>
+<blockquote>
+<p>模块通常定义一个默认导出或者多个命名导出。模块内同时使用导出和默认导出是合法的，但是不常见。但是当一个模块这样做了，可以通过下面这种方式将默认值和命名值通过一个导入语句导入：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=nx>Histogram</span><span class=p>,</span> <span class=p>{</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./histogram-stats.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>So far, we’ve seen how to import from modules with a default export and from modules with non-default or named exports. But there is one other form of the import statement that is used with modules that have no exports at all. To include a no-exports module into your program, simply use the import keyword with the module specifier:</p>
+<blockquote>
+<p>到目前为止，我们已经了解了如何从具有默认导出的模块以及具有非默认或命名导出的模块导入。但是 import 语句还有另一种形式，可以用于没有导出的模块。要将无导出模块包含到程序中，只需使用 import 关键字和模块说明符：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=s2>&#34;./analytics.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>A module like this runs the first time it is imported. (And subsequent imports do nothing.) A module that just defines functions is only useful if it exports at least one of those functions. But if a module runs some code, then it can be useful to import even without symbols. An analytics module for a web application might run code to register various event handlers and then use those event handlers to send telemetry data back to the server at appropriate times. The module is self-contained and does not need to export anything, but we still need to import it so that it does actually run as part of our program.</p>
+<blockquote>
+<p>这样的模块在首次运行时导入。（并且随后的导入不执行任何操作。）仅定义函数的模块只有在导出至少一个函数时才有用。但是，如果模块运行一些代码，那么即使没有符号也可以导入。Web 应用程序的分析模块可能会运行代码来注册各种事件处理器，然后使用这些事件处理程序在适当的时间将遥测数据发送回服务器。该模块是独立的，不需要导出任何东西，但是我们仍然需要导入它，以便它实际上可以作为程序的一部分运行。</p>
+</blockquote>
+<p>Note that you can use this import-nothing import syntax even with modules that do have exports. If a module defines useful behavior independent of the values it exports, and if your program does not need any of those exported values, you can still import the module . just for that default behavior.</p>
+<blockquote>
+<p>请注意，即使对于具有导出的模块，也可以使用不导入任何内容的导入语法。如果模块定义的有用行为与导出的值无关，并且程序不需要任何导出的值，则仍可以用 . 导入模块，这仅用于默认导出。</p>
+</blockquote>
+<h3 id=1033-imports-and-exports-with-renaming>10.3.3 Imports and Exports with Renaming</h3>
+<p>If two modules export two different values using the same name and you want to import both of those values, you will have to rename one or both of the values when you import it. Similarly, if you want to import a value whose name is already in use in your module, you will need to rename the imported value. You can use the as keyword with named imports to rename them as you import them:</p>
+<blockquote>
+<p>如果两个模块使用相同的名称导出两个不同的值，并且要导入这两个值，则在导入时必须重命名一个或两个值。同样，如果模块要导入值的名称已在模块中使用，则需要重命名导入的值。可以在命名导入中使用 as 关键字，以在导入它们时重命名它们：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=p>{</span> <span class=nx>render</span> <span class=nx>as</span> <span class=nx>renderImage</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./imageutils.js&#34;</span><span class=p>;</span>
+<span class=kr>import</span> <span class=p>{</span> <span class=nx>render</span> <span class=nx>as</span> <span class=nx>renderUI</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./ui.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>These lines import two functions into the current module. The functions are both named render() in the modules that define them but are imported with the more descriptive and disambiguating names renderImage() and renderUI().</p>
+<blockquote>
+<p>这些行将两个功能导入当前模块。这些函数在定义它们的模块中都被命名为 render()，但使用更具描述性和消除歧义性的 renderImage() 和 renderUI() 名称导入。</p>
+</blockquote>
+<p>Recall that default exports do not have a name. The importing module always chooses the name when importing a default export. So there is no need for a special syntax for renaming in that case.</p>
+<blockquote>
+<p>回想一下，默认导出没有名称。导入默认导出时，导入模块始终选择名称。因此，在这种情况下，不需要特殊的语法来重命名。</p>
+</blockquote>
+<p>Having said that, however, the possibility of renaming on import provides another way of importing from modules that define both a default export and named exports. Recall the “./histogram-stats.js” module from the previous section. Here is another way to import both the default and named exports of that module:</p>
+<blockquote>
+<p>话虽如此，导入重命名的可能性提供另外一种导入，从模块导入同时定义默认导出和命名导出。回顾上一节中的“ ./histogram-stats.js”模块。这是同时导入该模块的默认导出和命名导出的另一种方法：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=p>{</span> <span class=k>default</span> <span class=nx>as</span> <span class=nx>Histogram</span><span class=p>,</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./histogram-stats.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>In this case, the JavaScript keyword default serves as a placeholder and allows us to indicate that we want to import and provide a name for the default export of the module.</p>
+<blockquote>
+<p>在这种情况下，JavaScript 关键字 default 用作占位符，并允许我们指示我们要导入并为模块的默认导出提供名称。</p>
+</blockquote>
+<p>It is also possible to rename values as you export them, but only when using the curly brace variant of the export statement. It is not common to need to do this, but if you chose short, succinct names for use inside your module, you might prefer to export your values with more descriptive names that are less likely to conflict with other modules. As with imports, you use the as keyword to do this:</p>
+<blockquote>
+<p>也可以在导出时重命名值，但仅在使用 export 语句的花括号时才可以。这样做通常并不常见，但是如果选择在模块内部使用简短的简短名称，则可能更喜欢使用描述性较强的名称导出值，这些名称不太可能与其他模块发生冲突。与导入一样，可以使用 as 关键字执行此操作：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=p>{</span>
+    <span class=nx>layout</span> <span class=nx>as</span> <span class=nx>calculateLayout</span><span class=p>,</span>
+    <span class=nx>render</span> <span class=nx>as</span> <span class=nx>renderLayout</span>
+<span class=p>};</span>
+</code></pre></div><p>Keep in mind that, although the curly braces look something like object literals, they are not, and the export keyword expects a single identifier before the as, not an expression. This means, unfortunately, that you cannot use export renaming like this:</p>
+<blockquote>
+<p>请记住，尽管花括号看起来像对象字面量，但实际上并非如此，并且 export 关键字期望在 as 之前有一个标识符，而不是表达式。不幸的是，这意味着不能像这样使用导出重命名：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=p>{</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>sin</span> <span class=nx>as</span> <span class=nx>sin</span><span class=p>,</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>cos</span> <span class=nx>as</span> <span class=nx>cos</span> <span class=p>};</span> <span class=c1>// SyntaxError
+</span></code></pre></div><h3 id=1034-re-exports>10.3.4 Re-Exports</h3>
+<p>Throughout this chapter, we’ve discussed a hypothetical “./stats.js” module that exports mean() and stddev() functions. If we were writing such a module and we thought that many users of the module would want only one function or the other, then we might want to define mean() in a “./stats/mean.js” module and define stddev() in “./stats/stddev.js”. That way, programs only need to import exactly the functions they need and are not bloated by importing code they do not need.</p>
+<blockquote>
+<p>在本章中，我们讨论了一个假定的“./stats.js”模块，该模块导出了 mean() 和 stddev() 函数。如果我们正在编写这样一个模块，并且该模块的用户只想要一个函数或另一个函数，那么我们可能想在“./stats/mean.js”模块中定义 mean()，并定义在“./stats/stddev.js”模块中的 stddev()。这样，程序仅需要完全导入所需的功能，而不会因导入不需要的代码而肿。</p>
+</blockquote>
+<p>Even if we had defined these statistical functions in individual modules, however, we might expect that there would be plenty of programs that want both functions and would appreciate a convenient “./stats.js” module from which they could import both on one line.</p>
+<blockquote>
+<p>但是，即使我们在单个模块中定义了这些统计函数，我们也可能有很多程序需要这两个功能，并且希望使用一行代码方便的导入“./stats.js”模块。</p>
+</blockquote>
+<p>Given that the implementations are now in separate files, defining this “./stat.js” module is simple:</p>
+<blockquote>
+<p>鉴于实现现在位于单独的文件中，因此定义这样的“./stat.js”模块会非常简单：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=p>{</span> <span class=nx>mean</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/mean.js&#34;</span><span class=p>;</span>
+<span class=kr>import</span> <span class=p>{</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/stddev.js&#34;</span><span class=p>;</span>
+<span class=kr>export</span> <span class=p>{</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>stdev</span> <span class=p>};</span>
+</code></pre></div><p>ES6 modules anticipate this use case and provide a special syntax for it. Instead of importing a symbol simply to export it again, you can combine the import and the export steps into a single “re-export” statement that uses the export keyword and the from keyword:</p>
+<blockquote>
+<p>ES6 模块预见了这种使用场景，并为此提供了一种特殊的语法。可以使用 export 和 from 关键字合并导入和导出到一个单独的“再导出”语句中，而不是简单地再次导入即可导入符号：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=p>{</span> <span class=nx>mean</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/mean.js&#34;</span><span class=p>;</span>
+<span class=kr>export</span> <span class=p>{</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/stddev.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>Note that the names mean and stddev are not actually used in this code. If we are not being selective with a re-export and simply want to export all of the named values from another module, we can use a wildcard:</p>
+<blockquote>
+<p>请注意，此代码中并未实际使用名称 mean 和 stddev。如果我们不选择再导出，而只是想从另一个模块中导出所有命名值，则可以使用通配符：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=o>*</span> <span class=nx>from</span> <span class=s2>&#34;./stats/mean.js&#34;</span><span class=p>;</span>
+<span class=kr>export</span> <span class=o>*</span> <span class=nx>from</span> <span class=s2>&#34;./stats/stddev.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>Re-export syntax allows renaming with as just as regular import and export statements do. Suppose we wanted to re-export the mean() function but also define average() as another name for the function. We could do that like this:</p>
+<blockquote>
+<p>再导出语法允许重命名，就像常规的导入和导出语句一样。 假设我们要再导出 mean() 函数，但还要将该函数定义为 average()。 我们可以这样做：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=p>{</span> <span class=nx>mean</span><span class=p>,</span> <span class=nx>mean</span> <span class=nx>as</span> <span class=nx>average</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/mean.js&#34;</span><span class=p>;</span>
+<span class=kr>export</span> <span class=p>{</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/stddev.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>All of the re-exports in this example assume that the “./stats/mean.js” and “./stats/stddev.js” modules export their functions using export instead of export default. In fact, however, since these are modules with only a single export, it would have made sense to define them with export default. If we had done so, then the re-export syntax is a little more complicated because it needs to define a name for the unnamed default exports. We can do that like this:</p>
+<blockquote>
+<p>所有的再导出示例中，“./stats/mean.js”和“./stats/stddev.js”模块都使用导出而不是默认导出来导出它们的函数。但是，实际上，由于这些模块仅具有单个导出，因此使用导出默认定义它们是更明智的。如果我们这样做，那么再导出语法会稍微复杂一点，因为它需要为未命名的默认导出定义一个名称。 我们可以这样做：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>export</span> <span class=p>{</span> <span class=k>default</span> <span class=nx>as</span> <span class=nx>mean</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/mean.js&#34;</span><span class=p>;</span>
+<span class=kr>export</span> <span class=p>{</span> <span class=k>default</span> <span class=nx>as</span> <span class=nx>stddev</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/stddev.js&#34;</span><span class=p>;</span>
+</code></pre></div><p>If you want to re-export a named symbol from another module as the default export of your module, you could do an import followed by an export default, or you could combine the two statements like this:</p>
+<blockquote>
+<p>如果要从另一个模块中再导出命名符号作为模块的默认导出，则可以先进行导入，然后再默认导出，或者可以将以下两个语句组合在一起：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Import the mean() function from ./stats.js and make it the
+</span><span class=c1>// default export of this module
+</span><span class=c1></span><span class=kr>export</span> <span class=p>{</span> <span class=nx>mean</span> <span class=nx>as</span> <span class=k>default</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats.js&#34;</span>
+</code></pre></div><p>And finally, to re-export the default export of another module as the default export of your module (though it is unclear why you would want to do this, since users could simply import the other module directly), you can write:</p>
+<blockquote>
+<p>最后，要将另一个模块的默认导出再导出为模块的默认导出（尽管不清楚为什么要这样做，因为用户可以直接导入另一个模块），可以这样编写：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// The average.js module simply re-exports the stats/mean.js default export
+</span><span class=c1></span><span class=kr>export</span> <span class=p>{</span> <span class=k>default</span> <span class=p>}</span> <span class=nx>from</span> <span class=s2>&#34;./stats/mean.js&#34;</span>
+</code></pre></div><h3 id=1035-javascript-modules-on-the-web>10.3.5 JavaScript Modules on the Web</h3>
+<p>The preceding sections have described ES6 modules and their import and export declarations in a somewhat abstract manner. In this section and the next, we’ll be discussing how they actually work in web browsers, and if you are not already an experienced web developer, you may find the rest of this chapter easier to understand after you have read Chapter 15.</p>
+<blockquote>
+<p>前面的章节以某种抽象的方式描述了 ES6 模块及其导入和导出声明。在本节和下一部分中，我们将讨论它们在 Web 浏览器中的实际工作方式，如果您还不是经验丰富的 Web 开发人员，则在阅读第 15 章之后，可能会发现本章的其余部分更容易理解。</p>
+</blockquote>
+<p>As of early 2020, production code using ES6 modules is still generally bundled with a tool like webpack. There are trade-offs to doing this, [^1] but on the whole, code bundling tends to give better performance. That may well change in the future as network speeds grow and browser vendors continue to optimize their ES6 module implementations.</p>
+<blockquote>
+<p>截至 2020 年初，使用 ES6 模块的生产代码通常仍与 webpack 之类的工具捆绑在一起。 这样做是有折衷的 [^1]，但是总的来说，代码捆绑往往会提供更好的性能。随着网络速度的增长以及浏览器供应商继续优化其 ES6 模块的实现，将来这种情况可能会发生很大的变化。</p>
+</blockquote>
+<p>Even though bundling tools may still be desirable in production, they are no longer required in development since all current browsers provide native support for JavaScript modules. Recall that modules use strict mode by default, this does not refer to a global object, and top-level declarations are not shared globally by default. Since modules must be executed differently than legacy non-module code, their introduction requires changes to HTML as well as JavaScript. If you want to natively use import directives in a web browser, you must tell the web browser that your code is a module by using a <code>&lt;script type="module"></code> tag.</p>
+<blockquote>
+<p>即使在生产中仍可能需要捆绑工具，但由于当前所有的浏览器都为 JavaScript 模块提供了本机支持，因此在开发中不再需要捆绑工具。回想一下，默认情况下模块使用严格模式，this 不引用全局对象，并且顶级声明默认不全局共享。由于模块的执行方式必须不同于传统的非模块代码，因此其引入 requires 对 HTML 和 JavaScript 进行更改。如果要在 Web 浏览器本地使用 import 指令，则必须通过使用 <code>&lt;script type =“ module”></code> 标记来告知 Web 浏览器您的代码是模块。</p>
+</blockquote>
+<p>One of the nice features of ES6 modules is that each module has a static set of imports. So given a single starting module, a web browser can load all of its imported modules and then load all of the modules imported by that first batch of modules, and so on, until a complete program has been loaded. We’ve seen that the module specifier in an import statement can be treated as a relative URL. A <code>&lt;script type="module"></code> tag marks the starting point of a modular program. None of the modules it imports are expected to be in <code>&lt;script></code> tags, however: instead, they are loaded on demand as regular JavaScript files and are executed in strict mode as regular ES6 modules. Using a <code>&lt;script type="module"></code> tag to define the main entry point for a modular JavaScript program can be as simple as this:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=o>&lt;</span><span class=nx>script</span> <span class=nx>type</span><span class=o>=</span><span class=s2>&#34;module&#34;</span><span class=o>&gt;</span><span class=kr>import</span> <span class=s2>&#34;./main.js&#34;</span><span class=p>;</span><span class=o>&lt;</span><span class=err>/script&gt;</span>
+</code></pre></div><p>Code inside an inline <code>&lt;script type="module"></code> tag is an ES6 module, and as such can use the export statement. There is not any point in doing so, however, because the HTML <code>&lt;script></code> tag syntax does not provide any way to define a name for inline modules, so even if such a module does export a value, there is no way for another module to import it.</p>
+<p>Scripts with the type=&ldquo;module&rdquo; attribute are loaded and executed like scripts with the defer attribute. Loading of the code begins as soon as the HTML parser encounters the <code>&lt;script></code> tag (in the case of modules, this code-loading step may be a recursive process that loads multiple JavaScript files). But code execution does not begin until HTML parsing is complete. And once HTML parsing is complete, scripts (both modular and non) are executed in the order in which they appear in the HTML document.</p>
+<p>You can modify the execution time of modules with the async attribute, which works the same way for modules that it does for regular scripts. An async module will execute as soon as the code is loaded, even if HTML parsing is not complete and even if this changes the relative ordering of the scripts.</p>
+<p>Web browsers that support <code>&lt;script type="module"></code> must also support <code>&lt;script nomodule></code>. Browsers that are module-aware ignore any script with the nomodule attribute and will not execute it. Browsers that do not support modules will not recognize the nomodule attribute, so they will ignore it and run the script. This provides a powerful technique for dealing with browser compatibility issues. Browsers that support ES6 modules also support other modern JavaScript features like classes, arrow functions, and the for/of loop. If you write modern JavaScript and load it with <code>&lt;script type="module"></code>, you know that it will only be loaded by browsers that can support it. And as a fallback for IE11 (which, in 2020, is effectively the only remaining browser that does not support ES6), you can use tools like Babel and webpack to transform your code into non-modular ES5 code, then load that less-efficient transformed code via <code>&lt;script nomodule></code>.</p>
+<p>Another important difference between regular scripts and module scripts has to do with cross-origin loading. A regular <code>&lt;script></code> tag will load a file of JavaScript code from any server on the internet, and the internet’s infrastructure of advertising, analytics, and tracking code depends on that fact. But <code>&lt;script type="module"></code> provides an opportunity to tighten this up, and modules can only be loaded from the same origin as the containing HTML document or when proper CORS headers are in place to securely allow cross-origin loads. An unfortunate side effect of this new security restriction is that it makes it difficult to test ES6 modules in development mode using file: URLs. When using ES6 modules, you will likely need to set up a static web server for testing.</p>
+<p>Some programmers like to use the filename extension .mjs to distinguish their modular JavaScript files from their regular, non-modular JavaScript files with the traditional .js extension. For the purposes of web browsers and <code>&lt;script></code> tags, the file extension is actually irrelevant. (The MIME type is relevant, however, so if you use .mjs files, you may need to configure your web server to serve them with the same MIME type as .js files.) Node’s support for ES6 does use the filename extension as a hint to distinguish which module system is used by each file it loads. So if you are writing ES6 modules and want them to be usable with Node, then it may be helpful to adopt the .mjs naming convention.</p>
+<h3 id=1036-dynamic-imports-with-import>10.3.6 Dynamic Imports with import()</h3>
+<p>We’ve seen that the ES6 import and export directives are completely static and enable JavaScript interpreters and other JavaScript tools to determine the relationships between modules with simple text analysis while the modules are being loaded without having to actually execute any of the code in the modules. With statically imported modules, you are guaranteed that the values you import into a module will be ready for use before any of the code in your module begins to run.</p>
+<p>On the web, code has to be transferred over a network instead of being read from the filesystem. And once transfered, that code is often executed on mobile devices with relatively slow CPUs. This is not the kind of environment where static module imports—which require an entire program to be loaded before any of it runs—make a lot of sense.</p>
+<p>It is common for web applications to initially load only enough of their code to render the first page displayed to the user. Then, once the user has some preliminary content to interact with, they can begin to load the often much larger amount of code needed for the rest of the web app. Web browsers make it easy to dynamically load code by using the DOM API to inject a new <code>&lt;script></code> tag into the current HTML document, and web apps have been doing this for many years.</p>
+<p>Although dynamic loading has been possible for a long time, it has not been part of the language itself. That changes with the introduction of import() in ES2020 (as of early 2020, dynamic import is supported by all browsers that support ES6 modules). You pass a module specifier to import() and it returns a Promise object that represents the asynchronous process of loading and running the specified module. When the dynamic import is complete, the Promise is “fulfilled” (see Chapter 13 for complete details on asynchronous programming and Promises) and produces an object like the one you would get with the import * as form of the static import statement.</p>
+<p>So instead of importing the “./stats.js” module statically, like this:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=o>*</span> <span class=nx>as</span> <span class=nx>stats</span> <span class=nx>from</span> <span class=s2>&#34;./stats.js&#34;</span><span class=p>;</span>
+<span class=nx>we</span> <span class=nx>might</span> <span class=kr>import</span> <span class=nx>it</span> <span class=nx>and</span> <span class=nx>use</span> <span class=nx>it</span> <span class=nx>dynamically</span><span class=p>,</span> <span class=nx>like</span> <span class=k>this</span><span class=o>:</span>
+
+<span class=kr>import</span><span class=p>(</span><span class=s2>&#34;./stats.js&#34;</span><span class=p>).</span><span class=nx>then</span><span class=p>(</span><span class=nx>stats</span> <span class=p>=&gt;</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>average</span> <span class=o>=</span> <span class=nx>stats</span><span class=p>.</span><span class=nx>mean</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+<span class=p>})</span>
+</code></pre></div><p>Or, in an async function (again, you may need to read Chapter 13 before you’ll understand this code), we can simplify the code with await:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>async</span> <span class=nx>analyzeData</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>stats</span> <span class=o>=</span> <span class=kr>await</span> <span class=kr>import</span><span class=p>(</span><span class=s2>&#34;./stats.js&#34;</span><span class=p>);</span>
+    <span class=k>return</span> <span class=p>{</span>
+        <span class=nx>average</span><span class=o>:</span> <span class=nx>stats</span><span class=p>.</span><span class=nx>mean</span><span class=p>(</span><span class=nx>data</span><span class=p>),</span>
+        <span class=nx>stddev</span><span class=o>:</span> <span class=nx>stats</span><span class=p>.</span><span class=nx>stddev</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span>
+    <span class=p>};</span>
+<span class=p>}</span>
+</code></pre></div><p>The argument to import() should be a module specifier, exactly like one you’d use with a static import directive. But with import(), you are not constrained to use a constant string literal: any expression that evaluates to a string in the proper form will do.</p>
+<p>Dynamic import() looks like a function invocation, but it actually is not. Instead, import() is an operator and the parentheses are a required part of the operator syntax. The reason for this unusual bit of syntax is that import() needs to be able to resolve module specifiers as URLs relative to the currently running module, and this requires a bit of implementation magic that would not be legal to put in a JavaScript function. The function versus operator distinction rarely makes a difference in practice, but you’ll notice it if you try writing code like console.log(import); or let require = import;.</p>
+<p>Finally, note that dynamic import() is not just for web browsers. Code-packaging tools like webpack can also make good use of it. The most straightforward way to use a code bundler is to tell it the main entry point for your program and let it find all the static import directives and assemble everything into one large file. By strategically using dynamic import() calls, however, you can break that one monolithic bundle up into a set of smaller bundles that can be loaded on demand.</p>
+<h3 id=1037-importmetaurl>10.3.7 import.meta.url</h3>
+<p>There is one final feature of the ES6 module system to discuss. Within an ES6 module (but not within a regular <code>&lt;script> </code>or a Node module loaded with require()), the special syntax import.meta refers to an object that contains metadata about the currently executing module. The url property of this object is the URL from which the module was loaded. (In Node, this will be a file:// URL.)</p>
+<p>The primary use case of import.meta.url is to be able to refer to images, data files, or other resources that are stored in the same directory as (or relative to) the module. The URL() constructor makes it easy to resolve a relative URL against an absolute URL like import.meta.url. Suppose, for example, that you have written a module that includes strings that need to be localized and that the localization files are stored in an l10n/ directory, which is in the same directory as the module itself. Your module could load its strings using a URL created with a function, like this:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>function</span> <span class=nx>localStringsURL</span><span class=p>(</span><span class=nx>locale</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=k>new</span> <span class=nx>URL</span><span class=p>(</span><span class=sb>`l10n/</span><span class=si>${</span><span class=nx>locale</span><span class=si>}</span><span class=sb>.json`</span><span class=p>,</span> <span class=kr>import</span><span class=p>.</span><span class=nx>meta</span><span class=p>.</span><span class=nx>url</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=104-summary>10.4 Summary</h2>
+<p>The goal of modularity is to allow programmers to hide the implementation details of their code so that chunks of code from various sources can be assembled into large programs without worrying that one chunk will overwrite functions or variables of another. This chapter has explained three different JavaScript module systems:</p>
+<ul>
+<li>In the early days of JavaScript, modularity could only be achieved through the clever use of immediately invoked function expressions.</li>
+<li>Node added its own module system on top of the JavaScript language. Node modules are imported with require() and define their exports by setting properties of the Exports object, or by setting the module.exports property.</li>
+<li>In ES6, JavaScript finally got its own module system with import and export keywords, and ES2020 is adding support for dynamic imports with import().</li>
+</ul>
+<hr>
+<ol>
+<li>For example: web apps that have frequent incremental updates and users who make frequent return visits may find that using small modules instead of large bundles can result in better average load times because of better utilization of the user’s browser cache.</li>
+</ol>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2020-11-02</span>
+</div></div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.okten.cn/posts/ch10/ data-title="第 10 章 模块"><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.okten.cn/posts/ch10/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.okten.cn/posts/ch10/ data-title="第 10 章 模块"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://blog.okten.cn/posts/ch10/ data-title="第 10 章 模块"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.okten.cn/posts/ch10/ data-title="第 10 章 模块"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/ch11/ class=prev rel=prev title="第 11 章 JavaScript 标准库"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>第 11 章 JavaScript 标准库</a>
+<a href=/posts/ch9/ class=next rel=next title="第 9 章 类">第 9 章 类<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.okten.cn/ target=_blank>Ten Li</a></span>&nbsp;|&nbsp;<span class=license><a rel=‘license external nofollow noopener noreffer’ href=‘https://creativecommons.org/licenses/by-nc/4.0/’ target=‘_blank’>CC BY-NC 4.0</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw" aria-hidden=true></i>
+</a>
+</div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},search:{algoliaAppID:"I74G1T3YFH",algoliaIndex:"JS",algoliaSearchKey:"fe764ad74987483447860eedfa722ed2",highlightTag:"em",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-BK52F3N7KL',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-BK52F3N7KL" async></script></body>
+</html>

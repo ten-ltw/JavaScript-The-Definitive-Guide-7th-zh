@@ -1,0 +1,1123 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title>第 7 章 数组 - 《JavaScript 权威指南第七版》中英对照</title><meta name=Description content="This is my blog"><meta property="og:title" content="第 7 章 数组">
+<meta property="og:description" content="This chapter documents arrays, a fundamental datatype in JavaScript and in most other programming languages. An array is an ordered collection of values. Each value is called an element, and each element has a numeric position in the array, known as its index. JavaScript arrays are untyped: an array element may be of any type, and different elements of the same array may be of different types. Array elements may">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.okten.cn/posts/ch7/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-11-02T22:18:36+08:00">
+<meta property="article:modified_time" content="2020-11-02T22:18:36+08:00"><meta property="og:site_name" content="My cool site">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="第 7 章 数组">
+<meta name=twitter:description content="This chapter documents arrays, a fundamental datatype in JavaScript and in most other programming languages. An array is an ordered collection of values. Each value is called an element, and each element has a numeric position in the array, known as its index. JavaScript arrays are untyped: an array element may be of any type, and different elements of the same array may be of different types. Array elements may">
+<meta name=application-name content="《JavaScript 权威指南第七版》中英对照">
+<meta name=apple-mobile-web-app-title content="《JavaScript 权威指南第七版》中英对照"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.okten.cn/posts/ch7/><link rel=prev href=https://blog.okten.cn/posts/ch8/><link rel=next href=https://blog.okten.cn/posts/ch6/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"第 7 章 数组","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.okten.cn\/posts\/ch7\/"},"genre":"posts","wordcount":22951,"url":"https:\/\/blog.okten.cn\/posts\/ch7\/","datePublished":"2020-11-02T22:18:36+08:00","dateModified":"2020-11-02T22:18:36+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Ten Li"},"description":""}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005185440822195" crossorigin=anonymous></script>
+</head>
+<body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="《JavaScript 权威指南第七版》中英对照">《JavaScript 权威指南第七版》中英对照</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fas fa-thin fa-archive"></i> 所有章节 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="《JavaScript 权威指南第七版》中英对照">《JavaScript 权威指南第七版》中英对照</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title><i class="fas fa-thin fa-archive"></i>所有章节</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a></div>
+</div>
+</header><div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div><main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第 7 章 数组</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=https://blog.okten.cn/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ten Li</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2020-11-02>2020-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;22951 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;46 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static data-kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#71-creating-arrays>7.1 Creating Arrays</a>
+<ul>
+<li><a href=#711-array-literals>7.1.1 Array Literals</a></li>
+<li><a href=#712-the-spread-operator>7.1.2 The Spread Operator</a></li>
+<li><a href=#713-the-array-constructor>7.1.3 The Array() Constructor</a></li>
+<li><a href=#714-arrayof>7.1.4 Array.of()</a></li>
+<li><a href=#715-arrayfrom>7.1.5 Array.from()</a></li>
+</ul>
+</li>
+<li><a href=#72-reading-and-writing-array-elements>7.2 Reading and Writing Array Elements</a></li>
+<li><a href=#73-sparse-arrays>7.3 Sparse Arrays</a></li>
+<li><a href=#74-array-length>7.4 Array Length</a></li>
+<li><a href=#75-adding-and-deleting-array-elements>7.5 Adding and Deleting Array Elements</a></li>
+<li><a href=#76-iterating-arrays>7.6 Iterating Arrays</a></li>
+<li><a href=#77-multidimensional-arrays>7.7 Multidimensional Arrays</a></li>
+<li><a href=#78-array-methods>7.8 Array Methods</a>
+<ul>
+<li><a href=#781-array-iterator-methods>7.8.1 Array Iterator Methods</a></li>
+<li><a href=#782-flattening-arrays-with-flat-and-flatmap>7.8.2 Flattening arrays with flat() and flatMap()</a></li>
+<li><a href=#783-adding-arrays-with-concat>7.8.3 Adding arrays with concat()</a></li>
+<li><a href=#784-stacks-and-queues-with-push-pop-shift-and-unshift>7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()</a></li>
+<li><a href=#785-subarrays-with-slice-splice-fill-and-copywithin>7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()</a></li>
+<li><a href=#786-array-searching-and-sorting-methods>7.8.6 Array Searching and Sorting Methods</a></li>
+<li><a href=#787-array-to-string-conversions>7.8.7 Array to String Conversions</a></li>
+<li><a href=#788-static-array-functions>7.8.8 Static Array Functions</a></li>
+</ul>
+</li>
+<li><a href=#79-array-like-objects>7.9 Array-Like Objects</a></li>
+<li><a href=#710-strings-as-arrays>7.10 Strings as Arrays</a></li>
+<li><a href=#711-summary>7.11 Summary</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>This chapter documents arrays, a fundamental datatype in JavaScript and in most other programming languages. An array is an ordered collection of values. Each value is called an element, and each element has a numeric position in the array, known as its index. JavaScript arrays are untyped: an array element may be of any type, and different elements of the same array may be of different types. Array elements may even be objects or other arrays, which allows you to create complex data structures, such as arrays of objects and arrays of arrays. JavaScript arrays are zero-based and use 32-bit indexes: the index of the first element is 0, and the highest possible index is 4294967294 (232−2), for a maximum array size of 4,294,967,295 elements. JavaScript arrays are dynamic: they grow or shrink as needed, and there is no need to declare a fixed size for the array when you create it or to reallocate it when the size changes. JavaScript arrays may be sparse: the elements need not have contiguous indexes, and there may be gaps. Every JavaScript array has a length property. For nonsparse arrays, this property specifies the number of elements in the array. For sparse arrays, length is larger than the highest index of any element.</p>
+<blockquote>
+<p>本章记录了数组、一个在 JavaScript 和大多数其他编程语言中的基本数据类型。数组是值的有序集合。每个值叫做一个元素，而每个元素在数组中有一个位置，以数字表示，称为索引。JavaScript 数组是无类型的：数组元素可以是任意类型，并且同一个数组中的不同元素也可能有不同的类型。数组的元素甚至也可能是对象或其他数组，这允许创建复杂的数据结构，如对象的数组和数组的数组。JavaScript 数组的索引是基于零的 32 位数值：第一个元素的索引为 0，最大可能的索引为 4,294,967,294（232-2），数组最大能容纳 4,294,967,295 个元素。JavaScript 数组是动态的：根据需要它们会增长或缩减，并且在创建数组时无须声明一个固定的大小或者在数组大小变化时无须重新分配空间。JavaScript 数组可能是稀疏的：数组元素的索引不一定要连续的，它们之间可以有空缺。每个 JavaScript 数组都有一个 length 属性。针对非稀疏数组，该属性就是数组元素的个数。针对稀疏数组，length 大于任何元素的最高索引。</p>
+</blockquote>
+<p>JavaScript arrays are a specialized form of JavaScript object, and array indexes are really little more than property names that happen to be integers. We’ll talk more about the specializations of arrays elsewhere in this chapter. Implementations typically optimize arrays so that access to numerically indexed array elements is generally significantly faster than access to regular object properties.</p>
+<blockquote>
+<p>JavaScript 数组是 JavaScript 对象的特殊形式，数组索引实际上和碰巧是整数的属性名差不多。我们将在本章的其他地方更多地讨论特殊化的数组。通常，数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要快很多。</p>
+</blockquote>
+<p>Arrays inherit properties from Array.prototype, which defines a rich set of array manipulation methods, covered in §7.8. Most of these methods are generic, which means that they work correctly not only for true arrays, but for any “array-like object.” We’ll discuss array-like objects in §7.9. Finally, JavaScript strings behave like arrays of characters, and we’ll discuss this in §7.10.</p>
+<blockquote>
+<p>数组继承自 Array.prototype 中的属性，它定义了一套丰富的数组操作方法，§7.8 涵盖这方面内容。大多数这些方法是通用的，这意味着它们不仅对真正的数组有效，而且对“类数组对象”同样有效。§7.9 讨论类数组对象。最后，JavaScript 字符串的行为与字符数组类似，我们将在 §7.10 讨论。</p>
+</blockquote>
+<p>ES6 introduces a set of new array classes known collectively as “typed arrays.” Unlike regular JavaScript arrays, typed arrays have a fixed length and a fixed numeric element type. They offer high performance and byte-level access to binary data and are covered in §11.2.</p>
+<blockquote>
+<p>ES6 引入了一组新的数组类，这些类统称为“类型化数组”。与常规的 JavaScript 数组不同，类型化数组有固定的长度和固定的数值元素类型。它们提供高性能和对二进制数据的字节级访问，在 §11.2 中有介绍。</p>
+</blockquote>
+<h2 id=71-creating-arrays>7.1 Creating Arrays</h2>
+<p>There are several ways to create arrays. The subsections that follow explain how to create arrays with:</p>
+<blockquote>
+<p>有很多种创建数组的方法。以下小节将说明如何使用以下方式创建数组：</p>
+</blockquote>
+<p>Array literals</p>
+<blockquote>
+<p>数组字面量</p>
+</blockquote>
+<p>The &mldr; spread operator on an iterable object</p>
+<blockquote>
+<p>可迭代数组 &mldr; 展开运算符</p>
+</blockquote>
+<p>The Array() constructor</p>
+<blockquote>
+<p>Array() 构造函数</p>
+</blockquote>
+<p>The Array.of() and Array.from() factory methods</p>
+<blockquote>
+<p>Array.of() 和 Array.from() 工厂方法</p>
+</blockquote>
+<h3 id=711-array-literals>7.1.1 Array Literals</h3>
+<p>By far the simplest way to create an array is with an array literal, which is simply a comma-separated list of array elements within square brackets. For example:</p>
+<blockquote>
+<p>到目前为止使用数组字面量是创建数组最简单的方法，在方括号中将数组元素用逗号隔开即可。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>empty</span> <span class=o>=</span> <span class=p>[];</span>                 <span class=c1>// An array with no elements
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>primes</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>11</span><span class=p>];</span>  <span class=c1>// An array with 5 numeric elements
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>misc</span> <span class=o>=</span> <span class=p>[</span> <span class=mf>1.1</span><span class=p>,</span> <span class=kc>true</span><span class=p>,</span> <span class=s2>&#34;a&#34;</span><span class=p>,</span> <span class=p>];</span> <span class=c1>// 3 elements of various types + trailing comma
+</span></code></pre></div><p>The values in an array literal need not be constants; they may be arbitrary expressions:</p>
+<blockquote>
+<p>数组字面量中的值不一定要是常量；它们可以是任意的表达式：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>base</span> <span class=o>=</span> <span class=mi>1024</span><span class=p>;</span>
+<span class=kd>let</span> <span class=nx>table</span> <span class=o>=</span> <span class=p>[</span><span class=nx>base</span><span class=p>,</span> <span class=nx>base</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=nx>base</span><span class=o>+</span><span class=mi>2</span><span class=p>,</span> <span class=nx>base</span><span class=o>+</span><span class=mi>3</span><span class=p>];</span>
+</code></pre></div><p>Array literals can contain object literals or other array literals:</p>
+<blockquote>
+<p>数组字面量可以包含对象字面量或其他数组字面量：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>b</span> <span class=o>=</span> <span class=p>[[</span><span class=mi>1</span><span class=p>,</span> <span class=p>{</span><span class=nx>x</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>y</span><span class=o>:</span> <span class=mi>2</span><span class=p>}],</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=p>{</span><span class=nx>x</span><span class=o>:</span> <span class=mi>3</span><span class=p>,</span> <span class=nx>y</span><span class=o>:</span> <span class=mi>4</span><span class=p>}]];</span>
+</code></pre></div><p>If an array literal contains multiple commas in a row, with no value between, the array is sparse (see §7.3). Array elements for which values are omitted do not exist but appear to be undefined if you query them:</p>
+<blockquote>
+<p>如果数组字面量在一行中包含多个逗号，之间没有值，则数组是稀疏的（请参阅 §7.3）。省略值的数组元素不存在，但如果查询它们则返回 undefined：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>count</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,,</span><span class=mi>3</span><span class=p>];</span> <span class=c1>// Elements at indexes 0 and 2. No element at index 1
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>undefs</span> <span class=o>=</span> <span class=p>[,,];</span>  <span class=c1>// An array with no elements but a length of 2
+</span></code></pre></div><p>Array literal syntax allows an optional trailing comma, so [,,] has a length of 2, not 3.</p>
+<blockquote>
+<p>数组字面量语法允许可选的尾部逗号，所以 [,,] 的长度是 2，不是3。</p>
+</blockquote>
+<h3 id=712-the-spread-operator>7.1.2 The Spread Operator</h3>
+<p>In ES6 and later, you can use the “spread operator,” &mldr;, to include the elements of one array within an array literal:</p>
+<blockquote>
+<p>ES6 之后，可以使用展开操作符 &mldr; 将一个数组中的元素展开在数组字面量中：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>];</span>
+<span class=kd>let</span> <span class=nx>b</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>,</span> <span class=p>...</span><span class=nx>a</span><span class=p>,</span> <span class=mi>4</span><span class=p>];</span>  <span class=c1>// b == [0, 1, 2, 3, 4]
+</span></code></pre></div><p>The three dots “spread” the array a so that its elements become elements within the array literal that is being created. It is as if the &mldr;a was replaced by the elements of the array a, listed literally as part of the enclosing array literal. (Note that, although we call these three dots a spread operator, this is not a true operator because it can only be used in array literals and, as we’ll see later in the book, function invocations.)</p>
+<blockquote>
+<p>三个点展开数组 a，所以它的元素变成了数组字面量，并被创建在数组中。就像 &mldr;a 被数组 a 的元素所替换，被列出作为未闭合的数组字面量的一部分。（注意，尽管我们称三点是展开运算符，但这并不是一个操作，因为它只能用于数组字面量和本书后面提到的函数调用。）</p>
+</blockquote>
+<p>The spread operator is a convenient way to create a (shallow) copy of an array:</p>
+<blockquote>
+<p>展开运算符可以方便的创建一个数组的拷贝（浅拷贝）：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>original</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>];</span>
+<span class=kd>let</span> <span class=nx>copy</span> <span class=o>=</span> <span class=p>[...</span><span class=nx>original</span><span class=p>];</span>
+<span class=nx>copy</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>  <span class=c1>// Modifying the copy does not change the original
+</span><span class=c1></span><span class=nx>original</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>   <span class=c1>// =&gt; 1
+</span></code></pre></div><p>The spread operator works on any iterable object. (Iterable objects are what the for/of loop iterates over; we first saw them in §5.4.4, and we’ll see much more about them in Chapter 12.) Strings are iterable, so you can use a spread operator to turn any string into an array of single-character strings:</p>
+<blockquote>
+<p>展开运算符可以作用于任何可迭代对象。（可迭代对象是可以用 for/of 进行循环的对象；第一次在 §5.4.4 中提到，在第 12 章会看到更多关于它们的描述。）字符串是可迭代对象，所以可以使用展开操作符将字符串转换成单个字符的数组。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>digits</span> <span class=o>=</span> <span class=p>[...</span><span class=s2>&#34;0123456789ABCDEF&#34;</span><span class=p>];</span>
+<span class=nx>digits</span> <span class=c1>// =&gt; [&#34;0&#34;,&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;A&#34;,&#34;B&#34;,&#34;C&#34;,&#34;D&#34;,&#34;E&#34;,&#34;F&#34;]
+</span></code></pre></div><p>Set objects (§11.1.1) are iterable, so an easy way to remove duplicate elements from an array is to convert the array to a set and then immediately convert the set back to an array using the spread operator:</p>
+<blockquote>
+<p>Set 对象（§11.1.1）是可迭代对象，所以数组去重有一种简单的方法是用展开运算符将数组转换成 set 然后再转成数组：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>letters</span> <span class=o>=</span> <span class=p>[...</span><span class=s2>&#34;hello world&#34;</span><span class=p>];</span>
+<span class=p>[...</span><span class=k>new</span> <span class=nx>Set</span><span class=p>(</span><span class=nx>letters</span><span class=p>)]</span>  <span class=c1>// =&gt; [&#34;h&#34;,&#34;e&#34;,&#34;l&#34;,&#34;o&#34;,&#34; &#34;,&#34;w&#34;,&#34;r&#34;,&#34;d&#34;]
+</span></code></pre></div><h3 id=713-the-array-constructor>7.1.3 The Array() Constructor</h3>
+<p>Another way to create an array is with the Array() constructor. You can invoke this constructor in three distinct ways:</p>
+<blockquote>
+<p>另一种创建数组的方法是使用 Array() 构造函数。可以用三种不同的方式调用这个构造函数：</p>
+</blockquote>
+<p>Call it with no arguments:</p>
+<blockquote>
+<p>调用时没有实参：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>();</span>
+</code></pre></div><p>This method creates an empty array with no elements and is equivalent to the array literal [].</p>
+<blockquote>
+<p>这个方法创建了一个没有元素的空数组，它等价于 [] 数组字面量。</p>
+</blockquote>
+<p>Call it with a single numeric argument, which specifies a length:</p>
+<blockquote>
+<p>调用时有一个数值实参，它指定了数组的长度：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span>
+</code></pre></div><p>This technique creates an array with the specified length. This form of the Array() constructor can be used to preallocate an array when you know in advance how many elements will be required. Note that no values are stored in the array, and the array index properties “0”, “1”, and so on are not even defined for the array.</p>
+<blockquote>
+<p>该技术创建指定长度的数组。当预先知道所需元素个数时，这种形式的 Array() 构造函数可以用来预分配一个数组空间。注意，数组中没有存储值，甚至数组的索引属性“0”、“1”等还未定义。</p>
+</blockquote>
+<p>Explicitly specify two or more array elements or a single non-numeric element for the array:</p>
+<blockquote>
+<p>为数组显式指定两个或多个数组元素或者非数值元素：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;testing, testing&#34;</span><span class=p>);</span>
+</code></pre></div><p>In this form, the constructor arguments become the elements of the new array. Using an array literal is almost always simpler than this usage of the Array() constructor.</p>
+<blockquote>
+<p>以这种形式，构造函数的实参将会成为新数组的元素。使用数组字面量比这样使用 Array() 构造函数要简单多了。</p>
+</blockquote>
+<h3 id=714-arrayof>7.1.4 Array.of()</h3>
+<p>When the Array() constructor function is invoked with one numeric argument, it uses that argument as an array length. But when invoked with more than one numeric argument, it treats those arguments as elements for the array to be created. This means that the Array() constructor cannot be used to create an array with a single numeric element.</p>
+<blockquote>
+<p>当 Array() 构造函数调用时有一个数值型实参，它会将实参作为数组的长度。但当调用时不止一个数值型实参时，它会将那些实参作为数组的元素创建。这意味着 Array() 构造函数不能创建只有一个数值型元素的数组。</p>
+</blockquote>
+<p>In ES6, the Array.of() function addresses this problem: it is a factory method that creates and returns a new array, using its argument values (regardless of how many of them there are) as the array elements:</p>
+<blockquote>
+<p>在 ES6 中，Array.of() 函数修复了这个问题：它是一个将其实参值（无论有多少个实参）作为数组元素创建并返回一个新数组的工厂方法：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nb>Array</span><span class=p>.</span><span class=k>of</span><span class=p>()</span>        <span class=c1>// =&gt; []; returns empty array with no arguments
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=k>of</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>      <span class=c1>// =&gt; [10]; can create arrays with a single numeric argument
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=k>of</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>)</span>   <span class=c1>// =&gt; [1, 2, 3]
+</span></code></pre></div><h3 id=715-arrayfrom>7.1.5 Array.from()</h3>
+<p>Array.from is another array factory method introduced in ES6. It expects an iterable or array-like object as its first argument and returns a new array that contains the elements of that object. With an iterable argument, Array.from(iterable) works like the spread operator [&mldr;iterable] does. It is also a simple way to make a copy of an array:</p>
+<blockquote>
+<p>Array.from 是 ES6 中另外一个数组工厂方法。它期望一个可迭代或类数组对象作为它的第一个实参，并返回一个包含对象中元素的新数组。使用一个可迭代实参，Array.from(iterable) 工作方式类似于展开运算符 [&mldr;iterable]。它也可以简单的拷贝一个数组：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>copy</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>original</span><span class=p>);</span>
+</code></pre></div><p>Array.from() is also important because it defines a way to make a true-array copy of an array-like object. Array-like objects are non-array objects that have a numeric length property and have values stored with properties whose names happen to be integers. When working with client-side JavaScript, the return values of some web browser methods are array-like, and it can be easier to work with them if you first convert them to true arrays:</p>
+<blockquote>
+<p>Array.from() 也很重要，因为它定义了一个将类数组对象拷贝成数组的方法。类数组对象是一个不是数组的对象，它有一个数值型的 length 属性，并且它的值碰巧保存在属性名为整数的属性中。当使用客户端 JavaScript 时，一些浏览器方法的返回值是类数组的，并且当将其转化成真正的数组后会更容易操作它们：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>truearray</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>arraylike</span><span class=p>);</span>
+</code></pre></div><p>Array.from() also accepts an optional second argument. If you pass a function as the second argument, then as the new array is being built, each element from the source object will be passed to the function you specify, and the return value of the function will be stored in the array instead of the original value. (This is very much like the array map() method that will be introduced later in the chapter, but it is more efficient to perform the mapping while the array is being built than it is to build the array and then map it to another new array.)</p>
+<blockquote>
+<p>Array.from() 第二个实参为可选实参。如果传递一个函数作为第二个实参，那么当新数组被创建，每一个元素都会被作为实参传入这个指定函数中，并且这个函数的每个返回值保存在数组中代替原来的值。（这很像后面会介绍的数组 map() 方法，但是，它会更加高效的执行映射，因其为没有创建数组，而是直接进行映射到另外一个数组。）</p>
+</blockquote>
+<h2 id=72-reading-and-writing-array-elements>7.2 Reading and Writing Array Elements</h2>
+<p>You access an element of an array using the [] operator. A reference to the array should appear to the left of the brackets. An arbitrary expression that has a non-negative integer value should be inside the brackets. You can use this syntax to both read and write the value of an element of an array. Thus, the following are all legal JavaScript statements:</p>
+<blockquote>
+<p>使用 [] 运算符来访问数组中的一个元素。数组的引用位于方括号的左边。方括号中是一个返回非负整数值的任意表达式。使用该语法既可以读又可以写数组的一个元素。因此，如下代码都是合法的 JavaScript 语句：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;world&#34;</span><span class=p>];</span>     <span class=c1>// Start with a one-element array
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>value</span> <span class=o>=</span> <span class=nx>a</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>      <span class=c1>// Read element 0
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mf>3.14</span><span class=p>;</span>           <span class=c1>// Write element 1
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+<span class=nx>a</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span>              <span class=c1>// Write element 2
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;hello&#34;</span><span class=p>;</span>    <span class=c1>// Write element 3
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=nx>a</span><span class=p>[</span><span class=nx>i</span><span class=p>]]</span> <span class=o>=</span> <span class=nx>a</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>        <span class=c1>// Read elements 0 and 2, write element 3
+</span></code></pre></div><p>What is special about arrays is that when you use property names that are non-negative integers less than 232–1, the array automatically maintains the value of the length property for you. In the preceding, for example, we created an array a with a single element. We then assigned values at indexes 1, 2, and 3. The length property of the array changed as we did, so:</p>
+<blockquote>
+<p>数组特殊的是，当使用小于 232–1 的非负整数属性名时，数组会自动维护 length 属性。例如，上文中我们创建了只有一个元素的数组 a。然后我们为其序列为 1、2 和 3 的元素进行赋值。数组 length 属性会自动改变：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nx>a</span><span class=p>.</span><span class=nx>length</span>       <span class=c1>// =&gt; 4
+</span></code></pre></div><p>Remember that arrays are a specialized kind of object. The square brackets used to access array elements work just like the square brackets used to access object properties. JavaScript converts the numeric array index you specify to a string—the index 1 becomes the string &ldquo;1&rdquo;—then uses that string as a property name. There is nothing special about the conversion of the index from a number to a string: you can do that with regular objects, too:</p>
+<blockquote>
+<p>请记住，数组是对象的特殊形式。使用方括号访问数组元素就像用方括号访问对象的属性一样。JavaScript 将指定的数字索引值转换成字符串（索引值 1 变成“1”）然后将其作为属性名来使用。关于索引值从数字转换为字符串没什么特别之处：对常规对象也可以这么做：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>o</span> <span class=o>=</span> <span class=p>{};</span>    <span class=c1>// Create a plain object
+</span><span class=c1></span><span class=nx>o</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;one&#34;</span><span class=p>;</span>  <span class=c1>// Index it with an integer
+</span><span class=c1></span><span class=nx>o</span><span class=p>[</span><span class=s2>&#34;1&#34;</span><span class=p>]</span>         <span class=c1>// =&gt; &#34;one&#34;; numeric and string property names are the same
+</span></code></pre></div><p>It is helpful to clearly distinguish an array index from an object property name. All indexes are property names, but only property names that are integers between 0 and 232–2 are indexes. All arrays are objects, and you can create properties of any name on them. If you use properties that are array indexes, however, arrays have the special behavior of updating their length property as needed.</p>
+<blockquote>
+<p>清晰地区分数组的索引和对象的属性名是非常有用的。所有的索引都是属性名，但只有在 0～232-2 之间的整数属性名才是索引。所有的数组都是对象，可以为其创建任意名字的属性。但如果使用的属性是数组的索引，数组的特殊行为就是将根据需要更新它们的 length 属性值。</p>
+</blockquote>
+<p>Note that you can index an array using numbers that are negative or that are not integers. When you do this, the number is converted to a string, and that string is used as the property name. Since the name is not a non-negative integer, it is treated as a regular object property, not an array index. Also, if you index an array with a string that happens to be a non-negative integer, it behaves as an array index, not an object property. The same is true if you use a floating-point number that is the same as an integer:</p>
+<blockquote>
+<p>注意，可以使用负数或非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样，如果凑巧使用了是非负整数的字符串，它就当做数组索引，而非对象属性。当使用的一个浮点数和一个整数相等时情况也是一样的：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nx>a</span><span class=p>[</span><span class=o>-</span><span class=mf>1.23</span><span class=p>]</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>  <span class=c1>// This creates a property named &#34;-1.23&#34;
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=s2>&#34;1000&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>    <span class=c1>// This the 1001st element of the array
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=mf>1.000</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>     <span class=c1>// Array index 1. Same as a[1] = 1;
+</span></code></pre></div><p>The fact that array indexes are simply a special type of object property name means that JavaScript arrays have no notion of an “out of bounds” error. When you try to query a nonexistent property of any object, you don’t get an error; you simply get undefined. This is just as true for arrays as it is for objects:</p>
+<blockquote>
+<p>事实上数组索引仅仅是对象属性名的一种特殊类型，这意味着 JavaScript 数组没有“越界”错误的概念。当试图查询任何对象中不存在的属性时，都不会报错，只会得到 undefined 值。类似于对象，对于对象同样存在这种情况。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=kc>true</span><span class=p>,</span> <span class=kc>false</span><span class=p>];</span> <span class=c1>// This array has elements at indexes 0 and 1
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span>                   <span class=c1>// =&gt; undefined; no element at this index.
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>                  <span class=c1>// =&gt; undefined; no property with this name.
+</span></code></pre></div><h2 id=73-sparse-arrays>7.3 Sparse Arrays</h2>
+<p>A sparse array is one in which the elements do not have contiguous indexes starting at 0. Normally, the length property of an array specifies the number of elements in the array. If the array is sparse, the value of the length property is greater than the number of elements. Sparse arrays can be created with the Array() constructor or simply by assigning to an array index larger than the current array length.</p>
+<blockquote>
+<p>稀疏数组就是包含从 0 开始的不连续索引的数组。通常，数组的 length 属性值代表数组中元素的个数。如果数组是稀疏的，length 属性值大于元素的个数。可以用 Array() 构造函数或简单地指定数组的索引值大于当前的数组长度来创建稀疏数组。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>5</span><span class=p>);</span> <span class=c1>// No elements, but a.length is 5.
+</span><span class=c1></span><span class=nx>a</span> <span class=o>=</span> <span class=p>[];</span>               <span class=c1>// Create an array with no elements and length = 0.
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=mi>1000</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>          <span class=c1>// Assignment adds one element but sets length to 1001.
+</span></code></pre></div><p>We’ll see later that you can also make an array sparse with the delete operator.</p>
+<blockquote>
+<p>后面会看到你也可以用 delete 运算符来生产稀疏数组。</p>
+</blockquote>
+<p>Arrays that are sufficiently sparse are typically implemented in a slower, more memory-efficient way than dense arrays are, and looking up elements in such an array will take about as much time as regular object property lookup.</p>
+<blockquote>
+<p>足够稀疏的数组通常在实现上比稠密的数组更慢、内存利用率更高，在这样的数组中查找元素的时间与常规对象属性的查找时间一样长。</p>
+</blockquote>
+<p>Note that when you omit a value in an array literal (using repeated commas as in [1,,3]), the resulting array is sparse, and the omitted elements simply do not exist:</p>
+<blockquote>
+<p>注意，当在数组字面量中省略值时（像 [1,,3] 中使用重复的逗号）返回的是稀疏数组，省略掉的值是不存在的：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a1</span> <span class=o>=</span> <span class=p>[,];</span>           <span class=c1>// This array has no elements and length 1
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>a2</span> <span class=o>=</span> <span class=p>[</span><span class=kc>undefined</span><span class=p>];</span>   <span class=c1>// This array has one undefined element
+</span><span class=c1></span><span class=mi>0</span> <span class=k>in</span> <span class=nx>a1</span>                 <span class=c1>// =&gt; false: a1 has no element with index 0
+</span><span class=c1></span><span class=mi>0</span> <span class=k>in</span> <span class=nx>a2</span>                 <span class=c1>// =&gt; true: a2 has the undefined value at index 0
+</span></code></pre></div><p>Understanding sparse arrays is an important part of understanding the true nature of JavaScript arrays. In practice, however, most JavaScript arrays you will work with will not be sparse. And, if you do have to work with a sparse array, your code will probably treat it just as it would treat a nonsparse array with undefined elements.</p>
+<blockquote>
+<p>了解稀疏数组是了解 JavaScript 数组的真实本质的一部分。尽管如此，实际上你所碰到的绝大多数 JavaScript 数组不是稀疏数组。并且，如果你确实碰到了稀疏数组，你的代码很可能像对待非稀疏数组一样来对待它们，只不过它们包含一些 undefined 元素。</p>
+</blockquote>
+<h2 id=74-array-length>7.4 Array Length</h2>
+<p>Every array has a length property, and it is this property that makes arrays different from regular JavaScript objects. For arrays that are dense (i.e., not sparse), the length property specifies the number of elements in the array. Its value is one more than the highest index in the array:</p>
+<blockquote>
+<p>每个数组有一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密（也就是非稀疏）数组，length 属性值代表数组中元素的个数。其值比数组中最大的索引大 1：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=p>[].</span><span class=nx>length</span>             <span class=c1>// =&gt; 0: the array has no elements
+</span><span class=c1></span><span class=p>[</span><span class=s2>&#34;a&#34;</span><span class=p>,</span><span class=s2>&#34;b&#34;</span><span class=p>,</span><span class=s2>&#34;c&#34;</span><span class=p>].</span><span class=nx>length</span>  <span class=c1>// =&gt; 3: highest index is 2, length is 3
+</span></code></pre></div><p>When an array is sparse, the length property is greater than the number of elements, and all we can say about it is that length is guaranteed to be larger than the index of every element in the array. Or, put another way, an array (sparse or not) will never have an element whose index is greater than or equal to its length. In order to maintain this invariant, arrays have two special behaviors. The first we described above: if you assign a value to an array element whose index i is greater than or equal to the array’s current length, the value of the length property is set to i+1.</p>
+<blockquote>
+<p>当数组是稀疏的时，length 属性值大于元素的个数。而且关于此我们可以说数组长度保证大于它每个元素的索引值。或者，换一种说法，在数组中（无论稀疏与否）肯定找不到一个元素的索引值大于或等于它的长度。为了维持此规则不变化，数组有两个特殊的行为。第一个如同上面的描述：如果为一个数组元素赋值，它的索引 i 大于或等于现有数组的长度时，length 属性的值将设置为 i+1。</p>
+</blockquote>
+<p>The second special behavior that arrays implement in order to maintain the length invariant is that, if you set the length property to a non-negative integer n smaller than its current value, any array elements whose index is greater than or equal to n are deleted from the array:</p>
+<blockquote>
+<p>第二个特殊的行为就是设置 length 属性为一个小于当前长度的非负整数n时，当前数组中那些索引值大于或等于 n 的元素将从中删除：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>     <span class=c1>// Start with a 5-element array.
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>length</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span>        <span class=c1>// a is now [1,2,3].
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>length</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>        <span class=c1>// Delete all elements.  a is [].
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>length</span> <span class=o>=</span> <span class=mi>5</span><span class=p>;</span>        <span class=c1>// Length is 5, but no elements, like new Array(5)
+</span></code></pre></div><p>You can also set the length property of an array to a value larger than its current value. Doing this does not actually add any new elements to the array; it simply creates a sparse area at the end of the array.</p>
+<blockquote>
+<p>还可以将数组的 length 属性值设置为大于其当前的长度。实际上这不会向数组中添加新的元素，它只是在数组尾部创建一个稀疏区域。</p>
+</blockquote>
+<h2 id=75-adding-and-deleting-array-elements>7.5 Adding and Deleting Array Elements</h2>
+<p>We’ve already seen the simplest way to add elements to an array: just assign values to new indexes:</p>
+<blockquote>
+<p>我们已经见过添加数组元素最简单的方法：为新索引赋值：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[];</span>      <span class=c1>// Start with an empty array.
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;zero&#34;</span><span class=p>;</span>   <span class=c1>// And add elements to it.
+</span><span class=c1></span><span class=nx>a</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;one&#34;</span><span class=p>;</span>
+</code></pre></div><p>You can also use the push() method to add one or more values to the end of an array:</p>
+<blockquote>
+<p>也可以使用push()方法在数组末尾增加一个或多个元素：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[];</span>           <span class=c1>// Start with an empty array
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s2>&#34;zero&#34;</span><span class=p>);</span>       <span class=c1>// Add a value at the end.  a = [&#34;zero&#34;]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s2>&#34;one&#34;</span><span class=p>,</span> <span class=s2>&#34;two&#34;</span><span class=p>);</span> <span class=c1>// Add two more values.  a = [&#34;zero&#34;, &#34;one&#34;, &#34;two&#34;]
+</span></code></pre></div><p>Pushing a value onto an array a is the same as assigning the value to a[a.length]. You can use the unshift() method (described in §7.8) to insert a value at the beginning of an array, shifting the existing array elements to higher indexes. The pop() method is the opposite of push(): it removes the last element of the array and returns it, reducing the length of an array by 1. Similarly, the shift() method removes and returns the first element of the array, reducing the length by 1 and shifting all elements down to an index one lower than their current index. See §7.8 for more on these methods.</p>
+<blockquote>
+<p>在数组尾部压入一个元素与给 a[a.length] 赋值是一样的。可以使用 unshift() 方法（§7.8 有描述）在数组的首部插入一个元素，并且将其他元素依次移到更高的索引处。pop() 方法与 push() 相反：它移除数组最后一个元素并返回这个元素，使数组 length 减 1。同样，shift() 方法移除并返回数组的第一个元素，使数组 length 减 1，并将其他元素依次移到低 1 的索引处。§7.8 有更多关于这些方法的描述。</p>
+</blockquote>
+<p>You can delete array elements with the delete operator, just as you can delete object properties:</p>
+<blockquote>
+<p>可以像删除对象属性一样使用 delete 运算符来删除数组元素：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>];</span>
+<span class=k>delete</span> <span class=nx>a</span><span class=p>[</span><span class=mi>2</span><span class=p>];</span>   <span class=c1>// a now has no element at index 2
+</span><span class=c1></span><span class=mi>2</span> <span class=k>in</span> <span class=nx>a</span>         <span class=c1>// =&gt; false: no array index 2 is defined
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>length</span>       <span class=c1>// =&gt; 3: delete does not affect array length
+</span></code></pre></div><p>Deleting an array element is similar to (but subtly different than) assigning undefined to that element. Note that using delete on an array element does not alter the length property and does not shift elements with higher indexes down to fill in the gap that is left by the deleted property. If you delete an element from an array, the array becomes sparse.</p>
+<blockquote>
+<p>删除数组元素与为其赋 undefined 值是类似的（但有一些微妙的区别）。注意，对一个数组元素使用 delete 不会修改数组的 length 属性，也不会将元素从高索引处移下来填充已删除属性留下的空白。如果从数组中删除一个元素，它就变成稀疏数组。</p>
+</blockquote>
+<p>As we saw above, you can also remove elements from the end of an array simply by setting the length property to the new desired length.</p>
+<blockquote>
+<p>正如上面所看到的，也可以通过设置新的所需长度，即可从数组尾部删除元素。</p>
+</blockquote>
+<p>Finally, splice() is the general-purpose method for inserting, deleting, or replaci ng array elements. It alters the length property and shifts array elements to higher or lower indexes as needed. See §7.8 for details.</p>
+<blockquote>
+<p>最后，splice() 是一个通用的方法来插入、删除或替换数组元素。它会根据需要修改 length 属性并移动元素到更高或较低的索引处。详细内容见 §7.8。</p>
+</blockquote>
+<h2 id=76-iterating-arrays>7.6 Iterating Arrays</h2>
+<p>As of ES6, the easiest way to loop through each of the elements of an array (or any iterable object) is with the for/of loop, which was covered in detail in §5.4.4:</p>
+<blockquote>
+<p>在 ES6 中，最容易遍历数组元素（或可迭代对象）的方法是 for/of 循环，在 §5.4.4 中详细介绍：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>letters</span> <span class=o>=</span> <span class=p>[...</span><span class=s2>&#34;Hello world&#34;</span><span class=p>];</span>  <span class=c1>// An array of letters
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>string</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=p>;</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>letter</span> <span class=k>of</span> <span class=nx>letters</span><span class=p>)</span> <span class=p>{</span>
+    <span class=nx>string</span> <span class=o>+=</span> <span class=nx>letter</span><span class=p>;</span>
+<span class=p>}</span>
+<span class=nx>string</span>  <span class=c1>// =&gt; &#34;Hello world&#34;; we reassembled the original text
+</span></code></pre></div><p>The built-in array iterator that the for/of loop uses returns the elements of an array in ascending order. It has no special behavior for sparse arrays and simply returns undefined for any array elements that do not exist.</p>
+<blockquote>
+<p>内置数组迭代器 for/of 循环按照升序返回数组元素。对于稀疏数组它没有特殊的行为，数组中不存在的元素只是单纯的返回 undefined。</p>
+</blockquote>
+<p>If you want to use a for/of loop for an array and need to know the index of each array element, use the entries() method of the array, along with destructuring assignment, like this:</p>
+<blockquote>
+<p>如果使用 for/of 循环一个数组时还需要知道每个元素的索引，可以像这样将数组的 entries() 方法和解构语句一同使用：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>everyother</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=p>;</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=p>[</span><span class=nx>index</span><span class=p>,</span> <span class=nx>letter</span><span class=p>]</span> <span class=k>of</span> <span class=nx>letters</span><span class=p>.</span><span class=nx>entries</span><span class=p>())</span> <span class=p>{</span>
+    <span class=k>if</span> <span class=p>(</span><span class=nx>index</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=nx>everyother</span> <span class=o>+=</span> <span class=nx>letter</span><span class=p>;</span>  <span class=c1>// letters at even indexes
+</span><span class=c1></span><span class=p>}</span>
+<span class=nx>everyother</span>  <span class=c1>// =&gt; &#34;Hlowrd&#34;
+</span></code></pre></div><p>Another good way to iterate arrays is with forEach(). This is not a new form of the for loop, but an array method that offers a functional approach to array iteration. You pass a function to the forEach() method of an array, and forEach() invokes your function once on each element of the array:</p>
+<blockquote>
+<p>另一种不错的遍历数组方法是用 forEach()。这不是 for 循环的新形式，而是提供数组遍历功能方法的数组方法。可以给数组的 forEach() 方法传递一个函数，forEach() 会对数组中每一个元素调用这个方法：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>uppercase</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=p>;</span>
+<span class=nx>letters</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>letter</span> <span class=p>=&gt;</span> <span class=p>{</span>  <span class=c1>// Note arrow function syntax here
+</span><span class=c1></span>    <span class=nx>uppercase</span> <span class=o>+=</span> <span class=nx>letter</span><span class=p>.</span><span class=nx>toUpperCase</span><span class=p>();</span>
+<span class=p>});</span>
+<span class=nx>uppercase</span>  <span class=c1>// =&gt; &#34;HELLO WORLD&#34;
+</span></code></pre></div><p>As you would expect, forEach() iterates the array in order, and it actually passes the array index to your function as a second argument, which is occasionally useful. Unlike the for/of loop, the forEach() is aware of sparse arrays and does not invoke your function for elements that are not there.</p>
+<blockquote>
+<p>正如期望的，forEach() 按顺序对数组进行计算，实际上它将数组索引作为第二个实参传递到函数，这有时很有用。与 for/of 循环不同，forEach() 能意识到稀疏数组，并且不会为不存在的元素调用函数。</p>
+</blockquote>
+<p>§7.8.1 documents the forEach() method in more detail. That section also covers related methods such as map() and filter() that perform specialized kinds of array iteration.</p>
+<blockquote>
+<p>§7.8.1 更详细地记录了 forEach() 方法。该部分还介绍演示了特定类型的数组遍历方法，如 map() 和 filter()。</p>
+</blockquote>
+<p>You can also loop through the elements of an array with a good old-fashioned for loop (§5.4.3):</p>
+<blockquote>
+<p>也可以用一种非常老旧方式遍历数组的元素（§5.4.3）：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>vowels</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=p>;</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>letters</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span> <span class=c1>// For each index in the array
+</span><span class=c1></span>    <span class=kd>let</span> <span class=nx>letter</span> <span class=o>=</span> <span class=nx>letters</span><span class=p>[</span><span class=nx>i</span><span class=p>];</span>              <span class=c1>// Get the element at that index
+</span><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=sr>/[aeiou]/</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=nx>letter</span><span class=p>))</span> <span class=p>{</span>         <span class=c1>// Use a regular expression test
+</span><span class=c1></span>        <span class=nx>vowels</span> <span class=o>+=</span> <span class=nx>letter</span><span class=p>;</span>                 <span class=c1>// If it is a vowel, remember it
+</span><span class=c1></span>    <span class=p>}</span>
+<span class=p>}</span>
+<span class=nx>vowels</span>  <span class=c1>// =&gt; &#34;eoo&#34;
+</span></code></pre></div><p>In nested loops, or other contexts where performance is critical, you may sometimes see this basic array iteration loop written so that the array length is only looked up once rather than on each iteration. Both of the following for loop forms are idiomatic, though not particularly common, and with modern JavaScript interpreters, it is not at all clear that they have any performance impact:</p>
+<blockquote>
+<p>在嵌套循环或其他性能至关重要的上下文中，有时可能会看到这样的数组遍历，以便数组长度仅被查一次，而不是在每次循环都去查询。以下两种形式都是符合习惯的 for 循环，虽然不是特别常用，而且对于现代 JavaScript 解释器，它们是否对性能有任何影响尚不清楚：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Save the array length into a local variable
+</span><span class=c1></span><span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>len</span> <span class=o>=</span> <span class=nx>letters</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>len</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+    <span class=c1>// loop body remains the same
+</span><span class=c1></span><span class=p>}</span>
+
+<span class=c1>// Iterate backwards from the end of the array to the start
+</span><span class=c1></span><span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=nx>letters</span><span class=p>.</span><span class=nx>length</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&gt;=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span><span class=o>--</span><span class=p>)</span> <span class=p>{</span>
+    <span class=c1>// loop body remains the same
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><p>These examples assume that the array is dense and that all elements contain valid data. If this is not the case, you should test the array elements before using them. If you want to skip undefined and nonexistent elements, you might write:</p>
+<blockquote>
+<p>这些示例假定数组是稠密的，并且所有元素都包含有效的数据。如果不是这样，应该在使用数组元素之前测试它们。如果要跳过 undefined 和不存在的元素，可以编写：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>a</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>if</span> <span class=p>(</span><span class=nx>a</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>===</span> <span class=kc>undefined</span><span class=p>)</span> <span class=k>continue</span><span class=p>;</span> <span class=c1>// Skip undefined + nonexistent elements
+</span><span class=c1></span>    <span class=c1>// loop body here
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><h2 id=77-multidimensional-arrays>7.7 Multidimensional Arrays</h2>
+<p>JavaScript does not support true multidimensional arrays, but you can approximate them with arrays of arrays. To access a value in an array of arrays, simply use the [] operator twice. For example, suppose the variable matrix is an array of arrays of numbers. Every element in matrix[x] is an array of numbers. To access a particular number within this array, you would write matrix[x][y]. Here is a concrete example that uses a two-dimensional array as a multiplication table:</p>
+<blockquote>
+<p>JavaScript 不支持真正的多维数组，但可以用数组的数组来近似。访问数组的数组中的元素，只要简单地使用两次 [] 操作符即可。例如，假设变量 matrix 是一个数组的数组，它的基本元素是数值，那么 matrix[x] 的每个元素是包含一个数值数组，访问数组中特定数值的代码为 matrix[x][y]。这里有一个具体的例子，它使用二维数组作为一个九九乘法表：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Create a multidimensional array
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>table</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span>               <span class=c1>// 10 rows of the table
+</span><span class=c1></span><span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>table</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+    <span class=nx>table</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span>            <span class=c1>// Each row has 10 columns
+</span><span class=c1></span><span class=p>}</span>
+
+<span class=c1>// Initialize the array
+</span><span class=c1></span><span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>row</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>row</span> <span class=o>&lt;</span> <span class=nx>table</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>row</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>col</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>col</span> <span class=o>&lt;</span> <span class=nx>table</span><span class=p>[</span><span class=nx>row</span><span class=p>].</span><span class=nx>length</span><span class=p>;</span> <span class=nx>col</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+        <span class=nx>table</span><span class=p>[</span><span class=nx>row</span><span class=p>][</span><span class=nx>col</span><span class=p>]</span> <span class=o>=</span> <span class=nx>row</span><span class=o>*</span><span class=nx>col</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=c1>// Use the multidimensional array to compute 5*7
+</span><span class=c1></span><span class=nx>table</span><span class=p>[</span><span class=mi>5</span><span class=p>][</span><span class=mi>7</span><span class=p>]</span>  <span class=c1>// =&gt; 35
+</span></code></pre></div><h2 id=78-array-methods>7.8 Array Methods</h2>
+<p>The preceding sections have focused on basic JavaScript syntax for working with arrays. In general, though, it is the methods defined by the Array class that are the most powerful. The next sections document these methods. While reading about these methods, keep in mind that some of them modify the array they are called on and some of them leave the array unchanged. A number of the methods return an array: sometimes, this is a new array, and the original is unchanged. Other times, a method will modify the array in place and will also return a reference to the modified array.</p>
+<blockquote>
+<p>前面几节重点介绍了用于处理数组的基本 JavaScript 语法。但通常，由 Array 类定义的方法是最强大的。下一节将记录这些方法。在阅读有关这些方法时，请记住，其中一些方法修改了调用的数组，而其中一些方法使数组保持不变。许多方法返回数组：有时，这是一个新数组，原始数组保持不变。其他时候，方法将修改数组，并且返回对修改后数组的引用。</p>
+</blockquote>
+<p>Each of the subsections that follows covers a group of related array methods:</p>
+<blockquote>
+<p>以下每个小节都涵盖一组相关的数组方法：</p>
+</blockquote>
+<p>Iterator methods loop over the elements of an array, typically invoking a function that you specify on each of those elements.</p>
+<blockquote>
+<p>迭代器方法循环遍历数组的元素，通常调用在每个元素上指定的函数。</p>
+</blockquote>
+<p>Stack and queue methods add and remove array elements to and from the beginning and the end of an array.</p>
+<blockquote>
+<p>堆栈和队列方法在数组的开头和结尾添加和删除数组元素。</p>
+</blockquote>
+<p>Subarray methods are for extracting, deleting, inserting, filling, and copying contiguous regions of a larger array.</p>
+<blockquote>
+<p>子数组方法用于提取、删除、插入、填充和复制一个更大数组中相邻的区域。</p>
+</blockquote>
+<p>Searching and sorting methods are for locating elements within an array and for sorting the elements of an array.</p>
+<blockquote>
+<p>搜索和排序方法用于查找数组中的元素和排序数组的元素。</p>
+</blockquote>
+<p>The following subsections also cover the static methods of the Array class and a few miscellaneous methods for concatenating arrays and converting arrays to strings.</p>
+<blockquote>
+<p>以下小节还介绍 Array 类的静态方法和一些用于连接数组和将数组转换为字符串的各种方法。</p>
+</blockquote>
+<h3 id=781-array-iterator-methods>7.8.1 Array Iterator Methods</h3>
+<p>The methods described in this section iterate over arrays by passing array elements, in order, to a function you supply, and they provide convenient ways to iterate, map, filter, test, and reduce arrays.</p>
+<blockquote>
+<p>本节中介绍的方法通过将数组元素按顺序传递到所指定的函数来遍历数组，它们提供了迭代、映射、筛选、测试和减少数组的便捷方法。</p>
+</blockquote>
+<p>Before we explain the methods in detail, however, it is worth making some generalizations about them. First, all of these methods accept a function as their first argument and invoke that function once for each element (or some elements) of the array. If the array is sparse, the function you pass is not invoked for nonexistent elements. In most cases, the function you supply is invoked with three arguments: the value of the array element, the index of the array element, and the array itself. Often, you only need the first of these argument values and can ignore the second and third values.</p>
+<blockquote>
+<p>然而，在详细解释这些方法之前，值得对它们进行一些概括。首先，所有这些方法都接受函数作为其第一个实参，并使用调用数组的每个元素（或某些元素）作为实参调用该函数。如果数组是稀疏的，则不会为不存在的元素调用传递的函数。在大多数情况下，提供的函数被调用时有三个实参：数组元素的值、数组元素的索引和数组本身。通常，只需要这些实参值中的第一个，并且可以忽略第二个和第三个值。</p>
+</blockquote>
+<p>Most of the iterator methods described in the following subsections accept an optional second argument. If specified, the function is invoked as if it is a method of this second argument. That is, the second argument you pass becomes the value of the this keyword inside of the function you pass as the first argument. The return value of the function you pass is usually important, but different methods handle the return value in different ways. None of the methods described here modify the array on which they are invoked (though the function you pass can modify the array, of course).</p>
+<blockquote>
+<p>以下小节中描述的大多数迭代器方法都接受可选的第二个实参。如果指定，则调用函数就像它是第二个实参的方法一样。也就是说，传递的第二个实参将成为第一个函数实参内部的 this 值。传递的函数的返回值通常很重要，但不同的方法以不同的方式处理返回值。此处描述的方法都没有修改调用它们的数组（当然，传递的函数可以修改这个数组）。</p>
+</blockquote>
+<p>Each of these functions is invoked with a function as its first argument, and it is very common to define that function inline as part of the method invocation expression instead of using an existing function that is defined elsewhere. Arrow function syntax (see §8.1.3) works particularly well with these methods, and we will use it in the examples that follow.</p>
+<blockquote>
+<p>这节的每个函数都调用它的第一个函数实参，并且通常将该函数内联定义为方法调用表达式的一部分，而不是使用在其他地方显示定义的函数。箭头函数语法（参见 §8.1.3）在这些方法中特别有效，我们将在下面的示例中使用它。</p>
+</blockquote>
+<h4 id=foreach>FOREACH()</h4>
+<p>The forEach() method iterates through an array, invoking a function you specify for each element. As we’ve described, you pass the function as the first argument to forEach(). forEach() then invokes your function with three arguments: the value of the array element, the index of the array element, and the array itself. If you only care about the value of the array element, you can write a function with only one parameter—the additional arguments will be ignored:</p>
+<blockquote>
+<p>forEach() 方法遍历数组，调用为每个元素指定的函数。正如我们已经描述的那样，将函数作为第一个实参传递给 forEach()。forEach() 然后使用三个实参调用函数：数组元素的值、数组元素的索引和数组本身。如果只关心数组元素的值，则编写一个只有一个实参的函数（将忽略其他实参）：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>data</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>],</span> <span class=nx>sum</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=c1>// Compute the sum of the elements of the array
+</span><span class=c1></span><span class=nx>data</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>value</span> <span class=p>=&gt;</span> <span class=p>{</span> <span class=nx>sum</span> <span class=o>+=</span> <span class=nx>value</span><span class=p>;</span> <span class=p>});</span>          <span class=c1>// sum == 15
+</span><span class=c1></span>
+<span class=c1>// Now increment each array element
+</span><span class=c1></span><span class=nx>data</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=kd>function</span><span class=p>(</span><span class=nx>v</span><span class=p>,</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>a</span><span class=p>)</span> <span class=p>{</span> <span class=nx>a</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=nx>v</span> <span class=o>+</span> <span class=mi>1</span><span class=p>;</span> <span class=p>});</span> <span class=c1>// data == [2,3,4,5,6]
+</span></code></pre></div><p>Note that forEach() does not provide a way to terminate iteration before all elements have been passed to the function. That is, there is no equivalent of the break statement you can use with a regular for loop.</p>
+<blockquote>
+<p>请注意，forEach() 不提供在所有元素传递给函数之前终止迭代的方法。也就是说，没有等效于常规 for 循环的 break 语句可以使用。</p>
+</blockquote>
+<h4 id=map>MAP()</h4>
+<p>The map() method passes each element of the array on which it is invoked to the function you specify and returns an array containing the values returned by your function. For example:</p>
+<blockquote>
+<p>map() 方法将调用数组的每个元素传递到指定的函数，并返回一个包含函数返回的值的数组。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=o>*</span><span class=nx>x</span><span class=p>)</span>   <span class=c1>// =&gt; [1, 4, 9]: the function takes input x and returns x*x
+</span></code></pre></div><p>The function you pass to map() is invoked in the same way as a function passed to forEach(). For the map() method, however, the function you pass should return a value. Note that map() returns a new array: it does not modify the array it is invoked on. If that array is sparse, your function will not be called for the missing elements, but the returned array will be sparse in the same way as the original array: it will have the same length and the same missing elements.</p>
+<blockquote>
+<p>传递到 map() 的函数的调用方式与传递给 forEach() 的函数相同。但是，对于 map() 方法，传递的函数应返回一个值。请注意，map() 返回一个新数组：它不会修改调用它的数组。如果该数组是稀疏的，则不会为缺失的元素调用函数，但返回的数组将稀疏，其确实元素与原始数组的位置相同：它将具有相同的长度和相同的缺失元素。</p>
+</blockquote>
+<h4 id=filter>FILTER()</h4>
+<p>The filter() method returns an array containing a subset of the elements of the array on which it is invoked. The function you pass to it should be predicate: a function that returns true or false. The predicate is invoked just as for forEach() and map(). If the return value is true, or a value that converts to true, then the element passed to the predicate is a member of the subset and is added to the array that will become the return value. Examples:</p>
+<blockquote>
+<p>filter() 方法返回一个数组，其中包含调用该数组的数组元素的子集。传递给它的函数应该是断言：返回真或假的函数。断言函数的调用就像 forEach() 和 map() 调用一样。如果返回值为 true，或者能转换为 true 的值，则传递给断言的元素是子集的成员，并将添加到将成为返回值的数组中。例子：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>5</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>filter</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>)</span>         <span class=c1>// =&gt; [2, 1]; values less than 3
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>filter</span><span class=p>((</span><span class=nx>x</span><span class=p>,</span><span class=nx>i</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>i</span><span class=o>%</span><span class=mi>2</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=c1>// =&gt; [5, 3, 1]; every other value
+</span></code></pre></div><p>Note that filter() skips missing elements in sparse arrays and that its return value is always dense. To close the gaps in a sparse array, you can do this:</p>
+<blockquote>
+<p>注意 filter() 跳过稀疏数组中的丢失元素并且返回值也总是稠密的。要缩小稀疏数组的间距，可以这样做：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>dense</span> <span class=o>=</span> <span class=nx>sparse</span><span class=p>.</span><span class=nx>filter</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=kc>true</span><span class=p>);</span>
+</code></pre></div><p>And to close gaps and remove undefined and null elements, you can use filter, like this:</p>
+<blockquote>
+<p>要缩小间隙并移除 undefined 和 null 元素，可以用 filter 这样做：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nx>a</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>filter</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>!==</span> <span class=kc>undefined</span> <span class=o>&amp;&amp;</span> <span class=nx>x</span> <span class=o>!==</span> <span class=kc>null</span><span class=p>);</span>
+</code></pre></div><h4 id=find-and-findindex>FIND() AND FINDINDEX()</h4>
+<p>The find() and findIndex() methods are like filter() in that they iterate through your array looking for elements for which your predicate function returns a truthy value. Unlike filter(), however, these two methods stop iterating the first time the predicate finds an element. When that happens, find() returns the matching element, and findIndex() returns the index of the matching element. If no matching element is found, find() returns undefined and findIndex() returns -1:</p>
+<blockquote>
+<p>find() 和 findIndex() 方法就像 filter()，因为它们在数组中迭代，查找断言函数返回真实值的元素。但是，与 filter()不同，这两种方法在断言首次查找元素到时停止遍历。发生这种情况时，find() 返回匹配元素，而 findIndex() 返回匹配元素的索引。如果未找到匹配元素，find() 返回 undefined，findIndex() 返回 -1：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>findIndex</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>===</span> <span class=mi>3</span><span class=p>)</span>  <span class=c1>// =&gt; 2; the value 3 appears at index 2
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>findIndex</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span>    <span class=c1>// =&gt; -1; no negative numbers in the array
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>find</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>%</span> <span class=mi>5</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span>   <span class=c1>// =&gt; 5: this is a multiple of 5
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>find</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>%</span> <span class=mi>7</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span>   <span class=c1>// =&gt; undefined: no multiples of 7 in the array
+</span></code></pre></div><h4 id=every-and-some>EVERY() AND SOME()</h4>
+<p>The every() and some() methods are array predicates: they apply a predicate function you specify to the elements of the array, then return true or false.</p>
+<blockquote>
+<p>every() 和 some() 方法是数组断言：它们将指定的断言函数应用于数组的元素，然后返回 true 或 false。</p>
+</blockquote>
+<p>The every() method is like the mathematical “for all” quantifier ∀: it returns true if and only if your predicate function returns true for all elements in the array:</p>
+<blockquote>
+<p>every() 方法与数学全称量化符号 ∀ 相似：如果数组中所有元素执行断言函数返回值都为 true，则返回 true：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>every</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>)</span>      <span class=c1>// =&gt; true: all values are &lt; 10.
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>every</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=c1>// =&gt; false: not all values are even.
+</span></code></pre></div><p>The some() method is like the mathematical “there exists” quantifier ∃: it returns true if there exists at least one element in the array for which the predicate returns true and returns false if and only if the predicate returns false for all elements of the array:</p>
+<blockquote>
+<p>some() 方法与数学存在限定符 ∃ 相同：如果数组中存在至少有一个元素调用断言函数返回 true 的返回 true，仅在断言全部返回 false 时返回 false：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>some</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=o>%</span><span class=mi>2</span><span class=o>===</span><span class=mi>0</span><span class=p>)</span>  <span class=c1>// =&gt; true; a has some even numbers.
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>some</span><span class=p>(</span><span class=nb>isNaN</span><span class=p>)</span>         <span class=c1>// =&gt; false; a has no non-numbers.
+</span></code></pre></div><p>Note that both every() and some() stop iterating array elements as soon as they know what value to return. some() returns true the first time your predicate returns true and only iterates through the entire array if your predicate always returns false. every() is the opposite: it returns false the first time your predicate returns false and only iterates all elements if your predicate always returns true. Note also that, by mathematical convention, every() returns true and some returns false when invoked on an empty array.</p>
+<blockquote>
+<p>请注意，every() 和 some() 只要它们知道要返回的值，都停止对数组元素的遍历。some() 在断言函数第一次返回 true 时返回 true，并且只有在每个元素调用断言函数都返回 false 时，才会遍历整个数组 。every() 正好相反：它返回 false 时，您的谓词返回 false，并且仅在谓词始终返回 true 时，才会回注所有元素。另请注意，根据数学约定，every() 返回 true，有些返回 false，当在空数组上调用时，某些返回 false。</p>
+</blockquote>
+<h4 id=reduce-and-reduceright>REDUCE() AND REDUCERIGHT()</h4>
+<p>The reduce() and reduceRight() methods combine the elements of an array, using the function you specify, to produce a single value. This is a common operation in functional programming and also goes by the names “inject” and “fold.” Examples help illustrate how it works:</p>
+<blockquote>
+<p>reduce() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值。这在函数式编程中是常见的操作，也可以称为“注入”和“折叠”。举例说明它是如何工作的：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>reduce</span><span class=p>((</span><span class=nx>x</span><span class=p>,</span><span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=o>+</span><span class=nx>y</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>          <span class=c1>// =&gt; 15; the sum of the values
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>reduce</span><span class=p>((</span><span class=nx>x</span><span class=p>,</span><span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=o>*</span><span class=nx>y</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>          <span class=c1>// =&gt; 120; the product of the values
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>reduce</span><span class=p>((</span><span class=nx>x</span><span class=p>,</span><span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span><span class=nx>x</span> <span class=o>&gt;</span> <span class=nx>y</span><span class=p>)</span> <span class=o>?</span> <span class=nx>x</span> <span class=o>:</span> <span class=nx>y</span><span class=p>)</span> <span class=c1>// =&gt; 5; the largest of the values
+</span></code></pre></div><p>reduce() takes two arguments. The first is the function that performs the reduction operation. The task of this reduction function is to somehow combine or reduce two values into a single value and to return that reduced value. In the examples we’ve shown here, the functions combine two values by adding them, multiplying them, and choosing the largest. The second (optional) argument is an initial value to pass to the function.</p>
+<blockquote>
+<p>reduce() 需要两个实参。第一个是执行化简操作的函数。化简函数的任务就是用某种方法把两个值组合或化简为一个值，并返回化简后的值。在上述例子中，函数通过加法、乘法或取最大值的方法组合两个值。第二个（可选）的实参是一个传递给函数的初始值。</p>
+</blockquote>
+<p>Functions used with reduce() are different than the functions used with forEach() and map(). The familiar value, index, and array values are passed as the second, third, and fourth arguments. The first argument is the accumulated result of the reduction so far. On the first call to the function, this first argument is the initial value you passed as the second argument to reduce(). On subsequent calls, it is the value returned by the previous invocation of the function. In the first example, the reduction function is first called with arguments 0 and 1. It adds these and returns 1. It is then called again with arguments 1 and 2 and returns 3. Next, it computes 3+3=6, then 6+4=10, and finally 10+5=15. This final value, 15, becomes the return value of reduce().</p>
+<blockquote>
+<p>reduce() 使用的函数与 forEach() 和 map() 使用的函数不同。比较熟悉的是，数组元素、元素的索引和数组本身将作为第 2～4 个实参传递给函数。第一个实参是到目前为止的化简操作累积的结果。第一次调用函数时，第一个实参是一个初始值，它就是传递给 reduce() 的第二个实参。在接下来的调用中，这个值就是上一次化简函数的返回值。在上面的第一个例子中，第一次调用化简函数时的实参是 0 和 1。将两者相加并返回 1。再次调用时的实参是 1 和 2，它返回 3。然后它计算 3+3=6、6+4=10， 最后计算 10+5=15。最后的值是 15，reduce() 返回这个值。</p>
+</blockquote>
+<p>You may have noticed that the third call to reduce() in this example has only a single argument: there is no initial value specified. When you invoke reduce() like this with no initial value, it uses the first element of the array as the initial value. This means that the first call to the reduction function will have the first and second array elements as its first and second arguments. In the sum and product examples, we could have omitted the initial value argument.</p>
+<blockquote>
+<p>可能已经注意到了，上面第三次调用 reduce() 时只有一个实参：没有指定初始值。当不指定初始值调用 reduce() 时，它将使用数组的第一个元素作为其初始值。这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为其第一个和第二个实参。在上面求和与求积的例子中，可以省略初始值实参。</p>
+</blockquote>
+<p>Calling reduce() on an empty array with no initial value argument causes a TypeError. If you call it with only one value—either an array with one element and no initial value or an empty array and an initial value—it simply returns that one value without ever calling the reduction function.</p>
+<blockquote>
+<p>在空数组上，不带初始值实参调用 reduce() 将导致类型错误异常。如果调用它的时候只有一个值（数组只有一个元素并且没有指定初始值，或者有一个空数组并且指定一个初始值）reduce() 只是简单地返回那个值而不会调用化简函数。</p>
+</blockquote>
+<p>reduceRight() works just like reduce(), except that it processes the array from highest index to lowest (right-to-left), rather than from lowest to highest. You might want to do this if the reduction operation has right-to-left associativity, for example:</p>
+<blockquote>
+<p>reduceRight() 的工作原理和 reduce() 一样，不同的是它按照数组索引从高到低（从右到左）处理数组，而不是从低到高。如果 reduction 操作的优先顺序是从右到左，你可能想使用它，例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Compute 2^(3^4).  Exponentiation has right-to-left precedence
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>reduceRight</span><span class=p>((</span><span class=nx>acc</span><span class=p>,</span><span class=nx>val</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>pow</span><span class=p>(</span><span class=nx>val</span><span class=p>,</span><span class=nx>acc</span><span class=p>))</span> <span class=c1>// =&gt; 2.4178516392292583e+24
+</span></code></pre></div><p>Note that neither reduce() nor reduceRight() accepts an optional argument that specifies the this value on which the reduction function is to be invoked. The optional initial value argument takes its place. See the Function.bind() method (§8.7.5) if you need your reduction function invoked as a method of a particular object.</p>
+<blockquote>
+<p>注意，reduce() 和 reduceRight() 都能接收一个可选的实参，它指定了化简函数调用时的 this 关键字的值。可选的初始值实参仍然需要占一个位置。如果想让化简函数作为一个特殊对象的方法调用，请参看 Function.bind() 方法（§8.7.5）。</p>
+</blockquote>
+<p>The examples shown so far have been numeric for simplicity, but reduce() and reduceRight() are not intended solely for mathematical computations. Any function that can combine two values (such as two objects) into one value of the same type can be used as a reduction function. On the other hand, algorithms expressed using array reductions can quickly become complex and hard to understand, and you may find that it is easier to read, write, and reason about your code if you use regular looping constructs to process your arrays.</p>
+<blockquote>
+<p>为了简单起见，到目前位置所展示的例子都是数值的，但数学计算不是 reduce() 和 reduceRight() 的唯一意图。任何想要将两个相同类型的值（例如两个对象）合并到一个值的函数都可以用化简函数。另一方面，使用数组化简的算法可能很快变得复杂且难以理解，可能会发现，如果使用常规循环构造来处理数组则更容易读、写和推理。</p>
+</blockquote>
+<h3 id=782-flattening-arrays-with-flat-and-flatmap>7.8.2 Flattening arrays with flat() and flatMap()</h3>
+<p>In ES2019, the flat() method creates and returns a new array that contains the same elements as the array it is called on, except that any elements that are themselves arrays are “flattened” into the returned array. For example:</p>
+<blockquote>
+<p>在 ES2019 中，flat() 方法创建并返回一个新的数组，该数组包含与调用的数组相同的元素，只不过作为数组的任何元素都"展平"到返回的数组中。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>]].</span><span class=nx>flat</span><span class=p>()</span>    <span class=c1>// =&gt; [1, 2, 3]
+</span><span class=c1></span><span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=p>[</span><span class=mi>3</span><span class=p>]]].</span><span class=nx>flat</span><span class=p>()</span>  <span class=c1>// =&gt; [1, 2, [3]]
+</span></code></pre></div><p>When called with no arguments, flat() flattens one level of nesting. Elements of the original array that are themselves arrays are flattened, but array elements of those arrays are not flattened. If you want to flatten more levels, pass a number to flat():</p>
+<blockquote>
+<p>当调用时没有实参，flat() 将平展一个级别的嵌套。作为数组的原始数组的元素被展平，但这些数组的数组元素不会展平。如果要展平更多级别，需要传递数字给 flat()：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=p>[</span><span class=mi>3</span><span class=p>,</span> <span class=p>[</span><span class=mi>4</span><span class=p>]]]];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>flat</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>   <span class=c1>// =&gt; [1, 2, [3, [4]]]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>flat</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>   <span class=c1>// =&gt; [1, 2, 3, [4]]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>flat</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>   <span class=c1>// =&gt; [1, 2, 3, 4]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>flat</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>   <span class=c1>// =&gt; [1, 2, 3, 4]
+</span></code></pre></div><p>The flatMap() method works just like the map() method (see “map()”) except that the returned array is automatically flattened as if passed to flat(). That is, calling a.flatMap(f) is the same as (but more efficient than) a.map(f).flat():</p>
+<blockquote>
+<p>flatMap() 方法的工作方式与 map() 方法（见“map()”）类似，只不过返回的数组会自动展平，就像传递到 flat()。也就是说，调用 a.flatMap(f) 与 a.map(f).flat()（但更高效）相同：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>phrases</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;hello world&#34;</span><span class=p>,</span> <span class=s2>&#34;the definitive guide&#34;</span><span class=p>];</span>
+<span class=kd>let</span> <span class=nx>words</span> <span class=o>=</span> <span class=nx>phrases</span><span class=p>.</span><span class=nx>flatMap</span><span class=p>(</span><span class=nx>phrase</span> <span class=p>=&gt;</span> <span class=nx>phrase</span><span class=p>.</span><span class=nx>split</span><span class=p>(</span><span class=s2>&#34; &#34;</span><span class=p>));</span>
+<span class=nx>words</span> <span class=c1>// =&gt; [&#34;hello&#34;, &#34;world&#34;, &#34;the&#34;, &#34;definitive&#34;, &#34;guide&#34;];
+</span></code></pre></div><p>You can think of flatMap() as a generalization of map() that allows each element of the input array to map to any number of elements of the output array. In particular, flatMap() allows you to map input elements to an empty array, which flattens to nothing in the output array:</p>
+<blockquote>
+<p>可以将 flatMap() 视为 map() 的泛化，它允许输入数组的每个元素映射到输出数组的多个元素。特别的是，flatMap() 允许将输入元素映射到空数组，该数组在平展后不输出到数组中：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Map non-negative numbers to their square roots
+</span><span class=c1></span><span class=p>[</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>].</span><span class=nx>flatMap</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>&lt;</span> <span class=mi>0</span> <span class=o>?</span> <span class=p>[]</span> <span class=o>:</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>sqrt</span><span class=p>(</span><span class=nx>x</span><span class=p>))</span> <span class=c1>// =&gt; [1, 2**0.5]
+</span></code></pre></div><h3 id=783-adding-arrays-with-concat>7.8.3 Adding arrays with concat()</h3>
+<p>The concat() method creates and returns a new array that contains the elements of the original array on which concat() was invoked, followed by each of the arguments to concat(). If any of these arguments is itself an array, then it is the array elements that are concatenated, not the array itself. Note, however, that concat() does not recursively flatten arrays of arrays. concat() does not modify the array on which it is invoked:</p>
+<blockquote>
+<p>concat() 方法创建并返回一个新数组，它的元素包括调用 concat() 的原始数组的元素和 concat() 的每个实参。如果这些实参中的任何一个自身是数组，则连接的是数组的元素，而非数组本身。但要注意，concat() 不会递归扁平化数组的数组。concat() 也不会修改调用的数组：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>concat</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>)</span>          <span class=c1>// =&gt; [1,2,3,4,5]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>concat</span><span class=p>([</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>],[</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>])</span>   <span class=c1>// =&gt; [1,2,3,4,5,6,7]; arrays are flattened
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>concat</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=p>[</span><span class=mi>5</span><span class=p>,[</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>]])</span>  <span class=c1>// =&gt; [1,2,3,4,5,[6,7]]; but not nested arrays
+</span><span class=c1></span><span class=nx>a</span>                       <span class=c1>// =&gt; [1,2,3]; the original array is unmodified
+</span></code></pre></div><p>Note that concat() makes a new copy of the array it is called on. In many cases, this is the right thing to do, but it is an expensive operation. If you find yourself writing code like <code>a = a.concat(x)</code>, then you should think about modifying your array in place with push() or splice() instead of creating a new one.</p>
+<blockquote>
+<p>请注意，concat() 创建调用数组的新副本。在许多情况下，这是正确的做法，但它是一个昂贵的操作。如果您发现自己编写代码像 <code>a = a.concat(x)</code>，那么您应该考虑使用 push() 或 splice() 修改数组，而不是创建新的数组。</p>
+</blockquote>
+<h3 id=784-stacks-and-queues-with-push-pop-shift-and-unshift>7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()</h3>
+<p>The push() and pop() methods allow you to work with arrays as if they were stacks. The push() method appends one or more new elements to the end of an array and returns the new length of the array. Unlike concat(), push() does not flatten array arguments. The pop() method does the reverse: it deletes the last element of an array, decrements the array length, and returns the value that it removed. Note that both methods modify the array in place. The combination of push() and pop() allows you to use a JavaScript array to implement a first-in, last-out stack. For example:</p>
+<blockquote>
+<p>push() 和 pop() 方法允许将数组当做栈来使用。push() 方法在数组的尾部添加一个或多个元素，并返回数组新的长度。pop() 方法则相反：它删除数组的最后一个元素，减小数组长度并返回它删除的值。注意，两个方法都修改并替换原始数组而非生成一个修改版的新数组。组合使用 push() 和 pop() 能够用 JavaScript 数组实现先进后出的栈。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>stack</span> <span class=o>=</span> <span class=p>[];</span>       <span class=c1>// stack == []
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>);</span>      <span class=c1>// stack == [1,2];
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>          <span class=c1>// stack == [1]; returns 2
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mi>3</span><span class=p>);</span>        <span class=c1>// stack == [1,3]
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>          <span class=c1>// stack == [1]; returns 3
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>push</span><span class=p>([</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>]);</span>    <span class=c1>// stack == [1,[4,5]]
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>           <span class=c1>// stack == [1]; returns [4,5]
+</span><span class=c1></span><span class=nx>stack</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>          <span class=c1>// stack == []; returns 1
+</span></code></pre></div><p>The push() method does not flatten an array you pass to it, but if you want to push all of the elements from one array onto another array, you can use the spread operator (§8.3.4) to flatten it explicitly:</p>
+<blockquote>
+<p>push() 方法不展平传入的数组，但如果想要将数组的元素全部压入另外一个数组，可以使用展开运算符（§8.3.4）来显示展开：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nx>a</span><span class=p>.</span><span class=nx>push</span><span class=p>(...</span><span class=nx>values</span><span class=p>);</span>
+</code></pre></div><p>The unshift() and shift() methods behave much like push() and pop(), except that they insert and remove elements from the beginning of an array rather than from the end. unshift() adds an element or elements to the beginning of the array, shifts the existing array elements up to higher indexes to make room, and returns the new length of the array. shift() removes and returns the first element of the array, shifting all subsequent elements down one place to occupy the newly vacant space at the start of the array. You could use unshift() and shift() to implement a stack, but it would be less efficient than using push() and pop() because the array elements need to be shifted up or down every time an element is added or removed at the start of the array. Instead, though, you can implement a queue data structure by using push() to add elements at the end of an array and shift() to remove them from the start of the array:</p>
+<blockquote>
+<p>unshift() 和 shift() 方法的行为非常类似于 push() 和 pop()，不一样的是前者是在数组的头部而非尾部进行元素的插入和删除操作。unshift() 在数组的头部添加一个或多个元素，并将已存在的元素移动到更高索引的位置来获得足够的空间，最后返回数组新的长度。shift() 删除数组的第一个元素并将其返回，然后把所有随后的元素下移一个位置来填补数组头部的空缺。可以使用 unshift() 和 shift() 实现栈，但它比使用 push() 和 pop() 的效率低，因为每次在数组头部添加或删除元素时，都需要向上或向下移动数组元素。但是，您可以使用 push() 在数组末尾添加元素并 shift() 从数组的头部删除它们来实现队列数据解构：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>q</span> <span class=o>=</span> <span class=p>[];</span>            <span class=c1>// q == []
+</span><span class=c1></span><span class=nx>q</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>);</span>           <span class=c1>// q == [1,2]
+</span><span class=c1></span><span class=nx>q</span><span class=p>.</span><span class=nx>shift</span><span class=p>();</span>             <span class=c1>// q == [2]; returns 1
+</span><span class=c1></span><span class=nx>q</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>              <span class=c1>// q == [2, 3]
+</span><span class=c1></span><span class=nx>q</span><span class=p>.</span><span class=nx>shift</span><span class=p>()</span>              <span class=c1>// q == [3]; returns 2
+</span><span class=c1></span><span class=nx>q</span><span class=p>.</span><span class=nx>shift</span><span class=p>()</span>              <span class=c1>// q == []; returns 3
+</span></code></pre></div><p>There is one feature of unshift() that is worth calling out because you may find it surprising. When passing multiple arguments to unshift(), they are inserted all at once, which means that they end up in the array in a different order than they would be if you inserted them one at a time:</p>
+<blockquote>
+<p>unshift() 有一个特性是值得一提的，你可能会觉得它令人惊讶。将多个实参传入 unshift() 时，它们将一次全部插入，这意味着它们最终在数组中的顺序与一次插入一个实参的顺序时不同的：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[];</span>            <span class=c1>// a == []
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>unshift</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>           <span class=c1>// a == [1]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>unshift</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>           <span class=c1>// a == [2, 1]
+</span><span class=c1></span><span class=nx>a</span> <span class=o>=</span> <span class=p>[];</span>                <span class=c1>// a == []
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>unshift</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>         <span class=c1>// a == [1, 2]
+</span></code></pre></div><h3 id=785-subarrays-with-slice-splice-fill-and-copywithin>7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()</h3>
+<p>Arrays define a number of methods that work on contiguous regions, or subarrays or “slices” of an array. The following sections describe methods for extracting, replacing, filling, and copying slices.</p>
+<blockquote>
+<p>数组定义了许多在连续区域，子数组或数组的“片段”上工作的方法。 以下各节描述了提取，替换，填充和复制片段的方法。</p>
+</blockquote>
+<h4 id=slice>SLICE()</h4>
+<p>The slice() method returns a slice, or subarray, of the specified array. Its two arguments specify the start and end of the slice to be returned. The returned array contains the element specified by the first argument and all subsequent elements up to, but not including, the element specified by the second argument. If only one argument is specified, the returned array contains all elements from the start position to the end of the array. If either argument is negative, it specifies an array element relative to the length of the array. An argument of –1, for example, specifies the last element in the array, and an argument of –2 specifies the element before that one. Note that slice() does not modify the array on which it is invoked. Here are some examples:</p>
+<blockquote>
+<p>slice() 方法返回指定数组的一个片段或子数组。它的两个实参分别指定了片段的开始和结束的位置。返回的数组包含第一个实参指定的位置到（但不包含）第二个实参指定的位置之间的所有数组元素。如果只指定一个实参，返回的数组将包含从开始位置到数组结尾的所有元素。如实参中出现负数，它表示相对于数组 length 的位置。例如，实参 -1 指定了最后一个元素，而 -2 指定了它前面的元素。注意，slice() 不会修改调用的数组。下面有一些示例：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>3</span><span class=p>);</span>    <span class=c1>// Returns [1,2,3]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>3</span><span class=p>);</span>      <span class=c1>// Returns [4,5]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=o>-</span><span class=mi>1</span><span class=p>);</span>   <span class=c1>// Returns [2,3,4]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=o>-</span><span class=mi>3</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>);</span>  <span class=c1>// Returns [3]
+</span></code></pre></div><h4 id=splice>SPLICE()</h4>
+<p>splice() is a general-purpose method for inserting or removing elements from an array. Unlike slice() and concat(), splice() modifies the array on which it is invoked. Note that splice() and slice() have very similar names but perform substantially different operations.</p>
+<blockquote>
+<p>splice() 方法是在数组中插入或删除元素的通用方法。不同于 slice() 和 concat()，splice() 会修改调用的数组。注意，splice() 和 slice() 拥有非常相似的名字， 但它们的功能却有本质的区别。</p>
+</blockquote>
+<p>splice() can delete elements from an array, insert new elements into an array, or perform both operations at the same time. Elements of the array that come after the insertion or deletion point have their indexes increased or decreased as necessary so that they remain contiguous with the rest of the array. The first argument to splice() specifies the array position at which the insertion and/or deletion is to begin. The second argument specifies the number of elements that should be deleted from (spliced out of) the array. (Note that this is another difference between these two methods. The second argument to slice() is an end position. The second argument to splice() is a length.) If this second argument is omitted, all array elements from the start element to the end of the array are removed. splice() returns an array of the deleted elements, or an empty array if no elements were deleted. For example:</p>
+<blockquote>
+<p>splice() 能够从数组中删除元素、插入元素到数组中或者同时完成这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其他部分仍然保持连续的。splice() 的第一个实参指定了插入和（或）删除的起始位置。第二个实参指定了应该从数组中删除的元素的个数。（注意这里是这两个方法的另外一个不同。slice() 的第二个实参是结束的位置。splice() 的第二个实参是长度。）如果省略第二个实参，从起始点开始到数组结尾的所有元素都将被删除。splice() 返回一个由删除元素组成的数组，或者如果没有删除元素就返回一个空数组。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>    <span class=c1>// =&gt; [5,6,7,8]; a is now [1,2,3,4]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>  <span class=c1>// =&gt; [2,3]; a is now [1,4]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>  <span class=c1>// =&gt; [4]; a is now [1]
+</span></code></pre></div><p>The first two arguments to splice() specify which array elements are to be deleted. These arguments may be followed by any number of additional arguments that specify elements to be inserted into the array, starting at the position specified by the first argument. For example:</p>
+<blockquote>
+<p>splice() 的前两个实参指定了需要删除的数组元素。紧随其后的任意个数的实参指定了需要插入到数组中的元素，从第一个实参指定的位置开始插入。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=s2>&#34;a&#34;</span><span class=p>,</span><span class=s2>&#34;b&#34;</span><span class=p>)</span>  <span class=c1>// =&gt; []; a is now [1,2,&#34;a&#34;,&#34;b&#34;,3,4,5]
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>,[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>],</span><span class=mi>3</span><span class=p>)</span>  <span class=c1>// =&gt; [&#34;a&#34;,&#34;b&#34;]; a is now [1,2,[1,2],3,3,4,5]
+</span></code></pre></div><p>Note that, unlike concat(), splice() inserts arrays themselves, not the elements of those arrays.</p>
+<blockquote>
+<p>注意，不同于 concat()，splice() 插入数组本身，不是数组的元素。</p>
+</blockquote>
+<h4 id=fill>FILL()</h4>
+<p>The fill() method sets the elements of an array, or a slice of an array, to a specified value. It mutates the array it is called on, and also returns the modified array:</p>
+<blockquote>
+<p>fill() 方法将数组或数组片段的元素填充为指定值。它将对调用它的数组进行突变，并返回修改后的数组：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>5</span><span class=p>);</span>   <span class=c1>// Start with no elements and length 5
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>               <span class=c1>// =&gt; [0,0,0,0,0]; fill the array with zeros
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=mi>9</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>            <span class=c1>// =&gt; [0,9,9,9,9]; fill with 9 starting at index 1
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span>        <span class=c1>// =&gt; [0,9,8,8,9]; fill with 8 at indexes 2, 3
+</span></code></pre></div><p>The first argument to fill() is the value to set array elements to. The optional second argument specifies the starting index. If omitted, filling starts at index 0. The optional third argument specifies the ending index—array elements up to, but not including, this index will be filled. If this argument is omitted, then the array is filled from the start index to the end. You can specify indexes relative to the end of the array by passing negative numbers, just as you can for slice().</p>
+<blockquote>
+<p>fill() 的第一个实参是将数组元素填充的值。可选的第二个实参指定起始索引。如果省略，则填充将从索引 0 开始。可选的第三个实参指定结束索引，将填充到（但不包括）该索引的数组元素。 如果省略此实参，则从起始索引到末尾填充数组。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样。</p>
+</blockquote>
+<h4 id=copywithin>COPYWITHIN()</h4>
+<p>copyWithin() copies a slice of an array to a new position within the array. It modifies the array in place and returns the modified array, but it will not change the length of the array. The first argument specifies the destination index to which the first element will be copied. The second argument specifies the index of the first element to be copied. If this second argument is omitted, 0 is used. The third argument specifies the end of the slice of elements to be copied. If omitted, the length of the array is used. Elements from the start index up to, but not including, the end index will be copied. You can specify indexes relative to the end of the array by passing negative numbers, just as you can for slice():</p>
+<blockquote>
+<p>copyWithin() 将数组的一个片段复制到数组中的新位置。它在适当的位置修改数组并返回修改后的数组，但不会更改数组的长度。第一个实参指定将第一个元素复制到的目标索引。第二个实参指定被复制的第一个元素的索引。如果省略此第二个实参，则使用 0。第三个实参指定被复制的元素片段的结尾。如果省略，则使用数组的长度。从开始索引到结束索引（但不包括结束索引）的元素将被复制。可以通过传递负数来指定相对于数组末尾的索引，就像 slice() 一样：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>copyWithin</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>       <span class=c1>// =&gt; [1,1,2,3,4]: copy array elements up one
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>copyWithin</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>)</span> <span class=c1>// =&gt; [1,2,3,4,4]: copy last 2 elements to index 2
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>copyWithin</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>   <span class=c1>// =&gt; [4,4,3,4,4]: negative offsets work, too
+</span></code></pre></div><p>copyWithin() is intended as a high-performance method that is particularly useful with typed arrays (see §11.2). It is modeled after the memmove() function from the C standard library. Note that the copy will work correctly even if there is overlap between the source and destination regions.</p>
+<blockquote>
+<p>copyWithin() 旨在作为一种高性能方法，对类型化数组特别有用（请参见 §11.2）。它模仿的 C 标准库中 memmove() 函数。 请注意，即使源区域和目标区域之间存在重叠，该拷贝也可以正常工作。</p>
+</blockquote>
+<h3 id=786-array-searching-and-sorting-methods>7.8.6 Array Searching and Sorting Methods</h3>
+<p>Arrays implement indexOf(), lastIndexOf(), and includes() methods that are similar to the same-named methods of strings. There are also sort() and reverse() methods for reordering the elements of an array. These methods are described in the subsections that follow.</p>
+<blockquote>
+<p>数组实现 indexOf()、lastIndexOf() 和 include() 方法，这些方法类似于名称相同的字符串方法。还有 sort() 和 reverse() 方法，用于对数组元素进行重新排序。这些方法在下面的小节中介绍。</p>
+</blockquote>
+<h4 id=indexof-and-lastindexof>INDEXOF() AND LASTINDEXOF()</h4>
+<p>indexOf() and lastIndexOf() search an array for an element with a specified value and return the index of the first such element found, or -1 if none is found. indexOf() searches the array from beginning to end, and lastIndexOf() searches from end to beginning:</p>
+<blockquote>
+<p>indexOf() 和 lastIndexOf() 在数组中搜索具有指定值的元素，并返回找到的第一个元素的索引，如果未找到，则返回 -1。indexOf() 从头到尾搜索数组，lastIndexOf() 从尾到头搜索：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>indexOf</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>       <span class=c1>// =&gt; 1: a[1] is 1
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>lastIndexOf</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>   <span class=c1>// =&gt; 3: a[3] is 1
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>indexOf</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>       <span class=c1>// =&gt; -1: no element has value 3
+</span></code></pre></div><p>indexOf() and lastIndexOf() compare their argument to the array elements using the equivalent of the === operator. If your array contains objects instead of primitive values, these methods check to see if two references both refer to exactly the same object. If you want to actually look at the content of an object, try using the find() method with your own custom predicate function instead.</p>
+<blockquote>
+<p>indexOf() 和 lastIndexOf() 使用 === 运算符将其实参与数组元素进行比较。如果数组包含对象而不是原始值，则这些方法将检查两个引用是否都指向完全相同的对象。如果要实际查看对象的内容，尝试将 find() 方法代替自定义的断言函数。</p>
+</blockquote>
+<p>indexOf() and lastIndexOf() take an optional second argument that specifies the array index at which to begin the search. If this argument is omitted, indexOf() starts at the beginning and lastIndexOf() starts at the end. Negative values are allowed for the second argument and are treated as an offset from the end of the array, as they are for the slice() method: a value of –1, for example, specifies the last element of the array.</p>
+<blockquote>
+<p>indexOf() 和 lastIndexOf() 采用可选的第二个实参，该实参指定开始搜索的数组索引。如果省略此参数，则 indexOf() 从开头开始，lastIndexOf() 从结尾开始。第二个参数允许使用负值，并将其视为距数组末端的偏移量，就像 slice() 方法一样：例如，值 –1 指定数组的最后一个元素。</p>
+</blockquote>
+<p>The following function searches an array for a specified value and returns an array of all matching indexes. This demonstrates how the second argument to indexOf() can be used to find matches beyond the first.</p>
+<blockquote>
+<p>以下函数在数组中搜索指定的值，并返回所有匹配索引的数组。这演示了如何使用 indexOf() 的第二个参数来查找第一个参数之外的匹配项。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Find all occurrences of a value x in an array a and return an array
+</span><span class=c1>// of matching indexes
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>findall</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>x</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>results</span> <span class=o>=</span> <span class=p>[],</span>            <span class=c1>// The array of indexes we&#39;ll return
+</span><span class=c1></span>        <span class=nx>len</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>length</span><span class=p>,</span>          <span class=c1>// The length of the array to be searched
+</span><span class=c1></span>        <span class=nx>pos</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>                 <span class=c1>// The position to search from
+</span><span class=c1></span>    <span class=k>while</span><span class=p>(</span><span class=nx>pos</span> <span class=o>&lt;</span> <span class=nx>len</span><span class=p>)</span> <span class=p>{</span>           <span class=c1>// While more elements to search...
+</span><span class=c1></span>        <span class=nx>pos</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>indexOf</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>pos</span><span class=p>);</span> <span class=c1>// Search
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>pos</span> <span class=o>===</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span> <span class=k>break</span><span class=p>;</span>   <span class=c1>// If nothing found, we&#39;re done.
+</span><span class=c1></span>        <span class=nx>results</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>pos</span><span class=p>);</span>       <span class=c1>// Otherwise, store index in array
+</span><span class=c1></span>        <span class=nx>pos</span> <span class=o>=</span> <span class=nx>pos</span> <span class=o>+</span> <span class=mi>1</span><span class=p>;</span>           <span class=c1>// And start next search at next element
+</span><span class=c1></span>    <span class=p>}</span>
+    <span class=k>return</span> <span class=nx>results</span><span class=p>;</span>              <span class=c1>// Return array of indexes
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><p>Note that strings have indexOf() and lastIndexOf() methods that work like these array methods, except that a negative second argument is treated as zero.</p>
+<blockquote>
+<p>请注意，字符串具有 indexOf() 和 lastIndexOf() 方法，它们与这些数组方法一样工作，不同之处在于第二个实参是负数时被视为零。</p>
+</blockquote>
+<h4 id=includes>INCLUDES()</h4>
+<p>The ES2016 includes() method takes a single argument and returns true if the array contains that value or false otherwise. It does not tell you the index of the value, only whether it exists. The includes() method is effectively a set membership test for arrays. Note, however, that arrays are not an efficient representation for sets, and if you are working with more than a few elements, you should use a real Set object (§11.1.1).</p>
+<blockquote>
+<p>ES2016 的 includes() 方法采用单个实参，如果数组包含该值返回 true 否则 false。它不会告诉你值的索引，只告诉你该值是否存在。includes() 方法实际上是数组集的成员身份测试。但是请注意，数组不是 Set 的高效表示形式，如果使用多个元素，则应使用真正的 Set 对象（§11.1.1）。</p>
+</blockquote>
+<p>The includes() method is slightly different than the indexOf() method in one important way. indexOf() tests equality using the same algorithm that the === operator does, and that equality algorithm considers the not-a-number value to be different from every other value, including itself. includes() uses a slightly different version of equality that does consider NaN to be equal to itself. This means that indexOf() will not detect the NaN value in an array, but includes() will:</p>
+<blockquote>
+<p>includes() 方法在一个重要方面与 indexOf() 方法略有不同。indexOf() 与 === 运算符使用相同的算法测试相等性，并且这个相等算法认为非数字值与所有其他值（包括自身）不同。includes() 使用略有不同的相等算法，它认为 NaN 等于自身。这意味着 indexOf() 不会检测数组中的 NaN 值，但 includes() 可以：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=kc>true</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=kc>NaN</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=kc>true</span><span class=p>)</span>            <span class=c1>// =&gt; true
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>               <span class=c1>// =&gt; false
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=kc>NaN</span><span class=p>)</span>             <span class=c1>// =&gt; true
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>indexOf</span><span class=p>(</span><span class=kc>NaN</span><span class=p>)</span>              <span class=c1>// =&gt; -1; indexOf can&#39;t find NaN
+</span></code></pre></div><h4 id=sort>SORT()</h4>
+<p>sort() sorts the elements of an array in place and returns the sorted array. When sort() is called with no arguments, it sorts the array elements in alphabetical order (temporarily converting them to strings to perform the comparison, if necessary):</p>
+<blockquote>
+<p>sort() 对数组的元素直接进行排序，并返回排序后的数组。当调用 sort() 时，它会按字母顺序对数组元素进行排序（如有必要，暂时将它们转换为字符串以执行比较）：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;banana&#34;</span><span class=p>,</span> <span class=s2>&#34;cherry&#34;</span><span class=p>,</span> <span class=s2>&#34;apple&#34;</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>sort</span><span class=p>();</span> <span class=c1>// a == [&#34;apple&#34;, &#34;banana&#34;, &#34;cherry&#34;]
+</span></code></pre></div><p>If an array contains undefined elements, they are sorted to the end of the array.</p>
+<blockquote>
+<p>如果数组中包含 undefined 元素，它们会被放在数组的结尾。</p>
+</blockquote>
+<p>To sort an array into some order other than alphabetical, you must pass a comparison function as an argument to sort(). This function decides which of its two arguments should appear first in the sorted array. If the first argument should appear before the second, the comparison function should return a number less than zero. If the first argument should appear after the second in the sorted array, the function should return a number greater than zero. And if the two values are equivalent (i.e., if their order is irrelevant), the comparison function should return 0. So, for example, to sort array elements into numerical rather than alphabetical order, you might do this:</p>
+<blockquote>
+<p>若要将数组按字母顺序以外的顺序排序，必须将比较函数作为实参传递给 sort()。该函数决定了它的两个实参在排好序的数组中的先后顺序。假设第一个实参应该在前，比较函数应该返回一个小于 0 的数值。反之，假设第一个参数应该在后，函数应该返回一个大于 0 的数值。并且，假设两个值相等（也就是说，它们的顺序无关紧要），函数应该返回 0。例如，用数值大小而非字母表顺序进行数组排序，代码如下：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>33</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>1111</span><span class=p>,</span> <span class=mi>222</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>sort</span><span class=p>();</span>               <span class=c1>// a == [1111, 222, 33, 4]; alphabetical order
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>sort</span><span class=p>(</span><span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=nx>b</span><span class=p>)</span> <span class=p>{</span>  <span class=c1>// Pass a comparator function
+</span><span class=c1></span>    <span class=k>return</span> <span class=nx>a</span><span class=o>-</span><span class=nx>b</span><span class=p>;</span>         <span class=c1>// Returns &lt; 0, 0, or &gt; 0, depending on order
+</span><span class=c1></span><span class=p>});</span>                     <span class=c1>// a == [4, 33, 222, 1111]; numerical order
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>sort</span><span class=p>((</span><span class=nx>a</span><span class=p>,</span><span class=nx>b</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>b</span><span class=o>-</span><span class=nx>a</span><span class=p>);</span>   <span class=c1>// a == [1111, 222, 33, 4]; reverse numerical order
+</span></code></pre></div><p>As another example of sorting array items, you might perform a case-insensitive alphabetical sort on an array of strings by passing a comparison function that converts both of its arguments to lowercase (with the toLowerCase() method) before comparing them:</p>
+<blockquote>
+<p>另外一个数组元素排序的例子，也许需要对一个字符串数组执行不区分大小写的字母表排序，比较函数首先将实参都转化为小写字符串（使用 toLowerCase() 方法），再开始比较：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;ant&#34;</span><span class=p>,</span> <span class=s2>&#34;Bug&#34;</span><span class=p>,</span> <span class=s2>&#34;cat&#34;</span><span class=p>,</span> <span class=s2>&#34;Dog&#34;</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>sort</span><span class=p>();</span>    <span class=c1>// a == [&#34;Bug&#34;,&#34;Dog&#34;,&#34;ant&#34;,&#34;cat&#34;]; case-sensitive sort
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>sort</span><span class=p>(</span><span class=kd>function</span><span class=p>(</span><span class=nx>s</span><span class=p>,</span><span class=nx>t</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>toLowerCase</span><span class=p>();</span>
+    <span class=kd>let</span> <span class=nx>b</span> <span class=o>=</span> <span class=nx>t</span><span class=p>.</span><span class=nx>toLowerCase</span><span class=p>();</span>
+    <span class=k>if</span> <span class=p>(</span><span class=nx>a</span> <span class=o>&lt;</span> <span class=nx>b</span><span class=p>)</span> <span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+    <span class=k>if</span> <span class=p>(</span><span class=nx>a</span> <span class=o>&gt;</span> <span class=nx>b</span><span class=p>)</span> <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
+    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>});</span>   <span class=c1>// a == [&#34;ant&#34;,&#34;Bug&#34;,&#34;cat&#34;,&#34;Dog&#34;]; case-insensitive sort
+</span></code></pre></div><h4 id=reverse>REVERSE()</h4>
+<p>The reverse() method reverses the order of the elements of an array and returns the reversed array. It does this in place; in other words, it doesn’t create a new array with the elements rearranged but instead rearranges them in the already existing array:</p>
+<blockquote>
+<p>reverse() 方法反转数组中元素的顺序并返回反转后的数组。它直接在数组中操作，换一种说法，它不创建一个新的数组，它不创建一个新的带有排序后的元素的数组，而是直接在已存在的数组中进行排序。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>reverse</span><span class=p>();</span>   <span class=c1>// a == [3,2,1]
+</span></code></pre></div><h3 id=787-array-to-string-conversions>7.8.7 Array to String Conversions</h3>
+<p>The Array class defines three methods that can convert arrays to strings, which is generally something you might do when creating log and error messages. (If you want to save the contents of an array in textual form for later reuse, serialize the array with JSON.stringify() [§6.8] instead of using the methods described here.)</p>
+<blockquote>
+<p>Array 类定义了三个方法来将数组转化为字符串，通常在创建日志和错误信息时会用到。（如果要以文本形式保存数组的内容供以后重用，请使用 JSON.stringify()（§6.8）序列化数组，而不是使用此处描述的方法。）</p>
+</blockquote>
+<p>The join() method converts all the elements of an array to strings and concatenates them, returning the resulting string. You can specify an optional string that separates the elements in the resulting string. If no separator string is specified, a comma is used:</p>
+<blockquote>
+<p>join() 方法将数组的所有元素转换为字符串并连接它们，返回生成的字符串。可以指定一个可选字符串来分隔生成的字符串中的元素。如果未指定分隔符字符串，则使用逗号：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>];</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>join</span><span class=p>()</span>               <span class=c1>// =&gt; &#34;1,2,3&#34;
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>join</span><span class=p>(</span><span class=s2>&#34; &#34;</span><span class=p>)</span>            <span class=c1>// =&gt; &#34;1 2 3&#34;
+</span><span class=c1></span><span class=nx>a</span><span class=p>.</span><span class=nx>join</span><span class=p>(</span><span class=s2>&#34;&#34;</span><span class=p>)</span>             <span class=c1>// =&gt; &#34;123&#34;
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>b</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span> <span class=c1>// An array of length 10 with no elements
+</span><span class=c1></span><span class=nx>b</span><span class=p>.</span><span class=nx>join</span><span class=p>(</span><span class=s2>&#34;-&#34;</span><span class=p>)</span>            <span class=c1>// =&gt; &#34;---------&#34;: a string of 9 hyphens
+</span></code></pre></div><p>The join() method is the inverse of the String.split() method, which creates an array by breaking a string into pieces.</p>
+<blockquote>
+<p>join() 方法是 String.split() 方法的反向方法，该方法通过将字符串拆分为多个片段来创建数组。</p>
+</blockquote>
+<p>Arrays, like all JavaScript objects, have a toString() method. For an array, this method works just like the join() method with no arguments:</p>
+<blockquote>
+<p>数组与所有 JavaScript 对象一样，具有 toString() 方法。对于数组，此方法的工作方式与没有参数的 join() 方法相同：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>].</span><span class=nx>toString</span><span class=p>()</span>          <span class=c1>// =&gt; &#34;1,2,3&#34;
+</span><span class=c1></span><span class=p>[</span><span class=s2>&#34;a&#34;</span><span class=p>,</span> <span class=s2>&#34;b&#34;</span><span class=p>,</span> <span class=s2>&#34;c&#34;</span><span class=p>].</span><span class=nx>toString</span><span class=p>()</span>  <span class=c1>// =&gt; &#34;a,b,c&#34;
+</span><span class=c1></span><span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span><span class=s2>&#34;c&#34;</span><span class=p>]].</span><span class=nx>toString</span><span class=p>()</span>     <span class=c1>// =&gt; &#34;1,2,c&#34;
+</span></code></pre></div><p>Note that the output does not include square brackets or any other sort of delimiter around the array value.</p>
+<blockquote>
+<p>请注意，输出不包括方括号或数组值周围的任何其他分隔符。</p>
+</blockquote>
+<p>toLocaleString() is the localized version of toString(). It converts each array element to a string by calling the toLocaleString() method of the element, and then it concatenates the resulting strings using a locale-specific (and implementation-defined) separator string.</p>
+<blockquote>
+<p>toLocaleString() 是 toString() 的本地化版本。它通过调用元素的 toLocaleString() 方法将每个数组元素转换为字符串，然后使用特定于区域设置（和实现定义）分隔符字符串连接生成的字符串。</p>
+</blockquote>
+<h3 id=788-static-array-functions>7.8.8 Static Array Functions</h3>
+<p>In addition to the array methods we’ve already documented, the Array class also defines three static functions that you can invoke through the Array constructor rather than on arrays. Array.of() and Array.from() are factory methods for creating new arrays. They were documented in §7.1.4 and §7.1.5.</p>
+<blockquote>
+<p>除了我们已经记录的数组方法之外，Array 类还定义了三个静态函数，可以通过 Array 构造函数而不是数组调用。Array.of() 和 Array.from() 是用于创建新数组的工厂方法。它们记录在 §7.1.4 和 §7.1.5 中。</p>
+</blockquote>
+<p>The one other static array function is Array.isArray(), which is useful for determining whether an unknown value is an array or not:</p>
+<blockquote>
+<p>另外一个静态数组方法是 Array.isArray()，用来判断一个未知值是否是数组：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nb>Array</span><span class=p>.</span><span class=nx>isArray</span><span class=p>([])</span>     <span class=c1>// =&gt; true
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=nx>isArray</span><span class=p>({})</span>     <span class=c1>// =&gt; false
+</span></code></pre></div><h2 id=79-array-like-objects>7.9 Array-Like Objects</h2>
+<p>As we’ve seen, JavaScript arrays have some special features that other objects do not have:</p>
+<blockquote>
+<p>我们已经看到，JavaScript 数组的有一些特性是其他对象所没有的：</p>
+</blockquote>
+<p>The length property is automatically updated as new elements are added to the list.</p>
+<blockquote>
+<p>当有新的元素添加到列表中时，自动更新 length 属性。</p>
+</blockquote>
+<p>Setting length to a smaller value truncates the array.</p>
+<blockquote>
+<p>length 设置为一个较小值将截断数组。</p>
+</blockquote>
+<p>Arrays inherit useful methods from Array.prototype.</p>
+<blockquote>
+<p>从 Array.prototype 中继承一些有用的方法。</p>
+</blockquote>
+<p>Array.isArray() returns true for arrays.</p>
+<blockquote>
+<p>数组传入 Array.isArray() 方法返回 true。</p>
+</blockquote>
+<p>These are the features that make JavaScript arrays distinct from regular objects. But they are not the essential features that define an array. It is often perfectly reasonable to treat any object with a numeric length property and corresponding non-negative integer properties as a kind of array.</p>
+<blockquote>
+<p>这些特性让 JavaScript 数组和常规的对象有明显的区别。但是它们不是定义数组的本质特性。一种常常完全合理的看法是把拥有一个数值型 length 属性和对应非负整数属性的对象看作数组的同类。</p>
+</blockquote>
+<p>These “array-like” objects actually do occasionally appear in practice, and although you cannot directly invoke array methods on them or expect special behavior from the length property, you can still iterate through them with the same code you’d use for a true array. It turns out that many array algorithms work just as well with array-like objects as they do with real arrays. This is especially true if your algorithms treat the array as read-only or if they at least leave the array length unchanged.</p>
+<blockquote>
+<p>实际上这些“类数组”对象在实践中偶尔出现，虽然不能通过它们直接调用数组方法或者期望 length 属性有什么特殊的行为，但是仍然可以用针对真正数组遍历代码来遍历它们。结论就是很多数组算法针对类数组对象同样奏效，就像针对真正的数组一样。尤其是这种情况，算法把数组看成只读的或者如果保持数组长度不变。</p>
+</blockquote>
+<p>The following code takes a regular object, adds properties to make it an array-like object, and then iterates through the “elements” of the resulting pseudo-array:</p>
+<blockquote>
+<p>以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的“元素”：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>{};</span>  <span class=c1>// Start with a regular empty object
+</span><span class=c1></span>
+<span class=c1>// Add properties to make it &#34;array-like&#34;
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=k>while</span><span class=p>(</span><span class=nx>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>)</span> <span class=p>{</span>
+    <span class=nx>a</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>=</span> <span class=nx>i</span> <span class=o>*</span> <span class=nx>i</span><span class=p>;</span>
+    <span class=nx>i</span><span class=o>++</span><span class=p>;</span>
+<span class=p>}</span>
+<span class=nx>a</span><span class=p>.</span><span class=nx>length</span> <span class=o>=</span> <span class=nx>i</span><span class=p>;</span>
+
+<span class=c1>// Now iterate through it as if it were a real array
+</span><span class=c1></span><span class=kd>let</span> <span class=nx>total</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>j</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>j</span> <span class=o>&lt;</span> <span class=nx>a</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>j</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+    <span class=nx>total</span> <span class=o>+=</span> <span class=nx>a</span><span class=p>[</span><span class=nx>j</span><span class=p>];</span>
+<span class=p>}</span>
+</code></pre></div><p>In client-side JavaScript, a number of methods for working with HTML documents (such as document.querySelectorAll(), for example) return array-like objects. Here’s a function you might use to test for objects that work like arrays:</p>
+<blockquote>
+<p>在客户端 JavaScript 中，很多作用于 HTML documents 的方法（例如 document.querySelectorAll()）返回类数组对象。下面这个函数可能会用于测试对象是否可以用作类数组：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// Determine if o is an array-like object.
+</span><span class=c1>// Strings and functions have numeric length properties, but are
+</span><span class=c1>// excluded by the typeof test. In client-side JavaScript, DOM text
+</span><span class=c1>// nodes have a numeric length property, and may need to be excluded
+</span><span class=c1>// with an additional o.nodeType !== 3 test.
+</span><span class=c1></span><span class=kd>function</span> <span class=nx>isArrayLike</span><span class=p>(</span><span class=nx>o</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>if</span> <span class=p>(</span><span class=nx>o</span> <span class=o>&amp;&amp;</span>                            <span class=c1>// o is not null, undefined, etc.
+</span><span class=c1></span>        <span class=k>typeof</span> <span class=nx>o</span> <span class=o>===</span> <span class=s2>&#34;object&#34;</span> <span class=o>&amp;&amp;</span>        <span class=c1>// o is an object
+</span><span class=c1></span>        <span class=nb>Number</span><span class=p>.</span><span class=nb>isFinite</span><span class=p>(</span><span class=nx>o</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=o>&amp;&amp;</span>    <span class=c1>// o.length is a finite number
+</span><span class=c1></span>        <span class=nx>o</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;=</span> <span class=mi>0</span> <span class=o>&amp;&amp;</span>                <span class=c1>// o.length is non-negative
+</span><span class=c1></span>        <span class=nb>Number</span><span class=p>.</span><span class=nx>isInteger</span><span class=p>(</span><span class=nx>o</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=o>&amp;&amp;</span>   <span class=c1>// o.length is an integer
+</span><span class=c1></span>        <span class=nx>o</span><span class=p>.</span><span class=nx>length</span> <span class=o>&lt;</span> <span class=mi>4294967295</span><span class=p>)</span> <span class=p>{</span>        <span class=c1>// o.length &lt; 2^32 - 1
+</span><span class=c1></span>        <span class=k>return</span> <span class=kc>true</span><span class=p>;</span>                    <span class=c1>// Then o is array-like.
+</span><span class=c1></span>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+        <span class=k>return</span> <span class=kc>false</span><span class=p>;</span>                   <span class=c1>// Otherwise it is not.
+</span><span class=c1></span>    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><p>We’ll see in a later section that strings behave like arrays. Nevertheless, tests like this one for array-like objects typically return false for strings—they are usually best handled as strings, not as arrays.</p>
+<blockquote>
+<p>我们会在下一节看到字符串的行为像数组一样。尽管如此，对于数组这种测试（对字符串通常返回 false ）它们通常最好作为字符串处理，而不是作为数组处理。</p>
+</blockquote>
+<p>Most JavaScript array methods are purposely defined to be generic so that they work correctly when applied to array-like objects in addition to true arrays. Since array-like objects do not inherit from Array.prototype, you cannot invoke array methods on them directly. You can invoke them indirectly using the Function.call method, however (see §8.7.4 for details):</p>
+<blockquote>
+<p>大多数 JavaScript 数组方法都特意定义为泛型，以便它们在应用于除数组之外的类数组可以正常工作。由于类数组对象不会从 Array.prototype 继承，因此不能直接在它们上调用数组方法。但是，可以使用 Function.call 方法间接调用它们（详情请参阅 §8.7.4）：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;0&#34;</span><span class=o>:</span> <span class=s2>&#34;a&#34;</span><span class=p>,</span> <span class=s2>&#34;1&#34;</span><span class=o>:</span> <span class=s2>&#34;b&#34;</span><span class=p>,</span> <span class=s2>&#34;2&#34;</span><span class=o>:</span> <span class=s2>&#34;c&#34;</span><span class=p>,</span> <span class=nx>length</span><span class=o>:</span> <span class=mi>3</span><span class=p>};</span> <span class=c1>// An array-like object
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=nx>prototype</span><span class=p>.</span><span class=nx>join</span><span class=p>.</span><span class=nx>call</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=s2>&#34;+&#34;</span><span class=p>)</span>                  <span class=c1>// =&gt; &#34;a+b+c&#34;
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=nx>prototype</span><span class=p>.</span><span class=nx>map</span><span class=p>.</span><span class=nx>call</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=p>.</span><span class=nx>toUpperCase</span><span class=p>())</span>  <span class=c1>// =&gt; [&#34;A&#34;,&#34;B&#34;,&#34;C&#34;]
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=nx>prototype</span><span class=p>.</span><span class=nx>slice</span><span class=p>.</span><span class=nx>call</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>   <span class=c1>// =&gt; [&#34;a&#34;,&#34;b&#34;,&#34;c&#34;]: true array copy
+</span><span class=c1></span><span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span>                      <span class=c1>// =&gt; [&#34;a&#34;,&#34;b&#34;,&#34;c&#34;]: easier array copy
+</span></code></pre></div><p>The second-to-last line of this code invokes the Array slice() method on an array-like object in order to copy the elements of that object into a true array object. This is an idiomatic trick that exists in much legacy code, but is now much easier to do with Array.from().</p>
+<blockquote>
+<p>此代码倒数第二行调用数组类对象上的 Array slice() 方法，以便将该对象的元素复制到真正的数组对象中。这是一个惯用的技巧，存在于许多旧代码中，但现在使用 Array.from() 要容易得多。</p>
+</blockquote>
+<h2 id=710-strings-as-arrays>7.10 Strings as Arrays</h2>
+<p>JavaScript strings behave like read-only arrays of UTF-16 Unicode characters. Instead of accessing individual characters with the charAt() method, you can use square brackets:</p>
+<blockquote>
+<p>JavaScript 字符串的行为类似于 UTF-16 Unicode 字符的只读数组。可以使用方括号替代 charAt() 方法访问单个字符：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kd>let</span> <span class=nx>s</span> <span class=o>=</span> <span class=s2>&#34;test&#34;</span><span class=p>;</span>
+<span class=nx>s</span><span class=p>.</span><span class=nx>charAt</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>    <span class=c1>// =&gt; &#34;t&#34;
+</span><span class=c1></span><span class=nx>s</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>           <span class=c1>// =&gt; &#34;e&#34;
+</span></code></pre></div><p>The typeof operator still returns “string” for strings, of course, and the Array.isArray() method returns false if you pass it a string.</p>
+<blockquote>
+<p>当然，字符串使用 typeof 运算符仍然返回 &ldquo;string&rdquo;，如果将字符串传递给 Array.isArray() 方法，则返回 false。</p>
+</blockquote>
+<p>The primary benefit of indexable strings is simply that we can replace calls to charAt() with square brackets, which are more concise and readable, and potentially more efficient. The fact that strings behave like arrays also means, however, that we can apply generic array methods to them. For example:</p>
+<blockquote>
+<p>可索引字符串的主要好处是，我们可以用方括号替换对 charAt() 的调用，方括号更简洁、更可读，而且可能更高效。但是，字符串的行为类似于数组，也意味着我们可以对它们应用泛型数组方法。例如：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=nb>Array</span><span class=p>.</span><span class=nx>prototype</span><span class=p>.</span><span class=nx>join</span><span class=p>.</span><span class=nx>call</span><span class=p>(</span><span class=s2>&#34;JavaScript&#34;</span><span class=p>,</span> <span class=s2>&#34; &#34;</span><span class=p>)</span>  <span class=c1>// =&gt; &#34;J a v a S c r i p t&#34;
+</span></code></pre></div><p>Keep in mind that strings are immutable values, so when they are treated as arrays, they are read-only arrays. Array methods like push(), sort(), reverse(), and splice() modify an array in place and do not work on strings. Attempting to modify a string using an array method does not, however, cause an error: it simply fails silently.</p>
+<blockquote>
+<p>请记住，字符串是不可变值，因此当字符串被视为数组时，它们是只读数组。数组方法 push()、sort()、reverse() 和 splice() 直接修改数组，它们不能处理字符串。但是，尝试使用数组方法修改字符串不会引发异常：它只是静默失败。</p>
+</blockquote>
+<h2 id=711-summary>7.11 Summary</h2>
+<p>This chapter has covered JavaScript arrays in depth, including esoteric details about sparse arrays and array-like objects. The main points to take from this chapter are:</p>
+<blockquote>
+<p>本章深入介绍了 JavaScript 数组，包括有关稀疏数组和类数组对象的深奥细节。本章要点包括：</p>
+</blockquote>
+<p>Array literals are written as comma-separated lists of values within square brackets.</p>
+<blockquote>
+<p>数组字面量编写：方括号内逗号分隔值列表。</p>
+</blockquote>
+<p>Individual array elements are accessed by specifying the desired array index within square brackets.</p>
+<blockquote>
+<p>通过在方括号内指定所需的数组索引来访问单个数组元素。</p>
+</blockquote>
+<p>The for/of loop and &mldr; spread operator introduced in ES6 are particularly useful ways to iterate arrays.</p>
+<blockquote>
+<p>for/of 循环和 ES6 中引入的 &mldr; 展开运算符是遍历数组的特别有用的方法。</p>
+</blockquote>
+<p>The Array class defines a rich set of methods for manipulating arrays, and you should be sure to familiarize yourself with the Array API.</p>
+<blockquote>
+<p>Array 类定义了一组用于操作数组的丰富方法，应该确保熟悉 Array API。</p>
+</blockquote>
+</div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 2020-11-02</span>
+</div></div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.okten.cn/posts/ch7/ data-title="第 7 章 数组"><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.okten.cn/posts/ch7/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.okten.cn/posts/ch7/ data-title="第 7 章 数组"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://blog.okten.cn/posts/ch7/ data-title="第 7 章 数组"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.0.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.okten.cn/posts/ch7/ data-title="第 7 章 数组"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/posts/ch8/ class=prev rel=prev title="第 8 章 函数"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>第 8 章 函数</a>
+<a href=/posts/ch6/ class=next rel=next title="第 6 章 对象">第 6 章 对象<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.okten.cn/ target=_blank>Ten Li</a></span>&nbsp;|&nbsp;<span class=license><a rel=‘license external nofollow noopener noreffer’ href=‘https://creativecommons.org/licenses/by-nc/4.0/’ target=‘_blank’>CC BY-NC 4.0</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw" aria-hidden=true></i>
+</a>
+</div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},search:{algoliaAppID:"I74G1T3YFH",algoliaIndex:"JS",algoliaSearchKey:"fe764ad74987483447860eedfa722ed2",highlightTag:"em",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-BK52F3N7KL',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-BK52F3N7KL" async></script></body>
+</html>
