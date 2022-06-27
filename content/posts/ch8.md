@@ -1,4 +1,7 @@
-# 第 8 章 函数
+---
+title: "第 8 章 函数"
+date: 2020-11-02T22:18:35+08:00
+---
 
 This chapter covers JavaScript functions. Functions are a fundamental building block for JavaScript programs and a common feature in almost all programming languages. You may already be familiar with the concept of a function under a name such as subroutine or procedure.
 

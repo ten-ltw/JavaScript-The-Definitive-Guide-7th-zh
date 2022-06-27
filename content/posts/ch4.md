@@ -1,4 +1,7 @@
-# 第 4 章 表达式和运算符
+---
+title: "第 4 章 表达式和运算符"
+date: 2020-11-02T22:18:39+08:00
+---
 
 This chapter documents JavaScript expressions and the operators with which many of those expressions are built. An expression is a phrase of JavaScript that can be evaluated to produce a value. A constant embedded literally in your program is a very simple kind of expression. A variable name is also a simple expression that evaluates to whatever value has been assigned to that variable. Complex expressions are built from simpler expressions. An array access expression, for example, consists of one expression that evaluates to an array followed by an open square bracket, an expression that evaluates to an integer, and a close square bracket. This new, more complex expression evaluates to the value stored at the specified index of the specified array. Similarly, a function invocation expression consists of one expression that evaluates to a function object and zero or more additional expressions that are used as the arguments to the function.
 

@@ -1,0 +1,43 @@
+name: Js
+
+on:
+  push:
+    branches:
+      - master  # Set a branch to deploy
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.91.2'
+          extended: true
+
+      - name: Build
+        run: hugo -D
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          external_repository: ten-ltw/JavaScript-The-Definitive-Guide-7th-zh
+          personal_token: ${{ secrets.JS_GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: page
+
+      - name: Algolia Docsearch Uploader
+        uses: guzhongren/algolia-docsearch-upload-action@v1.0.0
+        env:
+          FILE_PATH: "./public/index.json"
+          APPLICATION_ID: ${{secrets.ALGOLIA_APPLICATION_ID}}
+          ADMIN_API_KEY: ${{secrets.ALGOLIA_API_KEY}}
+          INDEX_NAME: "JS"
