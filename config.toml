@@ -144,7 +144,7 @@ hasCJKLanguage = true
     [params.search.algolia]
       index = "JS"
       appID = "I74G1T3YFH"
-      searchKey = "fe764ad74987483447860eedfa722ed2"
+      searchKey = "9f39718c1951c948495770664edec6b8"
 
   # Home page config
   # 主页信息设置
