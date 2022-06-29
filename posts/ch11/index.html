@@ -17,7 +17,7 @@
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.okten.cn/posts/ch11/><link rel=prev href=https://blog.okten.cn/posts/ch12/><link rel=next href=https://blog.okten.cn/posts/ch10/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
 <noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'">
-<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"第 11 章 JavaScript 标准库","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.okten.cn\/posts\/ch11\/"},"genre":"posts","wordcount":32815,"url":"https:\/\/blog.okten.cn\/posts\/ch11\/","datePublished":"2020-11-02T22:18:32+08:00","dateModified":"2020-11-02T22:18:32+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Ten Li"},"description":""}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005185440822195" crossorigin=anonymous></script>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"第 11 章 JavaScript 标准库","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.okten.cn\/posts\/ch11\/"},"genre":"posts","wordcount":33213,"url":"https:\/\/blog.okten.cn\/posts\/ch11\/","datePublished":"2020-11-02T22:18:32+08:00","dateModified":"2020-11-02T22:18:32+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Ten Li"},"description":""}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4005185440822195" crossorigin=anonymous></script>
 </head>
 <body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -84,8 +84,8 @@ Cancel
 <div class=toc-content id=toc-content-auto></div>
 </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第 11 章 JavaScript 标准库</h1><div class=post-meta>
 <div class=post-meta-line><span class=post-author><a href=https://blog.okten.cn/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Ten Li</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2020-11-02>2020-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;32815 words&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;66 minutes&nbsp;</div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2020-11-02>2020-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;33213 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;67 minutes&nbsp;</div>
 </div><div class="details toc" id=toc-static data-kept>
 <div class="details-summary toc-title">
 <span>Contents</span>
@@ -175,7 +175,7 @@ Cancel
 <ul>
 <li>Set 和 Map 类，用于表示一组值以及从一组值到另一组值的映射。</li>
 <li>类数组对象，称为 TypedArrays，表示二进制数据的数组，以及从非数组二进制数据中提取值的相关类。</li>
-<li>正则表达式和 RegExp 类，它们定义文本模式，对文本处理很有用。本节还详细介绍了正则表达式语法。</li>
+<li>正则表达式和 RegExp 类，它们定义文本模型，对文本处理很有用。本节还详细介绍了正则表达式语法。</li>
 <li>用于表示和操作日期和时间的 Date 类。</li>
 <li>Error 类及其各种子类，在 JavaScript 程序中发生错误时抛出它们的实例。</li>
 <li>JSON 对象，其方法支持由对象、数组、字符串、数字和布尔值组成的 JavaScript 数据结构的序列化和反序列化。</li>
@@ -600,7 +600,7 @@ Cancel
 <h2 id=113-pattern-matching-with-regular-expressions>11.3 Pattern Matching with Regular Expressions</h2>
 <p>A regular expression is an object that describes a textual pattern. The JavaScript RegExp class represents regular expressions, and both String and RegExp define methods that use regular expressions to perform powerful pattern-matching and search-and-replace functions on text. In order to use the RegExp API effectively, however, you must also learn how to describe patterns of text using the regular expression grammar, which is essentially a mini programming language of its own. Fortunately, the JavaScript regular expression grammar is quite similar to the grammar used by many other programming languages, so you may already be familiar with it. (And if you are not, the effort you invest in learning JavaScript regular expressions will probably be useful to you in other programming contexts as well.)</p>
 <blockquote>
-<p>正则表达式是描述文本模式的对象。JavaScript RegExp 类表示正则表达式，而 String 和 RegExp 都定义了使用正则表达式对文本执行强大的模式匹配和搜索替换功能的方法。但是，为了有效地使用 RegExp API，还必须学习如何使用正则表达式语法描述文本模式，该语法本质上是其自身的一种小型编程语言。幸运的是，JavaScript 正则表达式语法与许多其他编程语言所使用的语法非常相似，因此您可能已经很熟悉它。（如果不是这样，则在学习 JavaScript 正则表达式上投入的精力也可能在其他编程环境中对您很有用。）</p>
+<p>正则表达式是描述文本模型的对象。JavaScript RegExp 类表示正则表达式，而 String 和 RegExp 都定义了使用正则表达式对文本执行强大的模式匹配和搜索替换功能的方法。但是，为了有效地使用 RegExp API，还必须学习如何使用正则表达式语法描述文本模型，该语法本质上是其自身的一种小型编程语言。幸运的是，JavaScript 正则表达式语法与许多其他编程语言所使用的语法非常相似，因此您可能已经很熟悉它。（如果不是这样，则在学习 JavaScript 正则表达式上投入的精力也可能有助于在你在其他编程环境使用。）</p>
 </blockquote>
 <p>The subsections that follow describe the regular expression grammar first, and then, after explaining how to write regular expressions, they explain how you can use them with methods of the String and RegExp classes.</p>
 <blockquote>
@@ -608,10 +608,19 @@ Cancel
 </blockquote>
 <h3 id=1131-defining-regular-expressions>11.3.1 Defining Regular Expressions</h3>
 <p>In JavaScript, regular expressions are represented by RegExp objects. RegExp objects may be created with the RegExp() constructor, of course, but they are more often created using a special literal syntax. Just as string literals are specified as characters within quotation marks, regular expression literals are specified as characters within a pair of slash (/) characters. Thus, your JavaScript code may contain lines like this:</p>
-<p>let pattern = /s$/;
-This line creates a new RegExp object and assigns it to the variable pattern. This particular RegExp object matches any string that ends with the letter “s.” This regular expression could have equivalently been defined with the RegExp() constructor, like this:</p>
-<p>let pattern = new RegExp(&ldquo;s$");
-Regular-expression pattern specifications consist of a series of characters. Most characters, including all alphanumeric characters, simply describe characters to be matched literally. Thus, the regular expression /java/ matches any string that contains the substring “java”. Other characters in regular expressions are not matched literally but have special significance. For example, the regular expression /s$/ contains two characters. The first, “s”, matches itself literally. The second, “$”, is a special meta-character that matches the end of a string. Thus, this regular expression matches any string that contains the letter “s” as its last character.</p>
+<blockquote>
+<p>在 JavaScript 中，正则表达式以 RegExp 对象呈现。当然，RegExp 对象可能会使用 RegExp() 构造函数创建，但是经常会使用一个特殊的字面量语法来创建。和字符串文字被指定为引号内的字符一样，正则表达式文字被指定为一对斜杠 (/) 字符内的字符。因此你的 Javascript 代码可能会有这样的一行:</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-JavaScript data-lang=JavaScript><span class=kd>let</span> <span class=nx>pattern</span> <span class=o>=</span> <span class=sr>/s$/</span><span class=p>;</span>
+</code></pre></div><p>This line creates a new RegExp object and assigns it to the variable pattern. This particular RegExp object matches any string that ends with the letter “s.” This regular expression could have equivalently been defined with the RegExp() constructor, like this:</p>
+<blockquote>
+<p>这行创建了一个新的 RegExp 对象并且将变量模型赋值给它。这个特殊的 RegExp 对象匹配任何以字母“s”结尾的字符串。这个正则表达式等效于如下用 RegExp() 构造函数定义的对象：</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-JavaScript data-lang=JavaScript><span class=kd>let</span> <span class=nx>pattern</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=s2>&#34;s$&#34;</span><span class=p>);</span>
+</code></pre></div><p>Regular-expression pattern specifications consist of a series of characters. Most characters, including all alphanumeric characters, simply describe characters to be matched literally. Thus, the regular expression /java/ matches any string that contains the substring “java”. Other characters in regular expressions are not matched literally but have special significance. For example, the regular expression /s$/ contains two characters. The first, “s”, matches itself literally. The second, “$”, is a special meta-character that matches the end of a string. Thus, this regular expression matches any string that contains the letter “s” as its last character.</p>
+<blockquote>
+<p>正则表达式规定由一系列符号表示。大多数字符包括所有字母数字字符，都只是按字面描述要匹配的字符。但是正则表达式 <code>/java/</code> 匹配任何包含“java”的字符串。但是，正则表达式中的其他字符具有特殊意义，不是字面匹配的。例如，在正则表达式 <code>/s$/</code> 中包含两个字符。第一个“s”匹配它自身的字面量。第二个“$”，是一个特殊的元字符（meta-character）匹配的是一个字符串的结尾。因此这个正则表达式匹配的是以“s”结尾的字符串。</p>
+</blockquote>
 <p>As we’ll see, regular expressions can also have one or more flag characters that affect how they work. Flags are specified following the second slash character in RegExp literals, or as a second string argument to the RegExp() constructor. If we wanted to match strings that end with “s” or “S”, for example, we could use the i flag with our regular expression to indicate that we want case-insensitive matching:</p>
 <p>let pattern = /s$/i;
 The following sections describe the various characters and meta-characters used in JavaScript regular expressions.</p>
